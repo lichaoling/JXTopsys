@@ -1,0 +1,105 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+
+</head>
+<body>
+    <div>
+        <form enctype="multipart/form-data" method="POST" id="myform">
+            <input id="upload" name="FCZFiles" type="file" multiple="multiple" />
+            @*<input id="upload1" name="TDZFiles" type="file" multiple="multiple" accept="image/*" />
+                <input id="upload2" name="BDCZFiles" type="file" multiple="multiple" accept="image/*" />
+                <input id="upload3" name="HJFiles" type="file" multiple="multiple" accept="image/*" />*@
+            <button id="submit">提交</button>
+        </form>
+        <button id="update">更新</button>
+    </div>
+</body>
+<script>
+    //$.post('../Common/GetDistrictsTree', { districtIDs: ['1.1.1', '1.1.2'] }, function (rt) {
+    //    console.log(rt);
+    //}, 'json')
+    //$.post('../Common/GetUserDistrictsTree', {  }, function (rt) {
+    //    console.log(rt);
+    //}, 'json')
+    //$.post('../Common/CheckPermission', { CommunityID: "1.1.12" }, function (rt) {
+    //    console.log(rt);
+    //}, 'json')
+
+    //$.post('../MPSearch/SearchResidenceMP', {PageSize:5, PageNum:1, DistrictID:"1", Name:null }, function (rt) {
+    //    console.log(rt);
+    //}, 'json')
+
+    //$.post("../MPSearch/GetExportCondition", { DistrictID: "1.1", Name:"童装" }, function (rt) {
+    //    window.open("../MPSearch/ExportResidenceMP")
+    //});
+    //$.post("../MPModify/CancelResidenceMP", { ID: "2" }, function (rt) {
+    //    console.log(rt)
+    //},'json');
+
+    //$.post("../MPSearch/SearchResidenceMPByID", { ID:"3" }, function (rt) {
+    //    console.log(rt)
+    //},'json');
+
+    //$.post("../MPModify/MPCertificatePrint", { ID: "3", MPType: 1, CertificateType: 2 }, function (rt) {
+    //    console.log(rt)
+    //});
+
+    //$.post('../MPSearch/SearchRoadMP', {PageSize:5, PageNum:1, DistrictID:"1.1", Name:"童装" }, function (rt) {
+    //    console.log(rt);
+    //}, 'json')
+    //$.post('../Common/GetRoads', { PageSize: 10, PageNum: 1 }, function (rt) {
+    //    console.log(rt);
+    //}, 'json')
+    //$.post('../Common/GetRoadByID', { roadID: '3E77E206-1D48-4936-9897-EEB8656DEF99' }, function (rt) {
+    //    console.log(rt);
+    //}, 'json')
+    //$.post('../MPBusinessStatistic/GetMPProduceStatistic', { PageSize: 20, PageNum: 1, Districts:"1"}, function (rt) {
+    //    console.log(rt);
+    //}, 'json')
+
+
+    $(function () {
+        var $form = $('#myform');
+        $("#submit").on('click', function () {
+            var formData = new FormData($form[0]);
+            console.log(formData)
+            $.ajax({
+                url: "../MPModify/UploadResidenceMP",
+                type: 'POST',
+                data: formData,
+                mimeType: "multipart/form-data",
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data, textStatus, jqXHR) {
+                    debugger
+                    $.post("../MPModify/GetUploadResidenceMP", { PageSize: 5, PageNum: 2 }, function (rt) {
+                        console.log(rt)
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                }
+            });
+            $("input").val("");
+        });
+
+            $("#update").on('click', function (rt) {
+                $.post("../MPModify/UpdateRoadMP", { }, function (rt) {
+                    console.log(rt)
+                });
+            })
+    });
+</script>
+</html>

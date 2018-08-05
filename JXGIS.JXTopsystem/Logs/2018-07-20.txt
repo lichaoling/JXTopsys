@@ -1,0 +1,80 @@
+=======2018/7/20 星期五 9:56:52
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.LoginUtils.get_CurrentUser() 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\Login\LoginUtils.cs:行号 33
+   在 JXGIS.JXTopsystem.Business.MPModify.MPModifyUtils.CancelResidenceMP(MPOFResidence Data) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\MPModify\MPModifyUtils.cs:行号 125
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.CancelResidenceMP(MPOFResidence Data) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 70
+=======2018/7/20 星期五 10:01:01
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.LoginUtils.get_CurrentUser()
+   在 JXGIS.JXTopsystem.Business.MPModify.MPModifyUtils.CancelResidenceMP(MPOFResidence Data)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.CancelResidenceMP(MPOFResidence Data)
+=======2018/7/20 星期五 10:02:47
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.LoginUtils.get_CurrentUser()
+   在 JXGIS.JXTopsystem.Business.MPModify.MPModifyUtils.CancelResidenceMP(MPOFResidence Data)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.CancelResidenceMP(MPOFResidence Data)
+=======2018/7/20 星期五 13:44:01
+|Message:The 'LastModifyTime' property on 'MPOFResidence' could not be set to a 'null' value. You must set this property to a non-null value of type 'System.DateTime'. 
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.GetPropertyValueWithErrorHandling[TProperty](Int32 ordinal, String propertyName, String typeName)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPSearch.MPSearchUtils.SearchResidenceMPByID(String ID) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\MPSearch\MPSearchUtils.cs:行号 200
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMPByID(String ID) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 77
+=======2018/7/20 星期五 13:44:43
+|Message:The 'LastModifyTime' property on 'MPOFResidence' could not be set to a 'null' value. You must set this property to a non-null value of type 'System.DateTime'. 
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.GetPropertyValueWithErrorHandling[TProperty](Int32 ordinal, String propertyName, String typeName)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPSearch.MPSearchUtils.SearchResidenceMPByID(String ID) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\MPSearch\MPSearchUtils.cs:行号 200
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMPByID(String ID) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 77
+=======2018/7/20 星期五 13:44:44
+|Message:The 'LastModifyTime' property on 'MPOFResidence' could not be set to a 'null' value. You must set this property to a non-null value of type 'System.DateTime'. 
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.GetPropertyValueWithErrorHandling[TProperty](Int32 ordinal, String propertyName, String typeName)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPSearch.MPSearchUtils.SearchResidenceMPByID(String ID) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\MPSearch\MPSearchUtils.cs:行号 200
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMPByID(String ID) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 77
+=======2018/7/20 星期五 13:44:45
+|Message:The 'LastModifyTime' property on 'MPOFResidence' could not be set to a 'null' value. You must set this property to a non-null value of type 'System.DateTime'. 
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.GetPropertyValueWithErrorHandling[TProperty](Int32 ordinal, String propertyName, String typeName)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPSearch.MPSearchUtils.SearchResidenceMPByID(String ID) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\MPSearch\MPSearchUtils.cs:行号 200
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMPByID(String ID) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 77
+=======2018/7/20 星期五 13:44:46
+|Message:The 'LastModifyTime' property on 'MPOFResidence' could not be set to a 'null' value. You must set this property to a non-null value of type 'System.DateTime'. 
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.GetPropertyValueWithErrorHandling[TProperty](Int32 ordinal, String propertyName, String typeName)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPSearch.MPSearchUtils.SearchResidenceMPByID(String ID) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\MPSearch\MPSearchUtils.cs:行号 200
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMPByID(String ID) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 77

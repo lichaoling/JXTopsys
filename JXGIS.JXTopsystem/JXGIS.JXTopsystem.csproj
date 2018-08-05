@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3F5AB483-2463-4870-B7FD-53FA097B1114}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JXGIS.JXTopsystem</RootNamespace>
+    <AssemblyName>JXGIS.JXTopsystem</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aspose.Cells">
+      <HintPath>Lib\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GeoJSON4EntityFramework, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GeoJSON4EntityFramework.2.2.0\lib\net45\GeoJSON4EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="scripts\ai.0.22.9-build00167.js" />
+    <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Business\Common\DistrictUtils.cs" />
+    <Compile Include="Business\Common\RoadUtils.cs" />
+    <Compile Include="Business\Login\LoginUtils.cs" />
+    <Compile Include="Business\Login\RSACryptoService.cs" />
+    <Compile Include="Business\Login\SecurityUtils.cs" />
+    <Compile Include="Business\MPBusinessStatistic\StatisticUtils.cs" />
+    <Compile Include="Business\MPModify\MPCertificateUtils.cs" />
+    <Compile Include="Business\MPModify\MPModifyUtils.cs" />
+    <Compile Include="Business\MPProduce\MPProduceUtils.cs" />
+    <Compile Include="Business\MPSearch\MPSearchUtils.cs" />
+    <Compile Include="Business\SystemUtils.cs" />
+    <Compile Include="Business\Login\ValidateGraphic.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MPBusinessStatisticController.cs" />
+    <Compile Include="Controllers\MPModifyController.cs" />
+    <Compile Include="Controllers\MPProduceController.cs" />
+    <Compile Include="Controllers\MPSearchController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\District.cs" />
+    <Compile Include="Models\Entities\MPOfCertificate.cs" />
+    <Compile Include="Models\Entities\MPOfCountry.cs" />
+    <Compile Include="Models\Entities\MPOfResidence.cs" />
+    <Compile Include="Models\Entities\MPOfRoad.cs" />
+    <Compile Include="Models\Entities\MPOfUploadFiles.cs" />
+    <Compile Include="Models\Entities\MPProduce.cs" />
+    <Compile Include="Models\Entities\Road.cs" />
+    <Compile Include="Models\Entities\SqlDBContext.cs" />
+    <Compile Include="Models\Entities\SysRole.cs" />
+    <Compile Include="Models\Entities\SysUser.cs" />
+    <Compile Include="Models\Entities\SysUser_SysRole.cs" />
+    <Compile Include="Models\Extends\CountryMPDetails.cs" />
+    <Compile Include="Models\Extends\CountryMPErrors.cs" />
+    <Compile Include="Models\Extends\Enums.cs" />
+    <Compile Include="Models\Extends\ExcelFields.cs" />
+    <Compile Include="Models\Extends\IUser.cs" />
+    <Compile Include="Models\Extends\MPBusiness.cs" />
+    <Compile Include="Models\Extends\MPCertificate.cs" />
+    <Compile Include="Models\Extends\MPErrors.cs" />
+    <Compile Include="Models\Extends\MPProduceList.cs" />
+    <Compile Include="Models\Extends\MPProduceStatistic.cs" />
+    <Compile Include="Models\Extends\ResidenceMPErrors.cs" />
+    <Compile Include="Models\Extends\ResidenceMP.cs" />
+    <Compile Include="Models\Extends\ResidenceMPDetails.cs" />
+    <Compile Include="Models\Extends\RoadDetails.cs" />
+    <Compile Include="Models\Extends\RoadMPDetails.cs" />
+    <Compile Include="Models\Extends\RoadMPErrors.cs" />
+    <Compile Include="Models\Extends\RtObj\DefaultRtObjCfg.cs" />
+    <Compile Include="Models\Extends\RtObj\Error.cs" />
+    <Compile Include="Models\Extends\RtObj\IRtObjCfg.cs" />
+    <Compile Include="Models\Extends\RtObj\RtObj.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\SystemParameters.json" />
+    <Content Include="Views\Common\Index.cshtml" />
+    <Content Include="Files\UploadFiles\住宅门牌上传模板.xlsx" />
+    <Content Include="Files\UploadFiles\农村门牌上传模板.xlsx" />
+    <Content Include="Files\UploadFiles\道路门牌上传模板.xlsx" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Files\ResidenceMP\00095442-aac3-4331-bcc2-934c5949f266\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\00095442-aac3-4331-bcc2-934c5949f266\FCZ\" />
+    <Folder Include="Files\ResidenceMP\00095442-aac3-4331-bcc2-934c5949f266\HJ\" />
+    <Folder Include="Files\ResidenceMP\00095442-aac3-4331-bcc2-934c5949f266\TDZ\" />
+    <Folder Include="Files\ResidenceMP\0b630cd3-9d84-4cee-ad5d-943e45338e80\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\0b630cd3-9d84-4cee-ad5d-943e45338e80\FCZ\" />
+    <Folder Include="Files\ResidenceMP\0b630cd3-9d84-4cee-ad5d-943e45338e80\HJ\" />
+    <Folder Include="Files\ResidenceMP\0b630cd3-9d84-4cee-ad5d-943e45338e80\TDZ\" />
+    <Folder Include="Files\ResidenceMP\0c42489f-2872-43cb-a83f-a209dfc6afd7\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\0c42489f-2872-43cb-a83f-a209dfc6afd7\FCZ\" />
+    <Folder Include="Files\ResidenceMP\0c42489f-2872-43cb-a83f-a209dfc6afd7\HJ\" />
+    <Folder Include="Files\ResidenceMP\0c42489f-2872-43cb-a83f-a209dfc6afd7\TDZ\" />
+    <Folder Include="Files\ResidenceMP\163fcccf-deba-4022-beed-38f1a0f4f1da\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\163fcccf-deba-4022-beed-38f1a0f4f1da\FCZ\" />
+    <Folder Include="Files\ResidenceMP\163fcccf-deba-4022-beed-38f1a0f4f1da\HJ\" />
+    <Folder Include="Files\ResidenceMP\163fcccf-deba-4022-beed-38f1a0f4f1da\TDZ\" />
+    <Folder Include="Files\ResidenceMP\187dae15-c240-49bb-bc40-4e53f4b1f102\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\187dae15-c240-49bb-bc40-4e53f4b1f102\FCZ\" />
+    <Folder Include="Files\ResidenceMP\187dae15-c240-49bb-bc40-4e53f4b1f102\HJ\" />
+    <Folder Include="Files\ResidenceMP\187dae15-c240-49bb-bc40-4e53f4b1f102\TDZ\" />
+    <Folder Include="Files\ResidenceMP\201b8b06-489a-4222-89d4-e6081ab8369c\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\201b8b06-489a-4222-89d4-e6081ab8369c\FCZ\" />
+    <Folder Include="Files\ResidenceMP\201b8b06-489a-4222-89d4-e6081ab8369c\HJ\" />
+    <Folder Include="Files\ResidenceMP\201b8b06-489a-4222-89d4-e6081ab8369c\TDZ\" />
+    <Folder Include="Files\ResidenceMP\20f316ef-5896-4dc9-ae61-77613503cc32\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\20f316ef-5896-4dc9-ae61-77613503cc32\FCZ\" />
+    <Folder Include="Files\ResidenceMP\20f316ef-5896-4dc9-ae61-77613503cc32\HJ\" />
+    <Folder Include="Files\ResidenceMP\20f316ef-5896-4dc9-ae61-77613503cc32\TDZ\" />
+    <Folder Include="Files\ResidenceMP\20fd78b6-183a-445e-a435-b3029d901e9e\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\20fd78b6-183a-445e-a435-b3029d901e9e\FCZ\" />
+    <Folder Include="Files\ResidenceMP\20fd78b6-183a-445e-a435-b3029d901e9e\HJ\" />
+    <Folder Include="Files\ResidenceMP\20fd78b6-183a-445e-a435-b3029d901e9e\TDZ\" />
+    <Folder Include="Files\ResidenceMP\23a26715-a385-44a1-b56b-5461f1d12851\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\23a26715-a385-44a1-b56b-5461f1d12851\FCZ\" />
+    <Folder Include="Files\ResidenceMP\23a26715-a385-44a1-b56b-5461f1d12851\HJ\" />
+    <Folder Include="Files\ResidenceMP\23a26715-a385-44a1-b56b-5461f1d12851\TDZ\" />
+    <Folder Include="Files\ResidenceMP\4e179034-2ae3-4b63-bed8-92c09377e6a6\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\4e179034-2ae3-4b63-bed8-92c09377e6a6\FCZ\" />
+    <Folder Include="Files\ResidenceMP\4e179034-2ae3-4b63-bed8-92c09377e6a6\HJ\" />
+    <Folder Include="Files\ResidenceMP\4e179034-2ae3-4b63-bed8-92c09377e6a6\TDZ\" />
+    <Folder Include="Files\ResidenceMP\53522ec2-1da7-4788-bbf8-335a0900ab43\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\53522ec2-1da7-4788-bbf8-335a0900ab43\FCZ\" />
+    <Folder Include="Files\ResidenceMP\53522ec2-1da7-4788-bbf8-335a0900ab43\HJ\" />
+    <Folder Include="Files\ResidenceMP\53522ec2-1da7-4788-bbf8-335a0900ab43\TDZ\" />
+    <Folder Include="Files\ResidenceMP\5850ae65-cd66-41a9-86dd-84339f4c1674\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\5850ae65-cd66-41a9-86dd-84339f4c1674\FCZ\" />
+    <Folder Include="Files\ResidenceMP\5850ae65-cd66-41a9-86dd-84339f4c1674\HJ\" />
+    <Folder Include="Files\ResidenceMP\5850ae65-cd66-41a9-86dd-84339f4c1674\TDZ\" />
+    <Folder Include="Files\ResidenceMP\66909307-65a4-47cd-9eef-4d1aedf82a75\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\66909307-65a4-47cd-9eef-4d1aedf82a75\FCZ\" />
+    <Folder Include="Files\ResidenceMP\66909307-65a4-47cd-9eef-4d1aedf82a75\HJ\" />
+    <Folder Include="Files\ResidenceMP\66909307-65a4-47cd-9eef-4d1aedf82a75\TDZ\" />
+    <Folder Include="Files\ResidenceMP\73fd60ac-b7fc-4af6-a54d-cfca6e40f50c\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\73fd60ac-b7fc-4af6-a54d-cfca6e40f50c\FCZ\" />
+    <Folder Include="Files\ResidenceMP\73fd60ac-b7fc-4af6-a54d-cfca6e40f50c\HJ\" />
+    <Folder Include="Files\ResidenceMP\73fd60ac-b7fc-4af6-a54d-cfca6e40f50c\TDZ\" />
+    <Folder Include="Files\ResidenceMP\8873e4d8-47b1-4a84-a6a7-46c32cd8b24e\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\8873e4d8-47b1-4a84-a6a7-46c32cd8b24e\FCZ\" />
+    <Folder Include="Files\ResidenceMP\8873e4d8-47b1-4a84-a6a7-46c32cd8b24e\HJ\" />
+    <Folder Include="Files\ResidenceMP\8873e4d8-47b1-4a84-a6a7-46c32cd8b24e\TDZ\" />
+    <Folder Include="Files\ResidenceMP\8e0648a1-2a27-441d-bf9a-bd4a2f92cb46\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\8e0648a1-2a27-441d-bf9a-bd4a2f92cb46\FCZ\" />
+    <Folder Include="Files\ResidenceMP\8e0648a1-2a27-441d-bf9a-bd4a2f92cb46\HJ\" />
+    <Folder Include="Files\ResidenceMP\8e0648a1-2a27-441d-bf9a-bd4a2f92cb46\TDZ\" />
+    <Folder Include="Files\ResidenceMP\90d30eac-37af-4a82-b481-601a8525c019\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\90d30eac-37af-4a82-b481-601a8525c019\FCZ\" />
+    <Folder Include="Files\ResidenceMP\90d30eac-37af-4a82-b481-601a8525c019\HJ\" />
+    <Folder Include="Files\ResidenceMP\90d30eac-37af-4a82-b481-601a8525c019\TDZ\" />
+    <Folder Include="Files\ResidenceMP\9bea04c6-5d28-41c0-838e-0d1f93676c47\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\9bea04c6-5d28-41c0-838e-0d1f93676c47\FCZ\" />
+    <Folder Include="Files\ResidenceMP\9bea04c6-5d28-41c0-838e-0d1f93676c47\HJ\" />
+    <Folder Include="Files\ResidenceMP\9bea04c6-5d28-41c0-838e-0d1f93676c47\TDZ\" />
+    <Folder Include="Files\ResidenceMP\a3cdb4fa-408f-4a06-893d-d601d80d55ba\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\a3cdb4fa-408f-4a06-893d-d601d80d55ba\FCZ\" />
+    <Folder Include="Files\ResidenceMP\a3cdb4fa-408f-4a06-893d-d601d80d55ba\HJ\" />
+    <Folder Include="Files\ResidenceMP\a3cdb4fa-408f-4a06-893d-d601d80d55ba\TDZ\" />
+    <Folder Include="Files\ResidenceMP\a5ef3164-03a8-4cd3-8b03-1b34eb50dad2\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\a5ef3164-03a8-4cd3-8b03-1b34eb50dad2\FCZ\" />
+    <Folder Include="Files\ResidenceMP\a5ef3164-03a8-4cd3-8b03-1b34eb50dad2\HJ\" />
+    <Folder Include="Files\ResidenceMP\a5ef3164-03a8-4cd3-8b03-1b34eb50dad2\TDZ\" />
+    <Folder Include="Files\ResidenceMP\b086bf48-5f7e-49c5-b2b5-a08255d4ec96\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\b086bf48-5f7e-49c5-b2b5-a08255d4ec96\FCZ\" />
+    <Folder Include="Files\ResidenceMP\b086bf48-5f7e-49c5-b2b5-a08255d4ec96\HJ\" />
+    <Folder Include="Files\ResidenceMP\b086bf48-5f7e-49c5-b2b5-a08255d4ec96\TDZ\" />
+    <Folder Include="Files\ResidenceMP\b5ab4851-6db6-4782-8adf-eacad1e27f60\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\b5ab4851-6db6-4782-8adf-eacad1e27f60\FCZ\" />
+    <Folder Include="Files\ResidenceMP\b5ab4851-6db6-4782-8adf-eacad1e27f60\HJ\" />
+    <Folder Include="Files\ResidenceMP\b5ab4851-6db6-4782-8adf-eacad1e27f60\TDZ\" />
+    <Folder Include="Files\ResidenceMP\bc14f6a0-6d8f-4842-b00f-4c5a1c103738\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\bc14f6a0-6d8f-4842-b00f-4c5a1c103738\FCZ\" />
+    <Folder Include="Files\ResidenceMP\bc14f6a0-6d8f-4842-b00f-4c5a1c103738\HJ\" />
+    <Folder Include="Files\ResidenceMP\bc14f6a0-6d8f-4842-b00f-4c5a1c103738\TDZ\" />
+    <Folder Include="Files\ResidenceMP\d5a0f842-5d82-4402-9a3f-e9e8ac98223c\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\d5a0f842-5d82-4402-9a3f-e9e8ac98223c\FCZ\" />
+    <Folder Include="Files\ResidenceMP\d5a0f842-5d82-4402-9a3f-e9e8ac98223c\HJ\" />
+    <Folder Include="Files\ResidenceMP\d5a0f842-5d82-4402-9a3f-e9e8ac98223c\TDZ\" />
+    <Folder Include="Files\ResidenceMP\da2d849f-7b28-478e-bb11-8ed84330dab2\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\da2d849f-7b28-478e-bb11-8ed84330dab2\FCZ\" />
+    <Folder Include="Files\ResidenceMP\da2d849f-7b28-478e-bb11-8ed84330dab2\HJ\" />
+    <Folder Include="Files\ResidenceMP\da2d849f-7b28-478e-bb11-8ed84330dab2\TDZ\" />
+    <Folder Include="Files\ResidenceMP\f02445f8-46f5-43c4-ab02-13098f718a3c\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\f02445f8-46f5-43c4-ab02-13098f718a3c\FCZ\" />
+    <Folder Include="Files\ResidenceMP\f02445f8-46f5-43c4-ab02-13098f718a3c\HJ\" />
+    <Folder Include="Files\ResidenceMP\f02445f8-46f5-43c4-ab02-13098f718a3c\TDZ\" />
+    <Folder Include="Files\ResidenceMP\fa27ed81-4296-483b-82ee-6b510a1b9bf9\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\fa27ed81-4296-483b-82ee-6b510a1b9bf9\FCZ\" />
+    <Folder Include="Files\ResidenceMP\fa27ed81-4296-483b-82ee-6b510a1b9bf9\HJ\" />
+    <Folder Include="Files\ResidenceMP\fa27ed81-4296-483b-82ee-6b510a1b9bf9\TDZ\" />
+    <Folder Include="Files\ResidenceMP\feeccc77-558a-48c9-8a8c-1ac54a19a582\BDCZ\" />
+    <Folder Include="Files\ResidenceMP\feeccc77-558a-48c9-8a8c-1ac54a19a582\FCZ\" />
+    <Folder Include="Files\ResidenceMP\feeccc77-558a-48c9-8a8c-1ac54a19a582\HJ\" />
+    <Folder Include="Files\ResidenceMP\feeccc77-558a-48c9-8a8c-1ac54a19a582\TDZ\" />
+    <Folder Include="Files\RoadMP\261dfd47-1ff2-4e67-bfd6-e7e7fdc0e89d\FCZ\" />
+    <Folder Include="Files\RoadMP\261dfd47-1ff2-4e67-bfd6-e7e7fdc0e89d\TDZ\" />
+    <Folder Include="Files\RoadMP\261dfd47-1ff2-4e67-bfd6-e7e7fdc0e89d\YYZZ\" />
+    <Folder Include="Files\RoadMP\28bd2fd5-f590-4946-834d-b070714d1678\FCZ\" />
+    <Folder Include="Files\RoadMP\28bd2fd5-f590-4946-834d-b070714d1678\TDZ\" />
+    <Folder Include="Files\RoadMP\28bd2fd5-f590-4946-834d-b070714d1678\YYZZ\" />
+    <Folder Include="Files\RoadMP\37b08134-4042-43d3-ab0c-9bc512ea3d89\FCZ\" />
+    <Folder Include="Files\RoadMP\37b08134-4042-43d3-ab0c-9bc512ea3d89\TDZ\" />
+    <Folder Include="Files\RoadMP\37b08134-4042-43d3-ab0c-9bc512ea3d89\YYZZ\" />
+    <Folder Include="Files\RoadMP\4983f77f-675a-429f-9fc8-1efc623e1396\FCZ\" />
+    <Folder Include="Files\RoadMP\4983f77f-675a-429f-9fc8-1efc623e1396\TDZ\" />
+    <Folder Include="Files\RoadMP\4983f77f-675a-429f-9fc8-1efc623e1396\YYZZ\" />
+    <Folder Include="Files\RoadMP\5462c350-df5e-456f-b56a-94a8660ed6fe\FCZ\" />
+    <Folder Include="Files\RoadMP\5462c350-df5e-456f-b56a-94a8660ed6fe\TDZ\" />
+    <Folder Include="Files\RoadMP\5462c350-df5e-456f-b56a-94a8660ed6fe\YYZZ\" />
+    <Folder Include="Files\RoadMP\551c4d25-89bb-46b3-9271-4ca5cd25dcdb\FCZ\" />
+    <Folder Include="Files\RoadMP\551c4d25-89bb-46b3-9271-4ca5cd25dcdb\TDZ\" />
+    <Folder Include="Files\RoadMP\551c4d25-89bb-46b3-9271-4ca5cd25dcdb\YYZZ\" />
+    <Folder Include="Files\RoadMP\552605af-37a0-4d1d-891e-42847f997d10\FCZ\" />
+    <Folder Include="Files\RoadMP\552605af-37a0-4d1d-891e-42847f997d10\TDZ\" />
+    <Folder Include="Files\RoadMP\552605af-37a0-4d1d-891e-42847f997d10\YYZZ\" />
+    <Folder Include="Files\RoadMP\57c1f9a8-3cc6-420a-bd1e-9a2d6b7a0b8b\FCZ\" />
+    <Folder Include="Files\RoadMP\57c1f9a8-3cc6-420a-bd1e-9a2d6b7a0b8b\TDZ\" />
+    <Folder Include="Files\RoadMP\57c1f9a8-3cc6-420a-bd1e-9a2d6b7a0b8b\YYZZ\" />
+    <Folder Include="Files\RoadMP\7634d24f-65a3-423f-8d46-e4850648bb60\FCZ\" />
+    <Folder Include="Files\RoadMP\7634d24f-65a3-423f-8d46-e4850648bb60\TDZ\" />
+    <Folder Include="Files\RoadMP\7634d24f-65a3-423f-8d46-e4850648bb60\YYZZ\" />
+    <Folder Include="Files\RoadMP\7a3300e7-4a93-4357-8126-9c26c022539d\FCZ\" />
+    <Folder Include="Files\RoadMP\7a3300e7-4a93-4357-8126-9c26c022539d\TDZ\" />
+    <Folder Include="Files\RoadMP\7a3300e7-4a93-4357-8126-9c26c022539d\YYZZ\" />
+    <Folder Include="Files\RoadMP\9c515909-b499-43ca-b330-9967586758c7\FCZ\" />
+    <Folder Include="Files\RoadMP\9c515909-b499-43ca-b330-9967586758c7\TDZ\" />
+    <Folder Include="Files\RoadMP\9c515909-b499-43ca-b330-9967586758c7\YYZZ\" />
+    <Folder Include="Files\RoadMP\c0412afe-ee44-4bcc-93fc-3b9a23b34a8c\FCZ\" />
+    <Folder Include="Files\RoadMP\c0412afe-ee44-4bcc-93fc-3b9a23b34a8c\TDZ\" />
+    <Folder Include="Files\RoadMP\c0412afe-ee44-4bcc-93fc-3b9a23b34a8c\YYZZ\" />
+    <Folder Include="Files\RoadMP\c5f11584-64fc-44d6-9f78-5c603e022016\FCZ\" />
+    <Folder Include="Files\RoadMP\c5f11584-64fc-44d6-9f78-5c603e022016\TDZ\" />
+    <Folder Include="Files\RoadMP\c5f11584-64fc-44d6-9f78-5c603e022016\YYZZ\" />
+    <Folder Include="Files\RoadMP\d664717c-d70e-4a75-a827-06f8c28fb3d2\FCZ\" />
+    <Folder Include="Files\RoadMP\d664717c-d70e-4a75-a827-06f8c28fb3d2\TDZ\" />
+    <Folder Include="Files\RoadMP\d664717c-d70e-4a75-a827-06f8c28fb3d2\YYZZ\" />
+    <Folder Include="Files\RoadMP\e02cde7e-378f-40ac-97f1-d3d5b1e7fb58\FCZ\" />
+    <Folder Include="Files\RoadMP\e02cde7e-378f-40ac-97f1-d3d5b1e7fb58\TDZ\" />
+    <Folder Include="Files\RoadMP\e02cde7e-378f-40ac-97f1-d3d5b1e7fb58\YYZZ\" />
+    <Folder Include="Files\RoadMP\eebff69f-e54d-425e-a89a-f1583d313566\FCZ\" />
+    <Folder Include="Files\RoadMP\eebff69f-e54d-425e-a89a-f1583d313566\TDZ\" />
+    <Folder Include="Files\RoadMP\eebff69f-e54d-425e-a89a-f1583d313566\YYZZ\" />
+    <Folder Include="Files\RoadMP\eecc053d-4992-4396-99b5-34968de4f64b\FCZ\" />
+    <Folder Include="Files\RoadMP\eecc053d-4992-4396-99b5-34968de4f64b\TDZ\" />
+    <Folder Include="Files\RoadMP\eecc053d-4992-4396-99b5-34968de4f64b\YYZZ\" />
+    <Folder Include="Files\RoadMP\f61a90c0-f7ba-4757-974b-52a16e6a9eb9\FCZ\" />
+    <Folder Include="Files\RoadMP\f61a90c0-f7ba-4757-974b-52a16e6a9eb9\TDZ\" />
+    <Folder Include="Files\RoadMP\f61a90c0-f7ba-4757-974b-52a16e6a9eb9\YYZZ\" />
+    <Folder Include="Lib\" />
+    <Folder Include="Views\Login\" />
+    <Folder Include="Views\MPBusinessStatistic\" />
+    <Folder Include="Views\MPModify\" />
+    <Folder Include="Views\MPProduce\" />
+    <Folder Include="Views\MPSearch\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52141</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52141/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

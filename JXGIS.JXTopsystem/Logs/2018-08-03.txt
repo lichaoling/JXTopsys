@@ -1,0 +1,260 @@
+=======2018/8/3 星期五 9:34:25
+|Message:Unable to create a constant value of type 'JXGIS.JXTopsystem.Models.Entities.District'. Only primitive types or enumeration types are supported in this context.
+|StackTrace:   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.ConstantTranslator.TypedTranslate(ExpressionConverter parent, ConstantExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   在 System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder.Internal.EnumerableValidator`3.Validate(IEnumerable`1 argument, String argumentName, Int32 expectedElementCount, Boolean allowEmpty, Func`3 map, Func`2 collect, Func`3 deriveName)
+   在 System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder.Internal.EnumerableValidator`3.Validate()
+   在 System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder.DbExpressionBuilder.CreateNewCollection(IEnumerable`1 elements)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.NewArrayInitTranslator.TypedTranslate(ExpressionConverter parent, NewArrayExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.ConstantTranslator.TypedTranslate(ExpressionConverter parent, ConstantExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.GroupJoinTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectManyTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.GroupJoinTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectManyTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.GroupJoinTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectManyTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.GroupJoinTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectManyTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.AggregateTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPSearch.MPSearchUtils.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\MPSearch\MPSearchUtils.cs:行号 188
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 27
+=======2018/8/3 星期五 9:34:29
+|Message:Unable to create a constant value of type 'JXGIS.JXTopsystem.Models.Entities.District'. Only primitive types or enumeration types are supported in this context.
+|StackTrace:   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.ConstantTranslator.TypedTranslate(ExpressionConverter parent, ConstantExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   在 System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder.Internal.EnumerableValidator`3.Validate(IEnumerable`1 argument, String argumentName, Int32 expectedElementCount, Boolean allowEmpty, Func`3 map, Func`2 collect, Func`3 deriveName)
+   在 System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder.Internal.EnumerableValidator`3.Validate()
+   在 System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder.DbExpressionBuilder.CreateNewCollection(IEnumerable`1 elements)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.NewArrayInitTranslator.TypedTranslate(ExpressionConverter parent, NewArrayExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.ConstantTranslator.TypedTranslate(ExpressionConverter parent, ConstantExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.GroupJoinTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectManyTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.GroupJoinTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectManyTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.GroupJoinTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectManyTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.GroupJoinTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SelectManyTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.AggregateTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPSearch.MPSearchUtils.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\MPSearch\MPSearchUtils.cs:行号 188
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 27
+=======2018/8/3 星期五 11:07:06
+|Message:The 'Width' property on 'Road' could not be set to a 'System.Decimal' value. You must set this property to a non-null value of type 'System.Double'. 
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\Common\RoadUtils.cs:行号 22
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 57
+=======2018/8/3 星期五 11:07:30
+|Message:The 'Width' property on 'Road' could not be set to a 'System.Decimal' value. You must set this property to a non-null value of type 'System.Double'. 
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\Common\RoadUtils.cs:行号 22
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 57
+=======2018/8/3 星期五 11:09:53
+|Message:The 'Width' property on 'Road' could not be set to a 'System.Decimal' value. You must set this property to a non-null value of type 'System.Double'. 
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\Common\RoadUtils.cs:行号 22
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 57
+=======2018/8/3 星期五 11:17:48
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.<>c.<GetRoads>b__0_9(<>f__AnonymousType3`2 <>h__TransparentIdentifier2, District bt) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\Common\RoadUtils.cs:行号 32
+   在 System.Linq.Enumerable.<SelectManyIterator>d__23`3.MoveNext()
+   在 System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   在 System.Linq.OrderedEnumerable`1.<GetEnumerator>d__1.MoveNext()
+   在 System.Linq.Enumerable.<SkipIterator>d__31`1.MoveNext()
+   在 System.Linq.Enumerable.<TakeIterator>d__25`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\Common\RoadUtils.cs:行号 47
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 57
+=======2018/8/3 星期五 11:21:40
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.<>c.<GetRoads>b__0_9(<>f__AnonymousType3`2 <>h__TransparentIdentifier2, District bt) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\Common\RoadUtils.cs:行号 32
+   在 System.Linq.Enumerable.<SelectManyIterator>d__23`3.MoveNext()
+   在 System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   在 System.Linq.OrderedEnumerable`1.<GetEnumerator>d__1.MoveNext()
+   在 System.Linq.Enumerable.<SkipIterator>d__31`1.MoveNext()
+   在 System.Linq.Enumerable.<TakeIterator>d__25`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\Common\RoadUtils.cs:行号 47
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 57
+=======2018/8/3 星期五 11:25:26
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.<>c.<GetRoads>b__0_9(<>f__AnonymousType3`2 <>h__TransparentIdentifier2, District bt)
+   在 System.Linq.Enumerable.<SelectManyIterator>d__23`3.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+=======2018/8/3 星期五 11:27:34
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.<>c.<GetRoads>b__0_9(<>f__AnonymousType3`2 <>h__TransparentIdentifier2, District bt)
+   在 System.Linq.Enumerable.<SelectManyIterator>d__23`3.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+=======2018/8/3 星期五 11:31:59
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.<>c.<GetRoads>b__0_9(<>f__AnonymousType3`2 <>h__TransparentIdentifier2, District bt) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\Common\RoadUtils.cs:行号 33
+   在 System.Linq.Enumerable.<SelectManyIterator>d__23`3.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\Common\RoadUtils.cs:行号 48
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 57
+=======2018/8/3 星期五 11:33:08
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 alatas.GeoJSON4EntityFramework.GeoJsonGeometry.FromDbGeography(DbGeography inp, Boolean withBoundingBox) 位置 C:\a\1\s\GeoJSON4EntityFramework\Base\GeoJsonGeometry.vb:行号 57
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+=======2018/8/3 星期五 11:34:06
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 alatas.GeoJSON4EntityFramework.GeoJsonGeometry.FromDbGeography(DbGeography inp, Boolean withBoundingBox) 位置 C:\a\1\s\GeoJSON4EntityFramework\Base\GeoJsonGeometry.vb:行号 57
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+=======2018/8/3 星期五 11:35:28
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.<>c.<GetRoads>b__0_9(<>f__AnonymousType3`2 <>h__TransparentIdentifier2, District bt)
+   在 System.Linq.Enumerable.<SelectManyIterator>d__23`3.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+=======2018/8/3 星期五 11:36:23
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.<>c.<GetRoads>b__0_9(<>f__AnonymousType3`2 <>h__TransparentIdentifier2, District bt)
+   在 System.Linq.Enumerable.<SelectManyIterator>d__23`3.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+=======2018/8/3 星期五 11:41:01
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.<>c.<GetRoads>b__0_9(<>f__AnonymousType3`2 <>h__TransparentIdentifier2, District bt)
+   在 System.Linq.Enumerable.<SelectManyIterator>d__23`3.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+=======2018/8/3 星期五 11:42:40
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.<>c.<GetRoads>b__0_9(<>f__AnonymousType3`2 <>h__TransparentIdentifier2, District bt)
+   在 System.Linq.Enumerable.<SelectManyIterator>d__23`3.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.RoadUtils.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetRoads(Int32 PageSize, Int32 PageNum, String Name)
+=======2018/8/3 星期五 16:50:50
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 System.Data.Entity.Internal.RetryLazy`2.GetValue(TInput input)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   在 System.Data.Entity.Internal.InternalContext.Initialize()
+   在 System.Data.Entity.Database.Initialize(Boolean force)
+   在 JXGIS.JXTopsystem.Models.Entities.SqlDBContext..ctor() 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Models\Entities\SqlDBContext.cs:行号 15
+   在 JXGIS.JXTopsystem.Business.SystemUtils.get_NewEFDbContext() 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\SystemUtils.cs:行号 32
+   在 JXGIS.JXTopsystem.Business.MPModify.MPModifyUtils.UploadResidenceMP(HttpPostedFileBase file) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\MPModify\MPModifyUtils.cs:行号 222
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.UploadResidenceMP() 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 44
+=======2018/8/3 星期五 16:52:33
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 System.Data.Entity.Internal.RetryLazy`2.GetValue(TInput input)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   在 System.Data.Entity.Internal.InternalContext.Initialize()
+   在 System.Data.Entity.Database.Initialize(Boolean force)
+   在 JXGIS.JXTopsystem.Models.Entities.SqlDBContext..ctor() 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Models\Entities\SqlDBContext.cs:行号 15
+   在 JXGIS.JXTopsystem.Business.SystemUtils.get_NewEFDbContext() 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\SystemUtils.cs:行号 32
+   在 JXGIS.JXTopsystem.Business.MPModify.MPModifyUtils.UploadResidenceMP(HttpPostedFileBase file) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\MPModify\MPModifyUtils.cs:行号 222
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.UploadResidenceMP() 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 44
+=======2018/8/3 星期五 17:13:06
+|Message:数据列不完整！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPModify.MPModifyUtils.UploadResidenceMP(HttpPostedFileBase file) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Business\MPModify\MPModifyUtils.cs:行号 216
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.UploadResidenceMP() 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 44
