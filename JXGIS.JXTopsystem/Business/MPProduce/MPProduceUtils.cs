@@ -1,4 +1,5 @@
-﻿using JXGIS.JXTopsystem.Models.Extends;
+﻿using JXGIS.JXTopsystem.Business.Common;
+using JXGIS.JXTopsystem.Models.Extends;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,12 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         public static Dictionary<string, object> GetProduceMP(int PageSize, int PageNum, string DistrictID, int MPProduce, int MPType, string Name)
         {
             int count = 0;
-            List<MPProduceList> rt = null;
+            List<MPProduceList> data = null;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var q = (from a in dbContext.MPOfRoad
+                var all = (from a in dbContext.MPOfRoad
                          join d in dbContext.Road
-                         on a.RoadID equals d.RoadID.ToString() into dd
+                         on a.RoadID == null ? a.RoadID : a.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
                          from dt in dd.DefaultIfEmpty()
                          where a.State == Enums.UseState.Enable
                          select new MPProduceList
@@ -66,7 +67,12 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             );
 
                 // 先删选出当前用户权限内的数据
-                q = q.Where(t => LoginUtils.CurrentUser.DistrictID.Exists(userid => t.CommunityID.IndexOf(userid + ".") == 0));
+                var where = PredicateBuilder.False<MPProduceList>();
+                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                {
+                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                }
+                var q = all.Where(where.Compile());
 
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
@@ -86,7 +92,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 }
                 count = q.Count();
 
-                var data = q.OrderByDescending(t => t.MPCreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                data = q.OrderByDescending(t => t.MPCreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
 
                 data = (from t in data
                         join a in SystemUtils.Districts

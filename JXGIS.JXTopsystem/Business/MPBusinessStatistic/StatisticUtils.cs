@@ -1,4 +1,5 @@
-﻿using JXGIS.JXTopsystem.Models.Entities;
+﻿using JXGIS.JXTopsystem.Business.Common;
+using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
 using System.Collections.Generic;
@@ -101,9 +102,15 @@ namespace JXGIS.JXTopsystem.Business
                 #endregion
                 var All = queryResidence.Concat(queryRoad).Concat(queryCountry);
                 // 先删选出当前用户权限内的数据
-                All = All.Where(t => LoginUtils.CurrentUser.DistrictID.Exists(userid => t.CommunityID.IndexOf(userid + ".") == 0));
-                count = All.Count();
-                query = All.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                var where = PredicateBuilder.False<MPBusiness>();
+                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                {
+                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                }
+                var queryAll = All.Where(where.Compile());
+
+                count = queryAll.Count();
+                query = queryAll.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
 
                 var data = (from t in query
                             join a in SystemUtils.Districts
@@ -157,7 +164,7 @@ namespace JXGIS.JXTopsystem.Business
             string[] bigMPsize = new string[] { "30*20CM", "40*60CM" };
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var q = (from t in dbContext.MPProduce
+                var all = (from t in dbContext.MPProduce
 
                          join f in dbContext.MPOfRoad
                          on t.MPID equals f.ID into ff
@@ -187,7 +194,13 @@ namespace JXGIS.JXTopsystem.Business
                             }
                             );
                 // 先删选出当前用户权限内的数据
-                q = q.Where(t => LoginUtils.CurrentUser.DistrictID.Exists(userid => t.CommunityID.IndexOf(userid + ".") == 0));
+                var where = PredicateBuilder.False<MPProduceStatistic>();
+                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                {
+                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                }
+                var q= all.Where(where.Compile());
+
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
                     q = q.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);

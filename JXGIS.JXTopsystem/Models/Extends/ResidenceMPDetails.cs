@@ -9,6 +9,7 @@ using System.Web;
 namespace JXGIS.JXTopsystem.Models.Extends
 {
     [NotMapped]
+    [Serializable]
     public class ResidenceMPDetails : MPOfResidence
     {
 

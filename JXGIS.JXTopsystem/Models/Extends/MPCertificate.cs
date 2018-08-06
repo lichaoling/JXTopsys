@@ -17,6 +17,9 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string YYZZAddress { get; set; }
         public string QQZAddress { get; set; }
         public string OtherAddress { get; set; }
+        public string CountyID { get; set; }
+        public string NeighborhoodsID { get; set; }
+        public string CommunityID { get; set; }
         public string CountyName { get; set; }
         public string NeighborhoodsName { get; set; }
         public string CommunityName { get; set; }

@@ -6,7 +6,8 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Extends
 {
-    public class ResidenceMPErrors: MPErrors
+    [Serializable]
+    public class ResidenceMPErrors : MPErrors
     {
         public ResidenceMPDetails mp { get; set; }
     }

@@ -68,12 +68,12 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
         /// <returns></returns>
         public static Models.Extends.MPCertificate MPCertificateQuery(string ID, int MPType, int CertificateType)
         {
-            Models.Extends.MPCertificate query = null;
+            Models.Extends.MPCertificate query = new Models.Extends.MPCertificate();
             using (var dbContenxt = SystemUtils.NewEFDbContext)
             {
                 if (MPType == Enums.MPType.Residence)//住宅
                 {
-                    var mpOfResidence = dbContenxt.MPOFResidence.Where(t => t.State ==Enums.UseState.Enable).Where(t => t.ID == ID);
+                    var mpOfResidence = dbContenxt.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
                     if (mpOfResidence.Count() == 0)
                         throw new Exception("该门牌已经注销，请重新查询！");
                     if (CertificateType == Enums.CertificateType.Placename)//地名证明浏览
@@ -89,51 +89,17 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                     }
                     else if (CertificateType == Enums.CertificateType.MPZ) //门牌证浏览
                     {
-
-                        //var CountyName = dbContenxt.District.Where(t => t.ID == rt.CountyID).Select(t => t.Name).FirstOrDefault();
-                        //var NeighborhoodsName = dbContenxt.District.Where(t => t.ID == rt.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
-                        //var CommunityName = dbContenxt.District.Where(t => t.ID == rt.CommunityID).Select(t => t.Name).FirstOrDefault();
-                        //var ResidenceName = rt.ResidenceName;
-                        //var RoadName = dbContenxt.Road.Where(t => t.RoadID == rt.RoadID).Select(t => t.RoadName).FirstOrDefault();
-                        //var MPNumber = rt.MPNumber;
-
-                        //query.ID = rt.ID;
-                        //query.CountyName = CountyName;
-                        //query.NeighborhoodsName = NeighborhoodsName;
-                        //query.CommunityName = CommunityName;
-                        //query.ResidenceName = ResidenceName;
-                        //query.RoadName = RoadName;
-                        //query.MPNumber = MPNumber;
-                        //query.LZNumber = rt.LZNumber;
-                        //query.DYNumber = rt.DYNumber;
-                        //query.HSNumber = rt.HSNumber;
-                        //query.PropertyOwner = rt.PropertyOwner;
-                        //query.AddressCoding = rt.AddressCoding;
-
-                        query = (from t in dbContenxt.MPOFResidence
-                                 join a in dbContenxt.District
-                                 on t.CountyID equals a.ID into aa
-                                 from at in aa.DefaultIfEmpty()
-
-                                 join b in dbContenxt.District
-                                 on t.NeighborhoodsID equals b.ID into bb
-                                 from bt in bb.DefaultIfEmpty()
-
-                                 join c in dbContenxt.District
-                                 on t.CommunityID equals c.ID into cc
-                                 from ct in cc.DefaultIfEmpty()
-
+                        var q = (from t in dbContenxt.MPOFResidence
                                  join d in dbContenxt.Road
-                                 on t.RoadID equals d.RoadID.ToString() into dd
+                                 on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
                                  from dt in dd.DefaultIfEmpty()
-
                                  where t.State == Enums.UseState.Enable && t.ID == ID
                                  select new Models.Extends.MPCertificate
                                  {
                                      ID = t.ID,
-                                     CountyName = at.Name,
-                                     NeighborhoodsName = bt.Name,
-                                     CommunityName = ct.Name,
+                                     CountyID = t.CountyID,
+                                     NeighborhoodsID = t.NeighborhoodsID,
+                                     CommunityID = t.CommunityID,
                                      ResidenceName = t.ResidenceName,
                                      RoadName = dt.RoadName,
                                      MPNumber = t.MPNumber,
@@ -143,8 +109,36 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                                      HSNumber = t.HSNumber,
                                      PropertyOwner = t.PropertyOwner,
                                      AddressCoding = t.AddressCoding
-                                 }).FirstOrDefault();
+                                 }).ToList();
 
+                        query = (from t in q
+                                 join a in SystemUtils.Districts
+                                   on t.CountyID equals a.ID into aa
+                                 from at in aa.DefaultIfEmpty()
+
+                                 join b in SystemUtils.Districts
+                                 on t.NeighborhoodsID equals b.ID into bb
+                                 from bt in bb.DefaultIfEmpty()
+
+                                 join c in SystemUtils.Districts
+                                 on t.CommunityID equals c.ID into cc
+                                 from ct in cc.DefaultIfEmpty()
+                                 select new Models.Extends.MPCertificate
+                                 {
+                                     ID = t.ID,
+                                     CountyName = at.Name,
+                                     NeighborhoodsName = bt.Name,
+                                     CommunityName = ct.Name,
+                                     ResidenceName = t.ResidenceName,
+                                     RoadName = t.RoadName,
+                                     MPNumber = t.MPNumber,
+                                     Dormitory = t.Dormitory,
+                                     LZNumber = t.LZNumber,
+                                     DYNumber = t.DYNumber,
+                                     HSNumber = t.HSNumber,
+                                     PropertyOwner = t.PropertyOwner,
+                                     AddressCoding = t.AddressCoding
+                                 }).FirstOrDefault();
                     }
                     else
                     {
@@ -170,37 +164,49 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                     }
                     else if (CertificateType == Enums.CertificateType.MPZ) //门牌证浏览
                     {
-                        query = (from t in dbContenxt.MPOfRoad
-                                 join a in dbContenxt.District
-                                 on t.CountyID equals a.ID into aa
-                                 from at in aa.DefaultIfEmpty()
-
-                                 join b in dbContenxt.District
-                                 on t.NeighborhoodsID equals b.ID into bb
-                                 from bt in bb.DefaultIfEmpty()
-
-                                 join c in dbContenxt.District
-                                 on t.CommunityID equals c.ID into cc
-                                 from ct in cc.DefaultIfEmpty()
-
+                        var q = (from t in dbContenxt.MPOfRoad
                                  join d in dbContenxt.Road
-                                 on t.RoadID equals d.RoadID.ToString() into dd
+                                 on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
                                  from dt in dd.DefaultIfEmpty()
 
                                  where t.State == Enums.UseState.Enable && t.ID == ID
                                  select new Models.Extends.MPCertificate
                                  {
                                      ID = t.ID,
-                                     CountyName = at.Name,
-                                     NeighborhoodsName = bt.Name,
-                                     CommunityName = ct.Name,
+                                     CountyID = t.CountyID,
+                                     NeighborhoodsID = t.NeighborhoodsID,
+                                     CommunityID = t.CommunityID,
                                      RoadName = dt.RoadName,
                                      MPNumber = t.MPNumber,
                                      OriginalNumber = t.OriginalNumber,
                                      PropertyOwner = t.PropertyOwner,
                                      AddressCoding = t.AddressCoding
-                                 }).FirstOrDefault();
+                                 }).ToList();
 
+                        query = (from t in q
+                                 join a in SystemUtils.Districts
+                                 on t.CountyID equals a.ID into aa
+                                 from at in aa.DefaultIfEmpty()
+
+                                 join b in SystemUtils.Districts
+                                 on t.NeighborhoodsID equals b.ID into bb
+                                 from bt in bb.DefaultIfEmpty()
+
+                                 join c in SystemUtils.Districts
+                                 on t.CommunityID equals c.ID into cc
+                                 from ct in cc.DefaultIfEmpty()
+                                 select new Models.Extends.MPCertificate
+                                 {
+                                     ID = t.ID,
+                                     CountyName = at.Name,
+                                     NeighborhoodsName = bt.Name,
+                                     CommunityName = ct.Name,
+                                     RoadName = t.RoadName,
+                                     MPNumber = t.MPNumber,
+                                     OriginalNumber = t.OriginalNumber,
+                                     PropertyOwner = t.PropertyOwner,
+                                     AddressCoding = t.AddressCoding
+                                 }).FirstOrDefault();
                     }
                 }
                 else if (MPType == Enums.MPType.Country)//农村
@@ -220,20 +226,33 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                     }
                     else if (CertificateType == Enums.CertificateType.MPZ) //门牌证浏览
                     {
-                        query = (from t in dbContenxt.MPOfCountry
-                                 join a in dbContenxt.District
+                        var q = (from t in dbContenxt.MPOfCountry
+                                 where t.State == Enums.UseState.Enable && t.ID == ID
+                                 select new Models.Extends.MPCertificate
+                                 {
+                                     ID = t.ID,
+                                     CountyID = t.CountyID,
+                                     NeighborhoodsID = t.NeighborhoodsID,
+                                     CommunityID = t.CommunityID,
+                                     ViligeName = t.ViligeName,
+                                     MPNumber = t.MPNumber,
+                                     OriginalNumber = t.OriginalNumber,
+                                     PropertyOwner = t.PropertyOwner,
+                                     AddressCoding = t.AddressCoding
+                                 }).ToList();
+
+                        query = (from t in q
+                                 join a in SystemUtils.Districts
                                  on t.CountyID equals a.ID into aa
                                  from at in aa.DefaultIfEmpty()
 
-                                 join b in dbContenxt.District
+                                 join b in SystemUtils.Districts
                                  on t.NeighborhoodsID equals b.ID into bb
                                  from bt in bb.DefaultIfEmpty()
 
-                                 join c in dbContenxt.District
+                                 join c in SystemUtils.Districts
                                  on t.CommunityID equals c.ID into cc
                                  from ct in cc.DefaultIfEmpty()
-
-                                 where t.State == Enums.UseState.Enable && t.ID == ID
                                  select new Models.Extends.MPCertificate
                                  {
                                      ID = t.ID,

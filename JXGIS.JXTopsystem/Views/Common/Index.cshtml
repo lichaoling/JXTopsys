@@ -40,9 +40,9 @@
     //    console.log(rt);
     //}, 'json')
 
-    //$.post("../MPSearch/GetExportCondition", { DistrictID: "1.1", Name:"童装" }, function (rt) {
-    //    window.open("../MPSearch/ExportResidenceMP")
-    //});
+    $.post("../MPSearch/GetConditionOfResidenceMP", { DistrictID: "1.1", Name: "童装" }, function (rt) {
+        window.open("../MPSearch/ExportResidenceMP")
+    });
     //$.post("../MPModify/CancelResidenceMP", { ID: "2" }, function (rt) {
     //    console.log(rt)
     //},'json');
@@ -69,37 +69,37 @@
     //}, 'json')
 
 
-    $(function () {
-        var $form = $('#myform');
-        $("#submit").on('click', function () {
-            var formData = new FormData($form[0]);
-            console.log(formData)
-            $.ajax({
-                url: "../MPModify/UploadResidenceMP",
-                type: 'POST',
-                data: formData,
-                mimeType: "multipart/form-data",
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function (data, textStatus, jqXHR) {
-                    debugger
-                    $.post("../MPModify/GetUploadResidenceMP", { PageSize: 5, PageNum: 2 }, function (rt) {
-                        console.log(rt)
-                    });
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
+    //$(function () {
+    //    var $form = $('#myform');
+    //    $("#submit").on('click', function () {
+    //        var formData = new FormData($form[0]);
+    //        console.log(formData)
+    //        $.ajax({
+    //            url: "../MPModify/UploadResidenceMP",
+    //            type: 'POST',
+    //            data: formData,
+    //            mimeType: "multipart/form-data",
+    //            contentType: false,
+    //            cache: false,
+    //            processData: false,
+    //            success: function (data, textStatus, jqXHR) {
+    //                debugger
+    //                $.post("../MPModify/GetUploadResidenceMP", { PageSize: 5, PageNum: 2 }, function (rt) {
+    //                    console.log(rt)
+    //                });
+    //            },
+    //            error: function (jqXHR, textStatus, errorThrown) {
 
-                }
-            });
-            $("input").val("");
-        });
+    //            }
+    //        });
+    //        $("input").val("");
+    //    });
 
-            $("#update").on('click', function (rt) {
-                $.post("../MPModify/UpdateRoadMP", { }, function (rt) {
-                    console.log(rt)
-                });
-            })
-    });
+    //        $("#update").on('click', function (rt) {
+    //            $.post("../MPModify/UpdateRoadMP", { }, function (rt) {
+    //                console.log(rt)
+    //            });
+    //        })
+    //});
 </script>
 </html>

@@ -104,8 +104,6 @@ namespace JXGIS.JXTopsystem.Business.Common
             return flag;
         }
         #endregion
-
-
     }
 
     public class DistrictNode

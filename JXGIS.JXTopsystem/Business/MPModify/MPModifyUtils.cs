@@ -98,7 +98,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 var RoadName = "";
                 if (newData.RoadID != null)
                 {
-                    RoadName = dbContenxt.Road.Where(t => t.RoadID.ToString() == newData.RoadID).Select(t => t.RoadName).FirstOrDefault();
+                    RoadName = dbContenxt.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
                 }
                 //嘉兴市南湖区新兴街道城南路258号纺工宿舍302室  或者  嘉兴市南湖区新兴街道赞园1幢1单元101室   如果小区名不为空就
                 //如果小区名为空：道路名+门牌号+宿舍名+幢+单元+户室   如果小区名不为空：小区+幢+单元+户室
@@ -206,6 +206,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <param name="file"></param>
         public static void UploadResidenceMP(HttpPostedFileBase file)
         {
+
             HttpContext.Current.Session["_ResidenceMP"] = null;
             HttpContext.Current.Session["_ResidenceMPErrors"] = null;
             HttpContext.Current.Session["_ResidenceMPWarning"] = null;
@@ -650,7 +651,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 var CountyName = dbContenxt.District.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
                 var NeighborhoodsName = dbContenxt.District.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
                 var CommunityName = dbContenxt.District.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
-                var RoadName = dbContenxt.Road.Where(t => t.RoadID.ToString() == newData.RoadID).Select(t => t.RoadName).FirstOrDefault();
+                var RoadName = dbContenxt.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
                 var StandardAddress = CountyName + NeighborhoodsName + CommunityName + RoadName + newData.MPNumber + "号";
                 #endregion
                 #region 新增
@@ -1701,9 +1702,11 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <returns></returns>
         public static bool CheckIsPhone(string number)
         {
-            const string pattern = @"^(0\\d{2,3}-?\\d{7,8}(-\\d{3,5}){0,1})|(((13[0-9])|(15([0-3]|[5-9]))|(18[0-9])|(17[0-9])|(14[0-9]))\\d{8})$";
-            Regex rx = new Regex(pattern);
-            return rx.IsMatch(number);
+            const string patternPhone = @"^1(3|4|5|7|8)\d{9}$";
+            const string patternTel = @"^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$";
+            Regex rxPhone = new Regex(patternPhone);
+            Regex rxTel = new Regex(patternTel);
+            return rxPhone.IsMatch(number) || rxTel.IsMatch(number);
         }
         /// <summary>
         /// 检查是否为日期格式  2018年7月25日
@@ -1729,7 +1732,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <returns></returns>
         public static bool CheckMPSize(ref string data)
         {
-            data = data.ToUpper();
+            data = data.ToLower();
             var MPSizes = new string[] { "40*60CM", "30*20CM", "21*15MM", "18*14MM", "15*10MM" };
             return MPSizes.Contains(data);
         }

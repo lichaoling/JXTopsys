@@ -5,6 +5,7 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Extends
 {
+    [Serializable]
     public class MPErrors
     {
         public int Index { get; set; }

@@ -12,6 +12,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
     /// 住宅门牌
     /// </summary>
     [Table("MPOFRESIDENCE")]
+    [Serializable]
     public class MPOfResidence
     {
         [Key]

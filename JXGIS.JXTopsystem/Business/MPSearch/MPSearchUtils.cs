@@ -1,4 +1,5 @@
 ﻿using Aspose.Cells;
+using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using Newtonsoft.Json.Converters;
@@ -25,6 +26,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <returns></returns>
         public static Dictionary<string, object> SearchResidenceMP(int PageSize, int PageNum, string DistrictID, string Name)
         {
+            #region sql语句写法 注释
             //string sql = $@"select a.[ID]
             //              ,a.[AddressCoding]
             //              ,a.[CountyID]
@@ -126,14 +128,20 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             //       { "Data",query},
             //       { "Count",rowsCount}
             //};
+            #endregion
             int count = 0;
             List<ResidenceMPDetails> data = null;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable);
+                var q = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable);
 
                 // 先删选出当前用户权限内的数据
-                query = query.Where(t => LoginUtils.CurrentUser.DistrictID.Exists(userid => t.CommunityID.IndexOf(userid + ".") == 0));
+                var where = PredicateBuilder.False<MPOfResidence>();
+                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                {
+                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                }
+                var query = q.Where(where.Compile());
 
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
@@ -143,12 +151,11 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 {
                     query = from t in query
                             join d in dbContext.Road
-                            on t.RoadID equals d.RoadID.ToString() into dd
+                            on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
                             from dt in dd.DefaultIfEmpty()
                             where dt.RoadName.Contains(Name) || t.ResidenceName.Contains(Name) || t.Dormitory.Contains(Name)
                             select t;
                 }
-
                 count = query.Count();
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
@@ -163,7 +170,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
 
                 data = (from t in query
                         join d in dbContext.Road
-                        on t.RoadID equals d.RoadID.ToString() into dd
+                        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
                         from dt in dd.DefaultIfEmpty()
                         select new ResidenceMPDetails
                         {
@@ -171,15 +178,16 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             CountyID = t.CountyID,
                             NeighborhoodsID = t.NeighborhoodsID,
                             CommunityID = t.CommunityID,
-                            PlaceName = string.IsNullOrEmpty(t.ResidenceName.Trim()) ? dt.RoadName.Trim() + t.MPNumber.Trim() + "号" + t.Dormitory : t.ResidenceName.Trim(),
+                            PlaceName = dt == null ? (t.ResidenceName) : (dt.RoadName + t.MPNumber + "号" + t.Dormitory),
                             StandardAddress = t.StandardAddress,
                             PropertyOwner = t.PropertyOwner,
-                            CreateTime = t.CreateTime
+                            CreateTime = t.CreateTime,
+                            RoadID = t.RoadID
                         }).ToList();
 
                 data = (from t in data
                         join a in SystemUtils.Districts
-                           on t.CountyID equals a.ID into aa
+                        on t.CountyID equals a.ID into aa
                         from at in aa.DefaultIfEmpty()
 
                         join b in SystemUtils.Districts
@@ -240,16 +248,12 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                           ,a.[StandardAddress]
                           ,a.[FCZAddress]
                           ,a.[FCZNumber]
-                          ,a.[FCZFile]
                           ,a.[TDZAddress]
                           ,a.[TDZNumber]
-                          ,a.[TDZFile]
                           ,a.[BDCZAddress]
                           ,a.[BDCZNumber]
-                          ,a.[BDCZFile]
                           ,a.[HJAddress]
                           ,a.[HJNumber]
-                          ,a.[HJFile]
                           ,a.[OtherAddress]
                           ,a.[Applicant]
                           ,a.[ApplicantPhone]
@@ -390,7 +394,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         #region 道路门牌
         /// <summary>
         /// 道路门牌查询，根据行政区划ID、名称(道路名称)和门牌号类型
-        /// 关联道路表和行政区划表，获取到行政区划名称、道路名称和道路门牌的信息
+        /// 关联道路表和行政区划表，获取到行政区划名称、道路名称和道路门牌的信息  guid生成出来都是小写的，如果GUID以string形式存储到数据库中全是小写的，但是在数据库中GUID展示出来是大写的
         /// </summary>
         /// <param name="PageSize"></param>
         /// <param name="PageNum"></param>
@@ -404,10 +408,15 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             List<RoadMPDetails> data = null;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable);
+                var q = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable);
 
-                //先删选出当前用户权限内的数据
-                query = query.Where(t => LoginUtils.CurrentUser.DistrictID.Exists(userid => t.CommunityID.IndexOf(userid + ".") == 0));
+                // 先删选出当前用户权限内的数据
+                var where = PredicateBuilder.False<MPOfRoad>();
+                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                {
+                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                }
+                var query = q.Where(where.Compile());
 
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
@@ -421,7 +430,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 {
                     query = from t in query
                             join d in dbContext.Road
-                            on t.RoadID equals d.RoadID.ToString() into dd
+                            on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
                             from dt in dd.DefaultIfEmpty()
                             where dt.RoadName.Contains(Name) || t.ShopName.Contains(Name) || t.ResidenceName.Contains(Name)
                             select t;
@@ -440,7 +449,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 }
                 data = (from t in query
                         join d in dbContext.Road
-                        on t.RoadID equals d.RoadID.ToString() into dd
+                        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
                         from dt in dd.DefaultIfEmpty()
                         select new RoadMPDetails
                         {
@@ -677,10 +686,15 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             List<CountryMPDetails> data = null;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable);
+                var q = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable);
 
                 // 先删选出当前用户权限内的数据
-                query = query.Where(t => LoginUtils.CurrentUser.DistrictID.Exists(userid => t.CommunityID.IndexOf(userid + ".") == 0));
+                var where = PredicateBuilder.False<MPOfCountry>();
+                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                {
+                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                }
+                var query = q.Where(where.Compile());
 
                 if (!string.IsNullOrEmpty(DistrictID))
                 {

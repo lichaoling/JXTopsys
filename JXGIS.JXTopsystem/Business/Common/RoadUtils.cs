@@ -68,12 +68,12 @@ namespace JXGIS.JXTopsystem.Business.Common
                 List<RoadDetails> rt = null;
                 if (!string.IsNullOrEmpty(roadID))
                 {
-                    var query = dbContext.Road.Where(t => t.RoadID.ToString() == roadID);
+                    var query = dbContext.Road.Where(t => t.RoadID.ToString().ToLower() == roadID.ToLower());
                     var qt = (from t in query
                               select t).ToList();
                     var q = from t in qt
                             join a in SystemUtils.Districts
-                                                        on t.CountyID equals a.ID into aa
+                            on t.CountyID equals a.ID into aa
                             from at in aa.DefaultIfEmpty()
 
                             join b in SystemUtils.Districts

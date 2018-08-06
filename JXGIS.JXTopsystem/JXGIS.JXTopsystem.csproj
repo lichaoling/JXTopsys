@@ -144,6 +144,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Business\Common\DistrictUtils.cs" />
+    <Compile Include="Business\Common\EFExtend.cs" />
     <Compile Include="Business\Common\RoadUtils.cs" />
     <Compile Include="Business\Login\LoginUtils.cs" />
     <Compile Include="Business\Login\RSACryptoService.cs" />
