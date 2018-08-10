@@ -55,7 +55,7 @@ namespace JXGIS.JXTopsystem.Business
         /// <returns></returns>
         public static bool HasUser(string userName)
         {
-            return SystemUtils.NewEFDbContext.SysUser.Where(s => s.UserName == userName).Count() > 0;
+            return SystemUtils.NewEFDbContext.SysUser.Where(t=>t.State==Enums.UseState.Enable).Where(s => s.UserName == userName).Count() > 0;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace JXGIS.JXTopsystem.Business
         {
             var bSuccess = false;
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password)) return false;
-            var us = SystemUtils.NewEFDbContext.SysUser.Where(u => u.UserName == userName && u.Password == password).FirstOrDefault();
+            var us = SystemUtils.NewEFDbContext.SysUser.Where(t => t.State == Enums.UseState.Enable).Where(u => u.UserName == userName && u.Password == password).FirstOrDefault();
             if (us != null)
             {
                 bSuccess = true;
