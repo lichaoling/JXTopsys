@@ -5,6 +5,7 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Extends.RtObj
 {
+    [Serializable]
     public class RtObj
     {
         // 默认的异常信息配置

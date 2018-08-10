@@ -9,15 +9,13 @@ using System.Web;
 namespace JXGIS.JXTopsystem.Models.Extends
 {
     [NotMapped]
-    public class CountryMPDetails:MPOfCountry
+    public class CountryMPDetails : MPOfCountry
     {
         public string CountyName { get; set; }
         public string NeighborhoodsName { get; set; }
         public string CommunityName { get; set; }
-        public List<string> TDZName { get; set; }
-        public List<string> TDZURL { get; set; }
-        public List<string> QQZName { get; set; }
-        public List<string> QQZURL { get; set; }
+        public List<Pictures> TDZ { get; set; }
+        public List<Pictures> QQZ { get; set; }
 
         private static PropertyInfo[] props = typeof(RoadMPDetails).GetProperties();
         public object this[string key]

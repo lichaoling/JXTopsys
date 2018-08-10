@@ -17,13 +17,9 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string RoadName { get; set; }
         public string StartPoint { get; set; }
         public string EndPoint { get; set; }
-        public List<string> FCZName { get; set; }
-        public List<string> FCZURL { get; set; }
-        public List<string> TDZName { get; set; }
-        public List<string> TDZURL { get; set; }
-        public List<string> YYZZName { get; set; }
-        public List<string> YYZZURL { get; set; }
-
+        public List<Pictures> FCZ { get; set; }
+        public List<Pictures> TDZ { get; set; }
+        public List<Pictures> YYZZ { get; set; }
 
         private static PropertyInfo[] props = typeof(RoadMPDetails).GetProperties();
         public object this[string key]

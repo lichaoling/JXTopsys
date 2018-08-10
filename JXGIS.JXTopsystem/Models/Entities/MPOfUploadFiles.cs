@@ -15,6 +15,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string MPID { get; set; }
 
         public string Name { get; set; }
+        public string FileType { get; set; }
         public string DocType { get; set; }
         public int State { get; set; }
     }

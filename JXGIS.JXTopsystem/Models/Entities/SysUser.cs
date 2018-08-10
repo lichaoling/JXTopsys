@@ -9,7 +9,8 @@ using System.Web;
 namespace JXGIS.JXTopsystem.Models.Entities
 {
     [Table("SYSUSER")]
-    public class SysUser:IUser
+    [Serializable]
+    public class SysUser : IUser
     {
         [Key]
         public string UserID { get; set; }
@@ -24,10 +25,11 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CreateUser { get; set; }
         public DateTime? LastModifyTime { get; set; }
         public string LastModifyUser { get; set; }
-        public int State { get; set; }
+        public int? State { get; set; }
         public DateTime? CancelTime { get; set; }
         public string CancelUser { get; set; }
-
+        public DateTime? DelTime { get; set; }
+        public string DelUser { get; set; }
         [NotMapped]
         public virtual List<string> DistrictID { get; set; }
     }

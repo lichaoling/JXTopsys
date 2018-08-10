@@ -36,16 +36,23 @@
     //    console.log(rt);
     //}, 'json')
 
-    //$.post('../MPSearch/SearchResidenceMP', {PageSize:5, PageNum:1, DistrictID:"1", Name:null }, function (rt) {
+    //$.post('../MPSearch/SearchResidenceMP', { PageSize: 5, PageNum: 1, DistrictID: "1", Name: null }, function (rt) {
+    //    debugger
     //    console.log(rt);
     //}, 'json')
 
-    $.post("../MPSearch/GetConditionOfResidenceMP", { DistrictID: "1.1", Name: "童装" }, function (rt) {
-        window.open("../MPSearch/ExportResidenceMP")
-    });
+    //$.post("../MPSearch/GetConditionOfResidenceMP", { DistrictID: "1.1", Name: "童装" }, function (rt) {
+    //    window.open("../MPSearch/ExportResidenceMP")
+    //});
     //$.post("../MPModify/CancelResidenceMP", { ID: "2" }, function (rt) {
     //    console.log(rt)
     //},'json');
+    //$.post("../MPModify/Test1", {}, function (rt) {
+    //    console.log(rt)
+    //    $.post("../MPModify/Test2", {}, function (rt) {
+    //        console.log(rt)
+    //    }, 'json')
+    //}, 'json');
 
     //$.post("../MPSearch/SearchResidenceMPByID", { ID:"3" }, function (rt) {
     //    console.log(rt)
@@ -67,6 +74,9 @@
     //$.post('../MPBusinessStatistic/GetMPProduceStatistic', { PageSize: 20, PageNum: 1, Districts:"1"}, function (rt) {
     //    console.log(rt);
     //}, 'json')
+    $.post('../MPBusinessStatistic/GetMPBusinessDatas', { PageSize: 20, PageNum: 1, Districts: "1",start:'2018-01-23',end:'' }, function (rt) {
+        console.log(rt);
+    }, 'json')
 
 
     //$(function () {
@@ -101,5 +111,8 @@
     //            });
     //        })
     //});
+
+
+
 </script>
 </html>

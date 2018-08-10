@@ -9,22 +9,15 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.Services;
 
 namespace JXGIS.JXTopsystem.Business.MPModify
 {
 
     public class MPModifyUtils
     {
-        //private static List<ResidenceMPDetails> _ResidenceMP;
-        //private static List<ResidenceMPErrors> _ResidenceMPErrors;
-
-        //private static List<string> _Warning;
-
-        //private static List<RoadMPDetails> _RoadMP;
-        //private static List<RoadMPErrors> _RoadMPErrors;
-
-        //private static List<CountryMPDetails> _CountryMP;
-        //private static List<CountryMPErrors> _CountryMPErrors;
+        private static Dictionary<string, Dictionary<string, object>> temp = new Dictionary<string, Dictionary<string, object>>();
+        private const string mpKey = "_MP", errorKey = "_MPErrors", warningKey = "_MPWarning";
 
         #region 住宅门牌
         /// <summary>
@@ -92,9 +85,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             {
                 #region 标准地址拼接
                 //拼接标准住宅门牌地址，先获取对应的道路门牌的标准地址，再拼接好宿舍名、幢号、单元号、户室号
-                var CountyName = dbContenxt.District.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
-                var NeighborhoodsName = dbContenxt.District.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
-                var CommunityName = dbContenxt.District.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
+                var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
+                var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
+                var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
                 var RoadName = "";
                 if (newData.RoadID != null)
                 {
@@ -110,8 +103,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 {
                     //如果不重复，开始插入数据，X和Y坐标转换成DbGeography，生成AddressCoding，创建附件的文件夹，将二进制文件存入对应文件夹，获取附件名称存入File，CreateTime默认为当前日期，State默认为1
                     var guid = Guid.NewGuid().ToString();
-                    var CountyCode = dbContenxt.District.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = dbContenxt.District.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                     var mpCategory = SystemUtils.Config.MPCategory.Residence.Value.ToString();
                     var year = DateTime.Now.Year.ToString();
 
@@ -130,14 +123,17 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var State = Enums.UseState.Enable;
 
                     //获取所有上传的文件
-                    var FCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
-                    var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
-                    var BDCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.BDCZ);
-                    var HJFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.HJ);
-                    SaveFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
-                    SaveFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
-                    SaveFilesByID(BDCZFiles, guid, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
-                    SaveFilesByID(HJFiles, guid, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
+                    if (HttpContext.Current.Request.Files.Count > 0)
+                    {
+                        var FCZFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
+                        var TDZFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
+                        var BDCZFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.BDCZ);
+                        var HJFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.HJ);
+                        SaveFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
+                        SaveFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
+                        SaveFilesByID(BDCZFiles, guid, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
+                        SaveFilesByID(HJFiles, guid, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
+                    }
 
                     ////规定一个存放路径
                     //var ResidenceMPFile_FCZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "FCZ");
@@ -206,14 +202,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <param name="file"></param>
         public static void UploadResidenceMP(HttpPostedFileBase file)
         {
-
-            HttpContext.Current.Session["_ResidenceMP"] = null;
-            HttpContext.Current.Session["_ResidenceMPErrors"] = null;
-            HttpContext.Current.Session["_ResidenceMPWarning"] = null;
-
-            //MPModifyUtils._ResidenceMP = null;
-            //MPModifyUtils._ResidenceMPErrors = null;
-            //MPModifyUtils._Warning = null;
+            //HttpContext.Current.Session["_ResidenceMP"] = null;
+            //HttpContext.Current.Session["_ResidenceMPErrors"] = null;
+            //HttpContext.Current.Session["_ResidenceMPWarning"] = null;
 
             Stream fs = file.InputStream;
             Workbook wb = new Workbook(fs);
@@ -271,7 +262,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else
                     {
-                        CountyID = dbContenxt.District.Where(t => t.Name.Contains(CountyName)).Select(t => t.ID).FirstOrDefault();
+                        CountyID = SystemUtils.Districts.Where(t => t.Name.Contains(CountyName)).Select(t => t.ID).FirstOrDefault();
                         if (CountyID == null)
                             error.ErrorMessages.Add("市辖区名称有误");
                     }
@@ -283,7 +274,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else
                     {
-                        NeighborhoodsID = dbContenxt.District.Where(t => t.Name.Contains(NeighborhoodsName)).Select(t => t.ID).FirstOrDefault();
+                        NeighborhoodsID = SystemUtils.Districts.Where(t => t.Name.Contains(NeighborhoodsName)).Select(t => t.ID).FirstOrDefault();
                         if (NeighborhoodsID == null)
                             error.ErrorMessages.Add("镇街道名称有误");
                     }
@@ -295,7 +286,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else
                     {
-                        CommunityID = dbContenxt.District.Where(t => t.Name.Contains(CommunityName)).Select(t => t.ID).FirstOrDefault();
+                        CommunityID = SystemUtils.Districts.Where(t => t.Name.Contains(CommunityName)).Select(t => t.ID).FirstOrDefault();
                         if (CommunityID == null)
                             error.ErrorMessages.Add("村社区名称有误");
                     }
@@ -457,13 +448,15 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     errors.Add(error);
                 }
                 #endregion
-                HttpContext.Current.Session["_ResidenceMP"] = mps;
-                HttpContext.Current.Session["_ResidenceMPErrors"] = errors;
-                HttpContext.Current.Session["_ResidenceMPWarning"] = warnings;
+                Dictionary<string, object> D = new Dictionary<string, object>();
+                D.Add(mpKey, mps);
+                D.Add(errorKey, errors);
+                D.Add(warningKey, warnings);
+                temp[LoginUtils.CurrentUser.UserName] = D;
+                //HttpContext.Current.Session["_ResidenceMP"] = mps;
+                //HttpContext.Current.Session["_ResidenceMPErrors"] = errors;
+                //HttpContext.Current.Session["_ResidenceMPWarning"] = warnings;
 
-                //MPModifyUtils._ResidenceMP = mps;
-                //MPModifyUtils._ResidenceMPErrors = errors;
-                //MPModifyUtils._Warning = warnings;
             }
         }
         /// <summary>
@@ -476,16 +469,16 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         {
             List<ResidenceMPDetails> rows = null;
             int totalCount = 0;
-            if (HttpContext.Current.Session["_ResidenceMP"] != null)
+            if (temp[LoginUtils.CurrentUser.UserName][mpKey] != null)
             {
-                rows = (HttpContext.Current.Session["_ResidenceMP"] as List<ResidenceMPDetails>).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
-                totalCount = (HttpContext.Current.Session["_ResidenceMP"] as List<ResidenceMPDetails>).Count;
+                rows = (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                totalCount = (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>).Count;
             }
             return new Dictionary<string, object> {
                 { "Data",rows},
                 { "Count",totalCount},
-                { "Errors",HttpContext.Current.Session["_ResidenceMPErrors"] as List<ResidenceMPErrors>},
-                { "Warnings",HttpContext.Current.Session["_ResidenceMPWarning"] as List<string>}
+                { "Errors",temp[LoginUtils.CurrentUser.UserName][errorKey] as List<ResidenceMPErrors>},
+                { "Warnings",temp[LoginUtils.CurrentUser.UserName][warningKey] as List<string>}
             };
         }
         /// <summary>
@@ -493,11 +486,11 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// </summary>
         public static void UpdateResidenceMP()
         {
-            if ((HttpContext.Current.Session["_ResidenceMPErrors"] as List<ResidenceMPErrors>).Count > 0)
+            if ((temp[LoginUtils.CurrentUser.UserName][errorKey] as List<ResidenceMPErrors>).Count > 0)
                 throw new Exception("数据包含错误信息，请先检查数据！");
-            if ((HttpContext.Current.Session["_ResidenceMP"] as List<ResidenceMPDetails>).Count() == 0 || HttpContext.Current.Session["_ResidenceMP"] == null)
+            if ((temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>).Count() == 0 || temp[LoginUtils.CurrentUser.UserName][mpKey] == null)
                 throw new Exception("无可导入数据！");
-            foreach (var mp in (HttpContext.Current.Session["_ResidenceMP"] as List<ResidenceMPDetails>))
+            foreach (var mp in (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>))
             {
                 MPOfResidence m = new MPOfResidence
                 {
@@ -519,18 +512,18 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
                 ModifyResidenceMP(null, m, null, null, null, null);
             }
-            HttpContext.Current.Session["_ResidenceMP"] = null;
-            HttpContext.Current.Session["_ResidenceMPErrors"] = null;
-            HttpContext.Current.Session["_ResidenceMPWarning"] = null;
-            //MPModifyUtils._ResidenceMP = null;
-            //MPModifyUtils._ResidenceMPErrors = null;
-            //MPModifyUtils._Warning = null;
+
+            temp.Remove(LoginUtils.CurrentUser.UserName);
+            //HttpContext.Current.Session["_ResidenceMP"] = null;
+            //HttpContext.Current.Session["_ResidenceMPErrors"] = null;
+            //HttpContext.Current.Session["_ResidenceMPWarning"] = null;
+
         }
         /// <summary>
         /// 住宅门牌注销，只修改数据的state、注销时间和注销人，其它不变
         /// </summary>
         /// <param name="Data"></param>
-        public static void CancelResidenceMP(string ID)
+        public static void CancelOrDelResidenceMP(string ID,int UseState)
         {
             using (var dbContenxt = SystemUtils.NewEFDbContext)
             {
@@ -544,7 +537,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     throw new Exception("无权修改其他镇街数据！");
 
                 var user = LoginUtils.CurrentUser;
-                var sql = $@"update [TopSystemDB].[dbo].[MPOFRESIDENCE] set [MPOFRESIDENCE].State=2,[MPOFRESIDENCE].[CancelTime]=GETDATE(),[MPOFRESIDENCE].[CancelUser]='{user.UserID}' where [MPOFRESIDENCE].ID='{ID}'";
+                var sql = $@"update [TopSystemDB].[dbo].[MPOFRESIDENCE] set [MPOFRESIDENCE].State={UseState},[MPOFRESIDENCE].[CancelTime]=GETDATE(),[MPOFRESIDENCE].[CancelUser]='{user.UserID}' where [MPOFRESIDENCE].ID='{ID}'";
                 var rt = dbContenxt.Database.ExecuteSqlCommand(sql);
                 if (rt == 0)
                     throw new Exception("数据注销失败，请重试！");
@@ -648,9 +641,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             {
                 #region 标准地址拼接
                 //拼接标准住宅门牌地址，先获取对应的道路门牌的标准地址，再拼接好宿舍名、幢号、单元号、户室号
-                var CountyName = dbContenxt.District.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
-                var NeighborhoodsName = dbContenxt.District.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
-                var CommunityName = dbContenxt.District.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
+                var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
+                var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
+                var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
                 var RoadName = dbContenxt.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
                 var StandardAddress = CountyName + NeighborhoodsName + CommunityName + RoadName + newData.MPNumber + "号";
                 #endregion
@@ -659,8 +652,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 if (oldData == null)
                 {
                     var guid = Guid.NewGuid().ToString();
-                    var CountyCode = dbContenxt.District.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = dbContenxt.District.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                     var mpCategory = SystemUtils.Config.MPCategory.Road.Value.ToString();
                     var year = DateTime.Now.Year.ToString();
                     var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
@@ -668,12 +661,15 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var CreateTime = newData.CreateTime == null ? DateTime.Now.Date : newData.CreateTime;
 
                     //获取所有上传的文件
-                    var FCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
-                    var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
-                    var YYZZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.YYZZ);
-                    SaveFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
-                    SaveFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
-                    SaveFilesByID(YYZZFiles, guid, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
+                    if (HttpContext.Current.Request.Files.Count > 0)
+                    {
+                        var FCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
+                        var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
+                        var YYZZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.YYZZ);
+                        SaveFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
+                        SaveFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
+                        SaveFilesByID(YYZZFiles, guid, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
+                    }
 
                     ////规定一个存放路径
                     //var RoadMPFile_FCZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RoadMP", guid, "FCZ");
@@ -741,13 +737,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <returns></returns>
         public static void UploadRoadMP(HttpPostedFileBase file)
         {
-            HttpContext.Current.Session["_RoadMP"] = null;
-            HttpContext.Current.Session["_RoadMPErrors"] = null;
-            HttpContext.Current.Session["_RoadMPWarning"] = null;
-
-            //MPModifyUtils._RoadMP = null;
-            //MPModifyUtils._RoadMPErrors = null;
-            //MPModifyUtils._Warning = null;
+            //HttpContext.Current.Session["_RoadMP"] = null;
+            //HttpContext.Current.Session["_RoadMPErrors"] = null;
+            //HttpContext.Current.Session["_RoadMPWarning"] = null;
 
             Stream fs = file.InputStream;
             Workbook wb = new Workbook(fs);
@@ -814,7 +806,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else
                     {
-                        CountyID = dbContenxt.District.Where(t => t.Name.Contains(CountyName)).Select(t => t.ID).FirstOrDefault();
+                        CountyID = SystemUtils.Districts.Where(t => t.Name.Contains(CountyName)).Select(t => t.ID).FirstOrDefault();
                         if (CountyID == null)
                             error.ErrorMessages.Add("市辖区名称有误");
                     }
@@ -826,7 +818,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else
                     {
-                        NeighborhoodsID = dbContenxt.District.Where(t => t.Name.Contains(NeighborhoodsName)).Select(t => t.ID).FirstOrDefault();
+                        NeighborhoodsID = SystemUtils.Districts.Where(t => t.Name.Contains(NeighborhoodsName)).Select(t => t.ID).FirstOrDefault();
                         if (NeighborhoodsID == null)
                             error.ErrorMessages.Add("镇街道名称有误");
                     }
@@ -838,7 +830,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else
                     {
-                        CommunityID = dbContenxt.District.Where(t => t.Name.Contains(CommunityName)).Select(t => t.ID).FirstOrDefault();
+                        CommunityID = SystemUtils.Districts.Where(t => t.Name.Contains(CommunityName)).Select(t => t.ID).FirstOrDefault();
                         if (CommunityID == null)
                             error.ErrorMessages.Add("村社区名称有误");
                     }
@@ -1004,38 +996,40 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     errors.Add(error);
                 }
                 #endregion
-                HttpContext.Current.Session["_RoadMP"] = mps;
-                HttpContext.Current.Session["_RoadMPErrors"] = errors;
-                HttpContext.Current.Session["_RoadMPWarning"] = warnings;
 
-                //MPModifyUtils._RoadMP = mps;
-                //MPModifyUtils._RoadMPErrors = errors;
-                //MPModifyUtils._Warning = warnings;
+                Dictionary<string, object> D = new Dictionary<string, object>();
+                D.Add(mpKey, mps);
+                D.Add(errorKey, errors);
+                D.Add(warningKey, warnings);
+                temp[LoginUtils.CurrentUser.UserName] = D;
+                //HttpContext.Current.Session["_RoadMP"] = mps;
+                //HttpContext.Current.Session["_RoadMPErrors"] = errors;
+                //HttpContext.Current.Session["_RoadMPWarning"] = warnings;
             }
         }
         public static Dictionary<string, object> GetUploadRoadMP(int PageSize, int PageNum)
         {
             List<RoadMPDetails> rows = null;
             int totalCount = 0;
-            if (HttpContext.Current.Session["_RoadMP"] != null)
+            if (temp[LoginUtils.CurrentUser.UserName][mpKey] != null)
             {
-                rows = (HttpContext.Current.Session["_RoadMP"] as List<RoadMPDetails>).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
-                totalCount = (HttpContext.Current.Session["_RoadMP"] as List<RoadMPDetails>).Count;
+                rows = (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<RoadMPDetails>).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                totalCount = (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<RoadMPDetails>).Count;
             }
             return new Dictionary<string, object> {
                 { "Data",rows},
                 { "Count",totalCount},
-                { "Errors",(HttpContext.Current.Session["_RoadMPErrors"] as List<RoadMPErrors>)},
-                { "Warnings",(HttpContext.Current.Session["_RoadMPWarning"] as List<string>)}
+                { "Errors",(temp[LoginUtils.CurrentUser.UserName][errorKey] as List<RoadMPErrors>)},
+                { "Warnings",(temp[LoginUtils.CurrentUser.UserName][warningKey] as List<string>)}
             };
         }
         public static void UpdateRoadMP()
         {
-            if ((HttpContext.Current.Session["_RoadMPErrors"] as List<RoadMPErrors>).Count > 0)
+            if ((temp[LoginUtils.CurrentUser.UserName][errorKey] as List<RoadMPErrors>).Count > 0)
                 throw new Exception("数据包含错误信息，请先检查数据！");
-            if ((HttpContext.Current.Session["_RoadMP"] as List<RoadMPDetails>).Count() == 0 || HttpContext.Current.Session["_RoadMP"] == null)
+            if ((temp[LoginUtils.CurrentUser.UserName][mpKey] as List<RoadMPDetails>).Count() == 0 || temp[LoginUtils.CurrentUser.UserName][mpKey] == null)
                 throw new Exception("无可导入数据！");
-            foreach (var mp in (HttpContext.Current.Session["_RoadMP"] as List<RoadMPDetails>))
+            foreach (var mp in (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<RoadMPDetails>))
             {
                 MPOfRoad m = new MPOfRoad
                 {
@@ -1059,15 +1053,13 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 };
                 ModifyRoadMP(null, m, null, null, null);
             }
-            HttpContext.Current.Session["_RoadMP"] = null;
-            HttpContext.Current.Session["_RoadMPErrors"] = null;
-            HttpContext.Current.Session["_RoadMPWarning"] = null;
 
-            //MPModifyUtils._RoadMP = null;
-            //MPModifyUtils._RoadMPErrors = null;
-            //MPModifyUtils._Warning = null;
+            temp.Remove(LoginUtils.CurrentUser.UserName);
+            //HttpContext.Current.Session["_RoadMP"] = null;
+            //HttpContext.Current.Session["_RoadMPErrors"] = null;
+            //HttpContext.Current.Session["_RoadMPWarning"] = null;
         }
-        public static void CancelRoadMP(string ID)
+        public static void CancelOrDelRoadMP(string ID,int UseState)
         {
             using (var dbContenxt = SystemUtils.NewEFDbContext)
             {
@@ -1081,7 +1073,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     throw new Exception("无权修改其他镇街数据！");
 
                 var user = LoginUtils.CurrentUser;
-                var sql = $@"update [TopSystemDB].[dbo].[MPOFROAD] set [MPOFROAD].State=2,[MPOFROAD].[CancelTime]=GETDATE(),[MPOFROAD].[CancelUser]='{user.UserID}' where [MPOFROAD].ID='{ID}'";
+                var sql = $@"update [TopSystemDB].[dbo].[MPOFROAD] set [MPOFROAD].State={UseState},[MPOFROAD].[CancelTime]=GETDATE(),[MPOFROAD].[CancelUser]='{user.UserID}' where [MPOFROAD].ID='{ID}'";
                 var rt = dbContenxt.Database.ExecuteSqlCommand(sql);
                 if (rt == 0)
                     throw new Exception("数据注销失败，请重试！");
@@ -1181,9 +1173,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             using (var dbContenxt = SystemUtils.NewEFDbContext)
             {
                 #region 标准地址拼接
-                var CountyName = dbContenxt.District.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
-                var NeighborhoodsName = dbContenxt.District.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
-                var CommunityName = dbContenxt.District.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
+                var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
+                var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
+                var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
                 var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ViligeName + newData.MPNumber + "号" + newData.HSNumber == null ? string.Empty : newData.HSNumber + "室";
                 #endregion
                 #region 新增
@@ -1191,18 +1183,21 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 if (oldData == null)
                 {
                     var guid = Guid.NewGuid().ToString();
-                    var CountyCode = dbContenxt.District.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = dbContenxt.District.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                     var mpCategory = SystemUtils.Config.MPCategory.Country.Value.ToString();
                     var year = DateTime.Now.Year.ToString();
                     var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
                     var MPPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
                     var CreateTime = newData.CreateTime == null ? DateTime.Now.Date : newData.CreateTime;
                     //获取所有上传的文件
-                    var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
-                    var QQZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.QQZ);
-                    SaveFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
-                    SaveFilesByID(QQZFiles, guid, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
+                    if (HttpContext.Current.Request.Files.Count > 0)
+                    {
+                        var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
+                        var QQZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.QQZ);
+                        SaveFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
+                        SaveFilesByID(QQZFiles, guid, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
+                    }
 
                     ////规定一个存放路径
                     //var CountryMPFile_TDZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "CountryMP", guid, "TDZ");
@@ -1255,13 +1250,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         }
         public static void UploadCountryMP(HttpPostedFileBase file)
         {
-            HttpContext.Current.Session["_CountryMP"] = null;
-            HttpContext.Current.Session["_CountryMPErrors"] = null;
-            HttpContext.Current.Session["_CountryMPWarning"] = null;
-
-            //MPModifyUtils._CountryMP = null;
-            //MPModifyUtils._CountryMPErrors = null;
-            //MPModifyUtils._Warning = null;
+            //HttpContext.Current.Session["_CountryMP"] = null;
+            //HttpContext.Current.Session["_CountryMPErrors"] = null;
+            //HttpContext.Current.Session["_CountryMPWarning"] = null;
 
             Stream fs = file.InputStream;
             Workbook wb = new Workbook(fs);
@@ -1319,7 +1310,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else
                     {
-                        CountyID = dbContenxt.District.Where(t => t.Name.Contains(CountyName)).Select(t => t.ID).FirstOrDefault();
+                        CountyID = SystemUtils.Districts.Where(t => t.Name.Contains(CountyName)).Select(t => t.ID).FirstOrDefault();
                         if (CountyID == null)
                             error.ErrorMessages.Add("市辖区名称有误");
                     }
@@ -1331,7 +1322,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else
                     {
-                        NeighborhoodsID = dbContenxt.District.Where(t => t.Name.Contains(NeighborhoodsName)).Select(t => t.ID).FirstOrDefault();
+                        NeighborhoodsID = SystemUtils.Districts.Where(t => t.Name.Contains(NeighborhoodsName)).Select(t => t.ID).FirstOrDefault();
                         if (NeighborhoodsID == null)
                             error.ErrorMessages.Add("镇街道名称有误");
                     }
@@ -1343,7 +1334,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else
                     {
-                        CommunityID = dbContenxt.District.Where(t => t.Name.Contains(CommunityName)).Select(t => t.ID).FirstOrDefault();
+                        CommunityID = SystemUtils.Districts.Where(t => t.Name.Contains(CommunityName)).Select(t => t.ID).FirstOrDefault();
                         if (CommunityID == null)
                             error.ErrorMessages.Add("村社区名称有误");
                     }
@@ -1466,38 +1457,40 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     errors.Add(error);
                 }
                 #endregion
-                HttpContext.Current.Session["_CountryMP"] = mps;
-                HttpContext.Current.Session["_CountryMPErrors"] = errors;
-                HttpContext.Current.Session["_CountryMPWarning"] = warnings;
 
-                //MPModifyUtils._CountryMP = mps;
-                //MPModifyUtils._CountryMPErrors = errors;
-                //MPModifyUtils._Warning = warnings;
+                Dictionary<string, object> D = new Dictionary<string, object>();
+                D.Add(mpKey, mps);
+                D.Add(errorKey, errors);
+                D.Add(warningKey, warnings);
+                temp[LoginUtils.CurrentUser.UserName] = D;
+                //HttpContext.Current.Session["_CountryMP"] = mps;
+                //HttpContext.Current.Session["_CountryMPErrors"] = errors;
+                //HttpContext.Current.Session["_CountryMPWarning"] = warnings;
             }
         }
         public static Dictionary<string, object> GetUploadCountryMP(int PageSize, int PageNum)
         {
             List<CountryMPDetails> rows = null;
             int totalCount = 0;
-            if (HttpContext.Current.Session["_CountryMP"] != null)
+            if (temp[LoginUtils.CurrentUser.UserName][mpKey] != null)
             {
-                rows = (HttpContext.Current.Session["_CountryMP"] as List<CountryMPDetails>).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
-                totalCount = (HttpContext.Current.Session["_CountryMP"] as List<CountryMPDetails>).Count;
+                rows = (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<CountryMPDetails>).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                totalCount = (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<CountryMPDetails>).Count;
             }
             return new Dictionary<string, object> {
                 { "Data",rows},
                 { "Count",totalCount},
-                { "Errors",(HttpContext.Current.Session["_CountryMPErrors"] as List<CountryMPErrors>)},
-                { "Warnings",(HttpContext.Current.Session["_CountryMPWarning"] as List<string>)}
+                { "Errors",(temp[LoginUtils.CurrentUser.UserName][errorKey] as List<CountryMPErrors>)},
+                { "Warnings",(temp[LoginUtils.CurrentUser.UserName][warningKey] as List<string>)}
             };
         }
         public static void UpdateCountryMP()
         {
-            if ((HttpContext.Current.Session["_CountryMPErrors"] as List<CountryMPErrors>).Count > 0)
+            if ((temp[LoginUtils.CurrentUser.UserName][errorKey] as List<CountryMPErrors>).Count > 0)
                 throw new Exception("数据包含错误信息，请先检查数据！");
-            if ((HttpContext.Current.Session["_CountryMP"] as List<CountryMPDetails>).Count() == 0 || HttpContext.Current.Session["_CountryMP"] == null)
+            if ((temp[LoginUtils.CurrentUser.UserName][mpKey] as List<CountryMPDetails>).Count() == 0 || temp[LoginUtils.CurrentUser.UserName][mpKey] == null)
                 throw new Exception("无可导入数据！");
-            foreach (var mp in (HttpContext.Current.Session["_CountryMP"] as List<CountryMPDetails>))
+            foreach (var mp in (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<CountryMPDetails>))
             {
                 MPOfCountry m = new MPOfCountry
                 {
@@ -1517,15 +1510,12 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 };
                 ModifyCountryMP(null, m, null, null);
             }
-            HttpContext.Current.Session["_CountryMP"] = null;
-            HttpContext.Current.Session["_CountryMPErrors"] = null;
-            HttpContext.Current.Session["_CountryMPWarning"] = null;
-
-            //MPModifyUtils._CountryMP = null;
-            //MPModifyUtils._CountryMPErrors = null;
-            //MPModifyUtils._Warning = null;
+            temp.Remove(LoginUtils.CurrentUser.UserName);
+            //HttpContext.Current.Session["_CountryMP"] = null;
+            //HttpContext.Current.Session["_CountryMPErrors"] = null;
+            //HttpContext.Current.Session["_CountryMPWarning"] = null;
         }
-        public static void CancelCountryMP(string ID)
+        public static void CancelOrDelCountryMP(string ID, int UseState)
         {
             using (var dbContenxt = SystemUtils.NewEFDbContext)
             {
@@ -1539,7 +1529,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     throw new Exception("无权修改其他镇街数据！");
 
                 var user = LoginUtils.CurrentUser;
-                var sql = $@"update [TopSystemDB].[dbo].[MPOFCOUNTRY] set [MPOFCOUNTRY].State=2,[MPOFCOUNTRY].[CancelTime]=GETDATE(),[MPOFCOUNTRY].[CancelUser]='{user.UserID}' where [MPOFCOUNTRY].ID='{ID}'";
+                var sql = $@"update [TopSystemDB].[dbo].[MPOFCOUNTRY] set [MPOFCOUNTRY].State={UseState},[MPOFCOUNTRY].[CancelTime]=GETDATE(),[MPOFCOUNTRY].[CancelUser]='{user.UserID}' where [MPOFCOUNTRY].ID='{ID}'";
                 var rt = dbContenxt.Database.ExecuteSqlCommand(sql);
                 if (rt == 0)
                     throw new Exception("数据注销失败，请重试！");
@@ -1619,6 +1609,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <param name="files">文件集合</param>
         /// <param name="MPID">门牌ID</param>
         /// <param name="DocType">证件类型</param>
+        /// <param name="MPTypeStr">门牌类型</param>
         /// <returns></returns>
         public static void SaveFilesByID(IList<HttpPostedFile> files, string MPID, string DocType, string MPTypeStr)
         {
@@ -1635,7 +1626,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     {
                         var guid = Guid.NewGuid().ToString();
                         string filename = file.FileName;
-                        var fullPath = Path.Combine(directory, guid);
+                        string extension = Path.GetExtension(filename);
+                        string newfilename = guid + extension;
+                        string fullPath = Path.Combine(directory, newfilename);
                         MemoryStream m = new MemoryStream();
                         FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate);
                         BinaryWriter w = new BinaryWriter(fs);
@@ -1646,6 +1639,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         data.ID = guid;
                         data.MPID = MPID;
                         data.Name = filename;
+                        data.FileType = extension;
                         data.DocType = DocType;
                         data.State = Enums.UseState.Enable;
                         dbContext.MPOfUploadFiles.Add(data);
@@ -1753,5 +1747,11 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 t = false;
             return t;
         }
+
+        //public void ProcessRequest(HttpContext context)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
     }
 }

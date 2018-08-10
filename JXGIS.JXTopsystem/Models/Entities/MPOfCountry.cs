@@ -56,5 +56,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public int State { get; set; }//使用状态 1 使用 2 注销 0删除
         public DateTime? CancelTime { get; set; }
         public string CancelUser { get; set; }
+        public DateTime? DelTime { get; set; }
+        public string DelUser { get; set; }
     }
 }

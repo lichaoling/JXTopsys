@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.SessionState;
 
 namespace JXGIS.JXTopsystem.Controllers
 {
@@ -83,13 +84,13 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-        public JsonResult CancelResidenceMP(string ID)
+        public JsonResult CancelOrDelResidenceMP(string ID, int UseState)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.CancelResidenceMP(ID);
+                MPModifyUtils.CancelOrDelResidenceMP(ID, UseState);
             }
             catch (Exception ex)
             {
@@ -160,13 +161,13 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-        public JsonResult CancelRoadMP(string ID)
+        public JsonResult CancelOrDelRoadMP(string ID, int UseState)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.CancelRoadMP(ID);
+                MPModifyUtils.CancelOrDelRoadMP(ID, UseState);
             }
             catch (Exception ex)
             {
@@ -236,13 +237,13 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-        public JsonResult CancelCountryMP(string ID)
+        public JsonResult CancelOrDelCountryMP(string ID, int UseState)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.CancelCountryMP(ID);
+                MPModifyUtils.CancelOrDelCountryMP(ID, UseState);
             }
             catch (Exception ex)
             {
@@ -253,32 +254,33 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         //测试用
-        public ActionResult CreateCorrecting()
+        public ActionResult test1()
         {
             RtObj rt = null;
             try
             {
-                var FCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple("FCZFiles");
-                var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple("TDZFiles");
-                var BDCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple("BDCZFiles");
-                var HJFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple("HJFiles");
+                rt = new Models.Extends.RtObj.RtObj();
+                //var FCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple("FCZFiles");
+                //var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple("TDZFiles");
+                //var BDCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple("BDCZFiles");
+                //var HJFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple("HJFiles");
 
-                var guid = Guid.NewGuid().ToString();
+                //var guid = Guid.NewGuid().ToString();
 
-                var ResidenceMPFile_FCZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "FCZ");
-                var ResidenceMPFile_TDZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "FCZ");
-                var ResidenceMPFile_BDCZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "FCZ");
-                var ResidenceMPFile_HJ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "FCZ");
+                //var ResidenceMPFile_FCZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "FCZ");
+                //var ResidenceMPFile_TDZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "FCZ");
+                //var ResidenceMPFile_BDCZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "FCZ");
+                //var ResidenceMPFile_HJ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "FCZ");
 
-                var FCZList = MPModifyUtils.SaveFiles(FCZFiles, ResidenceMPFile_FCZ);
-                var TDZList = MPModifyUtils.SaveFiles(TDZFiles, ResidenceMPFile_TDZ);
-                var BDCZList = MPModifyUtils.SaveFiles(BDCZFiles, ResidenceMPFile_BDCZ);
-                var HJList = MPModifyUtils.SaveFiles(HJFiles, ResidenceMPFile_HJ);
+                //var FCZList = MPModifyUtils.SaveFiles(FCZFiles, ResidenceMPFile_FCZ);
+                //var TDZList = MPModifyUtils.SaveFiles(TDZFiles, ResidenceMPFile_TDZ);
+                //var BDCZList = MPModifyUtils.SaveFiles(BDCZFiles, ResidenceMPFile_BDCZ);
+                //var HJList = MPModifyUtils.SaveFiles(HJFiles, ResidenceMPFile_HJ);
 
-                var FCZFileNames = string.Join(",", FCZList);//文件名称
-                var TDZFileNames = string.Join(",", TDZList);//文件名称
-                var BDCZFileNames = string.Join(",", BDCZList);//文件名称
-                var HJFileNames = string.Join(",", HJList);//文件名称
+                //var FCZFileNames = string.Join(",", FCZList);//文件名称
+                //var TDZFileNames = string.Join(",", TDZList);//文件名称
+                //var BDCZFileNames = string.Join(",", BDCZList);//文件名称
+                //var HJFileNames = string.Join(",", HJList);//文件名称
             }
             catch (Exception ex)
             {
@@ -286,7 +288,6 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-
 
         #region 地名证明和门牌证浏览打印
         public JsonResult MPCertificateQuery(string ID, int MPType, int CertificateType)

@@ -18,14 +18,16 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string CommunityName { get; set; }
         public string RoadName { get; set; }
         public string PlaceName { get; set; }
-        public List<string> FCZName { get; set; }
-        public List<string> FCZURL { get; set; }
-        public List<string> TDZName { get; set; }
-        public List<string> TDZURL { get; set; }
-        public List<string> BDCZName { get; set; }
-        public List<string> BDCZURL { get; set; }
-        public List<string> HJName { get; set; }
-        public List<string> HJURL { get; set; }
+        public List<Pictures> FCZ { get; set; }
+        public List<Pictures> TDZ { get; set; }
+        public List<Pictures> BDCZ { get; set; }
+        public List<Pictures> HJ { get; set; }
 
+    }
+    public class Pictures
+    {
+        public string pid { get; set; }
+        public string name { get; set; }
+        public string url { get; set; }
     }
 }

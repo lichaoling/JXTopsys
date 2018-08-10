@@ -20,5 +20,6 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public int BigMPCount { get; set; }
         public int SmallMPCount { get; set; }
         public int TotalMPCount { get; set; }
+        public DateTime? MPProduceTime { get; set; }
     }
 }

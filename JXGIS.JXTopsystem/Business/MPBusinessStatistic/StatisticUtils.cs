@@ -16,7 +16,7 @@ namespace JXGIS.JXTopsystem.Business
         /// <param name="PageSize"></param>
         /// <param name="PageNum"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetMPBusinessDatas(int PageSize, int PageNum)
+        public static Dictionary<string, object> GetMPBusinessDatas(int PageSize, int PageNum, string start, string end)
         {
             int count = 0;
             List<MPBusiness> query = new List<Models.Extends.MPBusiness>();
@@ -109,9 +109,21 @@ namespace JXGIS.JXTopsystem.Business
                 }
                 var queryAll = All.Where(where.Compile());
 
+                if (!string.IsNullOrEmpty(start) || !string.IsNullOrEmpty(end))
+                {
+                    if (!string.IsNullOrEmpty(start))
+                    {
+                        queryAll = queryAll.Where(t => String.Compare(t.CreateTime.ToString(), start, StringComparison.Ordinal) >= 0);
+                    }
+                    if (!string.IsNullOrEmpty(end))
+                    {
+                        queryAll = queryAll.Where(t => String.Compare(t.CreateTime.ToString(), end, StringComparison.Ordinal) <= 0);
+                    }
+                }
+
                 count = queryAll.Count();
                 query = queryAll.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
-
+                var users = dbContext.SysUser.Where(t => t.State == Enums.UseState.Enable).ToList();
                 var data = (from t in query
                             join a in SystemUtils.Districts
                             on t.CountyID equals a.ID into aa
@@ -125,7 +137,7 @@ namespace JXGIS.JXTopsystem.Business
                             on t.CommunityID equals c.ID into cc
                             from ct in cc.DefaultIfEmpty()
 
-                            join u in dbContext.SysUser
+                            join u in users
                             on t.CreateUser equals u.UserID into uu
                             from ut in uu.DefaultIfEmpty()
                             select new MPBusiness
@@ -157,7 +169,7 @@ namespace JXGIS.JXTopsystem.Business
             }
         }
 
-        public static Dictionary<string, object> GetMPProduceStatistic(int PageSize, int PageNum, string DistrictID)
+        public static Dictionary<string, object> GetMPProduceStatistic(int PageSize, int PageNum, string DistrictID, string start, string end)
         {
             int count = 0;
             List<MPProduceStatistic> query = new List<Models.Extends.MPProduceStatistic>();
@@ -166,18 +178,19 @@ namespace JXGIS.JXTopsystem.Business
             {
                 var all = (from t in dbContext.MPProduce
 
-                         join f in dbContext.MPOfRoad
-                         on t.MPID equals f.ID into ff
-                         from ft in ff.DefaultIfEmpty()
-                         where t.MPType == Enums.MPType.Road
-                         select new MPProduceStatistic
-                         {
-                             CountyID = ft.CountyID,
-                             NeighborhoodsID = ft.NeighborhoodsID,
-                             CommunityID = ft.CommunityID,
-                             MPSizeType = bigMPsize.Contains(ft.MPSize) ? "大门牌" : "小门牌",
-                             MPType = "道路门牌"
-                         }).Concat(
+                           join f in dbContext.MPOfRoad
+                           on t.MPID equals f.ID into ff
+                           from ft in ff.DefaultIfEmpty()
+                           where t.MPType == Enums.MPType.Road
+                           select new MPProduceStatistic
+                           {
+                               CountyID = ft.CountyID,
+                               NeighborhoodsID = ft.NeighborhoodsID,
+                               CommunityID = ft.CommunityID,
+                               MPSizeType = bigMPsize.Contains(ft.MPSize) ? "大门牌" : "小门牌",
+                               MPType = "道路门牌",
+                               MPProduceTime = t.CreateTime
+                           }).Concat(
                             from t in dbContext.MPProduce
 
                             join f in dbContext.MPOfCountry
@@ -190,7 +203,8 @@ namespace JXGIS.JXTopsystem.Business
                                 NeighborhoodsID = ft.NeighborhoodsID,
                                 CommunityID = ft.CommunityID,
                                 MPSizeType = bigMPsize.Contains(ft.MPSize) ? "大门牌" : "小门牌",
-                                MPType = "农村门牌"
+                                MPType = "农村门牌",
+                                MPProduceTime = t.CreateTime
                             }
                             );
                 // 先删选出当前用户权限内的数据
@@ -199,11 +213,23 @@ namespace JXGIS.JXTopsystem.Business
                 {
                     where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
                 }
-                var q= all.Where(where.Compile());
+                var q = all.Where(where.Compile());
 
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
                     q = q.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);
+                }
+
+                if (!string.IsNullOrEmpty(start) || !string.IsNullOrEmpty(end))
+                {
+                    if (!string.IsNullOrEmpty(start))
+                    {
+                        q = q.Where(t => String.Compare(t.MPProduceTime.ToString(), start, StringComparison.Ordinal) >= 0);
+                    }
+                    if (!string.IsNullOrEmpty(end))
+                    {
+                        q = q.Where(t => String.Compare(t.MPProduceTime.ToString(), end, StringComparison.Ordinal) <= 0);
+                    }
                 }
 
                 var mps = from t in q.ToList()

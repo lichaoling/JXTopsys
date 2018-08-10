@@ -12,12 +12,12 @@ namespace JXGIS.JXTopsystem.Controllers
     public class MPBusinessStatisticController : Controller
     {
         // GET: MPBusinessStatistic
-        public ContentResult GetMPBusinessDatas(int PageSize, int PageNum)
+        public ContentResult GetMPBusinessDatas(int PageSize, int PageNum, string start, string end)
         {
             RtObj rt = null;
             try
             {
-                var r = StatisticUtils.GetMPBusinessDatas(PageSize, PageNum);
+                var r = StatisticUtils.GetMPBusinessDatas(PageSize, PageNum, start, end);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -29,12 +29,12 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        public ContentResult GetMPProduceStatistic(int PageSize, int PageNum, string Districts)
+        public ContentResult GetMPProduceStatistic(int PageSize, int PageNum, string Districts, string start, string end)
         {
             RtObj rt = null;
             try
             {
-                var r = StatisticUtils.GetMPProduceStatistic(PageSize, PageNum, Districts);
+                var r = StatisticUtils.GetMPProduceStatistic(PageSize, PageNum, Districts, start, end);
                 rt = new RtObj(r);
             }
             catch (Exception ex)

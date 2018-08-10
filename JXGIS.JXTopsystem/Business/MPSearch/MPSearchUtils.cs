@@ -24,7 +24,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <param name="DistrictID"></param>
         /// <param name="Name"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> SearchResidenceMP(int PageSize, int PageNum, string DistrictID, string Name)
+        public static Dictionary<string, object> SearchResidenceMP(int PageSize, int PageNum, string DistrictID, string Name, int UseState)
         {
             #region sql语句写法 注释
             //string sql = $@"select a.[ID]
@@ -133,7 +133,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             List<ResidenceMPDetails> data = null;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var q = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable);
+                var q = dbContext.MPOFResidence.Where(t => t.State == UseState);
 
                 // 先删选出当前用户权限内的数据
                 var where = PredicateBuilder.False<MPOfResidence>();
@@ -287,27 +287,43 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                     var HJ = files.Where(t => t.DocType == Enums.DocType.HJ);
                     if (FCZ.Count() > 0)
                     {
-                        query.FCZName = FCZ.Select(t => t.Name).ToList();
-                        var urls = FCZ.Select(t => t.ID + Path.GetExtension(t.Name));
-                        query.FCZURL = urls.Select(t => Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", ID, "FCZ", t)).ToList();
+                        query.FCZ = (from t in FCZ
+                                     select new Pictures
+                                     {
+                                         pid = t.ID,
+                                         name = t.Name,
+                                         url = "Files/ResidenceMP/" + ID + "/FCZ/" + t.ID + t.FileType
+                                     }).ToList();
                     }
                     if (TDZ.Count() > 0)
                     {
-                        query.TDZName = TDZ.Select(t => t.Name).ToList();
-                        var urls = TDZ.Select(t => t.ID + Path.GetExtension(t.Name));
-                        query.TDZURL = urls.Select(t => Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", ID, "TDZ", t)).ToList();
+                        query.TDZ = (from t in TDZ
+                                     select new Pictures
+                                     {
+                                         pid = t.ID,
+                                         name = t.Name,
+                                         url = "Files/ResidenceMP/" + ID + "/TDZ/" + t.ID + t.FileType
+                                     }).ToList();
                     }
                     if (BDCZ.Count() > 0)
                     {
-                        query.BDCZName = BDCZ.Select(t => t.Name).ToList();
-                        var urls = BDCZ.Select(t => t.ID + Path.GetExtension(t.Name));
-                        query.BDCZURL = urls.Select(t => Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", ID, "BDCZ", t)).ToList();
+                        query.BDCZ = (from t in BDCZ
+                                      select new Pictures
+                                      {
+                                          pid = t.ID,
+                                          name = t.Name,
+                                          url = "Files/ResidenceMP/" + ID + "/BDCZ/" + t.ID + t.FileType
+                                      }).ToList();
                     }
                     if (HJ.Count() > 0)
                     {
-                        query.HJName = HJ.Select(t => t.Name).ToList();
-                        var urls = HJ.Select(t => t.ID + Path.GetExtension(t.Name));
-                        query.HJURL = urls.Select(t => Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", ID, "HJ", t)).ToList();
+                        query.HJ = (from t in HJ
+                                    select new Pictures
+                                    {
+                                        pid = t.ID,
+                                        name = t.Name,
+                                        url = "Files/ResidenceMP/" + ID + "/HJ/" + t.ID + t.FileType
+                                    }).ToList();
                     }
                 }
                 return query;
@@ -320,9 +336,9 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <param name="DistrictID"></param>
         /// <param name="Name"></param>
         /// <returns></returns>
-        public static MemoryStream ExportResidenceMP(string DistrictID, string Name)
+        public static MemoryStream ExportResidenceMP(string DistrictID, string Name, int UseState)
         {
-            Dictionary<string, object> dict = SearchResidenceMP(-1, -1, DistrictID, Name);
+            Dictionary<string, object> dict = SearchResidenceMP(-1, -1, DistrictID, Name, UseState);
 
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
@@ -402,13 +418,13 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <param name="Name"></param>
         /// <param name="MPNumberType"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> SearchRoadMP(int PageSize, int PageNum, string DistrictID, string Name, int MPNumberType = 0)
+        public static Dictionary<string, object> SearchRoadMP(int PageSize, int PageNum, string DistrictID, string Name, int MPNumberType, int UseState)
         {
             int count = 0;
             List<RoadMPDetails> data = null;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var q = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable);
+                var q = dbContext.MPOfRoad.Where(t => t.State == UseState);
 
                 // 先删选出当前用户权限内的数据
                 var where = PredicateBuilder.False<MPOfRoad>();
@@ -578,21 +594,33 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
 
                         if (FCZ.Count() > 0)
                         {
-                            query.FCZName = FCZ.Select(t => t.Name).ToList();
-                            var urls = FCZ.Select(t => t.ID + Path.GetExtension(t.Name));
-                            query.FCZURL = urls.Select(t => Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RoadMP", ID, "FCZ", t)).ToList();
+                            query.FCZ = (from t in FCZ
+                                         select new Pictures
+                                         {
+                                             pid = t.ID,
+                                             name = t.Name,
+                                             url = "Files/RoadMP/" + ID + "/FCZ/" + t.ID + t.FileType
+                                         }).ToList();
                         }
                         if (TDZ.Count() > 0)
                         {
-                            query.TDZName = TDZ.Select(t => t.Name).ToList();
-                            var urls = TDZ.Select(t => t.ID + Path.GetExtension(t.Name));
-                            query.TDZURL = urls.Select(t => Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RoadMP", ID, "TDZ", t)).ToList();
+                            query.TDZ = (from t in TDZ
+                                         select new Pictures
+                                         {
+                                             pid = t.ID,
+                                             name = t.Name,
+                                             url = "Files/RoadMP/" + ID + "/TDZ/" + t.ID + t.FileType
+                                         }).ToList();
                         }
                         if (YYZZ.Count() > 0)
                         {
-                            query.YYZZName = YYZZ.Select(t => t.Name).ToList();
-                            var urls = YYZZ.Select(t => t.ID + Path.GetExtension(t.Name));
-                            query.YYZZURL = urls.Select(t => Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RoadMP", ID, "YYZZ", t)).ToList();
+                            query.YYZZ = (from t in YYZZ
+                                          select new Pictures
+                                          {
+                                              pid = t.ID,
+                                              name = t.Name,
+                                              url = "Files/RoadMP/" + ID + "/YYZZ/" + t.ID + t.FileType
+                                          }).ToList();
                         }
                     }
                     return query;
@@ -607,9 +635,9 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <param name="Name"></param>
         /// <param name="MPNumberType"></param>
         /// <returns></returns>
-        public static MemoryStream ExportRoadMP(string DistrictID, string Name, int MPNumberType = 0)
+        public static MemoryStream ExportRoadMP(string DistrictID, string Name, int MPNumberType, int UseState)
         {
-            Dictionary<string, object> dict = SearchRoadMP(-1, -1, DistrictID, Name, MPNumberType);
+            Dictionary<string, object> dict = SearchRoadMP(-1, -1, DistrictID, Name, MPNumberType, UseState);
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
@@ -680,13 +708,13 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         #endregion
 
         #region 农村门牌
-        public static Dictionary<string, object> SearchCountryMP(int PageSize, int PageNum, string DistrictID, string Name)
+        public static Dictionary<string, object> SearchCountryMP(int PageSize, int PageNum, string DistrictID, string Name, int UseState)
         {
             int count = 0;
             List<CountryMPDetails> data = null;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var q = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable);
+                var q = dbContext.MPOfCountry.Where(t => t.State == UseState);
 
                 // 先删选出当前用户权限内的数据
                 var where = PredicateBuilder.False<MPOfCountry>();
@@ -815,24 +843,32 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
 
                         if (TDZ.Count() > 0)
                         {
-                            query.TDZName = TDZ.Select(t => t.Name).ToList();
-                            var urls = TDZ.Select(t => t.ID + Path.GetExtension(t.Name));
-                            query.TDZURL = urls.Select(t => Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "CountryMP", ID, "TDZ", t)).ToList();
+                            query.TDZ = (from t in TDZ
+                                         select new Pictures
+                                         {
+                                             pid = t.ID,
+                                             name = t.Name,
+                                             url = "Files/CountryMP/" + ID + "/TDZ/" + t.ID + t.FileType
+                                         }).ToList();
                         }
                         if (QQZ.Count() > 0)
                         {
-                            query.QQZName = QQZ.Select(t => t.Name).ToList();
-                            var urls = QQZ.Select(t => t.ID + Path.GetExtension(t.Name));
-                            query.QQZURL = urls.Select(t => Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "CountryMP", ID, "QQZ", t)).ToList();
+                            query.QQZ = (from t in QQZ
+                                         select new Pictures
+                                         {
+                                             pid = t.ID,
+                                             name = t.Name,
+                                             url = "Files/CountryMP/" + ID + "/QQZ/" + t.ID + t.FileType
+                                         }).ToList();
                         }
                     }
                     return query;
                 }
             }
         }
-        public static MemoryStream ExportCountryMP(string DistrictID, string Name)
+        public static MemoryStream ExportCountryMP(string DistrictID, string Name, int UseState)
         {
-            Dictionary<string, object> dict = SearchCountryMP(-1, -1, DistrictID, Name);
+            Dictionary<string, object> dict = SearchCountryMP(-1, -1, DistrictID, Name, UseState);
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
