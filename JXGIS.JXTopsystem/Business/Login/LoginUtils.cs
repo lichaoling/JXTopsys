@@ -74,7 +74,7 @@ namespace JXGIS.JXTopsystem.Business
             {
                 bSuccess = true;
                 var roleID = SystemUtils.NewEFDbContext.UserRole.Where(t => t.UserID == us.UserID).Select(t => t.RoleID).ToList();
-                var districtID = SystemUtils.NewEFDbContext.SysRole.Where(t => roleID.Contains(t.RoleID)).Select(t => t.DistrictID).ToList();
+                var districtID = SystemUtils.NewEFDbContext.SysRole.Where(t=>t.State==Enums.UseState.Enable).Where(t => roleID.Contains(t.RoleID)).Select(t => t.DistrictID).ToList();
                 us.DistrictID = districtID;
             }
             user = us;
