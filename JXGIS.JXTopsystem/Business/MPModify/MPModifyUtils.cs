@@ -32,9 +32,14 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             if (!DistrictUtils.CheckPermission(newData.CommunityID))
                 throw new Exception("无权操作其他镇街数据！");
 
-            if (string.IsNullOrEmpty(newData.ResidenceName) && string.IsNullOrEmpty(newData.RoadID))
+            //if (string.IsNullOrEmpty(newData.ResidenceName) && string.IsNullOrEmpty(newData.RoadID))
+            //{
+            //    throw new Exception("小区名或道路名不能同时为空！");
+            //}
+
+            if (string.IsNullOrEmpty(newData.ResidenceName))
             {
-                throw new Exception("小区名或道路名不能同时为空！");
+                throw new Exception("小区名不能为空！");
             }
 
             if (!string.IsNullOrEmpty(newData.MPNumber))
