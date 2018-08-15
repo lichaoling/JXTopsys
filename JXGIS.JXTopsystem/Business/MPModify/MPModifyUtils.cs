@@ -69,7 +69,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     throw new Exception("户室号不是纯数字！");
             }
 
-            if (!CheckResidenceMPIsAvailable(newData.CountyID, newData.NeighborhoodsID, newData.CommunityID, newData.RoadID, newData.MPNumber, newData.Dormitory, newData.HSNumber, newData.ResidenceName, newData.LZNumber, newData.DYNumber))
+            if (!CheckResidenceMPIsAvailable(newData.CountyID, newData.NeighborhoodsID, newData.CommunityID, newData.ResidenceName, newData.MPNumber, newData.Dormitory, newData.HSNumber, newData.LZNumber, newData.DYNumber))
                 throw new Exception("该户室牌已经存在，请检查后重新输入！");
 
             if (!string.IsNullOrEmpty(newData.ApplicantPhone))
@@ -88,14 +88,14 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
                 var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
                 var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
-                var RoadName = "";
-                if (newData.RoadID != null)
-                {
-                    RoadName = dbContenxt.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
-                }
-                //嘉兴市南湖区新兴街道城南路258号纺工宿舍302室  或者  嘉兴市南湖区新兴街道赞园1幢1单元101室   如果小区名不为空就
-                //如果小区名为空：道路名+门牌号+宿舍名+幢+单元+户室   如果小区名不为空：小区+幢+单元+户室
-                var StandardAddress = CountyName + NeighborhoodsName + CommunityName + (newData.ResidenceName == null ? RoadName + (newData.MPNumber == null ? "" : newData.MPNumber + "号") + newData.Dormitory : newData.ResidenceName) + (newData.LZNumber == null ? "" : newData.LZNumber + "幢") + (newData.DYNumber == null ? "" : newData.DYNumber + "单元") + (newData.HSNumber == null ? "" : newData.HSNumber + "室");
+                //var RoadName = "";
+                //if (newData.RoadID != null)
+                //{
+                //    RoadName = dbContenxt.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
+                //}
+                //
+                //市辖区/镇街道/村社区/小区名/门牌号/宿舍名/幢号/单元号/房室号
+                var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ResidenceName + newData.MPNumber == null ? "" : newData.MPNumber + "号" + newData.Dormitory + newData.LZNumber == null ? "" : newData.LZNumber + "幢" + newData.DYNumber == null ? "" : newData.DYNumber + "单元" + newData.HSNumber == null ? "" : newData.HSNumber + "室";
                 #endregion
                 #region 新增
                 //新增
@@ -233,16 +233,16 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var NeighborhoodsName = row[1].Value != null ? row[1].Value.ToString().Trim() : null;
                     var CommunityName = row[2].Value != null ? row[2].Value.ToString().Trim() : null;
                     var Postcode = row[3].Value != null ? row[3].Value.ToString().Trim() : null;
-                    var RoadName = row[4].Value != null ? row[4].Value.ToString().Trim() : null;
+                    //var RoadName = row[4].Value != null ? row[4].Value.ToString().Trim() : null;
+                    var ResidenceName = row[4].Value != null ? row[4].Value.ToString().Trim() : null;
                     var MPNumber = row[5].Value != null ? row[5].Value.ToString().Replace(" ", "") : null;
                     var Dormitory = row[6].Value != null ? row[6].Value.ToString().Trim() : null;
-                    var ResidenceName = row[7].Value != null ? row[7].Value.ToString().Trim() : null;
-                    var LZNumber = row[8].Value != null ? row[8].Value.ToString().Replace(" ", "") : null;
-                    var DYNumber = row[9].Value != null ? row[9].Value.ToString().Replace(" ", "") : null;
-                    var HSNumber = row[10].Value != null ? row[10].Value.ToString().Replace(" ", "") : null;
-                    var PropertyOwner = row[11].Value != null ? row[11].Value.ToString().Trim() : null;
-                    var Applicant = row[12].Value != null ? row[12].Value.ToString().Trim() : null;
-                    var ApplicantPhone = row[13].Value != null ? row[13].Value.ToString().Trim() : null;
+                    var LZNumber = row[7].Value != null ? row[7].Value.ToString().Replace(" ", "") : null;
+                    var DYNumber = row[8].Value != null ? row[8].Value.ToString().Replace(" ", "") : null;
+                    var HSNumber = row[9].Value != null ? row[9].Value.ToString().Replace(" ", "") : null;
+                    var PropertyOwner = row[10].Value != null ? row[10].Value.ToString().Trim() : null;
+                    var Applicant = row[11].Value != null ? row[11].Value.ToString().Trim() : null;
+                    var ApplicantPhone = row[12].Value != null ? row[12].Value.ToString().Trim() : null;
 
                     if (row.IsBlank)
                     {
@@ -253,7 +253,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     string CountyID = null;
                     string NeighborhoodsID = null;
                     string CommunityID = null;
-                    string RoadID = null;
 
                     #region 市辖区检查
                     if (string.IsNullOrEmpty(CountyName))
@@ -298,46 +297,52 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                             error.ErrorMessages.Add("邮政编码有误");
                     }
                     #endregion
-                    #region 小区名称和道路名称检查，两个不能同时为空，无小区名有道路名时，必须有门牌号，有小区名时可以有道路名，但不检查有无门牌号
-                    if (string.IsNullOrEmpty(ResidenceName))  //小区名为空
-                    {
-                        if (string.IsNullOrEmpty(RoadName))  //小区名为空时道路名不能再为空
-                        {
-                            error.ErrorMessages.Add("小区名称和道路名称不能全为空");
-                        }
-                        else  //小区名为空道路名不为空
-                        {
-                            if (string.IsNullOrEmpty(MPNumber))  //道路名不为空时门牌号不能为空，宿舍名可以为空
-                            {
-                                error.ErrorMessages.Add("门牌号为空");
-                            }
-                            else
-                            {
-                                if (!CheckIsNumber(MPNumber))
-                                    error.ErrorMessages.Add("门牌号不是数字");
-                            }
-                            var Roads = dbContenxt.Road.Where(t => t.RoadName.Contains(RoadName)).Select(t => t.RoadID);
-                            if (Roads.Count() == 0)
-                                error.ErrorMessages.Add("不存在该道路");
-                            if (Roads.Count() > 1)
-                                warning = warning + $"道路表中道路名为【{RoadName}】的道路有【{Roads.Count()}】条;";
-                            RoadID = Roads.FirstOrDefault().ToString();
-                        }
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(RoadName))
-                        {
-                            var Roads = dbContenxt.Road.Where(t => t.RoadName.Contains(RoadName)).Select(t => t.RoadID);
-                            if (Roads.Count() == 0)
-                                error.ErrorMessages.Add("不存在该道路");
-                            if (Roads.Count() > 1)
-                                warning = warning + $"道路表中道路名为【{RoadName}】的道路有【{Roads.Count()}】条;";
-                            RoadID = Roads.FirstOrDefault().ToString();
-                        }
-                    }
+                    #region 小区名称和道路名称检查，两个不能同时为空，无小区名有道路名时，必须有门牌号，有小区名时可以有道路名，但不检查有无门牌号 已注释
+                    //if (string.IsNullOrEmpty(ResidenceName))  //小区名为空
+                    //{
+                    //    if (string.IsNullOrEmpty(RoadName))  //小区名为空时道路名不能再为空
+                    //    {
+                    //        error.ErrorMessages.Add("小区名称和道路名称不能全为空");
+                    //    }
+                    //    else  //小区名为空道路名不为空
+                    //    {
+                    //        if (string.IsNullOrEmpty(MPNumber))  //道路名不为空时门牌号不能为空，宿舍名可以为空
+                    //        {
+                    //            error.ErrorMessages.Add("门牌号为空");
+                    //        }
+                    //        else
+                    //        {
+                    //            if (!CheckIsNumber(MPNumber))
+                    //                error.ErrorMessages.Add("门牌号不是数字");
+                    //        }
+                    //        var Roads = dbContenxt.Road.Where(t => t.RoadName.Contains(RoadName)).Select(t => t.RoadID);
+                    //        if (Roads.Count() == 0)
+                    //            error.ErrorMessages.Add("不存在该道路");
+                    //        if (Roads.Count() > 1)
+                    //            warning = warning + $"道路表中道路名为【{RoadName}】的道路有【{Roads.Count()}】条;";
+                    //        RoadID = Roads.FirstOrDefault().ToString();
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    if (!string.IsNullOrEmpty(RoadName))
+                    //    {
+                    //        var Roads = dbContenxt.Road.Where(t => t.RoadName.Contains(RoadName)).Select(t => t.RoadID);
+                    //        if (Roads.Count() == 0)
+                    //            error.ErrorMessages.Add("不存在该道路");
+                    //        if (Roads.Count() > 1)
+                    //            warning = warning + $"道路表中道路名为【{RoadName}】的道路有【{Roads.Count()}】条;";
+                    //        RoadID = Roads.FirstOrDefault().ToString();
+                    //    }
+                    //}
                     #endregion
-                    #region 楼幢号、单元号和户室号检查是否只含数字，户室号不能为空
+
+                    #region 门牌号、楼幢号、单元号和户室号检查是否只含数字
+                    if (!string.IsNullOrEmpty(MPNumber))
+                    {
+                        if (!CheckIsNumber(MPNumber))
+                            error.ErrorMessages.Add("门牌号不是纯数字");
+                    }
                     if (!string.IsNullOrEmpty(LZNumber))
                     {
                         if (!CheckIsNumber(LZNumber))
@@ -349,12 +354,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         if (!CheckIsNumber(DYNumber))
                             error.ErrorMessages.Add("单元号不是纯数字");
                     }
-
-                    if (string.IsNullOrEmpty(HSNumber))
-                    {
-                        error.ErrorMessages.Add("户室号为空");
-                    }
-                    else
+                    if (!string.IsNullOrEmpty(HSNumber))
                     {
                         if (!CheckIsNumber(HSNumber))
                             error.ErrorMessages.Add("户室号不是纯数字");
@@ -380,7 +380,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     #endregion
                     #region 户室牌查重
-                    if (!CheckResidenceMPIsAvailable(CountyID, NeighborhoodsID, CommunityID, RoadID, MPNumber, Dormitory, HSNumber, ResidenceName, LZNumber, DYNumber))
+                    if (!CheckResidenceMPIsAvailable(CountyID, NeighborhoodsID, CommunityID, ResidenceName, MPNumber, Dormitory, HSNumber, LZNumber, DYNumber))
                     {
                         error.ErrorMessages.Add("该户室牌已经存在");
                     }
@@ -393,15 +393,15 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         NeighborhoodsName = NeighborhoodsName,
                         CommunityID = CommunityID,
                         CommunityName = CommunityName,
-                        Postcode = Postcode,
-                        RoadID = RoadID,
-                        RoadName = RoadName,
+                        //RoadID = RoadID,
+                        //RoadName = RoadName,
+                        ResidenceName = ResidenceName,
                         MPNumber = MPNumber,
                         Dormitory = Dormitory,
-                        ResidenceName = ResidenceName,
                         LZNumber = LZNumber,
                         DYNumber = DYNumber,
                         HSNumber = HSNumber,
+                        Postcode = Postcode,
                         PropertyOwner = PropertyOwner,
                         Applicant = Applicant,
                         ApplicantPhone = ApplicantPhone
@@ -423,9 +423,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         warnings.Add($"第{i}行：" + warning);
                     }
                 }
-                #region 自身导入的数据的重复检查
+                #region 自身导入的数据的重复检查   p.RoadName,
                 var selfCount = (from p in mps
-                                 group p by new { p.CountyName, p.NeighborhoodsName, p.CommunityName, p.RoadName, p.MPNumber, p.Dormitory, p.ResidenceName, p.LZNumber, p.DYNumber, p.HSNumber } into g
+                                 group p by new { p.CountyName, p.NeighborhoodsName, p.CommunityName, p.ResidenceName, p.MPNumber, p.Dormitory, p.LZNumber, p.DYNumber, p.HSNumber } into g
                                  where g.Count() > 1
                                  select g).ToList();
                 if (selfCount.Count > 0)
@@ -435,13 +435,13 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     foreach (var group in selfCount)
                     {
                         var r = group.Key.ResidenceName == null ? string.Empty : group.Key.ResidenceName;
-                        var ro = group.Key.RoadName == null ? string.Empty : group.Key.RoadName;
-                        var m = group.Key.MPNumber == null ? string.Empty : group.Key.MPNumber;
+                        //var ro = group.Key.RoadName == null ? string.Empty : group.Key.RoadName;
+                        var m = group.Key.MPNumber == null ? string.Empty : group.Key.MPNumber + "号";
                         var d = group.Key.Dormitory == null ? string.Empty : group.Key.Dormitory;
                         var l = group.Key.LZNumber == null ? string.Empty : group.Key.LZNumber + "幢";
                         var dy = group.Key.DYNumber == null ? string.Empty : group.Key.DYNumber + "单元";
                         var h = group.Key.HSNumber == null ? string.Empty : group.Key.HSNumber + "室";
-                        var erMsg = $"{group.Key.CountyName} {group.Key.NeighborhoodsName} {group.Key.CommunityName} {r} {ro} {m} {d} {l} {dy} {h}";
+                        var erMsg = $"{group.Key.CountyName} {group.Key.NeighborhoodsName} {group.Key.CommunityName} {r} {m} {d} {l} {dy} {h}";
                         erMsg = string.IsNullOrEmpty(erMsg) ? $"存在多条空行" : erMsg + " 号";
                         error.ErrorMessages.Add(erMsg);
                     }
@@ -497,10 +497,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     CountyID = mp.CountyID,
                     NeighborhoodsID = mp.NeighborhoodsID,
                     CommunityID = mp.CommunityID,
-                    RoadID = mp.RoadID,
+                    ResidenceName = mp.ResidenceName,
                     MPNumber = mp.MPNumber,
                     Dormitory = mp.Dormitory,
-                    ResidenceName = mp.ResidenceName,
                     LZNumber = mp.LZNumber,
                     DYNumber = mp.DYNumber,
                     HSNumber = mp.HSNumber,
@@ -523,7 +522,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// 住宅门牌注销，只修改数据的state、注销时间和注销人，其它不变
         /// </summary>
         /// <param name="Data"></param>
-        public static void CancelOrDelResidenceMP(string ID,int UseState)
+        public static void CancelOrDelResidenceMP(string ID, int UseState)
         {
             using (var dbContenxt = SystemUtils.NewEFDbContext)
             {
@@ -558,14 +557,13 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <param name="LZNumber"></param>
         /// <param name="DYNumber"></param>
         /// <returns></returns>
-        public static bool CheckResidenceMPIsAvailable(string CountyID, string NeighborhoodsID, string CommunityID, string RoadID, string MPNumber, string Dormitory, string HSNumber, string ResidenceName, string LZNumber, string DYNumber)
+        public static bool CheckResidenceMPIsAvailable(string CountyID, string NeighborhoodsID, string CommunityID, string ResidenceName, string MPNumber, string Dormitory, string HSNumber, string LZNumber, string DYNumber)
         {
             using (var dbContenxt = SystemUtils.NewEFDbContext)
             {
                 var q = dbContenxt.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityID == CommunityID);
-                var count1 = q.Where(t => t.RoadID == RoadID).Where(t => t.MPNumber == MPNumber).Where(t => t.Dormitory == Dormitory).Where(t => t.HSNumber == HSNumber).Count();
-                var count2 = q.Where(t => t.ResidenceName == ResidenceName).Where(t => t.LZNumber == LZNumber).Where(t => t.DYNumber == DYNumber).Where(t => t.HSNumber == HSNumber).Count();
-                return count1 == 0 && count2 == 0;
+                var count = q.Where(t => t.ResidenceName == ResidenceName).Where(t => t.MPNumber == MPNumber).Where(t => t.Dormitory == Dormitory).Where(t => t.LZNumber == LZNumber).Where(t => t.DYNumber == DYNumber).Where(t => t.HSNumber == HSNumber).Count();
+                return count == 0;
             }
 
         }
@@ -1059,7 +1057,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             //HttpContext.Current.Session["_RoadMPErrors"] = null;
             //HttpContext.Current.Session["_RoadMPWarning"] = null;
         }
-        public static void CancelOrDelRoadMP(string ID,int UseState)
+        public static void CancelOrDelRoadMP(string ID, int UseState)
         {
             using (var dbContenxt = SystemUtils.NewEFDbContext)
             {

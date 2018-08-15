@@ -153,6 +153,8 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                              }).ToList();
                 dbContext.MPProduce.AddRange(mpPro);
                 dbContext.SaveChanges();
+                //将门牌表中MPProduce字段设置为已制作
+                //。。。。。
             }
             var rt = mps.OrderBy(t => t.MPCreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
             return new Dictionary<string, object> {

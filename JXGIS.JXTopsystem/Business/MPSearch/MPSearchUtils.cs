@@ -149,11 +149,14 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 }
                 if (!string.IsNullOrEmpty(Name))
                 {
+                    //query = from t in query
+                    //        join d in dbContext.Road
+                    //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
+                    //        from dt in dd.DefaultIfEmpty()
+                    //        where dt.RoadName.Contains(Name) || t.ResidenceName.Contains(Name) || t.Dormitory.Contains(Name)
+                    //        select t;
                     query = from t in query
-                            join d in dbContext.Road
-                            on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                            from dt in dd.DefaultIfEmpty()
-                            where dt.RoadName.Contains(Name) || t.ResidenceName.Contains(Name) || t.Dormitory.Contains(Name)
+                            where t.ResidenceName.Contains(Name) || t.Dormitory.Contains(Name)
                             select t;
                 }
                 count = query.Count();
@@ -168,23 +171,35 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                     query = query.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize);
                 }
 
+                //data = (from t in query
+                //        join d in dbContext.Road
+                //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
+                //        from dt in dd.DefaultIfEmpty()
+                //        select new ResidenceMPDetails
+                //        {
+                //            ID = t.ID,
+                //            CountyID = t.CountyID,
+                //            NeighborhoodsID = t.NeighborhoodsID,
+                //            CommunityID = t.CommunityID,
+                //            //PlaceName = dt == null ? (t.ResidenceName) : (dt.RoadName + t.MPNumber + "号" + t.Dormitory),
+                //            ResidenceName = t.ResidenceName,
+                //            StandardAddress = t.StandardAddress,
+                //            PropertyOwner = t.PropertyOwner,
+                //            CreateTime = t.CreateTime,
+                //            RoadID = t.RoadID,
+                //        }).ToList();
                 data = (from t in query
-                        join d in dbContext.Road
-                        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                        from dt in dd.DefaultIfEmpty()
                         select new ResidenceMPDetails
                         {
                             ID = t.ID,
                             CountyID = t.CountyID,
                             NeighborhoodsID = t.NeighborhoodsID,
                             CommunityID = t.CommunityID,
-                            PlaceName = dt == null ? (t.ResidenceName) : (dt.RoadName + t.MPNumber + "号" + t.Dormitory),
+                            ResidenceName = t.ResidenceName,
                             StandardAddress = t.StandardAddress,
                             PropertyOwner = t.PropertyOwner,
                             CreateTime = t.CreateTime,
-                            RoadID = t.RoadID
                         }).ToList();
-
                 data = (from t in data
                         join a in SystemUtils.Districts
                         on t.CountyID equals a.ID into aa
@@ -203,7 +218,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             CountyName = at == null || at.Name == null ? null : at.Name,
                             NeighborhoodsName = bt == null || bt.Name == null ? null : bt.Name,
                             CommunityName = ct == null || ct.Name == null ? null : ct.Name,
-                            PlaceName = t.PlaceName,
+                            //PlaceName = t.PlaceName,
+                            ResidenceName = t.ResidenceName,
                             StandardAddress = t.StandardAddress,
                             PropertyOwner = t.PropertyOwner,
                             CreateTime = t.CreateTime
@@ -220,7 +236,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// </summary>
         /// <param name="ID"></param>
         public static ResidenceMPDetails SearchResidenceMPByID(string ID)
-        {
+        {//left join [TopSystemDB].[dbo].[TopCombineRoad] c on a.roadid=c.dmid  ,a.[RoadID]  ,c.biaozhunmingcheng RoadName
             string sql = $@"select a.[ID]
                           ,a.[AddressCoding]
                           ,a.[CountyID]
@@ -229,17 +245,15 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
 	                      ,e.Name NeighborhoodsName
                           ,a.[CommunityID]
 	                      ,f.Name CommunityName
-                          ,a.[RoadID]
-	                      ,c.biaozhunmingcheng RoadName
-                          ,a.[MPNumber]
                           ,a.[ResidenceName]
+                          ,a.[MPNumber]
                           ,a.[Dormitory]
                           ,a.[LZNumber]
                           ,a.[DYNumber]
+                          ,a.[HSNumber]
                           ,a.[DYPosition]
                           ,a.[DYPosition].Lat Lat
                           ,a.[DYPosition].Long Lng
-                          ,a.[HSNumber]
                           ,a.[MPSize]
                           ,a.[Postcode]
                           ,a.[PropertyOwner]
@@ -266,7 +280,6 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                           ,a.[CancelUser]
 	                      ,ROW_NUMBER() OVER(Order by a.[CreateTime] desc) AS RowId
                       FROM [TopSystemDB].[dbo].[MPOFRESIDENCE] a
-                      left join [TopSystemDB].[dbo].[TopCombineRoad] c on a.roadid=c.dmid
                       left join [TopSystemDB].[dbo].[DISTRICT] d on a.CountyID=d.ID
                       left join [TopSystemDB].[dbo].[DISTRICT] e on a.NeighborhoodsID=e.ID
                       left join [TopSystemDB].[dbo].[DISTRICT] f on a.CommunityID=f.ID
@@ -343,7 +356,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
-            var Data = dict["Data"] as List<ResidenceMP>;
+            var Data = dict["Data"] as List<ResidenceMPDetails>;
 
             Workbook wb = new Workbook();
             Worksheet ws = wb.Worksheets[0];
@@ -368,7 +381,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 new ExcelFields() { Field="市辖区",Alias="CountyName"},
                 new ExcelFields() { Field="镇街道",Alias="NeighborhoodsName"},
                 new ExcelFields() { Field="村社区",Alias="CommunityName"},
-                new ExcelFields() { Field="标准地名",Alias="PlaceName"},
+                new ExcelFields() { Field="小区名称",Alias="ResidenceName"},
                 new ExcelFields() { Field="标准地址",Alias="StandardAddress"},
                 new ExcelFields() { Field="产权人",Alias="PropertyOwner"},
                 new ExcelFields() { Field="编制日期",Alias="CreateTime"},

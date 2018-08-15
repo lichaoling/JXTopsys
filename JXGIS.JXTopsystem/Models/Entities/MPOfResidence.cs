@@ -21,7 +21,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CountyID { get; set; }  //*
         public string NeighborhoodsID { get; set; }  //*
         public string CommunityID { get; set; }  //*
-        public string RoadID { get; set; } //*
+        //public string RoadID { get; set; } //*
         public string MPNumber { get; set; } //*
         public string ResidenceName { get; set; } //小区名 可为空
         public string Dormitory { get; set; }
