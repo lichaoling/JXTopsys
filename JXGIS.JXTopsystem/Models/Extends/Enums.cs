@@ -52,5 +52,22 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string QQZ = "QQZ";
 
         }
+        public static class RPFilesType
+        {
+            public const string RPImages = "RPImages";
+            public const string RPCodeImage = "RPCodeImage";
+
+        }
+        public static class RPRepairFinish
+        {
+            public const int Yes = 1;
+            public const int No = 0;
+        }
+
+        public static class RPRepairMode
+        {
+            public const int Repair = 1;
+            public const int Change = 2;
+        }
     }
 }

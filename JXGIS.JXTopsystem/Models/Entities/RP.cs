@@ -23,6 +23,10 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string Intersection { get; set; }
         public string Direction { get; set; }
         public DbGeography Position { get; set; }
+        [NotMapped]
+        public double? Lat { get; set; }
+        [NotMapped]
+        public double? Lng { get; set; }
         public string Model { get; set; }
         public string Size { get; set; }
         public string Material { get; set; }

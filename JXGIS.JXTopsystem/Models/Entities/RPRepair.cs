@@ -7,7 +7,7 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Entities
 {
-    [Table("RP")]
+    [Table("RPREPAIR")]
     [Serializable]
     public class RPRepair
     {
@@ -20,6 +20,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public int RepairMode { get; set; }
         public DateTime? RepairTime { get; set; }
         public string RepairUser { get; set; }
+        public int IsFinish { get; set; }
         public DateTime? FinishRepaireTime { get; set; }
         public string FinishRepaireUser { get; set; }
     }

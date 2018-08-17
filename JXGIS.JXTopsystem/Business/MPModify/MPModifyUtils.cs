@@ -86,7 +86,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
             IQueryable<MPOfResidence> query = null;
             int count = 0;
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 #region 标准地址拼接
                 //拼接标准住宅门牌地址，先获取对应的道路门牌的标准地址，再拼接好宿舍名、幢号、单元号、户室号
@@ -96,7 +96,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 //var RoadName = "";
                 //if (newData.RoadID != null)
                 //{
-                //    RoadName = dbContenxt.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
+                //    RoadName = dbContext.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
                 //}
                 //
                 //市辖区/镇街道/村社区/小区名/门牌号/宿舍名/幢号/单元号/房室号
@@ -115,7 +115,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
                     ////不再使用，用数据库触发器
                     //var ResidenceSql = $@"select max(cast (right([AddressCoding],5) as int)) from [TopSystemDB].[dbo].[MPOFRESIDENCE]";
-                    //var maxCode = dbContenxt.Database.SqlQuery<int>(ResidenceSql).FirstOrDefault();
+                    //var maxCode = dbContext.Database.SqlQuery<int>(ResidenceSql).FirstOrDefault();
                     //var Code = (maxCode + 1).ToString().PadLeft(5, '0');//向左补齐0，共5位
 
                     //地址编码  不带流水号，流水号由数据库触发器生成
@@ -134,10 +134,10 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         var TDZFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                         var BDCZFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.BDCZ);
                         var HJFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.HJ);
-                        SaveFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
-                        SaveFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
-                        SaveFilesByID(BDCZFiles, guid, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
-                        SaveFilesByID(HJFiles, guid, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
+                        SaveMPFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
+                        SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
+                        SaveMPFilesByID(BDCZFiles, guid, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
+                        SaveMPFilesByID(HJFiles, guid, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
                     }
 
                     ////规定一个存放路径
@@ -165,40 +165,39 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     newData.StandardAddress = StandardAddress;
                     newData.State = State;
                     newData.CreateTime = CreateTime;
-                    newData.CreateUser = LoginUtils.CurrentUser.UserID;
+                    newData.CreateUser = LoginUtils.CurrentUser.UserName;
                 }
                 #endregion
                 #region 修改
-                //修改
                 else
                 {
-                    query = dbContenxt.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == oldData.ID);
+                    query = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == oldData.ID);
                     count = query.Count();
                     if (count == 0)
                         throw new Exception("该条数据已被注销，请重新查询并编辑！");
 
-                    dbContenxt.MPOFResidence.Remove(query.First());
+                    dbContext.MPOFResidence.Remove(query.First());
                     newData.ID = oldData.ID;
                     newData.AddressCoding = oldData.AddressCoding;
-                    newData.DYPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;//单元空间位置
+                    newData.DYPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : oldData.DYPosition;//单元空间位置
                     newData.StandardAddress = StandardAddress;
                     newData.LastModifyTime = DateTime.Now.Date;//修改时间
-                    newData.LastModifyUser = LoginUtils.CurrentUser.UserID;
+                    newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     newData.State = oldData.State;
                     //上传的附件进行修改
                     var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
                     var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                     var AddedBDCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.BDCZ);
                     var AddedHJFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.HJ);
-                    UpdateFilesByID(FCZIDs, AddedFCZFiles, oldData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
-                    UpdateFilesByID(TDZIDs, AddedTDZFiles, oldData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
-                    UpdateFilesByID(BDCZIDs, AddedBDCZFiles, oldData.ID, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
-                    UpdateFilesByID(HJIDs, AddedHJFiles, oldData.ID, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
+                    UpdateMPFilesByID(FCZIDs, AddedFCZFiles, oldData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
+                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, oldData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
+                    UpdateMPFilesByID(BDCZIDs, AddedBDCZFiles, oldData.ID, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
+                    UpdateMPFilesByID(HJIDs, AddedHJFiles, oldData.ID, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
                 }
                 #endregion
 
-                dbContenxt.MPOFResidence.Add(newData);
-                dbContenxt.SaveChanges();
+                dbContext.MPOFResidence.Add(newData);
+                dbContext.SaveChanges();
             }
         }
         /// <summary>
@@ -226,7 +225,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             var errors = new List<ResidenceMPErrors>();
             var warnings = new List<string>();
 
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 for (int i = 1; i < rowCount; i++)
                 {
@@ -320,7 +319,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     //            if (!CheckIsNumber(MPNumber))
                     //                error.ErrorMessages.Add("门牌号不是数字");
                     //        }
-                    //        var Roads = dbContenxt.Road.Where(t => t.RoadName.Contains(RoadName)).Select(t => t.RoadID);
+                    //        var Roads = dbContext.Road.Where(t => t.RoadName.Contains(RoadName)).Select(t => t.RoadID);
                     //        if (Roads.Count() == 0)
                     //            error.ErrorMessages.Add("不存在该道路");
                     //        if (Roads.Count() > 1)
@@ -332,7 +331,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     //{
                     //    if (!string.IsNullOrEmpty(RoadName))
                     //    {
-                    //        var Roads = dbContenxt.Road.Where(t => t.RoadName.Contains(RoadName)).Select(t => t.RoadID);
+                    //        var Roads = dbContext.Road.Where(t => t.RoadName.Contains(RoadName)).Select(t => t.RoadID);
                     //        if (Roads.Count() == 0)
                     //            error.ErrorMessages.Add("不存在该道路");
                     //        if (Roads.Count() > 1)
@@ -530,9 +529,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <param name="Data"></param>
         public static void CancelOrDelResidenceMP(string ID, int UseState)
         {
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                IQueryable<MPOfResidence> query = dbContenxt.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
+                IQueryable<MPOfResidence> query = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
                 int count = query.Count();
                 if (count == 0)
                     throw new Exception("该条数据已被注销，请重新查询！");
@@ -542,8 +541,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     throw new Exception("无权修改其他镇街数据！");
 
                 var user = LoginUtils.CurrentUser;
-                var sql = $@"update [TopSystemDB].[dbo].[MPOFRESIDENCE] set [MPOFRESIDENCE].State={UseState},[MPOFRESIDENCE].[CancelTime]=GETDATE(),[MPOFRESIDENCE].[CancelUser]='{user.UserID}' where [MPOFRESIDENCE].ID='{ID}'";
-                var rt = dbContenxt.Database.ExecuteSqlCommand(sql);
+                var sql = $@"update [TopSystemDB].[dbo].[MPOFRESIDENCE] set [MPOFRESIDENCE].State={UseState},[MPOFRESIDENCE].[CancelTime]=GETDATE(),[MPOFRESIDENCE].[CancelUser]='{user.UserName}' where [MPOFRESIDENCE].ID='{ID}'";
+                var rt = dbContext.Database.ExecuteSqlCommand(sql);
                 if (rt == 0)
                     throw new Exception("数据注销失败，请重试！");
             }
@@ -565,9 +564,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <returns></returns>
         public static bool CheckResidenceMPIsAvailable(string CountyID, string NeighborhoodsID, string CommunityID, string ResidenceName, string MPNumber, string Dormitory, string HSNumber, string LZNumber, string DYNumber)
         {
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var q = dbContenxt.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityID == CommunityID);
+                var q = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityID == CommunityID);
                 var count = q.Where(t => t.ResidenceName == ResidenceName).Where(t => t.MPNumber == MPNumber).Where(t => t.Dormitory == Dormitory).Where(t => t.LZNumber == LZNumber).Where(t => t.DYNumber == DYNumber).Where(t => t.HSNumber == HSNumber).Count();
                 return count == 0;
             }
@@ -641,14 +640,14 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
             IQueryable<MPOfRoad> query = null;
             int count = 0;
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 #region 标准地址拼接
                 //拼接标准住宅门牌地址，先获取对应的道路门牌的标准地址，再拼接好宿舍名、幢号、单元号、户室号
                 var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
                 var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
                 var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
-                var RoadName = dbContenxt.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
+                var RoadName = dbContext.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
                 var StandardAddress = CountyName + NeighborhoodsName + CommunityName + RoadName + newData.MPNumber + "号";
                 #endregion
                 #region 新增
@@ -670,9 +669,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         var FCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
                         var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                         var YYZZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.YYZZ);
-                        SaveFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
-                        SaveFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
-                        SaveFilesByID(YYZZFiles, guid, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
+                        SaveMPFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
+                        SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
+                        SaveMPFilesByID(YYZZFiles, guid, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
                     }
 
                     ////规定一个存放路径
@@ -698,38 +697,38 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     newData.State = Enums.UseState.Enable;
                     newData.MPMail = newData.MPMail == null ? Enums.MPMail.No : newData.MPMail;
                     newData.CreateTime = CreateTime;
-                    newData.CreateUser = LoginUtils.CurrentUser.UserID;
+                    newData.CreateUser = LoginUtils.CurrentUser.UserName;
                 }
                 #endregion
                 #region 修改
                 //修改
                 else
                 {
-                    query = dbContenxt.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == oldData.ID);
+                    query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == oldData.ID);
                     count = query.Count();
                     if (count == 0)
                         throw new Exception("该条数据已被注销，请重新查询并编辑！");
 
-                    dbContenxt.MPOfRoad.Remove(query.First());
+                    dbContext.MPOfRoad.Remove(query.First());
                     newData.ID = oldData.ID;
                     newData.AddressCoding = oldData.AddressCoding;
                     newData.MPPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;//单元空间位置
                     newData.StandardAddress = StandardAddress;
                     newData.LastModifyTime = DateTime.Now.Date;//修改时间
-                    newData.LastModifyUser = LoginUtils.CurrentUser.UserID;
+                    newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     newData.State = oldData.State;
                     //上传的附件进行修改 ？？？？？？？？？？待完成
                     var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
                     var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                     var AddedYYZZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.YYZZ);
-                    UpdateFilesByID(FCZIDs, AddedFCZFiles, oldData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
-                    UpdateFilesByID(TDZIDs, AddedTDZFiles, oldData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
-                    UpdateFilesByID(YYZZIDs, AddedYYZZFiles, oldData.ID, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
+                    UpdateMPFilesByID(FCZIDs, AddedFCZFiles, oldData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
+                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, oldData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
+                    UpdateMPFilesByID(YYZZIDs, AddedYYZZFiles, oldData.ID, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
 
                 }
                 #endregion
-                dbContenxt.MPOfRoad.Add(newData);
-                dbContenxt.SaveChanges();
+                dbContext.MPOfRoad.Add(newData);
+                dbContext.SaveChanges();
             }
 
         }
@@ -763,7 +762,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             var errors = new List<RoadMPErrors>();
             var warnings = new List<string>();
 
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 for (int i = 1; i < rowCount; i++)
                 {
@@ -846,7 +845,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else  //说明道路名称不为空
                     {
-                        var Roads = dbContenxt.Road.Where(t => t.RoadName.Contains(RoadName)); //通过道路名称去道路表中查找
+                        var Roads = dbContext.Road.Where(t => t.RoadName.Contains(RoadName)); //通过道路名称去道路表中查找
                         if (Roads.Count() == 0) //说明只通过道路名称未找到道路
                         {
                             error.ErrorMessages.Add("不存在该道路");
@@ -1065,9 +1064,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         }
         public static void CancelOrDelRoadMP(string ID, int UseState)
         {
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                IQueryable<MPOfRoad> query = dbContenxt.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
+                IQueryable<MPOfRoad> query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
                 int count = query.Count();
                 if (count == 0)
                     throw new Exception("该条数据已被注销，请重新查询！");
@@ -1077,8 +1076,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     throw new Exception("无权修改其他镇街数据！");
 
                 var user = LoginUtils.CurrentUser;
-                var sql = $@"update [TopSystemDB].[dbo].[MPOFROAD] set [MPOFROAD].State={UseState},[MPOFROAD].[CancelTime]=GETDATE(),[MPOFROAD].[CancelUser]='{user.UserID}' where [MPOFROAD].ID='{ID}'";
-                var rt = dbContenxt.Database.ExecuteSqlCommand(sql);
+                var sql = $@"update [TopSystemDB].[dbo].[MPOFROAD] set [MPOFROAD].State={UseState},[MPOFROAD].[CancelTime]=GETDATE(),[MPOFROAD].[CancelUser]='{user.UserName}' where [MPOFROAD].ID='{ID}'";
+                var rt = dbContext.Database.ExecuteSqlCommand(sql);
                 if (rt == 0)
                     throw new Exception("数据注销失败，请重试！");
             }
@@ -1086,9 +1085,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         public static bool CheckRoadMPIsAvailable(string MPNumber, string RoadID, string CountyID, string NeighborhoodsID, string CommunityID)
         {
             var check = true;
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContenxt.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityID == CommunityID).Where(t => t.RoadID == RoadID);
+                var query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityID == CommunityID).Where(t => t.RoadID == RoadID);
                 if (query.Count() > 0)
                 {
                     query = query.Where(t => t.MPNumber == MPNumber);
@@ -1174,7 +1173,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
             IQueryable<MPOfCountry> query = null;
             int count = 0;
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 #region 标准地址拼接
                 var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
@@ -1199,8 +1198,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     {
                         var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                         var QQZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.QQZ);
-                        SaveFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
-                        SaveFilesByID(QQZFiles, guid, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
+                        SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
+                        SaveMPFilesByID(QQZFiles, guid, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
                     }
 
                     ////规定一个存放路径
@@ -1223,30 +1222,30 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     newData.State = Enums.UseState.Enable;
                     newData.MPMail = newData.MPMail == null ? Enums.MPMail.No : newData.MPMail;
                     newData.CreateTime = CreateTime;
-                    newData.CreateUser = LoginUtils.CurrentUser.UserID;
+                    newData.CreateUser = LoginUtils.CurrentUser.UserName;
                 }
                 #endregion
                 #region 修改
                 else
                 {
-                    query = dbContenxt.MPOfCountry.Where(t => t.State == 1).Where(t => t.ID == oldData.ID);
+                    query = dbContext.MPOfCountry.Where(t => t.State == 1).Where(t => t.ID == oldData.ID);
                     count = query.Count();
                     if (count == 0)
                         throw new Exception("该条数据已被注销，请重新查询并编辑！");
 
-                    dbContenxt.MPOfCountry.Remove(query.First());
+                    dbContext.MPOfCountry.Remove(query.First());
                     newData.ID = oldData.ID;
                     newData.AddressCoding = oldData.AddressCoding;
                     newData.MPPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;//单元空间位置
                     newData.StandardAddress = StandardAddress;
                     newData.LastModifyTime = DateTime.Now.Date;//修改时间
-                    newData.LastModifyUser = LoginUtils.CurrentUser.UserID;
+                    newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     newData.State = oldData.State;
                     //上传的附件进行修改 ？？？？？？？？？？待完成
                     var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                     var AddedQQZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.QQZ);
-                    UpdateFilesByID(TDZIDs, AddedTDZFiles, oldData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
-                    UpdateFilesByID(QQZIDs, AddedQQZFiles, oldData.ID, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
+                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, oldData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
+                    UpdateMPFilesByID(QQZIDs, AddedQQZFiles, oldData.ID, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
 
                 }
                 #endregion
@@ -1274,7 +1273,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             var errors = new List<CountryMPErrors>();
             var warnings = new List<string>();
 
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 for (int i = 1; i < rowCount; i++)
                 {
@@ -1521,9 +1520,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         }
         public static void CancelOrDelCountryMP(string ID, int UseState)
         {
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                IQueryable<MPOfCountry> query = dbContenxt.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
+                IQueryable<MPOfCountry> query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
                 int count = query.Count();
                 if (count == 0)
                     throw new Exception("该条数据已被注销，请重新查询！");
@@ -1533,8 +1532,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     throw new Exception("无权修改其他镇街数据！");
 
                 var user = LoginUtils.CurrentUser;
-                var sql = $@"update [TopSystemDB].[dbo].[MPOFCOUNTRY] set [MPOFCOUNTRY].State={UseState},[MPOFCOUNTRY].[CancelTime]=GETDATE(),[MPOFCOUNTRY].[CancelUser]='{user.UserID}' where [MPOFCOUNTRY].ID='{ID}'";
-                var rt = dbContenxt.Database.ExecuteSqlCommand(sql);
+                var sql = $@"update [TopSystemDB].[dbo].[MPOFCOUNTRY] set [MPOFCOUNTRY].State={UseState},[MPOFCOUNTRY].[CancelTime]=GETDATE(),[MPOFCOUNTRY].[CancelUser]='{user.UserName}' where [MPOFCOUNTRY].ID='{ID}'";
+                var rt = dbContext.Database.ExecuteSqlCommand(sql);
                 if (rt == 0)
                     throw new Exception("数据注销失败，请重试！");
             }
@@ -1542,9 +1541,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         public static bool CheckCountryMPIsAvailable(string ViligeName, string MPNumber, string HSNumber, string CountyID, string NeighborhoodsID, string CommunityID)
         {
             var check = true;
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContenxt.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityID == CommunityID).Where(t => t.ViligeName == ViligeName.Trim());
+                var query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityID == CommunityID).Where(t => t.ViligeName == ViligeName.Trim());
                 if (query.Count() > 0)
                 {
                     query = query.Where(t => t.MPNumber == MPNumber);
@@ -1573,7 +1572,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <param name="files"></param>
         /// <param name="directory"></param>
         /// <returns></returns>
-        public static List<string> SaveFiles(IList<HttpPostedFile> files, string directory)
+        private static List<string> SaveMPFiles(IList<HttpPostedFile> files, string directory)
         {
             if (!Directory.Exists(directory))
             {
@@ -1615,7 +1614,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <param name="DocType">证件类型</param>
         /// <param name="MPTypeStr">门牌类型</param>
         /// <returns></returns>
-        public static void SaveFilesByID(IList<HttpPostedFile> files, string MPID, string DocType, string MPTypeStr)
+        private static void SaveMPFilesByID(IList<HttpPostedFile> files, string MPID, string DocType, string MPTypeStr)
         {
             var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", MPTypeStr, MPID, DocType);
             if (!Directory.Exists(directory))
@@ -1660,7 +1659,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <param name="MPID"></param>
         /// <param name="DocType"></param>
         /// <param name="MPTypeStr"></param>
-        public static void UpdateFilesByID(List<string> CurrentIDs, IList<HttpPostedFile> AdddedFiles, string MPID, string DocType, string MPTypeStr)
+        private static void UpdateMPFilesByID(List<string> CurrentIDs, IList<HttpPostedFile> AdddedFiles, string MPID, string DocType, string MPTypeStr)
         {
             var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", MPTypeStr, MPID, DocType);
             if (!Directory.Exists(directory))
@@ -1675,11 +1674,11 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                                     set [State]={Enums.UseState.Delete} 
                                     where [ID] not in ({string.Join(",", CurrentIDs)}) 
                                     and [State]={Enums.UseState.Enable} 
-                                    and [MPID]={MPID} 
+                                    and [MPID]='{MPID}' 
                                     and [DocType]='{DocType}'";
                     var rt = dbContext.Database.ExecuteSqlCommand(sql);
                 }
-                SaveFilesByID(AdddedFiles, MPID, DocType, MPTypeStr);
+                SaveMPFilesByID(AdddedFiles, MPID, DocType, MPTypeStr);
             }
         }
         /// <summary>
@@ -1687,7 +1686,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static bool CheckIsNumber(string number)
+        private static bool CheckIsNumber(string number)
         {
             const string pattern = "^[1-9]*[1-9][0-9]*$";
             Regex rx = new Regex(pattern);
@@ -1698,7 +1697,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        public static bool CheckIsPhone(string number)
+        private static bool CheckIsPhone(string number)
         {
             const string patternPhone = @"^1(3|4|5|7|8)\d{9}$";
             const string patternTel = @"^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$";
@@ -1711,7 +1710,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public static bool CheckIsDatetime(ref string date)
+        private static bool CheckIsDatetime(ref string date)
         {
             try
             {
@@ -1728,7 +1727,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static bool CheckMPSize(ref string data)
+        private static bool CheckMPSize(ref string data)
         {
             data = data.ToLower();
             var MPSizes = new string[] { "40*60CM", "30*20CM", "21*15MM", "18*14MM", "15*10MM" };
@@ -1740,7 +1739,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             Regex rx = new Regex(pattern);
             return data.StartsWith("3140") && rx.IsMatch(data);
         }
-        public static bool CheckMPProdece(string data, ref int MPProdece)
+        private static bool CheckMPProdece(string data, ref int MPProdece)
         {
             var t = true;
             if (data.Equals("是"))

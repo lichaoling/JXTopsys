@@ -153,7 +153,11 @@
     <Compile Include="Business\MPModify\MPCertificateUtils.cs" />
     <Compile Include="Business\MPModify\MPModifyUtils.cs" />
     <Compile Include="Business\MPProduce\MPProduceUtils.cs" />
-    <Compile Include="Business\MPSearch\MPSearchUtils.cs" />
+    <Compile Include="Business\MPSearch\CountryMPSearch.cs" />
+    <Compile Include="Business\MPSearch\ResidenceMPSearch.cs" />
+    <Compile Include="Business\MPSearch\RoadMPSearch.cs" />
+    <Compile Include="Business\RPModify\RPMpdifyUtils.cs" />
+    <Compile Include="Business\RPRepair\RPRepairUtils.cs" />
     <Compile Include="Business\RPSearch\RPSearchUtils.cs" />
     <Compile Include="Business\SystemUtils.cs" />
     <Compile Include="Business\Login\ValidateGraphic.cs" />

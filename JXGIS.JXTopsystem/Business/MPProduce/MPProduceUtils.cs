@@ -149,7 +149,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                  MPType = t.MPType,
                                  MPID = t.MPID,
                                  CreateTime = DateTime.Now.Date,
-                                 CreateUser = LoginUtils.CurrentUser.UserID
+                                 CreateUser = LoginUtils.CurrentUser.UserName
                              }).ToList();
                 dbContext.MPProduce.AddRange(mpPro);
                 dbContext.SaveChanges();

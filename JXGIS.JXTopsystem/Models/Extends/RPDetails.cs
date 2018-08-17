@@ -16,5 +16,6 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string RoadName { get; set; }
         public string CodeFile { get; set; }
         public List<Pictures> Files { get; set; }
+        public List<RPRepair> RepairInfos { get; set; }
     }
 }

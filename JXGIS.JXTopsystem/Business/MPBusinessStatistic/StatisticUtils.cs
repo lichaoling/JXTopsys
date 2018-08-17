@@ -138,7 +138,7 @@ namespace JXGIS.JXTopsystem.Business
                             from ct in cc.DefaultIfEmpty()
 
                             join u in users
-                            on t.CreateUser equals u.UserID into uu
+                            on t.CreateUser equals u.UserName into uu
                             from ut in uu.DefaultIfEmpty()
                             select new MPBusiness
                             {

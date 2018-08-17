@@ -142,7 +142,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                             CreateTime = t.CreateTime,
                             RepairedCount = t.RepairedCount
                         }).ToList();
-
+                //关联路牌照片 重组url
                 List<RPDetails> rt = new List<RPDetails>();
                 foreach (var d in data)
                 {
@@ -160,8 +160,10 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                                        }).ToList();
                         r.Files = filelst;
                     }
+                    r.CodeFile = "Files/RP/CodeFile/" + d.ID + ".jpg";
                     rt.Add(r);
                 }
+
                 return new Dictionary<string, object> {
                    { "Data",rt},
                    { "Count",count}
@@ -174,11 +176,32 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var q = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t=>t.ID==ID).FirstOrDefault();
-                if(q==null)
+                var data = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault() as RPDetails;
+                if (data == null)
                     throw new Exception("该路牌已经被注销！");
 
+                var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == ID);
+                if (files.Count() > 0)
+                {
+
+                    var filelst = (from t in files
+                                   select new Pictures
+                                   {
+                                       pid = t.ID,
+                                       name = t.Name,
+                                       url = "Files/RP/" + ID + "/" + t.ID + t.FileType
+                                   }).ToList();
+                    data.Files = filelst;
+                }
+                data.RoadName = dbContext.Road.Where(t => t.RoadID.ToString() == data.RoadID).Select(t => t.RoadName).FirstOrDefault();
+                data.CodeFile = "Files/RP/CodeFile/" + ID + ".jpg";
+                data.CountyName = SystemUtils.Districts.Where(t => t.ID == data.CountyID).Select(t => t.Name).FirstOrDefault();
+                data.NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == data.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
+                data.CommunityName = SystemUtils.Districts.Where(t => t.ID == data.CommunityID).Select(t => t.Name).FirstOrDefault();
+                return data;
             }
         }
+
+
     }
 }

@@ -17,7 +17,7 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
         /// <param name="CertificateType"></param>
         public static void MPCertificatePrint(string ID, int MPType, int CertificateType)
         {
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 MPOfCertificate mpCertificate = new Models.Entities.MPOfCertificate();
                 var GUID = Guid.NewGuid().ToString();
@@ -25,13 +25,13 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                 mpCertificate.ID = GUID;
                 mpCertificate.MPID = ID;
                 mpCertificate.CreateTime = CreateTime;
-                mpCertificate.CreateUser = LoginUtils.CurrentUser.UserID;
+                mpCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
                 mpCertificate.MPType = MPType;
                 mpCertificate.CertificateType = CertificateType;
                 //受理窗口属于？？ 待完成
 
-                dbContenxt.MPOfCertificate.Add(mpCertificate);
-                dbContenxt.SaveChanges();
+                dbContext.MPOfCertificate.Add(mpCertificate);
+                dbContext.SaveChanges();
             }
         }
 
@@ -69,11 +69,11 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
         public static Models.Extends.MPCertificate MPCertificateQuery(string ID, int MPType, int CertificateType)
         {
             Models.Extends.MPCertificate query = new Models.Extends.MPCertificate();
-            using (var dbContenxt = SystemUtils.NewEFDbContext)
+            using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 if (MPType == Enums.MPType.Residence)//住宅
                 {
-                    var mpOfResidence = dbContenxt.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
+                    var mpOfResidence = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
                     if (mpOfResidence.Count() == 0)
                         throw new Exception("该门牌已经注销，请重新查询！");
                     if (CertificateType == Enums.CertificateType.Placename)//地名证明浏览
@@ -89,8 +89,8 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                     }
                     else if (CertificateType == Enums.CertificateType.MPZ) //门牌证浏览
                     {
-                        //var q = (from t in dbContenxt.MPOFResidence
-                        //         join d in dbContenxt.Road
+                        //var q = (from t in dbContext.MPOFResidence
+                        //         join d in dbContext.Road
                         //         on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
                         //         from dt in dd.DefaultIfEmpty()
                         //         where t.State == Enums.UseState.Enable && t.ID == ID
@@ -110,7 +110,7 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                         //             PropertyOwner = t.PropertyOwner,
                         //             AddressCoding = t.AddressCoding
                         //         }).ToList();
-                        var q = (from t in dbContenxt.MPOFResidence
+                        var q = (from t in dbContext.MPOFResidence
                                  where t.State == Enums.UseState.Enable && t.ID == ID
                                  select new Models.Extends.MPCertificate
                                  {
@@ -165,7 +165,7 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                 }
                 else if (MPType == Enums.MPType.Road)//道路
                 {
-                    var mpOfRoad = dbContenxt.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
+                    var mpOfRoad = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
                     if (mpOfRoad.Count() == 0)
                         throw new Exception("该道路门牌已经注销，请重新查询！");
                     if (CertificateType == Enums.CertificateType.Placename)//地名证明浏览
@@ -181,8 +181,8 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                     }
                     else if (CertificateType == Enums.CertificateType.MPZ) //门牌证浏览
                     {
-                        var q = (from t in dbContenxt.MPOfRoad
-                                 join d in dbContenxt.Road
+                        var q = (from t in dbContext.MPOfRoad
+                                 join d in dbContext.Road
                                  on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
                                  from dt in dd.DefaultIfEmpty()
 
@@ -228,7 +228,7 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                 }
                 else if (MPType == Enums.MPType.Country)//农村
                 {
-                    var mpOfCounty = dbContenxt.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
+                    var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID);
                     if (mpOfCounty.Count() == 0)
                         throw new Exception("该门牌已经注销，请重新查询！");
                     if (CertificateType == Enums.CertificateType.Placename)//地名证明浏览
@@ -243,7 +243,7 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                     }
                     else if (CertificateType == Enums.CertificateType.MPZ) //门牌证浏览
                     {
-                        var q = (from t in dbContenxt.MPOfCountry
+                        var q = (from t in dbContext.MPOfCountry
                                  where t.State == Enums.UseState.Enable && t.ID == ID
                                  select new Models.Extends.MPCertificate
                                  {

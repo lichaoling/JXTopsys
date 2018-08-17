@@ -25,7 +25,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var r = MPSearchUtils.SearchResidenceMP(PageSize, PageNum, DistrictID, Name, UseState);
+                var r = ResidenceMPSearch.SearchResidenceMP(PageSize, PageNum, DistrictID, Name, UseState);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -42,7 +42,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var r = MPSearchUtils.SearchResidenceMPByID(ID);
+                var r = ResidenceMPSearch.SearchResidenceMPByID(ID);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -81,10 +81,10 @@ namespace JXGIS.JXTopsystem.Controllers
                 var Did = Session["_ResidenceMPDistrictID"].ToString();
                 var Name = Session["_ResidenceMPName"].ToString();
                 var UseState = (int)Session["_ResidenceMPUseState"];
-                var ms = MPSearchUtils.ExportResidenceMP(Did, Name,UseState);
+                var ms = ResidenceMPSearch.ExportResidenceMP(Did, Name, UseState);
                 Session["_ResidenceMPDistrictID"] = null;
                 Session["_ResidenceMPName"] = null;
-                Session["_ResidenceMPUseState"]= Enums.UseState.Enable;
+                Session["_ResidenceMPUseState"] = Enums.UseState.Enable;
                 string fileName = $"住宅门牌_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.xls";
                 return File(ms, "application/vnd.ms-excel", fileName);
             }
@@ -102,7 +102,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var r = MPSearchUtils.SearchRoadMP(PageSize, PageNum, DistrictID, Name, MPNumberType, UseState);
+                var r = RoadMPSearch.SearchRoadMP(PageSize, PageNum, DistrictID, Name, MPNumberType, UseState);
                 rt = new RtObj(r);
 
             }
@@ -120,7 +120,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var r = MPSearchUtils.SearchRoadMPByID(ID);
+                var r = RoadMPSearch.SearchRoadMPByID(ID);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -159,11 +159,11 @@ namespace JXGIS.JXTopsystem.Controllers
                 var Name = Session["_RoadMPName"].ToString();
                 var mpnumbertype = (int)Session["_RoadMPNumberType"];
                 var UseState = (int)Session["_RoadMPUseState"];
-                var ms = MPSearchUtils.ExportRoadMP(Did, Name, mpnumbertype, UseState);
+                var ms = RoadMPSearch.ExportRoadMP(Did, Name, mpnumbertype, UseState);
                 Session["_RoadMPDistrictID"] = null;
                 Session["_RoadMPName"] = null;
                 Session["_RoadMPNumberType"] = 0;
-                Session["_RoadMPUseState"]=Enums.UseState.Enable;
+                Session["_RoadMPUseState"] = Enums.UseState.Enable;
                 string fileName = $"道路门牌_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.xls";
                 return File(ms, "application/vnd.ms-excel", fileName);
             }
@@ -181,7 +181,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var r = MPSearchUtils.SearchCountryMP(PageSize, PageNum, DistrictID, Name, UseState);
+                var r = CountryMPSearch.SearchCountryMP(PageSize, PageNum, DistrictID, Name, UseState);
                 rt = new RtObj(r);
 
             }
@@ -199,7 +199,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var r = MPSearchUtils.SearchCountryMPByID(ID);
+                var r = CountryMPSearch.SearchCountryMPByID(ID);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -236,10 +236,10 @@ namespace JXGIS.JXTopsystem.Controllers
                 var Did = Session["_CountryMPDistrictID"].ToString();
                 var Name = Session["_CountryMPName"].ToString();
                 var UseState = (int)Session["_CountryMPUseState"];
-                var ms = MPSearchUtils.ExportCountryMP(Did, Name, UseState);
+                var ms = CountryMPSearch.ExportCountryMP(Did, Name, UseState);
                 Session["_CountryMPDistrictID"] = null;
                 Session["_CountryMPName"] = null;
-                Session["_CountryMPUseState"]= Enums.UseState.Enable;
+                Session["_CountryMPUseState"] = Enums.UseState.Enable;
                 string fileName = $"农村门牌_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.xls";
                 return File(ms, "application/vnd.ms-excel", fileName);
             }
