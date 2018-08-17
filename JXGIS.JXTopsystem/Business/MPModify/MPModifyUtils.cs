@@ -185,7 +185,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     newData.LastModifyTime = DateTime.Now.Date;//修改时间
                     newData.LastModifyUser = LoginUtils.CurrentUser.UserID;
                     newData.State = oldData.State;
-                    //上传的附件进行修改 ？？？？？？？？？？待完成
+                    //上传的附件进行修改
                     var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
                     var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                     var AddedBDCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.BDCZ);
@@ -430,7 +430,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 }
                 #region 自身导入的数据的重复检查   p.RoadName,
                 var selfCount = (from p in mps
-                                 group p by new { p.CountyName, p.NeighborhoodsName, p.CommunityName, p.ResidenceName, p.MPNumber, p.Dormitory, p.LZNumber, p.DYNumber, p.HSNumber } into g
+                                 group p by new { p.CountyName, p.NeighborhoodsName, p.CommunityName, p.ResidenceName, p.MPNumber, p.Dormitory, p.LZNumber, p.DYNumber, p.HSNumber }
+                                 into g
                                  where g.Count() > 1
                                  select g).ToList();
                 if (selfCount.Count > 0)

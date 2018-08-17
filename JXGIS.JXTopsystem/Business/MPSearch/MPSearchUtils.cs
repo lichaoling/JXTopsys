@@ -163,12 +163,12 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    query = query.OrderByDescending(t => t.CreateTime);
+                    query = query.OrderByDescending(t => t.CreateTime).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    query = query.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize);
+                    query = query.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
 
                 //data = (from t in query
@@ -188,19 +188,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 //            CreateTime = t.CreateTime,
                 //            RoadID = t.RoadID,
                 //        }).ToList();
+
                 data = (from t in query
-                        select new ResidenceMPDetails
-                        {
-                            ID = t.ID,
-                            CountyID = t.CountyID,
-                            NeighborhoodsID = t.NeighborhoodsID,
-                            CommunityID = t.CommunityID,
-                            ResidenceName = t.ResidenceName,
-                            StandardAddress = t.StandardAddress,
-                            PropertyOwner = t.PropertyOwner,
-                            CreateTime = t.CreateTime,
-                        }).ToList();
-                data = (from t in data
                         join a in SystemUtils.Districts
                         on t.CountyID equals a.ID into aa
                         from at in aa.DefaultIfEmpty()

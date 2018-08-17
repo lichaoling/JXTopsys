@@ -29,5 +29,9 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DbSet<MPOfCertificate> MPOfCertificate { get; set; }
         public DbSet<MPProduce> MPProduce { get; set; }
         public DbSet<MPOfUploadFiles> MPOfUploadFiles { get; set; }
+        public DbSet<RP> RP { get; set; }
+        public DbSet<RPRepair> RPRepair { get; set; }
+        public DbSet<RPOfUploadFiles> RPOfUploadFiles { get; set; }
+
     }
 }

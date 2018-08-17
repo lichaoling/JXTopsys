@@ -154,6 +154,7 @@
     <Compile Include="Business\MPModify\MPModifyUtils.cs" />
     <Compile Include="Business\MPProduce\MPProduceUtils.cs" />
     <Compile Include="Business\MPSearch\MPSearchUtils.cs" />
+    <Compile Include="Business\RPSearch\RPSearchUtils.cs" />
     <Compile Include="Business\SystemUtils.cs" />
     <Compile Include="Business\Login\ValidateGraphic.cs" />
     <Compile Include="Controllers\CommonController.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="Controllers\MPModifyController.cs" />
     <Compile Include="Controllers\MPProduceController.cs" />
     <Compile Include="Controllers\MPSearchController.cs" />
+    <Compile Include="Controllers\RPSearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -170,9 +172,12 @@
     <Compile Include="Models\Entities\MPOfCountry.cs" />
     <Compile Include="Models\Entities\MPOfResidence.cs" />
     <Compile Include="Models\Entities\MPOfRoad.cs" />
+    <Compile Include="Models\Entities\RPOfUploadFiles.cs" />
     <Compile Include="Models\Entities\MPOfUploadFiles.cs" />
     <Compile Include="Models\Entities\MPProduce.cs" />
     <Compile Include="Models\Entities\Road.cs" />
+    <Compile Include="Models\Entities\RP.cs" />
+    <Compile Include="Models\Entities\RPRepair.cs" />
     <Compile Include="Models\Entities\SqlDBContext.cs" />
     <Compile Include="Models\Entities\SysRole.cs" />
     <Compile Include="Models\Entities\SysUser.cs" />
@@ -193,6 +198,7 @@
     <Compile Include="Models\Extends\RoadDetails.cs" />
     <Compile Include="Models\Extends\RoadMPDetails.cs" />
     <Compile Include="Models\Extends\RoadMPErrors.cs" />
+    <Compile Include="Models\Extends\RPDetails.cs" />
     <Compile Include="Models\Extends\RtObj\DefaultRtObjCfg.cs" />
     <Compile Include="Models\Extends\RtObj\Error.cs" />
     <Compile Include="Models\Extends\RtObj\IRtObjCfg.cs" />
@@ -391,6 +397,7 @@
     <Folder Include="Views\MPModify\" />
     <Folder Include="Views\MPProduce\" />
     <Folder Include="Views\MPSearch\" />
+    <Folder Include="Views\RPSearch\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
