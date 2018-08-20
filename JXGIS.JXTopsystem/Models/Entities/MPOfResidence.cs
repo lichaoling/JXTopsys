@@ -58,6 +58,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string OtherAddress { get; set; }
         public string Applicant { get; set; }
         public string ApplicantPhone { get; set; }
+        public string SBDW { get; set; }
+        public DateTime? BZTime { get; set; }
         public DateTime? CreateTime { get; set; }
         public string CreateUser { get; set; }
         public DateTime? LastModifyTime { get; set; }

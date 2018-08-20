@@ -102,28 +102,30 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 //市辖区/镇街道/村社区/小区名/门牌号/宿舍名/幢号/单元号/房室号
                 var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ResidenceName + newData.MPNumber == null ? "" : newData.MPNumber + "号" + newData.Dormitory + newData.LZNumber == null ? "" : newData.LZNumber + "幢" + newData.DYNumber == null ? "" : newData.DYNumber + "单元" + newData.HSNumber == null ? "" : newData.HSNumber + "室";
                 #endregion
+                #region 地址编码前10位拼接
+                var guid = Guid.NewGuid().ToString();
+                var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
+                var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                var mpCategory = SystemUtils.Config.MPCategory.Residence.Value.ToString();
+                var year = DateTime.Now.Year.ToString();
+                ////不再使用，用数据库触发器
+                //var ResidenceSql = $@"select max(cast (right([AddressCoding],5) as int)) from [TopSystemDB].[dbo].[MPOFRESIDENCE]";
+                //var maxCode = dbContext.Database.SqlQuery<int>(ResidenceSql).FirstOrDefault();
+                //var Code = (maxCode + 1).ToString().PadLeft(5, '0');//向左补齐0，共5位
+                //地址编码  不带流水号，流水号由数据库触发器生成
+                var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
+                #endregion
+
                 #region 新增
                 //新增
                 if (oldData == null)
                 {
                     //如果不重复，开始插入数据，X和Y坐标转换成DbGeography，生成AddressCoding，创建附件的文件夹，将二进制文件存入对应文件夹，获取附件名称存入File，CreateTime默认为当前日期，State默认为1
-                    var guid = Guid.NewGuid().ToString();
-                    var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                    var mpCategory = SystemUtils.Config.MPCategory.Residence.Value.ToString();
-                    var year = DateTime.Now.Year.ToString();
 
-                    ////不再使用，用数据库触发器
-                    //var ResidenceSql = $@"select max(cast (right([AddressCoding],5) as int)) from [TopSystemDB].[dbo].[MPOFRESIDENCE]";
-                    //var maxCode = dbContext.Database.SqlQuery<int>(ResidenceSql).FirstOrDefault();
-                    //var Code = (maxCode + 1).ToString().PadLeft(5, '0');//向左补齐0，共5位
-
-                    //地址编码  不带流水号，流水号由数据库触发器生成
-                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
                     //单元空间位置
                     var DYPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
                     //创建时间
-                    var CreateTime = newData.CreateTime == null ? DateTime.Now.Date : newData.CreateTime;
+                    var CreateTime = DateTime.Now.Date;
                     //使用状态
                     var State = Enums.UseState.Enable;
 
@@ -178,11 +180,18 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
                     dbContext.MPOFResidence.Remove(query.First());
                     newData.ID = oldData.ID;
-                    newData.AddressCoding = oldData.AddressCoding;
+                    newData.AddressCoding = AddressCoding;
                     newData.DYPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : oldData.DYPosition;//单元空间位置
                     newData.StandardAddress = StandardAddress;
+                    newData.CreateTime = oldData.CreateTime;
+                    newData.CreateUser = oldData.CreateUser;
+                    newData.BZTime = oldData.BZTime;
                     newData.LastModifyTime = DateTime.Now.Date;//修改时间
                     newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    newData.CancelTime = oldData.CancelTime;
+                    newData.CancelUser = oldData.CancelUser;
+                    newData.DelTime = newData.DelTime;
+                    newData.DelUser = newData.DelUser;
                     newData.State = oldData.State;
                     //上传的附件进行修改
                     var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
@@ -247,6 +256,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var PropertyOwner = row[10].Value != null ? row[10].Value.ToString().Trim() : null;
                     var Applicant = row[11].Value != null ? row[11].Value.ToString().Trim() : null;
                     var ApplicantPhone = row[12].Value != null ? row[12].Value.ToString().Trim() : null;
+                    var SBDW = row[13].Value != null ? row[13].Value.ToString().Trim() : null;
+                    var BZTime = row[14].Value != null ? row[14].Value.ToString().Trim() : null;
 
                     if (row.IsBlank)
                     {
@@ -257,6 +268,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     string CountyID = null;
                     string NeighborhoodsID = null;
                     string CommunityID = null;
+                    DateTime bzTime = DateTime.Now.Date;
 
                     #region 市辖区检查
                     if (string.IsNullOrEmpty(CountyName))
@@ -389,6 +401,15 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         error.ErrorMessages.Add("该户室牌已经存在");
                     }
                     #endregion
+                    #region 编制日期的格式检查  不填默认是当前时间
+                    if (!string.IsNullOrEmpty(BZTime))
+                    {
+                        if (CheckIsDatetime(ref BZTime))
+                            bzTime = Convert.ToDateTime(BZTime);
+                        else
+                            error.ErrorMessages.Add("编制日期不是标准日期格式");
+                    }
+                    #endregion
                     var mp = new Models.Extends.ResidenceMPDetails
                     {
                         CountyID = CountyID,
@@ -408,7 +429,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         Postcode = Postcode,
                         PropertyOwner = PropertyOwner,
                         Applicant = Applicant,
-                        ApplicantPhone = ApplicantPhone
+                        ApplicantPhone = ApplicantPhone,
+                        SBDW = SBDW,
+                        BZTime = bzTime
                     };
 
                     // 将这个门牌加到List中
@@ -650,18 +673,21 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 var RoadName = dbContext.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
                 var StandardAddress = CountyName + NeighborhoodsName + CommunityName + RoadName + newData.MPNumber + "号";
                 #endregion
+                #region 地址编码前10位拼接
+                var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
+                var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                var mpCategory = SystemUtils.Config.MPCategory.Road.Value.ToString();
+                var year = DateTime.Now.Year.ToString();
+                var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
+                #endregion
+
                 #region 新增
                 //新增，则需对门牌号查重
                 if (oldData == null)
                 {
                     var guid = Guid.NewGuid().ToString();
-                    var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                    var mpCategory = SystemUtils.Config.MPCategory.Road.Value.ToString();
-                    var year = DateTime.Now.Year.ToString();
-                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
                     var MPPosition = (newData.Lng != 0 && newData.Lat != 0) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
-                    var CreateTime = newData.CreateTime == null ? DateTime.Now.Date : newData.CreateTime;
+                    var CreateTime = DateTime.Now.Date;
 
                     //获取所有上传的文件
                     if (HttpContext.Current.Request.Files.Count > 0)
@@ -711,11 +737,18 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
                     dbContext.MPOfRoad.Remove(query.First());
                     newData.ID = oldData.ID;
-                    newData.AddressCoding = oldData.AddressCoding;
+                    newData.AddressCoding = AddressCoding;
                     newData.MPPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;//单元空间位置
                     newData.StandardAddress = StandardAddress;
+                    newData.CreateTime = oldData.CreateTime;
+                    newData.CreateUser = oldData.CreateUser;
+                    newData.BZTime = oldData.BZTime;
                     newData.LastModifyTime = DateTime.Now.Date;//修改时间
                     newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    newData.CancelTime = oldData.CancelTime;
+                    newData.CancelUser = oldData.CancelUser;
+                    newData.DelTime = newData.DelTime;
+                    newData.DelUser = newData.DelUser;
                     newData.State = oldData.State;
                     //上传的附件进行修改 ？？？？？？？？？？待完成
                     var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
@@ -784,11 +817,13 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var ShopName = row[11].Value != null ? row[11].Value.ToString().Trim() : null;
                     var ResidenceName = row[12].Value != null ? row[12].Value.ToString().Trim() : null;
                     var PropertyOwner = row[13].Value != null ? row[13].Value.ToString().Trim() : null;
-                    var CreateTime = row[14].Value != null ? row[14].Value.ToString().Trim() : null;
+                    var BZTime = row[14].Value != null ? row[14].Value.ToString().Trim() : null;
                     var MPSize = row[15].Value != null ? row[15].Value.ToString().Trim() : null;
                     var Applicant = row[16].Value != null ? row[16].Value.ToString().Trim() : null;
                     var ApplicantPhone = row[17].Value != null ? row[17].Value.ToString().Trim() : null;
                     var MPProduce = row[18].Value != null ? row[18].Value.ToString().Trim() : null;
+                    var Postcode = row[19].Value != null ? row[19].Value.ToString().Trim() : null;
+                    var SBDW = row[20].Value != null ? row[20].Value.ToString().Trim() : null;
 
                     if (row.IsBlank)
                     {
@@ -799,7 +834,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     string NeighborhoodsID = null;
                     string CommunityID = null;
                     string RoadID = null;
-                    DateTime createTime = DateTime.Now.Date;
+                    DateTime bzTime = DateTime.Now.Date;
                     int mpProduce = Enums.MPProduce.NotMake;
 
                     #region 市辖区检查
@@ -905,10 +940,10 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
                     #endregion
                     #region 编制日期的格式检查  不填默认是当前时间
-                    if (!string.IsNullOrEmpty(CreateTime))
+                    if (!string.IsNullOrEmpty(BZTime))
                     {
-                        if (CheckIsDatetime(ref CreateTime))
-                            createTime = Convert.ToDateTime(CreateTime);
+                        if (CheckIsDatetime(ref BZTime))
+                            bzTime = Convert.ToDateTime(BZTime);
                         else
                             error.ErrorMessages.Add("编制日期不是标准日期格式");
                     }
@@ -943,6 +978,13 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                             error.ErrorMessages.Add("是否制作门牌列格式不正确，只能填“是”或者“否”！");
                     }
                     #endregion
+                    #region 邮政编码检查 6位数，且以3140开头  可以为空
+                    if (!string.IsNullOrEmpty(Postcode))
+                    {
+                        if (!CheckPostcode(Postcode))
+                            error.ErrorMessages.Add("邮政编码有误");
+                    }
+                    #endregion
 
                     var mp = new Models.Extends.RoadMPDetails
                     {
@@ -962,11 +1004,13 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         ShopName = ShopName,
                         ResidenceName = ResidenceName,
                         PropertyOwner = PropertyOwner,
-                        CreateTime = createTime,
+                        BZTime = bzTime,
                         MPSize = MPSize,
                         Applicant = Applicant,
                         ApplicantPhone = ApplicantPhone,
-                        MPProduce = mpProduce
+                        MPProduce = mpProduce,
+                        Postcode = Postcode,
+                        SBDW = SBDW
                     };
                     mps.Add(mp);
                     if (error.ErrorMessages.Count > 0)
@@ -1181,18 +1225,21 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
                 var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ViligeName + newData.MPNumber + "号" + newData.HSNumber == null ? string.Empty : newData.HSNumber + "室";
                 #endregion
+                #region 地址编码前10位拼接
+                var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
+                var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                var mpCategory = SystemUtils.Config.MPCategory.Country.Value.ToString();
+                var year = DateTime.Now.Year.ToString();
+                var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
+                #endregion
+
                 #region 新增
                 //新增，则需对门牌号查重
                 if (oldData == null)
                 {
                     var guid = Guid.NewGuid().ToString();
-                    var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                    var mpCategory = SystemUtils.Config.MPCategory.Country.Value.ToString();
-                    var year = DateTime.Now.Year.ToString();
-                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
                     var MPPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
-                    var CreateTime = newData.CreateTime == null ? DateTime.Now.Date : newData.CreateTime;
+                    var CreateTime = DateTime.Now.Date;
                     //获取所有上传的文件
                     if (HttpContext.Current.Request.Files.Count > 0)
                     {
@@ -1235,18 +1282,24 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
                     dbContext.MPOfCountry.Remove(query.First());
                     newData.ID = oldData.ID;
-                    newData.AddressCoding = oldData.AddressCoding;
+                    newData.AddressCoding = AddressCoding;
                     newData.MPPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;//单元空间位置
                     newData.StandardAddress = StandardAddress;
+                    newData.CreateTime = oldData.CreateTime;
+                    newData.CreateUser = oldData.CreateUser;
+                    newData.BZTime = oldData.BZTime;
                     newData.LastModifyTime = DateTime.Now.Date;//修改时间
                     newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    newData.CancelTime = oldData.CancelTime;
+                    newData.CancelUser = oldData.CancelUser;
+                    newData.DelTime = newData.DelTime;
+                    newData.DelUser = newData.DelUser;
                     newData.State = oldData.State;
                     //上传的附件进行修改 ？？？？？？？？？？待完成
                     var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                     var AddedQQZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.QQZ);
                     UpdateMPFilesByID(TDZIDs, AddedTDZFiles, oldData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
                     UpdateMPFilesByID(QQZIDs, AddedQQZFiles, oldData.ID, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
-
                 }
                 #endregion
             }
@@ -1289,11 +1342,13 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var OriginalNumber = row[5].Value != null ? row[5].Value.ToString().Trim() : null;
                     var HSNumber = row[6].Value != null ? row[6].Value.ToString().Trim() : null;
                     var PropertyOwner = row[7].Value != null ? row[7].Value.ToString().Trim() : null;
-                    var CreateTime = row[8].Value != null ? row[8].Value.ToString().Trim() : null;
+                    var BZTime = row[8].Value != null ? row[8].Value.ToString().Trim() : null;
                     var MPSize = row[9].Value != null ? row[9].Value.ToString().Trim() : null;
                     var Applicant = row[10].Value != null ? row[10].Value.ToString().Trim() : null;
                     var ApplicantPhone = row[11].Value != null ? row[11].Value.ToString().Trim() : null;
                     var MPProduce = row[12].Value != null ? row[12].Value.ToString().Trim() : null;
+                    var Postcode = row[13].Value != null ? row[13].Value.ToString().Trim() : null;
+                    var SBDW = row[14].Value != null ? row[14].Value.ToString().Trim() : null;
 
                     if (row.IsBlank)
                     {
@@ -1303,7 +1358,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     string CountyID = null;
                     string NeighborhoodsID = null;
                     string CommunityID = null;
-                    DateTime createTime = DateTime.Now.Date;
+                    DateTime bzTime = DateTime.Now.Date;
                     int mpProduce = Enums.MPProduce.NotMake;
 
                     #region 市辖区检查
@@ -1370,10 +1425,10 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     #endregion
                     #region 编制日期的格式检查  不填默认是当前时间
-                    if (!string.IsNullOrEmpty(CreateTime))
+                    if (!string.IsNullOrEmpty(BZTime))
                     {
-                        if (CheckIsDatetime(ref CreateTime))
-                            createTime = Convert.ToDateTime(CreateTime);
+                        if (CheckIsDatetime(ref BZTime))
+                            bzTime = Convert.ToDateTime(BZTime);
                         else
                             error.ErrorMessages.Add("编制日期不是标准日期格式");
                     }
@@ -1408,6 +1463,13 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                             error.ErrorMessages.Add("是否制作门牌列格式不正确，只能填“是”或者“否”！");
                     }
                     #endregion
+                    #region 邮政编码检查 6位数，且以3140开头  可以为空
+                    if (!string.IsNullOrEmpty(Postcode))
+                    {
+                        if (!CheckPostcode(Postcode))
+                            error.ErrorMessages.Add("邮政编码有误");
+                    }
+                    #endregion
 
                     var mp = new Models.Extends.CountryMPDetails
                     {
@@ -1422,11 +1484,13 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         OriginalNumber = OriginalNumber,
                         HSNumber = HSNumber,
                         PropertyOwner = PropertyOwner,
-                        CreateTime = createTime,
+                        BZTime = bzTime,
                         MPSize = MPSize,
                         Applicant = Applicant,
                         ApplicantPhone = ApplicantPhone,
-                        MPProduce = mpProduce
+                        MPProduce = mpProduce,
+                        Postcode = Postcode,
+                        SBDW = SBDW
                     };
                     mps.Add(mp);
                     if (error.ErrorMessages.Count > 0)
