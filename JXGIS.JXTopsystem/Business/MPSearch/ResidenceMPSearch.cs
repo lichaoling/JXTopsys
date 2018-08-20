@@ -162,12 +162,12 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    query = query.OrderByDescending(t => t.CreateTime).ToList();
+                    query = query.OrderByDescending(t => t.BZTime).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    query = query.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                    query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
 
                 //data = (from t in query
@@ -210,6 +210,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             ResidenceName = t.ResidenceName,
                             StandardAddress = t.StandardAddress,
                             PropertyOwner = t.PropertyOwner,
+                            BZTime=t.BZTime,
                             CreateTime = t.CreateTime
                         }).ToList();
 
@@ -259,6 +260,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                           ,a.[OtherAddress]
                           ,a.[Applicant]
                           ,a.[ApplicantPhone]
+                          ,a.[SBDW]
+                          ,a.[BZTime]
                           ,a.[CreateTime]
                           ,a.[CreateUser]
                           ,a.[LastModifyTime]
@@ -372,7 +375,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 new ExcelFields() { Field="小区名称",Alias="ResidenceName"},
                 new ExcelFields() { Field="标准地址",Alias="StandardAddress"},
                 new ExcelFields() { Field="产权人",Alias="PropertyOwner"},
-                new ExcelFields() { Field="编制日期",Alias="CreateTime"},
+                new ExcelFields() { Field="编制日期",Alias="BZTime"},
             };
             //写入表头
             for (int i = 0, l = Fields.Count; i < l; i++)

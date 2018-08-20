@@ -50,44 +50,45 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 }
                 if (!string.IsNullOrEmpty(Name))
                 {
-                    query = from t in query
-                            join d in dbContext.Road
-                            on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                            from dt in dd.DefaultIfEmpty()
-                            where dt.RoadName.Contains(Name) || t.ShopName.Contains(Name) || t.ResidenceName.Contains(Name)
-                            select t;
+                    //query = from t in query
+                    //        join d in dbContext.Road
+                    //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
+                    //        from dt in dd.DefaultIfEmpty()
+                    //        where dt.RoadName.Contains(Name) || t.ShopName.Contains(Name) || t.ResidenceName.Contains(Name)
+                    //        select t;
+                    query = query.Where(t => t.RoadName.Contains(Name) || t.ShopName.Contains(Name) || t.ResidenceName.Contains(Name));
                 }
 
                 count = query.Count();
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    query = query.OrderByDescending(t => t.CreateTime);
+                    query = query.OrderByDescending(t => t.BZTime).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    query = query.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize);
+                    query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
+                //data = (from t in query
+                //        join d in dbContext.Road
+                //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
+                //        from dt in dd.DefaultIfEmpty()
+                //        select new RoadMPDetails
+                //        {
+                //            ID = t.ID,
+                //            CountyID = t.CountyID,
+                //            NeighborhoodsID = t.NeighborhoodsID,
+                //            CommunityID = t.CommunityID,
+                //            RoadName = dt.RoadName,
+                //            MPNumber = t.MPNumber,
+                //            OriginalNumber = t.OriginalNumber,
+                //            PropertyOwner = t.PropertyOwner,
+                //            ShopName = t.ShopName,
+                //            ReservedNumber = t.ReservedNumber,
+                //            CreateTime = t.CreateTime
+                //        }).ToList();
                 data = (from t in query
-                        join d in dbContext.Road
-                        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                        from dt in dd.DefaultIfEmpty()
-                        select new RoadMPDetails
-                        {
-                            ID = t.ID,
-                            CountyID = t.CountyID,
-                            NeighborhoodsID = t.NeighborhoodsID,
-                            CommunityID = t.CommunityID,
-                            RoadName = dt.RoadName,
-                            MPNumber = t.MPNumber,
-                            OriginalNumber = t.OriginalNumber,
-                            PropertyOwner = t.PropertyOwner,
-                            ShopName = t.ShopName,
-                            ReservedNumber = t.ReservedNumber,
-                            CreateTime = t.CreateTime
-                        }).ToList();
-                data = (from t in data
                         join a in SystemUtils.Districts
                         on t.CountyID equals a.ID into aa
                         from at in aa.DefaultIfEmpty()
@@ -111,6 +112,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             PropertyOwner = t.PropertyOwner,
                             ShopName = t.ShopName,
                             ReservedNumber = t.ReservedNumber,
+                            BZTime = t.BZTime,
                             CreateTime = t.CreateTime
                         }).ToList();
 
@@ -137,8 +139,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                           ,e.Name NeighborhoodsName
                           ,a.[CommunityID]
                           ,f.Name CommunityName
-                          ,a.[RoadID]
-                          ,c.biaozhunmingcheng RoadName
+                          ,a.[RoadName]
                           ,c.QiDian StartPoint
                           ,c.ZhiDian EndPoint
                           ,a.[ShopName]
@@ -172,6 +173,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                           ,a.[OtherAddress]
                           ,a.[Applicant]
                           ,a.[ApplicantPhone]
+                          ,a.[SBDW]
+                          ,a.[BZTime]
                           ,a.[CreateTime]
                           ,a.[CreateUser]
                           ,a.[LastModifyTime]
@@ -180,7 +183,6 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                           ,a.[CancelTime]
                           ,a.[CancelUser]
                       FROM [TopSystemDB].[dbo].[MPOFROAD] a
-                      left join [TopSystemDB].[dbo].[TopCombineRoad] c on a.roadid=c.dmid
                       left join [TopSystemDB].[dbo].[DISTRICT] d on a.CountyID=d.ID
                       left join [TopSystemDB].[dbo].[DISTRICT] e on a.NeighborhoodsID=e.ID
                       left join [TopSystemDB].[dbo].[DISTRICT] f on a.CommunityID=f.ID
@@ -274,7 +276,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 new ExcelFields() { Field="产权人",Alias="PropertyOwner"},
                 new ExcelFields() { Field="商铺名称",Alias="ShopName"},
                 new ExcelFields() { Field="预留号段",Alias="ReservedNumber"},
-                new ExcelFields() { Field="编制日期",Alias="CreateTime"},
+                new ExcelFields() { Field="编制日期",Alias="BZTime"},
             };
             //写入表头
             for (int i = 0, l = Fields.Count; i < l; i++)

@@ -23,7 +23,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string CountyName { get; set; }
         public string NeighborhoodsName { get; set; }
         public string CommunityName { get; set; }
-        public string RoadName { get; set; }//道路或者自然村名称
+        public string RoadName { get; set; }//道路
         public string ViligeName { get; set; }
         public string MPNumber { get; set; }
         public string ResidenceName { get; set; }

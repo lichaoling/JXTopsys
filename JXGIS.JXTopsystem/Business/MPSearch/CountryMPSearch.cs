@@ -45,12 +45,12 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    query = query.OrderByDescending(t => t.CreateTime);
+                    query = query.OrderByDescending(t => t.BZTime);
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    query = query.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize);
+                    query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize);
                 }
                 data = (from t in query
                         join a in SystemUtils.Districts
@@ -123,6 +123,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                       ,a.[OtherAddress]
                       ,a.[Applicant]
                       ,a.[ApplicantPhone]
+                      ,a.[SBDW]
+                      ,a.[BZTime]
                       ,a.[CreateTime]
                       ,a.[CreateUser]
                       ,a.[LastModifyTime]
@@ -205,7 +207,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 new ExcelFields() { Field="户室号",Alias="HSNumber"},
                 new ExcelFields() { Field="原门牌号码",Alias="OriginalNumber"},
                 new ExcelFields() { Field="产权人",Alias="PropertyOwner"},
-                new ExcelFields() { Field="编制日期",Alias="CreateTime"},
+                new ExcelFields() { Field="编制日期",Alias="BZTime"},
             };
             //写入表头
             for (int i = 0, l = Fields.Count; i < l; i++)

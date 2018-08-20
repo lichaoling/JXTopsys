@@ -182,10 +182,9 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                     else if (CertificateType == Enums.CertificateType.MPZ) //门牌证浏览
                     {
                         var q = (from t in dbContext.MPOfRoad
-                                 join d in dbContext.Road
-                                 on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                                 from dt in dd.DefaultIfEmpty()
-
+                                 //join d in dbContext.Road
+                                 //on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
+                                 //from dt in dd.DefaultIfEmpty()
                                  where t.State == Enums.UseState.Enable && t.ID == ID
                                  select new Models.Extends.MPCertificate
                                  {
@@ -193,7 +192,7 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                                      CountyID = t.CountyID,
                                      NeighborhoodsID = t.NeighborhoodsID,
                                      CommunityID = t.CommunityID,
-                                     RoadName = dt.RoadName,
+                                     RoadName = t.RoadName,
                                      MPNumber = t.MPNumber,
                                      OriginalNumber = t.OriginalNumber,
                                      PropertyOwner = t.PropertyOwner,

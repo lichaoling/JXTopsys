@@ -20,6 +20,6 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string CreateUserName { get; set; }
         public string MPTypeName { get; set; }
         public string CertificateTypeName { get; set; }
-        public DateTime? MPCreateTime { get; set; }
+        public DateTime? MPBZTime { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         [Key]
         public string RoleID { get; set; }
         public string RoleName { get; set; }
+        public string Window { get; set; }
         public string DistrictID { get; set; }
         public DateTime? CreateTime { get; set; }
         public string CreateUser { get; set; }

@@ -39,13 +39,13 @@ namespace JXGIS.JXTopsystem.Business
                                          CertificateTypeName = t.CertificateType == Enums.CertificateType.Placename ? "地名证明" : "门牌证打印",
                                          CreateTime = t.CreateTime,
                                          CreateUser = t.CreateUser,
-                                         Window = t.Window,
+                                         //Window = t.Window,
                                          CertificateType = t.CertificateType,
                                          CountyID = rt.CountyID,
                                          NeighborhoodsID = rt.NeighborhoodsID,
                                          CommunityID = rt.CommunityID,
                                          StandardAddress = rt.StandardAddress,
-                                         MPCreateTime = rt.CreateTime
+                                         MPBZTime = rt.BZTime
                                      };
                 #endregion
                 #region 道路类
@@ -65,13 +65,13 @@ namespace JXGIS.JXTopsystem.Business
                                     CertificateTypeName = t.CertificateType == Enums.CertificateType.Placename ? "地名证明" : "门牌证打印",
                                     CreateTime = t.CreateTime,
                                     CreateUser = t.CreateUser,
-                                    Window = t.Window,
+                                    //Window = t.Window,
                                     CertificateType = t.CertificateType,
                                     CountyID = rt.CountyID,
                                     NeighborhoodsID = rt.NeighborhoodsID,
                                     CommunityID = rt.CommunityID,
                                     StandardAddress = rt.StandardAddress,
-                                    MPCreateTime = rt.CreateTime
+                                    MPBZTime = rt.BZTime
                                 };
                 #endregion
                 #region 农村类
@@ -91,13 +91,13 @@ namespace JXGIS.JXTopsystem.Business
                                        CertificateTypeName = t.CertificateType == Enums.CertificateType.Placename ? "地名证明" : "门牌证打印",
                                        CreateTime = t.CreateTime,
                                        CreateUser = t.CreateUser,
-                                       Window = t.Window,
+                                       //Window = t.Window,
                                        CertificateType = t.CertificateType,
                                        CountyID = rt.CountyID,
                                        NeighborhoodsID = rt.NeighborhoodsID,
                                        CommunityID = rt.CommunityID,
                                        StandardAddress = rt.StandardAddress,
-                                       MPCreateTime = rt.CreateTime
+                                       MPBZTime = rt.BZTime
                                    };
                 #endregion
                 var All = queryResidence.Concat(queryRoad).Concat(queryCountry);
@@ -149,7 +149,7 @@ namespace JXGIS.JXTopsystem.Business
                                 CertificateTypeName = t.CertificateTypeName,
                                 CreateTime = t.CreateTime,
                                 CreateUser = t.CreateUser,
-                                Window = t.Window,
+                                //Window = t.Window,
                                 CertificateType = t.CertificateType,
                                 CountyID = t.CountyID,
                                 NeighborhoodsID = t.NeighborhoodsID,
@@ -159,7 +159,7 @@ namespace JXGIS.JXTopsystem.Business
                                 CommunityName = ct == null || ct.Name == null ? null : ct.Name,
                                 StandardAddress = t.StandardAddress,
                                 CreateUserName = ut == null ? "" : ut.Name,
-                                MPCreateTime = t.CreateTime
+                                MPBZTime = t.MPBZTime
                             }).ToList();
 
                 return new Dictionary<string, object> {
@@ -205,8 +205,7 @@ namespace JXGIS.JXTopsystem.Business
                                 MPSizeType = bigMPsize.Contains(ft.MPSize) ? "大门牌" : "小门牌",
                                 MPType = "农村门牌",
                                 MPProduceTime = t.CreateTime
-                            }
-                            );
+                            });
                 // 先删选出当前用户权限内的数据
                 var where = PredicateBuilder.False<MPProduceStatistic>();
                 foreach (var userDID in LoginUtils.CurrentUser.DistrictID)

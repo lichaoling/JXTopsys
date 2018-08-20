@@ -26,9 +26,9 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var all = (from a in dbContext.MPOfRoad
-                         join d in dbContext.Road
-                         on a.RoadID == null ? a.RoadID : a.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                         from dt in dd.DefaultIfEmpty()
+                         //join d in dbContext.Road
+                         //on a.RoadID == null ? a.RoadID : a.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
+                         //from dt in dd.DefaultIfEmpty()
                          where a.State == Enums.UseState.Enable
                          select new MPProduceList
                          {
@@ -40,11 +40,11 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                              MPTypeName = "道路门牌",
                              MPProduce = a.MPProduce,
                              MPProduceName = a.MPProduce == Enums.MPProduce.ToBeMade ? "待制作" : (a.MPProduce == Enums.MPProduce.NotMake ? "不制作" : "已制作"),
-                             PlaceName = dt.RoadName,
+                             PlaceName = a.RoadName,
                              MPNumber = a.MPNumber,
                              MPSize = a.MPSize,
                              Postcode = a.Postcode,
-                             MPCreateTime = a.CreateTime
+                             MPBZTime = a.BZTime
                          }).Concat(
                              from b in dbContext.MPOfCountry
                              where b.State == Enums.UseState.Enable
@@ -62,7 +62,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                  MPNumber = b.MPNumber,
                                  MPSize = b.MPSize,
                                  Postcode = b.Postcode,
-                                 MPCreateTime = b.CreateTime
+                                 MPBZTime = b.BZTime
                              }
                             );
 
@@ -92,7 +92,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 }
                 count = q.Count();
 
-                data = q.OrderByDescending(t => t.MPCreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                data = q.OrderByDescending(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
 
                 data = (from t in data
                         join a in SystemUtils.Districts
@@ -123,7 +123,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             MPNumber = t.MPNumber,
                             MPSize = t.MPSize,
                             Postcode = t.Postcode,
-                            MPCreateTime = t.CreateTime
+                            MPBZTime = t.MPBZTime
                         }).ToList();
                 return new Dictionary<string, object> {
                    { "Data",data},
@@ -156,7 +156,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 //将门牌表中MPProduce字段设置为已制作
                 //。。。。。
             }
-            var rt = mps.OrderBy(t => t.MPCreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+            var rt = mps.OrderBy(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
             return new Dictionary<string, object> {
                    { "Data",rt},
                    { "Count",mps.Count}

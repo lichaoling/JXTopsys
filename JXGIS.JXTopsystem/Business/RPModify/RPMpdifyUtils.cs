@@ -32,7 +32,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     var AddressCoding = CountyCode + NeighborhoodsCode + year;
                     var Position = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
                     //创建时间
-                    var CreateTime = newData.CreateTime == null ? DateTime.Now.Date : newData.CreateTime;
+                    var CreateTime = DateTime.Now.Date;
                     //使用状态
                     var State = Enums.UseState.Enable;
                     //GUID

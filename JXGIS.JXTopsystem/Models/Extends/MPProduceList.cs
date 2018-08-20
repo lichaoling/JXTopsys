@@ -23,6 +23,6 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string MPNumber { get; set; }//门牌号码
         public string MPSize { get; set; }
         public string Postcode { get; set; }
-        public DateTime? MPCreateTime { get; set; }
+        public DateTime? MPBZTime { get; set; }
     }
 }

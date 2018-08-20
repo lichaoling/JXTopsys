@@ -32,5 +32,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string DelUser { get; set; }
         [NotMapped]
         public virtual List<string> DistrictID { get; set; }
+        [NotMapped]
+        public virtual List<string> Window { get; set; }
+
     }
 }

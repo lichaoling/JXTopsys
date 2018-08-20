@@ -14,7 +14,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string CountyName { get; set; }
         public string NeighborhoodsName { get; set; }
         public string CommunityName { get; set; }
-        public string RoadName { get; set; }
+        //public string RoadName { get; set; }
         public string StartPoint { get; set; }
         public string EndPoint { get; set; }
         public List<Pictures> FCZ { get; set; }

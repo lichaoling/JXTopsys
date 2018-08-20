@@ -19,7 +19,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CountyID { get; set; }
         public string NeighborhoodsID { get; set; }
         public string CommunityID { get; set; }
-        public string RoadID { get; set; }
+        //public string RoadID { get; set; }
+        public string RoadName { get; set; }
         public string Intersection { get; set; }
         public string Direction { get; set; }
         public DbGeography Position { get; set; }
@@ -36,6 +37,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string Management { get; set; }
         public int RepairedCount { get; set; }
         public int FinishRepaire { get; set; }
+        public DateTime? BZTime { get; set; }
         public DateTime? CreateTime { get; set; }
         public string CreateUser { get; set; }
         public DateTime? LastModifyTime { get; set; }

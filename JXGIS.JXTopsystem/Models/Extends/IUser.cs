@@ -12,6 +12,6 @@ namespace JXGIS.JXTopsystem.Models.Extends
         string UserName { get; }
         string Password { get; }
         List<string> DistrictID { get; }
-
+        List<string> Window { get; }
     }
 }

@@ -69,53 +69,54 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 {
                     if (!string.IsNullOrEmpty(start))
                     {
-                        q = q.Where(t => String.Compare(t.CreateTime.ToString(), start, StringComparison.Ordinal) >= 0);
+                        query = query.Where(t => String.Compare(t.BZTime.ToString(), start, StringComparison.Ordinal) >= 0);
                     }
                     if (!string.IsNullOrEmpty(end))
                     {
-                        q = q.Where(t => String.Compare(t.CreateTime.ToString(), end, StringComparison.Ordinal) <= 0);
+                        query = query.Where(t => String.Compare(t.BZTime.ToString(), end, StringComparison.Ordinal) <= 0);
                     }
                 }
                 //道路名称筛选
                 if (!string.IsNullOrEmpty(RoadName))
                 {
-                    query = from t in query
-                            join d in dbContext.Road
-                            on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                            from dt in dd.DefaultIfEmpty()
-                            where dt.RoadName.Contains(RoadName)
-                            select t;
+                    //query = from t in query
+                    //        join d in dbContext.Road
+                    //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
+                    //        from dt in dd.DefaultIfEmpty()
+                    //        where dt.RoadName.Contains(RoadName)
+                    //        select t;
+                    query = query.Where(t => t.RoadName.Contains(RoadName));
                 }
                 count = query.Count();
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    query = query.OrderByDescending(t => t.CreateTime);
+                    query = query.OrderByDescending(t => t.BZTime).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    query = query.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize);
+                    query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
 
-                data = (from t in query
-                        join d in dbContext.Road
-                        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                        from dt in dd.DefaultIfEmpty()
-                        select new RPDetails
-                        {
-                            ID = t.ID,
-                            CountyID = t.CountyID,
-                            NeighborhoodsID = t.NeighborhoodsID,
-                            CommunityID = t.CommunityID,
-                            RoadName = dt.RoadName,
-                            Intersection = t.Intersection,
-                            Direction = t.Direction,
-                            CreateTime = t.CreateTime,
-                            RepairedCount = t.RepairedCount
-                        }).ToList();
+                //data = (from t in query
+                //        join d in dbContext.Road
+                //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
+                //        from dt in dd.DefaultIfEmpty()
+                //        select new RPDetails
+                //        {
+                //            ID = t.ID,
+                //            CountyID = t.CountyID,
+                //            NeighborhoodsID = t.NeighborhoodsID,
+                //            CommunityID = t.CommunityID,
+                //            RoadName = dt.RoadName,
+                //            Intersection = t.Intersection,
+                //            Direction = t.Direction,
+                //            CreateTime = t.CreateTime,
+                //            RepairedCount = t.RepairedCount
+                //        }).ToList();
 
-                data = (from t in data
+                data = (from t in query
                         join a in SystemUtils.Districts
                         on t.CountyID equals a.ID into aa
                         from at in aa.DefaultIfEmpty()
@@ -139,6 +140,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                             RoadName = t.RoadName,
                             Intersection = t.Intersection,
                             Direction = t.Direction,
+                            BZTime = t.BZTime,
                             CreateTime = t.CreateTime,
                             RepairedCount = t.RepairedCount
                         }).ToList();
@@ -193,7 +195,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                                    }).ToList();
                     data.Files = filelst;
                 }
-                data.RoadName = dbContext.Road.Where(t => t.RoadID.ToString() == data.RoadID).Select(t => t.RoadName).FirstOrDefault();
+                //data.RoadName = dbContext.Road.Where(t => t.RoadID.ToString() == data.RoadID).Select(t => t.RoadName).FirstOrDefault();
                 data.CodeFile = "Files/RP/CodeFile/" + ID + ".jpg";
                 data.CountyName = SystemUtils.Districts.Where(t => t.ID == data.CountyID).Select(t => t.Name).FirstOrDefault();
                 data.NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == data.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();

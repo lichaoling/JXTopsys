@@ -49,28 +49,43 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-        public ContentResult GetRoads(int PageSize, int PageNum, string Name = null)
-        {
-            RtObj rt = null;
-            try
-            {
-                var data = RoadUtils.GetRoads(PageSize, PageNum, Name);
-                rt = new RtObj(data);
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
+        //public ContentResult GetRoads(int PageSize, int PageNum, string Name = null)
+        //{
+        //    RtObj rt = null;
+        //    try
+        //    {
+        //        var data = RoadUtils.GetRoads(PageSize, PageNum, Name);
+        //        rt = new RtObj(data);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        rt = new RtObj(ex);
+        //    }
+        //    var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+        //    return Content(s);
+        //}
 
-        public ContentResult GetRoadByID(string roadID)
+        //public ContentResult GetRoadByID(string roadID)
+        //{
+        //    RtObj rt = null;
+        //    try
+        //    {
+        //        var data = RoadUtils.GetRoadByID(roadID);
+        //        rt = new RtObj(data);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        rt = new RtObj(ex);
+        //    }
+        //    var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+        //    return Content(s);
+        //}
+        public ContentResult GetRoadsByDistrict(string CountyID, string NeighborhoodsID, string CommunityID)
         {
             RtObj rt = null;
             try
             {
-                var data = RoadUtils.GetRoadByID(roadID);
+                var data = RoadUtils.GetRoadsByDistrict(CountyID, NeighborhoodsID, CommunityID);
                 rt = new RtObj(data);
             }
             catch (Exception ex)

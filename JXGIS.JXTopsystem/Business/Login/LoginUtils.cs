@@ -34,6 +34,7 @@ namespace JXGIS.JXTopsystem.Business
                 user.UserName = "测试用户";
                 user.UserID = "1";
                 user.DistrictID = new List<string>() { "1.1.2", "1.1.3", "1" };
+                user.Window = new List<string>() { "市级行政审批窗口", "乡镇便民服务中心" };
                 HttpContext.Current.Session[_user] = user;
                 return HttpContext.Current != null ? (HttpContext.Current.Session[_user] as IUser) : null;
 #endif
@@ -55,7 +56,7 @@ namespace JXGIS.JXTopsystem.Business
         /// <returns></returns>
         public static bool HasUser(string userName)
         {
-            return SystemUtils.NewEFDbContext.SysUser.Where(t=>t.State==Enums.UseState.Enable).Where(s => s.UserName == userName).Count() > 0;
+            return SystemUtils.NewEFDbContext.SysUser.Where(t => t.State == Enums.UseState.Enable).Where(s => s.UserName == userName).Count() > 0;
         }
 
         /// <summary>
@@ -74,8 +75,10 @@ namespace JXGIS.JXTopsystem.Business
             {
                 bSuccess = true;
                 var roleID = SystemUtils.NewEFDbContext.UserRole.Where(t => t.UserID == us.UserID).Select(t => t.RoleID).ToList();
-                var districtID = SystemUtils.NewEFDbContext.SysRole.Where(t=>t.State==Enums.UseState.Enable).Where(t => roleID.Contains(t.RoleID)).Select(t => t.DistrictID).ToList();
+                var districtID = SystemUtils.NewEFDbContext.SysRole.Where(t => t.State == Enums.UseState.Enable).Where(t => roleID.Contains(t.RoleID)).Select(t => t.DistrictID).ToList();
                 us.DistrictID = districtID;
+                var Window = SystemUtils.NewEFDbContext.SysRole.Where(t => t.State == Enums.UseState.Enable).Where(t => roleID.Contains(t.RoleID)).Select(t => t.Window).ToList();
+                us.Window = Window;
             }
             user = us;
             return bSuccess;

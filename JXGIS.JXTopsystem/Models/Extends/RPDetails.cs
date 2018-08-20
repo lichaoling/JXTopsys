@@ -13,7 +13,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string CountyName { get; set; }
         public string NeighborhoodsName { get; set; }
         public string CommunityName { get; set; }
-        public string RoadName { get; set; }
+        //public string RoadName { get; set; }
         public string CodeFile { get; set; }
         public List<Pictures> Files { get; set; }
         public List<RPRepair> RepairInfos { get; set; }
