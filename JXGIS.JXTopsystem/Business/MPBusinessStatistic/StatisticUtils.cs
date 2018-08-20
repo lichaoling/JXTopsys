@@ -158,7 +158,7 @@ namespace JXGIS.JXTopsystem.Business
                                 NeighborhoodsName = bt == null || bt.Name == null ? null : bt.Name,
                                 CommunityName = ct == null || ct.Name == null ? null : ct.Name,
                                 StandardAddress = t.StandardAddress,
-                                CreateUserName = ut.Name,
+                                CreateUserName = ut == null ? "" : ut.Name,
                                 MPCreateTime = t.CreateTime
                             }).ToList();
 

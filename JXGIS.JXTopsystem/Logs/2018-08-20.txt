@@ -1,0 +1,16 @@
+=======2018/8/20 星期一 10:12:51
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.StatisticUtils.<>c.<GetMPBusinessDatas>b__0_22(<>f__AnonymousType10`2 <>h__TransparentIdentifier6, SysUser ut) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPBusinessStatistic\StatisticUtils.cs:行号 143
+   在 System.Linq.Enumerable.<SelectManyIterator>d__23`3.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.StatisticUtils.GetMPBusinessDatas(Int32 PageSize, Int32 PageNum, String start, String end) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPBusinessStatistic\StatisticUtils.cs:行号 127
+   在 JXGIS.JXTopsystem.Controllers.MPBusinessStatisticController.GetMPBusinessDatas(Int32 PageSize, Int32 PageNum, String start, String end) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPBusinessStatisticController.cs:行号 20
+=======2018/8/20 星期一 10:15:53
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.StatisticUtils.<>c.<GetMPBusinessDatas>b__0_22(<>f__AnonymousType10`2 <>h__TransparentIdentifier6, SysUser ut) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPBusinessStatistic\StatisticUtils.cs:行号 143
+   在 System.Linq.Enumerable.<SelectManyIterator>d__23`3.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.StatisticUtils.GetMPBusinessDatas(Int32 PageSize, Int32 PageNum, String start, String end) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPBusinessStatistic\StatisticUtils.cs:行号 127
+   在 JXGIS.JXTopsystem.Controllers.MPBusinessStatisticController.GetMPBusinessDatas(Int32 PageSize, Int32 PageNum, String start, String end) 位置 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPBusinessStatisticController.cs:行号 20
