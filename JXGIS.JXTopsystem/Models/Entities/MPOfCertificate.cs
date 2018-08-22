@@ -19,7 +19,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public int MPType { get; set; }
         public DateTime CreateTime { get; set; }
         public string CreateUser { get; set; }
-        //public string Window { get; set; }
+        public string Window { get; set; }
         public int CertificateType { get; set; }
     }
 }

@@ -26,26 +26,26 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var all = (from a in dbContext.MPOfRoad
-                         //join d in dbContext.Road
-                         //on a.RoadID == null ? a.RoadID : a.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                         //from dt in dd.DefaultIfEmpty()
-                         where a.State == Enums.UseState.Enable
-                         select new MPProduceList
-                         {
-                             CountyID = a.CountyID,
-                             NeighborhoodsID = a.NeighborhoodsID,
-                             CommunityID = a.CommunityID,
-                             MPType = Enums.MPType.Road,
-                             MPID = a.ID,
-                             MPTypeName = "道路门牌",
-                             MPProduce = a.MPProduce,
-                             MPProduceName = a.MPProduce == Enums.MPProduce.ToBeMade ? "待制作" : (a.MPProduce == Enums.MPProduce.NotMake ? "不制作" : "已制作"),
-                             PlaceName = a.RoadName,
-                             MPNumber = a.MPNumber,
-                             MPSize = a.MPSize,
-                             Postcode = a.Postcode,
-                             MPBZTime = a.BZTime
-                         }).Concat(
+                               //join d in dbContext.Road
+                               //on a.RoadID == null ? a.RoadID : a.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
+                               //from dt in dd.DefaultIfEmpty()
+                           where a.State == Enums.UseState.Enable
+                           select new MPProduceList
+                           {
+                               CountyID = a.CountyID,
+                               NeighborhoodsID = a.NeighborhoodsID,
+                               CommunityID = a.CommunityID,
+                               MPType = Enums.MPType.Road,
+                               MPID = a.ID,
+                               MPTypeName = "道路门牌",
+                               MPProduce = a.MPProduce,
+                               MPProduceName = a.MPProduce == Enums.MPProduce.ToBeMade ? "待制作" : (a.MPProduce == Enums.MPProduce.NotMake ? "不制作" : "已制作"),
+                               PlaceName = a.RoadName,
+                               MPNumber = a.MPNumber,
+                               MPSize = a.MPSize,
+                               Postcode = a.Postcode,
+                               MPBZTime = a.BZTime
+                           }).Concat(
                              from b in dbContext.MPOfCountry
                              where b.State == Enums.UseState.Enable
                              select new MPProduceList
@@ -114,9 +114,9 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             CountyName = at == null || at.Name == null ? null : at.Name,
                             NeighborhoodsName = bt == null || bt.Name == null ? null : bt.Name,
                             CommunityName = ct == null || ct.Name == null ? null : ct.Name,
-                            MPType = Enums.MPType.Road,
+                            MPType = t.MPType,
                             MPID = t.ID,
-                            MPTypeName = "道路门牌",
+                            MPTypeName = t.MPTypeName,
                             MPProduce = t.MPProduce,
                             MPProduceName = t.MPProduceName,
                             PlaceName = t.PlaceName,
@@ -142,19 +142,39 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var mpPro = (from t in mps
-                             select new Models.Entities.MPProduce
-                             {
-                                 ID = Guid.NewGuid().ToString(),
-                                 MPType = t.MPType,
-                                 MPID = t.MPID,
-                                 CreateTime = DateTime.Now.Date,
-                                 CreateUser = LoginUtils.CurrentUser.UserName
-                             }).ToList();
-                dbContext.MPProduce.AddRange(mpPro);
+                List<Models.Entities.MPProduce> mpPros = new List<Models.Entities.MPProduce>();
+                var bigMPsize = dbContext.DMBZDic.Where(t => t.Type == "大门牌").Select(t => t.Size).ToList();
+                foreach (var mp in mps)
+                {
+                    Models.Entities.MPProduce mpPro = new Models.Entities.MPProduce();
+                    mpPro.ID = Guid.NewGuid().ToString();
+                    mpPro.CommunityID = mp.CommunityID;
+                    mpPro.NeighborhoodsID = mp.NeighborhoodsID;
+                    mpPro.CountyID = mp.CountyID;
+                    mpPro.MPType = mp.MPType;
+                    mpPro.MPID = mp.MPID;
+                    mpPro.CreateTime = DateTime.Now.Date;
+                    mpPro.CreateUser = LoginUtils.CurrentUser.UserName;
+                    string sql = string.Empty;
+                    if (mp.MPType == Enums.MPType.Road)
+                    {
+                        if (bigMPsize.Contains(mp.MPSize))
+                            mpPro.BigMPCount = 1;
+                        else
+                            mpPro.SmallNPCount = 1;
+                        sql = $"update [TopSystemDB].[dbo].[MPOFROAD] set [MPProduce]={Enums.MPProduce.HasBeenMade} where ID='{mp.MPID}'";
+                    }
+                    else if (mp.MPType == Enums.MPType.Country)
+                    {
+                        mpPro.CountryMPCount = 1;
+                        sql = $"update [TopSystemDB].[dbo].[MPOFCOUNTRY] set [MPProduce]={Enums.MPProduce.HasBeenMade} where ID='{mp.MPID}'";
+                    }
+                    dbContext.Database.ExecuteSqlCommand(sql);
+                    mpPro.TotalCount = mpPro.BigMPCount + mpPro.SmallNPCount + mpPro.CountryMPCount + mpPro.LZMPCount + mpPro.DYMPCount + mpPro.HSMPCount;
+                    mpPros.Add(mpPro);
+                }
+                dbContext.MPProduce.AddRange(mpPros);
                 dbContext.SaveChanges();
-                //将门牌表中MPProduce字段设置为已制作
-                //。。。。。
             }
             var rt = mps.OrderBy(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
             return new Dictionary<string, object> {

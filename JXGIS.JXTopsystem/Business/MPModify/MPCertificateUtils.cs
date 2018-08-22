@@ -29,7 +29,7 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                 mpCertificate.MPType = MPType;
                 mpCertificate.CertificateType = CertificateType;
                 //受理窗口属于？？ 待完成
-
+                mpCertificate.Window = string.Join(",", LoginUtils.CurrentUser.Window);
                 dbContext.MPOfCertificate.Add(mpCertificate);
                 dbContext.SaveChanges();
             }
@@ -182,9 +182,9 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                     else if (CertificateType == Enums.CertificateType.MPZ) //门牌证浏览
                     {
                         var q = (from t in dbContext.MPOfRoad
-                                 //join d in dbContext.Road
-                                 //on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                                 //from dt in dd.DefaultIfEmpty()
+                                     //join d in dbContext.Road
+                                     //on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
+                                     //from dt in dd.DefaultIfEmpty()
                                  where t.State == Enums.UseState.Enable && t.ID == ID
                                  select new Models.Extends.MPCertificate
                                  {
@@ -291,4 +291,4 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
             }
         }
     }
-}
+} 

@@ -17,9 +17,10 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string CommunityID { get; set; }
         public string CommunityName { get; set; }
         public string StandardAddress { get; set; }
-        public string CreateUserName { get; set; }
+        //public string CreateUserName { get; set; }
         public string MPTypeName { get; set; }
         public string CertificateTypeName { get; set; }
         public DateTime? MPBZTime { get; set; }
+        //public List<string> Window { get; set; }
     }
 }

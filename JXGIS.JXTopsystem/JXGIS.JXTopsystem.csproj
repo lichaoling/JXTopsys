@@ -172,6 +172,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\District.cs" />
+    <Compile Include="Models\Entities\DMBZDic.cs" />
     <Compile Include="Models\Entities\MPOfCertificate.cs" />
     <Compile Include="Models\Entities\MPOfCountry.cs" />
     <Compile Include="Models\Entities\MPOfResidence.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Models\Extends\RtObj\Error.cs" />
     <Compile Include="Models\Extends\RtObj\IRtObjCfg.cs" />
     <Compile Include="Models\Extends\RtObj\RtObj.cs" />
+    <Compile Include="Models\Extends\SummarySheet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -216,10 +218,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\SystemParameters.json" />
-    <Content Include="Views\Common\Index.cshtml" />
     <Content Include="Files\UploadFiles\住宅门牌上传模板.xlsx" />
     <Content Include="Files\UploadFiles\农村门牌上传模板.xlsx" />
     <Content Include="Files\UploadFiles\道路门牌上传模板.xlsx" />
+    <Content Include="Views\Common\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

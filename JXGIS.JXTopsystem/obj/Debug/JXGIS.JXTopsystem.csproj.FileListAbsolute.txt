@@ -56,6 +56,5 @@ D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\S
 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Webpages.Razor.resources.dll
 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Helpers.resources.dll
 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Mvc.resources.dll
-D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.csprojResolveAssemblyReference.cache
 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.dll
 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.pdb

@@ -352,7 +352,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     //    }
                     //}
                     #endregion
-
                     #region 门牌号、楼幢号、单元号和户室号检查是否只含数字
                     if (!string.IsNullOrEmpty(MPNumber))
                     {
@@ -401,7 +400,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         error.ErrorMessages.Add("该户室牌已经存在");
                     }
                     #endregion
-                    #region 编制日期的格式检查  不填默认是当前时间
+                    #region 编制日期的格式检查
                     if (!string.IsNullOrEmpty(BZTime))
                     {
                         if (CheckIsDatetime(ref BZTime))
@@ -514,11 +513,14 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// </summary>
         public static void UpdateResidenceMP()
         {
-            if ((temp[LoginUtils.CurrentUser.UserName][errorKey] as List<ResidenceMPErrors>).Count > 0)
+            var mps = temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>;
+            var errors = temp[LoginUtils.CurrentUser.UserName][errorKey] as List<ResidenceMPErrors>;
+            if (errors.Count > 0)
                 throw new Exception("数据包含错误信息，请先检查数据！");
-            if ((temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>).Count() == 0 || temp[LoginUtils.CurrentUser.UserName][mpKey] == null)
+            if (mps.Count() == 0 || mps == null)
                 throw new Exception("无可导入数据！");
-            foreach (var mp in (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>))
+
+            foreach (var mp in mps)
             {
                 MPOfResidence m = new MPOfResidence
                 {
@@ -534,13 +536,19 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     PropertyOwner = mp.PropertyOwner,
                     Applicant = mp.Applicant,
                     ApplicantPhone = mp.ApplicantPhone,
-                    Postcode = mp.Postcode
+                    Postcode = mp.Postcode,
+                    SBDW = mp.SBDW,
+                    BZTime = mp.BZTime
                 };
 
                 ModifyResidenceMP(null, m, null, null, null, null);
             }
-
             temp.Remove(LoginUtils.CurrentUser.UserName);
+
+
+
+
+
             //HttpContext.Current.Session["_ResidenceMP"] = null;
             //HttpContext.Current.Session["_ResidenceMPErrors"] = null;
             //HttpContext.Current.Session["_ResidenceMPWarning"] = null;
@@ -820,9 +828,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var MPSize = row[15].Value != null ? row[15].Value.ToString().Trim() : null;
                     var Applicant = row[16].Value != null ? row[16].Value.ToString().Trim() : null;
                     var ApplicantPhone = row[17].Value != null ? row[17].Value.ToString().Trim() : null;
-                    var MPProduce = row[18].Value != null ? row[18].Value.ToString().Trim() : null;
-                    var Postcode = row[19].Value != null ? row[19].Value.ToString().Trim() : null;
-                    var SBDW = row[20].Value != null ? row[20].Value.ToString().Trim() : null;
+                    //var MPProduce = row[18].Value != null ? row[18].Value.ToString().Trim() : null;
+                    var Postcode = row[18].Value != null ? row[18].Value.ToString().Trim() : null;
+                    var SBDW = row[19].Value != null ? row[19].Value.ToString().Trim() : null;
 
                     if (row.IsBlank)
                     {
@@ -834,7 +842,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     string CommunityID = null;
                     string RoadID = null;
                     DateTime bzTime = DateTime.Now.Date;
-                    int mpProduce = Enums.MPProduce.NotMake;
+                    int mpProduce = Enums.MPProduce.HasBeenMade;
 
                     #region 市辖区检查
                     if (string.IsNullOrEmpty(CountyName))
@@ -872,57 +880,57 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                             error.ErrorMessages.Add("村社区名称有误");
                     }
                     #endregion
-                    #region 道路检查
-                    if (string.IsNullOrEmpty(RoadName)) //说明道路名称为空
-                    {
-                        error.ErrorMessages.Add("道路名称为空");
-                    }
-                    else  //说明道路名称不为空
-                    {
-                        var Roads = dbContext.Road.Where(t => t.RoadName.Contains(RoadName)); //通过道路名称去道路表中查找
-                        if (Roads.Count() == 0) //说明只通过道路名称未找到道路
-                        {
-                            error.ErrorMessages.Add("不存在该道路");
-                        }
-                        else //说明只通过道路名称找到了道路
-                        {
-                            if (Roads.Count() == 1) //说明只通过道路名称只能找到一条道路
-                            {
-                                RoadID = Roads.Select(t => t.RoadID).FirstOrDefault().ToString();
-                                var StartPointInDB = Roads.Select(t => t.StartPoint).FirstOrDefault().ToString();
-                                var EndPointInDB = Roads.Select(t => t.EndPoint).FirstOrDefault().ToString();
-                                if (StartPointInDB != StartPoint)
-                                {
-                                    StartPointInDB = StartPointInDB == null ? "空" : StartPointInDB;
-                                    warning = warning + $"道路表中道路名为【{RoadName}】的起点为:{StartPointInDB};";
-                                }
-                                if (EndPointInDB != EndPoint)
-                                {
-                                    EndPointInDB = EndPointInDB == null ? "空" : EndPointInDB;
-                                    warning = warning + $"道路表中道路名为【{RoadName}】的讫点为:{EndPointInDB};";
-                                }
-                            }
-                            else //说明只通过道路名称能找到一条以上道路
-                            {
-                                var roads = Roads.Where(t => t.StartPoint == StartPoint).Where(t => t.EndPoint == EndPoint);
+                    #region 道路检查 目前不检查 道路可以选择也可以输入
+                    //if (string.IsNullOrEmpty(RoadName)) //说明道路名称为空
+                    //{
+                    //    error.ErrorMessages.Add("道路名称为空");
+                    //}
+                    //else  //说明道路名称不为空
+                    //{
+                    //    var Roads = dbContext.Road.Where(t => t.RoadName.Contains(RoadName)); //通过道路名称去道路表中查找
+                    //    if (Roads.Count() == 0) //说明只通过道路名称未找到道路
+                    //    {
+                    //        error.ErrorMessages.Add("不存在该道路");
+                    //    }
+                    //    else //说明只通过道路名称找到了道路
+                    //    {
+                    //        if (Roads.Count() == 1) //说明只通过道路名称只能找到一条道路
+                    //        {
+                    //            RoadID = Roads.Select(t => t.RoadID).FirstOrDefault().ToString();
+                    //            var StartPointInDB = Roads.Select(t => t.StartPoint).FirstOrDefault().ToString();
+                    //            var EndPointInDB = Roads.Select(t => t.EndPoint).FirstOrDefault().ToString();
+                    //            if (StartPointInDB != StartPoint)
+                    //            {
+                    //                StartPointInDB = StartPointInDB == null ? "空" : StartPointInDB;
+                    //                warning = warning + $"道路表中道路名为【{RoadName}】的起点为:{StartPointInDB};";
+                    //            }
+                    //            if (EndPointInDB != EndPoint)
+                    //            {
+                    //                EndPointInDB = EndPointInDB == null ? "空" : EndPointInDB;
+                    //                warning = warning + $"道路表中道路名为【{RoadName}】的讫点为:{EndPointInDB};";
+                    //            }
+                    //        }
+                    //        else //说明只通过道路名称能找到一条以上道路
+                    //        {
+                    //            var roads = Roads.Where(t => t.StartPoint == StartPoint).Where(t => t.EndPoint == EndPoint);
 
-                                if (roads.Count() == 0) //说明只通过道路名称能找到一条以上道路，但是结合起点和止点后找不到道路，那就找其中一条赋值
-                                {
-                                    RoadID = Roads.Select(t => t.RoadID).FirstOrDefault().ToString();
-                                    warning = warning + $"道路表中道路名为【{RoadName}】的道路有【{Roads.Count()}】条，但起点和讫点不是：【{StartPoint}】和【{EndPoint}】；";
-                                }
-                                else if (roads.Count() == 1) //说明只通过道路名称能找到一条以上道路，结合起点和止点后能找到一条道路
-                                {
-                                    RoadID = roads.Select(t => t.RoadID).FirstOrDefault().ToString();
-                                }
-                                else //说明只通过道路名称能找到一条以上道路，结合起点和止点后还能找到一条以上道路
-                                {
-                                    RoadID = roads.Select(t => t.RoadID).FirstOrDefault().ToString();
-                                    warning = warning + $"道路表中起点为【{StartPoint}】、讫点为【{EndPoint}】、名称为【{RoadName}】的道路有【{roads.Count()}】条；";
-                                }
-                            }
-                        }
-                    }
+                    //            if (roads.Count() == 0) //说明只通过道路名称能找到一条以上道路，但是结合起点和止点后找不到道路，那就找其中一条赋值
+                    //            {
+                    //                RoadID = Roads.Select(t => t.RoadID).FirstOrDefault().ToString();
+                    //                warning = warning + $"道路表中道路名为【{RoadName}】的道路有【{Roads.Count()}】条，但起点和讫点不是：【{StartPoint}】和【{EndPoint}】；";
+                    //            }
+                    //            else if (roads.Count() == 1) //说明只通过道路名称能找到一条以上道路，结合起点和止点后能找到一条道路
+                    //            {
+                    //                RoadID = roads.Select(t => t.RoadID).FirstOrDefault().ToString();
+                    //            }
+                    //            else //说明只通过道路名称能找到一条以上道路，结合起点和止点后还能找到一条以上道路
+                    //            {
+                    //                RoadID = roads.Select(t => t.RoadID).FirstOrDefault().ToString();
+                    //                warning = warning + $"道路表中起点为【{StartPoint}】、讫点为【{EndPoint}】、名称为【{RoadName}】的道路有【{roads.Count()}】条；";
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     #endregion
                     #region 道路门牌号检查及查重
                     if (string.IsNullOrEmpty(MPNumber)) //门牌号为空
@@ -966,16 +974,16 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
                     }
                     #endregion
-                    #region 门牌制作检查
-                    if (string.IsNullOrEmpty(MPProduce))
-                    {
-                        error.ErrorMessages.Add("是否制作门牌为空！");
-                    }
-                    else
-                    {
-                        if (!CheckMPProdece(MPProduce, ref mpProduce))
-                            error.ErrorMessages.Add("是否制作门牌列格式不正确，只能填“是”或者“否”！");
-                    }
+                    #region 门牌制作检查  强制全部制作
+                    //if (string.IsNullOrEmpty(MPProduce))
+                    //{
+                    //    error.ErrorMessages.Add("是否制作门牌为空！");
+                    //}
+                    //else
+                    //{
+                    //    if (!CheckMPProdece(MPProduce, ref mpProduce))
+                    //        error.ErrorMessages.Add("是否制作门牌列格式不正确，只能填“是”或者“否”！");
+                    //}
                     #endregion
                     #region 邮政编码检查 6位数，且以3140开头  可以为空
                     if (!string.IsNullOrEmpty(Postcode))
@@ -1348,9 +1356,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var MPSize = row[9].Value != null ? row[9].Value.ToString().Trim() : null;
                     var Applicant = row[10].Value != null ? row[10].Value.ToString().Trim() : null;
                     var ApplicantPhone = row[11].Value != null ? row[11].Value.ToString().Trim() : null;
-                    var MPProduce = row[12].Value != null ? row[12].Value.ToString().Trim() : null;
-                    var Postcode = row[13].Value != null ? row[13].Value.ToString().Trim() : null;
-                    var SBDW = row[14].Value != null ? row[14].Value.ToString().Trim() : null;
+                    //var MPProduce = row[12].Value != null ? row[12].Value.ToString().Trim() : null;
+                    var Postcode = row[12].Value != null ? row[12].Value.ToString().Trim() : null;
+                    var SBDW = row[13].Value != null ? row[13].Value.ToString().Trim() : null;
 
                     if (row.IsBlank)
                     {
@@ -1361,7 +1369,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     string NeighborhoodsID = null;
                     string CommunityID = null;
                     DateTime bzTime = DateTime.Now.Date;
-                    int mpProduce = Enums.MPProduce.NotMake;
+                    int mpProduce = Enums.MPProduce.HasBeenMade;
 
                     #region 市辖区检查
                     if (string.IsNullOrEmpty(CountyName))
@@ -1454,16 +1462,16 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
                     }
                     #endregion
-                    #region 门牌制作检查
-                    if (string.IsNullOrEmpty(MPProduce))
-                    {
-                        error.ErrorMessages.Add("是否制作门牌为空！");
-                    }
-                    else
-                    {
-                        if (!CheckMPProdece(MPProduce, ref mpProduce))
-                            error.ErrorMessages.Add("是否制作门牌列格式不正确，只能填“是”或者“否”！");
-                    }
+                    #region 门牌制作检查 强制全部制作
+                    //if (string.IsNullOrEmpty(MPProduce))
+                    //{
+                    //    error.ErrorMessages.Add("是否制作门牌为空！");
+                    //}
+                    //else
+                    //{
+                    //    if (!CheckMPProdece(MPProduce, ref mpProduce))
+                    //        error.ErrorMessages.Add("是否制作门牌列格式不正确，只能填“是”或者“否”！");
+                    //}
                     #endregion
                     #region 邮政编码检查 6位数，且以3140开头  可以为空
                     if (!string.IsNullOrEmpty(Postcode))

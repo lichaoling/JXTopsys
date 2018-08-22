@@ -8,11 +8,8 @@ using System.Web;
 namespace JXGIS.JXTopsystem.Models.Extends
 {
     [NotMapped]
-    public class MPProduceList:MPProduce
+    public class MPProduceList : MPProduce
     {
-        public string CountyID { get; set; }
-        public string NeighborhoodsID { get; set; }
-        public string CommunityID { get; set; }
         public string CountyName { get; set; }
         public string NeighborhoodsName { get; set; }
         public string CommunityName { get; set; }
