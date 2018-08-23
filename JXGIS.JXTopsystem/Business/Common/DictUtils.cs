@@ -61,6 +61,8 @@ namespace JXGIS.JXTopsystem.Business.Common
         }
 
 
+
+        #region 邮编
         public static List<string> GetPostcodeByPID(string CountyID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -74,5 +76,33 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return data;
             }
         }
+        #endregion
+
+        #region 路牌标志
+        public static List<string> GetRPBZData(string Category)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var datas = dbContext.RPBZDic.Where(t => t.Category == Category).Select(t => t.Data).ToList();
+                return datas;
+            }
+        }
+        public static void AddRPBZData(string Category, string Data)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var count = dbContext.RPBZDic.Where(t => t.Category == Category).Where(t => t.Data == Data).Count();
+                if (count > 0)
+                    throw new Exception($"该{Category}已经存在");
+                RPBZDic rpbz = new Models.Entities.RPBZDic();
+                rpbz.ID = Guid.NewGuid().ToString();
+                rpbz.Category = Category;
+                rpbz.Data = Data;
+                dbContext.RPBZDic.Add(rpbz);
+                dbContext.SaveChanges();
+            }
+        }
+        #endregion
+
     }
 }

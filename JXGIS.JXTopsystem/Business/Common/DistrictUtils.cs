@@ -69,6 +69,12 @@ namespace JXGIS.JXTopsystem.Business.Common
             else
                 return getDistrictTree();
         }
+        /// <summary>
+        /// 根据行政区划获取小区名称或道路名称或自然村名称
+        /// </summary>
+        /// <param name="CommunityID"></param>
+        /// <param name="MPType"></param>
+        /// <returns></returns>
         public static List<string> getNamesByDistrict(string CommunityID, int MPType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -81,6 +87,60 @@ namespace JXGIS.JXTopsystem.Business.Common
                 else if (MPType == Enums.MPType.Country)
                     name = dbContext.MPOfCountry.Where(t => t.CommunityID == CommunityID).Select(t => t.ViligeName).Distinct().ToList();
                 return name;
+            }
+        }
+        /// <summary>
+        /// 获取当前用户权限内的受理窗口
+        /// </summary>
+        /// <param name="districtIDs"></param>
+        /// <returns></returns>
+        public static List<string> getWindows(List<string> districtIDs)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var windows = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable);
+                var query = windows as IEnumerable<SysRole>;
+                if (districtIDs != null && districtIDs.Count > 0 && !districtIDs.Contains("1"))
+                {
+                    // 先删选出当前用户权限内的数据
+                    var where = PredicateBuilder.False<SysRole>();
+                    foreach (var ID in districtIDs)
+                    {
+                        where = where.Or(t => t.DistrictID.IndexOf(ID + ".") == 0);
+                    }
+                    query = windows.Where(where.Compile());
+                }
+                var data = query.Select(t => t.Window).Distinct().ToList();
+                return data;
+            }
+
+        }
+        /// <summary>
+        /// 获取当前用户权限内的经办人
+        /// </summary>
+        /// <param name="districtIDs"></param>
+        /// <returns></returns>
+        public static List<string> getCreateUsers(List<string> districtIDs)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var users = dbContext.SysUser.Where(t => t.State == Enums.UseState.Enable);
+                var roles = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable);
+                if (districtIDs != null && districtIDs.Count > 0 && !districtIDs.Contains("1"))
+                {
+                    // 先删选出当前用户权限内的数据
+                    var where = PredicateBuilder.False<SysRole>();
+                    foreach (var ID in districtIDs)
+                    {
+                        where = where.Or(t => t.DistrictID.IndexOf(ID + ".") == 0);
+                    }
+                    var query = roles.Where(where.Compile());
+                    var roleIDS = query.Select(t => t.RoleID).ToList();
+                    var userIDS = dbContext.UserRole.Where(t => roleIDS.Contains(t.RoleID)).Select(t => t.UserID).ToList();
+                    users = users.Where(t => userIDS.Contains(t.UserID));
+                }
+                var createUsers = users.Select(t => t.UserName).ToList();
+                return createUsers;
             }
         }
         private static void GetLeaf(List<DistrictNode> nodes, List<DistrictNode> all)

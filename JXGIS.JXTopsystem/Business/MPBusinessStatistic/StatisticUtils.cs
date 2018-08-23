@@ -16,7 +16,7 @@ namespace JXGIS.JXTopsystem.Business
         /// <param name="PageSize"></param>
         /// <param name="PageNum"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetMPBusinessDatas(int PageSize, int PageNum, string start, string end)
+        public static Dictionary<string, object> GetMPBusinessDatas(int PageSize, int PageNum, string start, string end, string DistrictID, string Window, string CreateUser, string CertificateType)
         {
             int count = 0;
             List<MPBusiness> query = new List<Models.Extends.MPBusiness>();
@@ -109,6 +109,7 @@ namespace JXGIS.JXTopsystem.Business
                 }
                 var queryAll = All.Where(where.Compile());
 
+
                 if (!string.IsNullOrEmpty(start) || !string.IsNullOrEmpty(end))
                 {
                     if (!string.IsNullOrEmpty(start))
@@ -120,10 +121,21 @@ namespace JXGIS.JXTopsystem.Business
                         queryAll = queryAll.Where(t => String.Compare(t.CreateTime.ToString(), end, StringComparison.Ordinal) <= 0);
                     }
                 }
+                if (!string.IsNullOrEmpty(DistrictID))
+                {
+                    queryAll = queryAll.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);
+                }
+                if (!string.IsNullOrEmpty(Window))
+                {
+                    queryAll = queryAll.Where(t => t.Window.Contains(Window));
+                }
+                if (!string.IsNullOrEmpty(CreateUser))
+                {
+                    queryAll = queryAll.Where(t => t.CreateUser == CreateUser);
+                }
 
                 count = queryAll.Count();
                 query = queryAll.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
-                //var users = dbContext.SysUser.Where(t => t.State == Enums.UseState.Enable).ToList();
                 var data = (from t in query
                             join a in SystemUtils.Districts
                             on t.CountyID equals a.ID into aa
@@ -137,9 +149,6 @@ namespace JXGIS.JXTopsystem.Business
                             on t.CommunityID equals c.ID into cc
                             from ct in cc.DefaultIfEmpty()
 
-                                //join u in users
-                                //on t.CreateUser equals u.UserName into uu
-                                //from ut in uu.DefaultIfEmpty()
                             select new MPBusiness
                             {
                                 ID = t.ID,
@@ -158,10 +167,8 @@ namespace JXGIS.JXTopsystem.Business
                                 NeighborhoodsName = bt == null || bt.Name == null ? null : bt.Name,
                                 CommunityName = ct == null || ct.Name == null ? null : ct.Name,
                                 StandardAddress = t.StandardAddress,
-                                //CreateUserName = ut == null ? "" : ut.Name,
                                 MPBZTime = t.MPBZTime
                             }).ToList();
-
                 return new Dictionary<string, object> {
                    { "Data",data},
                    { "Count",count}

@@ -179,6 +179,7 @@
     <Compile Include="Models\Entities\MPOfResidence.cs" />
     <Compile Include="Models\Entities\MPOfRoad.cs" />
     <Compile Include="Models\Entities\PostcodeDic.cs" />
+    <Compile Include="Models\Entities\RPBZDic.cs" />
     <Compile Include="Models\Entities\RPOfUploadFiles.cs" />
     <Compile Include="Models\Entities\MPOfUploadFiles.cs" />
     <Compile Include="Models\Entities\MPProduce.cs" />

@@ -159,5 +159,56 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+
+        public ContentResult GetRPBZData(string Category)
+        {
+            RtObj rt = null;
+            try
+            {
+                var datas = DictUtils.GetRPBZData(Category);
+                rt = new RtObj(datas);
+
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+
+        public ContentResult getUserWindows()
+        {
+            RtObj rt = null;
+            try
+            {
+                var data = DistrictUtils.getWindows(LoginUtils.CurrentUser.DistrictID);
+                rt = new RtObj(data);
+
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+
+        public ContentResult getCreateUsers()
+        {
+            RtObj rt = null;
+            try
+            {
+                var createUsers = DistrictUtils.getCreateUsers(LoginUtils.CurrentUser.DistrictID);
+                rt = new RtObj(createUsers);
+
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
     }
 }

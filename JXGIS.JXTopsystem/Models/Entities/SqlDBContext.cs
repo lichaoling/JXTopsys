@@ -19,7 +19,6 @@ namespace JXGIS.JXTopsystem.Models.Entities
             modelBuilder.HasDefaultSchema("dbo");
         }
         public DbSet<District> District { get; set; }
-        //public DbSet<Road> Road { get; set; }
         public DbSet<MPOfRoad> MPOfRoad { get; set; }
         public DbSet<MPOfResidence> MPOFResidence { get; set; }
         public DbSet<MPOfCountry> MPOfCountry { get; set; }
@@ -34,6 +33,6 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DbSet<RPOfUploadFiles> RPOfUploadFiles { get; set; }
         public DbSet<DMBZDic> DMBZDic { get; set; }
         public DbSet<PostcodeDic> PostcodeDic { get; set; }
-
+        public DbSet<RPBZDic> RPBZDic { get; set; }
     }
 }
