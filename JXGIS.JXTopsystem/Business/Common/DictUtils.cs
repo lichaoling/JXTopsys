@@ -38,6 +38,8 @@ namespace JXGIS.JXTopsystem.Business.Common
                     sizes = dbContext.DMBZDic.Where(t => t.Type == "大门牌" || t.Type == "小门牌").Select(t => t.Size).ToList();
                 else if (mpType == Enums.MPType.Country)
                     sizes = dbContext.DMBZDic.Where(t => t.Type == "农村门牌").Select(t => t.Size).ToList();
+                else
+                    sizes = dbContext.DMBZDic.Select(t => t.Size).ToList();
                 return sizes;
             }
         }
