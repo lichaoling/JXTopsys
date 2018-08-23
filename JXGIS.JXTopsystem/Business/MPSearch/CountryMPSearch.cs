@@ -88,7 +88,9 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             HSNumber = t.HSNumber,
                             OriginalNumber = t.OriginalNumber,
                             PropertyOwner = t.PropertyOwner,
-                            CreateTime = t.CreateTime
+                            CreateTime = t.CreateTime,
+                            Lat = t.MPPosition.Latitude,
+                            Lng = t.MPPosition.Longitude
                         }).ToList();
 
                 return new Dictionary<string, object> {

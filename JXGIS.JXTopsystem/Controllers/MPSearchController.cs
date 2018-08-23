@@ -12,12 +12,6 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class MPSearchController : Controller
     {
-        /// <summary>
-        /// 导出门牌的查询条件
-        /// </summary>
-        private static string DistrictID = null;
-        private static string Name = null;
-        private static int MPNumberType = 0;
 
         #region 住宅门牌
         public ContentResult SearchResidenceMP(int PageSize, int PageNum, string DistrictID, string ResidenceName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState = Enums.UseState.Enable)

@@ -77,24 +77,6 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 {
                     query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
-                //data = (from t in query
-                //        join d in dbContext.Road
-                //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                //        from dt in dd.DefaultIfEmpty()
-                //        select new RoadMPDetails
-                //        {
-                //            ID = t.ID,
-                //            CountyID = t.CountyID,
-                //            NeighborhoodsID = t.NeighborhoodsID,
-                //            CommunityID = t.CommunityID,
-                //            RoadName = dt.RoadName,
-                //            MPNumber = t.MPNumber,
-                //            OriginalNumber = t.OriginalNumber,
-                //            PropertyOwner = t.PropertyOwner,
-                //            ShopName = t.ShopName,
-                //            ReservedNumber = t.ReservedNumber,
-                //            CreateTime = t.CreateTime
-                //        }).ToList();
                 data = (from t in query
                         join a in SystemUtils.Districts
                         on t.CountyID equals a.ID into aa
@@ -120,7 +102,9 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             ShopName = t.ShopName,
                             ReservedNumber = t.ReservedNumber,
                             BZTime = t.BZTime,
-                            CreateTime = t.CreateTime
+                            CreateTime = t.CreateTime,
+                            Lat = t.MPPosition.Latitude,
+                            Lng = t.MPPosition.Longitude
                         }).ToList();
 
                 return new Dictionary<string, object> {
@@ -249,7 +233,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <returns></returns>
         public static MemoryStream ExportRoadMP(string DistrictID, string RoadName, int MPNumberType, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
         {
-            Dictionary<string, object> dict = SearchRoadMP(-1, -1, DistrictID, RoadName, MPNumberType, AddressCoding, PropertyOwner, StandardAddress,UseState);
+            Dictionary<string, object> dict = SearchRoadMP(-1, -1, DistrictID, RoadName, MPNumberType, AddressCoding, PropertyOwner, StandardAddress, UseState);
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
