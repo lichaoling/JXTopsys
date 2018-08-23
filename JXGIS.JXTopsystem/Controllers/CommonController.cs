@@ -142,5 +142,22 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+
+        public ContentResult GetPostcodeByPID(string CountyID)
+        {
+            RtObj rt = null;
+            try
+            {
+                var sizes = DictUtils.GetPostcodeByPID(CountyID);
+                rt = new RtObj(sizes);
+
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
     }
 }

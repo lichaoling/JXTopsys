@@ -61,6 +61,18 @@ namespace JXGIS.JXTopsystem.Business.Common
         }
 
 
+        public static List<string> GetPostcodeByPID(string CountyID)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
 
+                var codes = dbContext.PostcodeDic.ToList();
+                List<string> data = new List<string>();
+                data = codes.Select(t => t.Postcode).ToList();
+                if (!string.IsNullOrEmpty(CountyID))
+                    data = codes.Where(t => t.PCode == CountyID).Select(t => t.Postcode).ToList();
+                return data;
+            }
+        }
     }
 }

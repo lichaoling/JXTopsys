@@ -10,8 +10,16 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
 </head>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <body>
-    <div> 11111
+    <div>
+        11111
     </div>
 </body>
+<script>
+    $.post('../MPSearch/SearchResidenceMP', { PageSize: 5, PageNum: 1, DistrictID: "1", Name: null }, function (rt) {
+        debugger
+        console.log(rt);
+    }, 'json')
+</script>
 </html>

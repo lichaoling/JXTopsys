@@ -33,6 +33,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DbSet<RPRepair> RPRepair { get; set; }
         public DbSet<RPOfUploadFiles> RPOfUploadFiles { get; set; }
         public DbSet<DMBZDic> DMBZDic { get; set; }
+        public DbSet<PostcodeDic> PostcodeDic { get; set; }
 
     }
 }

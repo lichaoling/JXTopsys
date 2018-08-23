@@ -13,12 +13,10 @@ namespace JXGIS.JXTopsystem.Models.Extends
     [Serializable]
     public class ResidenceMPDetails : MPOfResidence
     {
-
         public string CountyName { get; set; }
         public string NeighborhoodsName { get; set; }
         public string CommunityName { get; set; }
-        //public string RoadName { get; set; }
-        //public string PlaceName { get; set; }
+        public string Geom { get; set; }
         public List<Pictures> FCZ { get; set; }
         public List<Pictures> TDZ { get; set; }
         public List<Pictures> BDCZ { get; set; }

@@ -195,6 +195,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             ResidenceName = t.ResidenceName,
                             StandardAddress = t.StandardAddress,
                             PropertyOwner = t.PropertyOwner,
+                            Geom = Newtonsoft.Json.JsonConvert.SerializeObject(alatas.GeoJSON4EntityFramework.GeoJsonGeometry.FromDbGeography(t.DYPosition)),
                             BZTime = t.BZTime,
                             CreateTime = t.CreateTime
                         }).ToList();
