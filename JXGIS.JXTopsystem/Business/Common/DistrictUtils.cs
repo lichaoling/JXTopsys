@@ -78,7 +78,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     name = dbContext.MPOFResidence.Where(t => t.CommunityID == CommunityID).Select(t => t.ResidenceName).Distinct().ToList();
                 else if (MPType == Enums.MPType.Road)
                     name = dbContext.MPOfRoad.Where(t => t.CommunityID == CommunityID).Select(t => t.RoadName).Distinct().ToList();
-                else
+                else if (MPType == Enums.MPType.Country)
                     name = dbContext.MPOfCountry.Where(t => t.CommunityID == CommunityID).Select(t => t.ViligeName).Distinct().ToList();
                 return name;
             }
