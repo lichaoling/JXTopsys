@@ -93,12 +93,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
                 var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
                 var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
-                //var RoadName = "";
-                //if (newData.RoadID != null)
-                //{
-                //    RoadName = dbContext.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
-                //}
-                //
                 //市辖区/镇街道/村社区/小区名/门牌号/宿舍名/幢号/单元号/房室号
                 var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ResidenceName + newData.MPNumber == null ? "" : newData.MPNumber + "号" + newData.Dormitory + newData.LZNumber == null ? "" : newData.LZNumber + "幢" + newData.DYNumber == null ? "" : newData.DYNumber + "单元" + newData.HSNumber == null ? "" : newData.HSNumber + "室";
                 #endregion
@@ -117,18 +111,15 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 #endregion
 
                 #region 新增
-                //新增
                 if (oldData == null)
                 {
                     //如果不重复，开始插入数据，X和Y坐标转换成DbGeography，生成AddressCoding，创建附件的文件夹，将二进制文件存入对应文件夹，获取附件名称存入File，CreateTime默认为当前日期，State默认为1
-
                     //单元空间位置
                     var DYPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
                     //创建时间
                     var CreateTime = DateTime.Now.Date;
                     //使用状态
                     var State = Enums.UseState.Enable;
-
                     //获取所有上传的文件
                     if (HttpContext.Current.Request.Files.Count > 0)
                     {
@@ -215,10 +206,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <param name="file"></param>
         public static void UploadResidenceMP(HttpPostedFileBase file)
         {
-            //HttpContext.Current.Session["_ResidenceMP"] = null;
-            //HttpContext.Current.Session["_ResidenceMPErrors"] = null;
-            //HttpContext.Current.Session["_ResidenceMPWarning"] = null;
-
             Stream fs = file.InputStream;
             Workbook wb = new Workbook(fs);
             if (wb == null || wb.Worksheets.Count == 0)
@@ -246,7 +233,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var NeighborhoodsName = row[1].Value != null ? row[1].Value.ToString().Trim() : null;
                     var CommunityName = row[2].Value != null ? row[2].Value.ToString().Trim() : null;
                     var Postcode = row[3].Value != null ? row[3].Value.ToString().Trim() : null;
-                    //var RoadName = row[4].Value != null ? row[4].Value.ToString().Trim() : null;
                     var ResidenceName = row[4].Value != null ? row[4].Value.ToString().Trim() : null;
                     var MPNumber = row[5].Value != null ? row[5].Value.ToString().Replace(" ", "") : null;
                     var Dormitory = row[6].Value != null ? row[6].Value.ToString().Trim() : null;
@@ -264,12 +250,10 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         warnings.Add($"第{i}行：空行");
                         continue;
                     }
-
                     string CountyID = null;
                     string NeighborhoodsID = null;
                     string CommunityID = null;
                     DateTime bzTime = DateTime.Now.Date;
-
                     #region 市辖区检查
                     if (string.IsNullOrEmpty(CountyName))
                     {
@@ -417,8 +401,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         NeighborhoodsName = NeighborhoodsName,
                         CommunityID = CommunityID,
                         CommunityName = CommunityName,
-                        //RoadID = RoadID,
-                        //RoadName = RoadName,
                         ResidenceName = ResidenceName,
                         MPNumber = MPNumber,
                         Dormitory = Dormitory,
@@ -475,15 +457,12 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     errors.Add(error);
                 }
                 #endregion
+
                 Dictionary<string, object> D = new Dictionary<string, object>();
                 D.Add(mpKey, mps);
                 D.Add(errorKey, errors);
                 D.Add(warningKey, warnings);
                 temp[LoginUtils.CurrentUser.UserName] = D;
-                //HttpContext.Current.Session["_ResidenceMP"] = mps;
-                //HttpContext.Current.Session["_ResidenceMPErrors"] = errors;
-                //HttpContext.Current.Session["_ResidenceMPWarning"] = warnings;
-
             }
         }
         /// <summary>
@@ -496,16 +475,19 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         {
             List<ResidenceMPDetails> rows = null;
             int totalCount = 0;
-            if (temp[LoginUtils.CurrentUser.UserName][mpKey] != null)
+            var mps = temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>;
+            var errors = temp[LoginUtils.CurrentUser.UserName][errorKey] as List<ResidenceMPErrors>;
+            var warnings = temp[LoginUtils.CurrentUser.UserName][warningKey] as List<string>;
+            if (mps != null)
             {
-                rows = (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
-                totalCount = (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>).Count;
+                rows = mps.Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                totalCount = mps.Count;
             }
             return new Dictionary<string, object> {
                 { "Data",rows},
                 { "Count",totalCount},
-                { "Errors",temp[LoginUtils.CurrentUser.UserName][errorKey] as List<ResidenceMPErrors>},
-                { "Warnings",temp[LoginUtils.CurrentUser.UserName][warningKey] as List<string>}
+                { "Errors",errors},
+                { "Warnings",warnings}
             };
         }
         /// <summary>
@@ -540,7 +522,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     SBDW = mp.SBDW,
                     BZTime = mp.BZTime
                 };
-
                 ModifyResidenceMP(null, m, null, null, null, null);
             }
             temp.Remove(LoginUtils.CurrentUser.UserName);
@@ -710,10 +691,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             data.DYMP = DYMP;
             data.HSMP = HSMP;
             return data;
-            //HttpContext.Current.Session["_ResidenceMP"] = null;
-            //HttpContext.Current.Session["_ResidenceMPErrors"] = null;
-            //HttpContext.Current.Session["_ResidenceMPWarning"] = null;
-
         }
         /// <summary>
         /// 住宅门牌注销，只修改数据的state、注销时间和注销人，其它不变
@@ -827,7 +804,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 }
             }
             #endregion
-
             IQueryable<MPOfRoad> query = null;
             int count = 0;
             using (var dbContext = SystemUtils.NewEFDbContext)

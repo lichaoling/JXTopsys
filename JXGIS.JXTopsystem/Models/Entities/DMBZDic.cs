@@ -7,7 +7,7 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Entities
 {
-    [Table("DMBZDic")]
+    [Table("DMBZDIC")]
     public class DMBZDic
     {
         [Key]
