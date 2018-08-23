@@ -65,8 +65,6 @@ namespace JXGIS.JXTopsystem.Controllers
                 Session["_ResidenceMPPropertyOwner"] = PropertyOwner;
                 Session["_ResidenceMPStandardAddress"] = StandardAddress;
                 Session["_ResidenceMPUseState"] = UseState;
-                //MPSearchController.DistrictID = DistrictID;
-                //MPSearchController.Name = Name;
                 rt = new RtObj();
             }
             catch (Exception ex)
@@ -107,12 +105,12 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 道路门牌
-        public ContentResult SearchRoadMP(int PageSize, int PageNum, string DistrictID, string Name, int MPNumberType = 0, int UseState = Enums.UseState.Enable)
+        public ContentResult SearchRoadMP(int PageSize, int PageNum, string DistrictID, string RoadName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState = Enums.UseState.Enable, int MPNumberType = 0)
         {
             RtObj rt = null;
             try
             {
-                var r = RoadMPSearch.SearchRoadMP(PageSize, PageNum, DistrictID, Name, MPNumberType, UseState);
+                var r = RoadMPSearch.SearchRoadMP(PageSize, PageNum, DistrictID, RoadName, MPNumberType, AddressCoding, PropertyOwner, StandardAddress, UseState);
                 rt = new RtObj(r);
 
             }
@@ -142,13 +140,16 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        public JsonResult GetConditionOfRoadMP(string DistrictID, string Name, int MPNumberType = 0, int UseState = Enums.UseState.Enable)
+        public JsonResult GetConditionOfRoadMP(string DistrictID, string RoadName, string AddressCoding, string PropertyOwner, string StandardAddress, int MPNumberType = 0, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
             try
             {
                 Session["_RoadMPDistrictID"] = DistrictID;
-                Session["_RoadMPName"] = Name;
+                Session["_RoadMPRoadName"] = RoadName;
+                Session["_RoadMPAddressCoding"] = AddressCoding;
+                Session["_RoadMPPropertyOwner"] = PropertyOwner;
+                Session["_RoadMPStandardAddress"] = StandardAddress;
                 Session["_RoadMPNumberType"] = MPNumberType;
                 Session["_RoadMPUseState"] = UseState;
                 rt = new RtObj();
@@ -165,15 +166,21 @@ namespace JXGIS.JXTopsystem.Controllers
             try
             {
                 rt = new RtObj();
-                var Did = Session["_RoadMPDistrictID"].ToString();
-                var Name = Session["_RoadMPName"].ToString();
-                var mpnumbertype = (int)Session["_RoadMPNumberType"];
+                var DistrictID = Session["_RoadMPDistrictID"].ToString();
+                var RoadName = Session["_RoadMPRoadName"].ToString();
+                var AddressCoding = Session["_RoadMPAddressCoding"].ToString();
+                var PropertyOwner = Session["_RoadMPPropertyOwner"].ToString();
+                var StandardAddress = Session["_RoadMPStandardAddress"].ToString();
+                var MPNumberType = (int)Session["_RoadMPNumberType"];
                 var UseState = (int)Session["_RoadMPUseState"];
-                var ms = RoadMPSearch.ExportRoadMP(Did, Name, mpnumbertype, UseState);
+                var ms = RoadMPSearch.ExportRoadMP(DistrictID, RoadName, MPNumberType, AddressCoding, PropertyOwner, StandardAddress, UseState);
                 Session["_RoadMPDistrictID"] = null;
-                Session["_RoadMPName"] = null;
-                Session["_RoadMPNumberType"] = 0;
-                Session["_RoadMPUseState"] = Enums.UseState.Enable;
+                Session["_RoadMPRoadName"] = null;
+                Session["_RoadMPAddressCoding"] = null;
+                Session["_RoadMPPropertyOwner"] = null;
+                Session["_RoadMPStandardAddress"] = null;
+                Session["_RoadMPNumberType"] = null;
+                Session["_RoadMPUseState"] = null;
                 string fileName = $"道路门牌_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.xls";
                 return File(ms, "application/vnd.ms-excel", fileName);
             }
@@ -186,12 +193,12 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 农村门牌
-        public ContentResult SearchCountryMP(int PageSize, int PageNum, string DistrictID, string Name, int UseState = Enums.UseState.Enable)
+        public ContentResult SearchCountryMP(int PageSize, int PageNum, string DistrictID, string ViligeName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
             try
             {
-                var r = CountryMPSearch.SearchCountryMP(PageSize, PageNum, DistrictID, Name, UseState);
+                var r = CountryMPSearch.SearchCountryMP(PageSize, PageNum, DistrictID, ViligeName, AddressCoding, PropertyOwner, StandardAddress, UseState);
                 rt = new RtObj(r);
 
             }
@@ -221,13 +228,16 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        public JsonResult GetConditionOfCountryMP(string DistrictID, string Name, int UseState = Enums.UseState.Enable)
+        public JsonResult GetConditionOfCountryMP(string DistrictID, string ViligeName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
             try
             {
                 Session["_CountryMPDistrictID"] = DistrictID;
-                Session["_CountryMPName"] = Name;
+                Session["_CountryMPViligeName"] = ViligeName;
+                Session["_CountryMPAddressCoding"] = AddressCoding;
+                Session["_CountryMPPropertyOwner"] = PropertyOwner;
+                Session["_CountryMPStandardAddress"] = StandardAddress;
                 Session["_CountryMPUseState"] = UseState;
                 rt = new RtObj();
             }
@@ -243,13 +253,19 @@ namespace JXGIS.JXTopsystem.Controllers
             try
             {
                 rt = new RtObj();
-                var Did = Session["_CountryMPDistrictID"].ToString();
-                var Name = Session["_CountryMPName"].ToString();
+                var DistrictID = Session["_CountryMPDistrictID"].ToString();
+                var ViligeName = Session["_CountryMPName"].ToString();
+                var AddressCoding = Session["_CountryMPAddressCoding"].ToString();
+                var PropertyOwner = Session["_CountryMPPropertyOwner"].ToString();
+                var StandardAddress = Session["_CountryMPStandardAddress"].ToString();
                 var UseState = (int)Session["_CountryMPUseState"];
-                var ms = CountryMPSearch.ExportCountryMP(Did, Name, UseState);
+                var ms = CountryMPSearch.ExportCountryMP(DistrictID, ViligeName, AddressCoding, PropertyOwner, StandardAddress, UseState);
                 Session["_CountryMPDistrictID"] = null;
-                Session["_CountryMPName"] = null;
-                Session["_CountryMPUseState"] = Enums.UseState.Enable;
+                Session["_CountryMPViligeName"] = null;
+                Session["_CountryMPAddressCoding"] = null;
+                Session["_CountryMPPropertyOwner"] = null;
+                Session["_CountryMPStandardAddress"] = null;
+                Session["_CountryMPUseState"] = null;
                 string fileName = $"农村门牌_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.xls";
                 return File(ms, "application/vnd.ms-excel", fileName);
             }

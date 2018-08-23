@@ -14,7 +14,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
     public class CountryMPSearch
     {
         #region 农村门牌
-        public static Dictionary<string, object> SearchCountryMP(int PageSize, int PageNum, string DistrictID, string Name, int UseState)
+        public static Dictionary<string, object> SearchCountryMP(int PageSize, int PageNum, string DistrictID, string ViligeName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
         {
             int count = 0;
             List<CountryMPDetails> data = null;
@@ -34,11 +34,21 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 {
                     query = query.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);
                 }
-                if (!string.IsNullOrEmpty(Name))
+                if (!string.IsNullOrEmpty(ViligeName))
                 {
-                    query = from t in query
-                            where t.ViligeName.Contains(Name)
-                            select t;
+                    query = query.Where(t => t.ViligeName.Contains(ViligeName));
+                }
+                if (!string.IsNullOrEmpty(AddressCoding))
+                {
+                    query = query.Where(t => t.AddressCoding.Contains(AddressCoding));
+                }
+                if (!string.IsNullOrEmpty(PropertyOwner))
+                {
+                    query = query.Where(t => t.PropertyOwner.Contains(PropertyOwner));
+                }
+                if (!string.IsNullOrEmpty(StandardAddress))
+                {
+                    query = query.Where(t => t.StandardAddress.Contains(StandardAddress));
                 }
 
                 count = query.Count();
@@ -172,9 +182,9 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 return query;
             }
         }
-        public static MemoryStream ExportCountryMP(string DistrictID, string Name, int UseState)
+        public static MemoryStream ExportCountryMP(string DistrictID, string ViligeName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
         {
-            Dictionary<string, object> dict = SearchCountryMP(-1, -1, DistrictID, Name, UseState);
+            Dictionary<string, object> dict = SearchCountryMP(-1, -1, DistrictID, ViligeName, AddressCoding, PropertyOwner, StandardAddress, UseState);
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");

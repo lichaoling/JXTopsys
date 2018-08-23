@@ -160,7 +160,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 }
                 if (!string.IsNullOrEmpty(StandardAddress))
                 {
-                    query = query.Where(t => t.PropertyOwner.Contains(StandardAddress));
+                    query = query.Where(t => t.StandardAddress.Contains(StandardAddress));
                 }
                 count = query.Count();
                 //如果是导出，就返回所有

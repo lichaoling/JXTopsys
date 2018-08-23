@@ -24,7 +24,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <param name="Name"></param>
         /// <param name="MPNumberType"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> SearchRoadMP(int PageSize, int PageNum, string DistrictID, string Name, int MPNumberType, int UseState)
+        public static Dictionary<string, object> SearchRoadMP(int PageSize, int PageNum, string DistrictID, string RoadName, int MPNumberType, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
         {
             int count = 0;
             List<RoadMPDetails> data = null;
@@ -48,16 +48,23 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 {
                     query = query.Where(t => t.MPNumberType == MPNumberType);
                 }
-                if (!string.IsNullOrEmpty(Name))
+                if (!string.IsNullOrEmpty(RoadName))
                 {
-                    //query = from t in query
-                    //        join d in dbContext.Road
-                    //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                    //        from dt in dd.DefaultIfEmpty()
-                    //        where dt.RoadName.Contains(Name) || t.ShopName.Contains(Name) || t.ResidenceName.Contains(Name)
-                    //        select t;
-                    query = query.Where(t => t.RoadName.Contains(Name) || t.ShopName.Contains(Name) || t.ResidenceName.Contains(Name));
+                    query = query.Where(t => t.RoadName.Contains(RoadName));
                 }
+                if (!string.IsNullOrEmpty(AddressCoding))
+                {
+                    query = query.Where(t => t.AddressCoding.Contains(AddressCoding));
+                }
+                if (!string.IsNullOrEmpty(PropertyOwner))
+                {
+                    query = query.Where(t => t.PropertyOwner.Contains(PropertyOwner));
+                }
+                if (!string.IsNullOrEmpty(StandardAddress))
+                {
+                    query = query.Where(t => t.StandardAddress.Contains(StandardAddress));
+                }
+
 
                 count = query.Count();
                 //如果是导出，就返回所有
@@ -240,9 +247,9 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <param name="Name"></param>
         /// <param name="MPNumberType"></param>
         /// <returns></returns>
-        public static MemoryStream ExportRoadMP(string DistrictID, string Name, int MPNumberType, int UseState)
+        public static MemoryStream ExportRoadMP(string DistrictID, string RoadName, int MPNumberType, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
         {
-            Dictionary<string, object> dict = SearchRoadMP(-1, -1, DistrictID, Name, MPNumberType, UseState);
+            Dictionary<string, object> dict = SearchRoadMP(-1, -1, DistrictID, RoadName, MPNumberType, AddressCoding, PropertyOwner, StandardAddress,UseState);
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
