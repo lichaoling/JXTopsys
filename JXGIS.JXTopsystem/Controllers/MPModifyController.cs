@@ -67,7 +67,7 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
         /// <summary>
-        /// 将没有错的上传的数据更新到数据库中
+        /// 将没有错的上传的数据更新到数据库中,返回门牌制作汇总表
         /// </summary>
         /// <returns></returns>
         public JsonResult UpdateResidenceMP()
@@ -75,8 +75,9 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                rt = new RtObj();
-                MPModifyUtils.UpdateResidenceMP();
+                var r = MPModifyUtils.UpdateResidenceMP();
+                rt = new RtObj(r);
+
             }
             catch (Exception ex)
             {

@@ -161,7 +161,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         if (bigMPsize.Contains(mp.MPSize))
                             mpPro.BigMPCount = 1;
                         else
-                            mpPro.SmallNPCount = 1;
+                            mpPro.SmallMPCount = 1;
                         sql = $"update [TopSystemDB].[dbo].[MPOFROAD] set [MPProduce]={Enums.MPProduce.HasBeenMade} where ID='{mp.MPID}'";
                     }
                     else if (mp.MPType == Enums.MPType.Country)
@@ -170,7 +170,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         sql = $"update [TopSystemDB].[dbo].[MPOFCOUNTRY] set [MPProduce]={Enums.MPProduce.HasBeenMade} where ID='{mp.MPID}'";
                     }
                     dbContext.Database.ExecuteSqlCommand(sql);
-                    mpPro.TotalCount = mpPro.BigMPCount + mpPro.SmallNPCount + mpPro.CountryMPCount + mpPro.LZMPCount + mpPro.DYMPCount + mpPro.HSMPCount;
+                    mpPro.TotalCount = mpPro.BigMPCount + mpPro.SmallMPCount + mpPro.CountryMPCount + mpPro.LZMPCount + mpPro.DYMPCount + mpPro.HSMPCount;
                     mpPros.Add(mpPro);
                 }
                 dbContext.MPProduce.AddRange(mpPros);

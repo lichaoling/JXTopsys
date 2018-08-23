@@ -17,7 +17,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CommunityID { get; set; }
         public int MPType { get; set; }//门牌类型 1住宅门牌 2 道路门牌 3 农村门牌
         public int BigMPCount { get; set; }
-        public int SmallNPCount { get; set; }
+        public int SmallMPCount { get; set; }
         public int LZMPCount { get; set; }
         public int DYMPCount { get; set; }
         public int HSMPCount { get; set; }

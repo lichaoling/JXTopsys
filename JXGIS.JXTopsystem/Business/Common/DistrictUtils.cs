@@ -1,4 +1,5 @@
 ﻿using JXGIS.JXTopsystem.Models.Entities;
+using JXGIS.JXTopsystem.Models.Extends;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 foreach (var districtID in districtIDs)
                 {
-                    var query1 = SystemUtils.Districts.Where(t => t.ID.IndexOf(districtID+".") == 0).ToList();
+                    var query1 = SystemUtils.Districts.Where(t => t.ID.IndexOf(districtID + ".") == 0).ToList();
                     districtTree.AddRange(query1);
 
                     var ids = districtID.Split('.');
@@ -68,6 +69,20 @@ namespace JXGIS.JXTopsystem.Business.Common
             else
                 return getDistrictTree();
         }
+        public static List<string> getNamesByDistrict(string CommunityID, int MPType)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                List<string> name = new List<string>();
+                if (MPType == Enums.MPType.Residence)
+                    name = dbContext.MPOFResidence.Where(t => t.CommunityID == CommunityID).Select(t => t.ResidenceName).Distinct().ToList();
+                else if (MPType == Enums.MPType.Road)
+                    name = dbContext.MPOfRoad.Where(t => t.CommunityID == CommunityID).Select(t => t.RoadName).Distinct().ToList();
+                else
+                    name = dbContext.MPOfCountry.Where(t => t.CommunityID == CommunityID).Select(t => t.ViligeName).Distinct().ToList();
+                return name;
+            }
+        }
         private static void GetLeaf(List<DistrictNode> nodes, List<DistrictNode> all)
         {
             foreach (var n in nodes)
@@ -93,7 +108,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 foreach (var districtID in districtIDs)
                 {
-                    if (CommunityID.IndexOf(districtID+".") == 0)
+                    if (CommunityID.IndexOf(districtID + ".") == 0)
                         flag = true;
                 }
             }

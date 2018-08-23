@@ -20,12 +20,12 @@ namespace JXGIS.JXTopsystem.Controllers
         private static int MPNumberType = 0;
 
         #region 住宅门牌
-        public ContentResult SearchResidenceMP(int PageSize, int PageNum, string DistrictID, string Name, int UseState = Enums.UseState.Enable)
+        public ContentResult SearchResidenceMP(int PageSize, int PageNum, string DistrictID, string ResidenceName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
             try
             {
-                var r = ResidenceMPSearch.SearchResidenceMP(PageSize, PageNum, DistrictID, Name, UseState);
+                var r = ResidenceMPSearch.SearchResidenceMP(PageSize, PageNum, DistrictID, ResidenceName, AddressCoding, PropertyOwner, StandardAddress, UseState);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -54,13 +54,16 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        public JsonResult GetConditionOfResidenceMP(string DistrictID, string Name, int UseState = Enums.UseState.Enable)
+        public JsonResult GetConditionOfResidenceMP(string DistrictID, string ResidenceName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
             try
             {
                 Session["_ResidenceMPDistrictID"] = DistrictID;
-                Session["_ResidenceMPName"] = Name;
+                Session["_ResidenceMPName"] = ResidenceName;
+                Session["_ResidenceMPAddressCoding"] = AddressCoding;
+                Session["_ResidenceMPPropertyOwner"] = PropertyOwner;
+                Session["_ResidenceMPStandardAddress"] = StandardAddress;
                 Session["_ResidenceMPUseState"] = UseState;
                 //MPSearchController.DistrictID = DistrictID;
                 //MPSearchController.Name = Name;
@@ -79,12 +82,19 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 rt = new RtObj();
                 var Did = Session["_ResidenceMPDistrictID"].ToString();
-                var Name = Session["_ResidenceMPName"].ToString();
+                var ResidenceName = Session["_ResidenceMPName"].ToString();
+                var AddressCoding = Session["_ResidenceMPAddressCoding"].ToString();
+                var PropertyOwner = Session["_ResidenceMPPropertyOwner"].ToString();
+                var StandardAddress = Session["_ResidenceMPStandardAddress"].ToString();
                 var UseState = (int)Session["_ResidenceMPUseState"];
-                var ms = ResidenceMPSearch.ExportResidenceMP(Did, Name, UseState);
+
+                var ms = ResidenceMPSearch.ExportResidenceMP(Did, ResidenceName, AddressCoding, PropertyOwner, StandardAddress, UseState);
                 Session["_ResidenceMPDistrictID"] = null;
                 Session["_ResidenceMPName"] = null;
-                Session["_ResidenceMPUseState"] = Enums.UseState.Enable;
+                Session["_ResidenceMPAddressCoding"] = null;
+                Session["_ResidenceMPPropertyOwner"] = null;
+                Session["_ResidenceMPStandardAddress"] = null;
+                Session["_ResidenceMPUseState"] = null;
                 string fileName = $"住宅门牌_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.xls";
                 return File(ms, "application/vnd.ms-excel", fileName);
             }

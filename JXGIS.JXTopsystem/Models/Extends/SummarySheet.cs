@@ -7,7 +7,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
 {
     public class SummarySheet
     {
-        public string standardName { get; set; }
+        public List<Record> StandardName { get; set; }
         public List<Record> LZMP { get; set; }
         public List<Record> DYMP { get; set; }
         public List<Record> HSMP { get; set; }
@@ -17,8 +17,12 @@ namespace JXGIS.JXTopsystem.Models.Extends
 
     public class Record
     {
-        public string numName { get; set; }
-        public string size { get; set; }
-        public int count { get; set; }
+        public string CountyID { get; set; }
+        public string NeighborhoodsID { get; set; }
+        public string CommunityID { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public string Size { get; set; }
+        public int Count { get; set; }
     }
 }

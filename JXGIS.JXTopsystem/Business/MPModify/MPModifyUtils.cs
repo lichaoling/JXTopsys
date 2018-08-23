@@ -509,9 +509,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             };
         }
         /// <summary>
-        /// 将没有错误的数据更新到数据库
+        /// 将没有错误的数据更新到数据库 并进行批量门牌制作 返回制作汇总表
         /// </summary>
-        public static void UpdateResidenceMP()
+        public static SummarySheet UpdateResidenceMP()
         {
             var mps = temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>;
             var errors = temp[LoginUtils.CurrentUser.UserName][errorKey] as List<ResidenceMPErrors>;
@@ -519,7 +519,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 throw new Exception("数据包含错误信息，请先检查数据！");
             if (mps.Count() == 0 || mps == null)
                 throw new Exception("无可导入数据！");
-
+            #region****************没有错误后将导入的数据更新到住宅门牌数据库中
             foreach (var mp in mps)
             {
                 MPOfResidence m = new MPOfResidence
@@ -544,11 +544,172 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 ModifyResidenceMP(null, m, null, null, null, null);
             }
             temp.Remove(LoginUtils.CurrentUser.UserName);
+            #endregion
+            #region*************批量导入成功后立刻进行门牌制作，更新到门牌制作表中，再给出门牌制作汇总表********************
+            var Residence = (from t in mps
+                             group t by new
+                             {
+                                 t.CountyID,
+                                 t.NeighborhoodsID,
+                                 t.CommunityID,
+                                 t.ResidenceName
+                             } into g
+                             select new Record
+                             {
+                                 CountyID = g.Key.CountyID,
+                                 NeighborhoodsID = g.Key.NeighborhoodsID,
+                                 CommunityID = g.Key.CommunityID,
+                                 Name = g.Key.ResidenceName,
+                                 Type = "小区",
+                                 Count = 0
+                             }).ToList();
+            var LZMP = (from t in mps
+                        group t by new
+                        {
+                            t.CountyID,
+                            t.NeighborhoodsID,
+                            t.CommunityID,
+                            t.ResidenceName,
+                            t.LZNumber
+                        } into g
+                        select new Record
+                        {
+                            CountyID = g.Key.CountyID,
+                            NeighborhoodsID = g.Key.NeighborhoodsID,
+                            CommunityID = g.Key.CommunityID,
+                            Name = g.Key.ResidenceName,
+                            Type = g.Key.LZNumber,
+                            Count = 2
+                        }).OrderBy(t => t.Type).ToList();
 
+            LZMP.Add((from t in LZMP
+                      group t by new
+                      {
+                          t.CountyID,
+                          t.NeighborhoodsID,
+                          t.CommunityID,
+                          t.Name,
+                      } into g
+                      select new Record
+                      {
+                          CountyID = g.Key.CountyID,
+                          NeighborhoodsID = g.Key.NeighborhoodsID,
+                          CommunityID = g.Key.CommunityID,
+                          Name = g.Key.Name,
+                          Type = "楼幢牌合计",
+                          Count = g.Sum(t => t.Count)
+                      }).First());
+            var dyDis = (from t in mps
+                         select new ResidenceMPDetails
+                         {
+                             CountyID = t.CountyID,
+                             NeighborhoodsID = t.NeighborhoodsID,
+                             CommunityID = t.CommunityID,
+                             ResidenceName = t.ResidenceName,
+                             LZNumber = t.LZNumber,
+                             DYNumber = t.DYNumber
+                         }).Distinct();
+            var DYMP = (from t in dyDis
+                        group t by new
+                        {
+                            t.CountyID,
+                            t.NeighborhoodsID,
+                            t.CommunityID,
+                            t.ResidenceName,
+                            t.DYNumber
+                        } into g
+                        select new Record
+                        {
+                            CountyID = g.Key.CountyID,
+                            NeighborhoodsID = g.Key.NeighborhoodsID,
+                            CommunityID = g.Key.CommunityID,
+                            Name = g.Key.ResidenceName,
+                            Type = g.Key.DYNumber,
+                            Count = g.Count()
+                        }).OrderBy(t => t.Type).ToList();
+            DYMP.Add((from t in DYMP
+                      group t by new
+                      {
+                          t.CountyID,
+                          t.NeighborhoodsID,
+                          t.CommunityID,
+                          t.Name,
+                      } into g
+                      select new Record
+                      {
+                          CountyID = g.Key.CountyID,
+                          NeighborhoodsID = g.Key.NeighborhoodsID,
+                          CommunityID = g.Key.CommunityID,
+                          Name = g.Key.Name,
+                          Type = "单元牌合计",
+                          Count = g.Sum(t => t.Count)
+                      }).First());
 
+            var HSMP = (from t in mps
+                        group t by new
+                        {
+                            t.CountyID,
+                            t.NeighborhoodsID,
+                            t.CommunityID,
+                            t.ResidenceName,
+                            t.HSNumber
+                        } into g
+                        select new Record
+                        {
+                            CountyID = g.Key.CountyID,
+                            NeighborhoodsID = g.Key.NeighborhoodsID,
+                            CommunityID = g.Key.CommunityID,
+                            Name = g.Key.ResidenceName,
+                            Type = g.Key.HSNumber,
+                            Count = g.Count()
+                        }).OrderBy(t => t.Type).ToList();
 
-
-
+            HSMP.Add((from t in HSMP
+                      group t by new
+                      {
+                          t.CountyID,
+                          t.NeighborhoodsID,
+                          t.CommunityID,
+                          t.Name,
+                      } into g
+                      select new Record
+                      {
+                          CountyID = g.Key.CountyID,
+                          NeighborhoodsID = g.Key.NeighborhoodsID,
+                          CommunityID = g.Key.CommunityID,
+                          Name = g.Key.Name,
+                          Type = "户室牌合计",
+                          Count = g.Sum(t => t.Count)
+                      }).First());
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                List<Models.Entities.MPProduce> mpPros = new List<Models.Entities.MPProduce>();
+                foreach (var residence in Residence)
+                {
+                    Models.Entities.MPProduce mpPro = new Models.Entities.MPProduce();
+                    mpPro.ID = Guid.NewGuid().ToString();
+                    mpPro.CommunityID = residence.CommunityID;
+                    mpPro.NeighborhoodsID = residence.NeighborhoodsID;
+                    mpPro.CountyID = residence.CountyID;
+                    mpPro.MPType = Enums.MPType.Residence;
+                    mpPro.CreateTime = DateTime.Now.Date;
+                    mpPro.CreateUser = LoginUtils.CurrentUser.UserName;
+                    mpPro.LZMPCount = LZMP.Where(t => t.CountyID == residence.CountyID).Where(t => t.NeighborhoodsID == residence.NeighborhoodsID).Where(t => t.CommunityID == residence.CommunityID).Where(t => t.Name == residence.Name).Where(t => t.Type == "楼幢牌合计").Select(t => t.Count).First();
+                    mpPro.DYMPCount = DYMP.Where(t => t.CountyID == residence.CountyID).Where(t => t.NeighborhoodsID == residence.NeighborhoodsID).Where(t => t.CommunityID == residence.CommunityID).Where(t => t.Name == residence.Name).Where(t => t.Type == "单元牌合计").Select(t => t.Count).First();
+                    mpPro.HSMPCount = HSMP.Where(t => t.CountyID == residence.CountyID).Where(t => t.NeighborhoodsID == residence.NeighborhoodsID).Where(t => t.CommunityID == residence.CommunityID).Where(t => t.Name == residence.Name).Where(t => t.Type == "户室牌合计").Select(t => t.Count).First();
+                    mpPro.TotalCount = mpPro.LZMPCount + mpPro.DYMPCount + mpPro.HSMPCount;
+                    mpPros.Add(mpPro);
+                }
+                dbContext.MPProduce.AddRange(mpPros);
+                dbContext.SaveChanges();
+            }
+            #endregion
+            SummarySheet data = new SummarySheet();
+            data.StandardName = Residence;
+            data.LZMP = LZMP;
+            data.DYMP = DYMP;
+            data.HSMP = HSMP;
+            return data;
             //HttpContext.Current.Session["_ResidenceMP"] = null;
             //HttpContext.Current.Session["_ResidenceMPErrors"] = null;
             //HttpContext.Current.Session["_ResidenceMPWarning"] = null;
@@ -604,7 +765,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
         }
         #endregion
-
 
         #region 道路门牌
         /// <summary>
@@ -1079,13 +1239,16 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 { "Warnings",(temp[LoginUtils.CurrentUser.UserName][warningKey] as List<string>)}
             };
         }
-        public static void UpdateRoadMP()
+        public static SummarySheet UpdateRoadMP()
         {
-            if ((temp[LoginUtils.CurrentUser.UserName][errorKey] as List<RoadMPErrors>).Count > 0)
+            var mps = temp[LoginUtils.CurrentUser.UserName][mpKey] as List<RoadMPDetails>;
+            var errors = temp[LoginUtils.CurrentUser.UserName][errorKey] as List<RoadMPErrors>;
+            if (errors.Count > 0)
                 throw new Exception("数据包含错误信息，请先检查数据！");
-            if ((temp[LoginUtils.CurrentUser.UserName][mpKey] as List<RoadMPDetails>).Count() == 0 || temp[LoginUtils.CurrentUser.UserName][mpKey] == null)
+            if (mps.Count() == 0 || mps == null)
                 throw new Exception("无可导入数据！");
-            foreach (var mp in (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<RoadMPDetails>))
+            #region****************没有错误后将导入的数据更新到住宅门牌数据库中
+            foreach (var mp in mps)
             {
                 MPOfRoad m = new MPOfRoad
                 {
@@ -1112,8 +1275,91 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 };
                 ModifyRoadMP(null, m, null, null, null);
             }
-
             temp.Remove(LoginUtils.CurrentUser.UserName);
+            #endregion
+            #region*************批量导入成功后立刻进行门牌制作，更新到门牌制作表中，再给出门牌制作汇总表********************
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var bigMPsize = dbContext.DMBZDic.Where(t => t.Type == "大门牌").Select(t => t.Size).ToList();
+                var Road = (from t in mps
+                            group t by new
+                            {
+                                t.CountyID,
+                                t.NeighborhoodsID,
+                                t.CommunityID,
+                                t.RoadName
+                            } into g
+                            select new Record
+                            {
+                                CountyID = g.Key.CountyID,
+                                NeighborhoodsID = g.Key.NeighborhoodsID,
+                                CommunityID = g.Key.CommunityID,
+                                Name = g.Key.RoadName,
+                                Type = "道路",
+                                Count = 0
+                            }).ToList();
+                var DLMP = (from t in mps
+                            group t by new
+                            {
+                                t.CountyID,
+                                t.NeighborhoodsID,
+                                t.CommunityID,
+                                t.RoadName,
+                                t.MPNumber,
+                                t.MPSize
+                            } into g
+                            select new Record
+                            {
+                                CountyID = g.Key.CountyID,
+                                NeighborhoodsID = g.Key.NeighborhoodsID,
+                                CommunityID = g.Key.CommunityID,
+                                Name = g.Key.RoadName,
+                                Type = g.Key.MPNumber,
+                                Size = g.Key.MPSize,
+                                Count = g.Count()
+                            }).OrderBy(t => t.Type).ToList();
+
+                DLMP.Add((from t in DLMP
+                          group t by new
+                          {
+                              t.CountyID,
+                              t.NeighborhoodsID,
+                              t.CommunityID,
+                              t.Name,
+                          } into g
+                          select new Record
+                          {
+                              CountyID = g.Key.CountyID,
+                              NeighborhoodsID = g.Key.NeighborhoodsID,
+                              CommunityID = g.Key.CommunityID,
+                              Name = g.Key.Name,
+                              Type = "道路门牌合计",
+                              Count = g.Sum(t => t.Count)
+                          }).First());
+
+                List<Models.Entities.MPProduce> mpPros = new List<Models.Entities.MPProduce>();
+                foreach (var road in Road)
+                {
+                    Models.Entities.MPProduce mpPro = new Models.Entities.MPProduce();
+                    mpPro.ID = Guid.NewGuid().ToString();
+                    mpPro.CommunityID = road.CommunityID;
+                    mpPro.NeighborhoodsID = road.NeighborhoodsID;
+                    mpPro.CountyID = road.CountyID;
+                    mpPro.MPType = Enums.MPType.Road;
+                    mpPro.CreateTime = DateTime.Now.Date;
+                    mpPro.CreateUser = LoginUtils.CurrentUser.UserName;
+                    mpPro.BigMPCount = DLMP.Where(t => t.CountyID == road.CountyID).Where(t => t.NeighborhoodsID == road.NeighborhoodsID).Where(t => t.CommunityID == road.CommunityID).Where(t => t.Name == road.Name).Where(t => bigMPsize.Contains(t.Size)).Count();
+                    mpPro.TotalCount = DLMP.Where(t => t.CountyID == road.CountyID).Where(t => t.NeighborhoodsID == road.NeighborhoodsID).Where(t => t.CommunityID == road.CommunityID).Where(t => t.Name == road.Name).Where(t => t.Type == "道路门牌合计").Select(t => t.Count).First();
+                    mpPro.SmallMPCount = mpPro.TotalCount - mpPro.BigMPCount;
+                    mpPros.Add(mpPro);
+                }
+                dbContext.MPProduce.AddRange(mpPros);
+                dbContext.SaveChanges();
+                SummarySheet data = new SummarySheet();
+                data.StandardName = Road;
+                return data;
+            }
+            #endregion
             //HttpContext.Current.Session["_RoadMP"] = null;
             //HttpContext.Current.Session["_RoadMPErrors"] = null;
             //HttpContext.Current.Session["_RoadMPWarning"] = null;
@@ -1152,7 +1398,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             return check;
         }
         #endregion
-
 
         #region 农村门牌
         public static void ModifyCountryMP(MPOfCountry oldData, MPOfCountry newData, List<string> TDZIDs, List<string> QQZIDs)
@@ -1561,12 +1806,16 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 { "Warnings",(temp[LoginUtils.CurrentUser.UserName][warningKey] as List<string>)}
             };
         }
-        public static void UpdateCountryMP()
+        public static SummarySheet UpdateCountryMP()
         {
-            if ((temp[LoginUtils.CurrentUser.UserName][errorKey] as List<CountryMPErrors>).Count > 0)
+            var mps = temp[LoginUtils.CurrentUser.UserName][mpKey] as List<CountryMPDetails>;
+            var errors = temp[LoginUtils.CurrentUser.UserName][errorKey] as List<CountryMPErrors>;
+            if (errors.Count > 0)
                 throw new Exception("数据包含错误信息，请先检查数据！");
-            if ((temp[LoginUtils.CurrentUser.UserName][mpKey] as List<CountryMPDetails>).Count() == 0 || temp[LoginUtils.CurrentUser.UserName][mpKey] == null)
+            if (mps.Count() == 0 || mps == null)
                 throw new Exception("无可导入数据！");
+
+            #region****************没有错误后将导入的数据更新到住宅门牌数据库中
             foreach (var mp in (temp[LoginUtils.CurrentUser.UserName][mpKey] as List<CountryMPDetails>))
             {
                 MPOfCountry m = new MPOfCountry
@@ -1588,6 +1837,87 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 ModifyCountryMP(null, m, null, null);
             }
             temp.Remove(LoginUtils.CurrentUser.UserName);
+            #endregion
+            #region*************批量导入成功后立刻进行门牌制作，更新到门牌制作表中，再给出门牌制作汇总表********************
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var bigMPsize = dbContext.DMBZDic.Where(t => t.Type == "大门牌").Select(t => t.Size).ToList();
+                var Vilige = (from t in mps
+                              group t by new
+                              {
+                                  t.CountyID,
+                                  t.NeighborhoodsID,
+                                  t.CommunityID,
+                                  t.ViligeName
+                              } into g
+                              select new Record
+                              {
+                                  CountyID = g.Key.CountyID,
+                                  NeighborhoodsID = g.Key.NeighborhoodsID,
+                                  CommunityID = g.Key.CommunityID,
+                                  Name = g.Key.ViligeName,
+                                  Type = "自然村",
+                                  Count = 0
+                              }).ToList();
+                var NCMP = (from t in mps
+                            group t by new
+                            {
+                                t.CountyID,
+                                t.NeighborhoodsID,
+                                t.CommunityID,
+                                t.ViligeName,
+                                t.MPNumber,
+                            } into g
+                            select new Record
+                            {
+                                CountyID = g.Key.CountyID,
+                                NeighborhoodsID = g.Key.NeighborhoodsID,
+                                CommunityID = g.Key.CommunityID,
+                                Name = g.Key.ViligeName,
+                                Type = g.Key.MPNumber,
+                                Count = g.Count()
+                            }).OrderBy(t => t.Type).ToList();
+
+                NCMP.Add((from t in NCMP
+                          group t by new
+                          {
+                              t.CountyID,
+                              t.NeighborhoodsID,
+                              t.CommunityID,
+                              t.Name,
+                          } into g
+                          select new Record
+                          {
+                              CountyID = g.Key.CountyID,
+                              NeighborhoodsID = g.Key.NeighborhoodsID,
+                              CommunityID = g.Key.CommunityID,
+                              Name = g.Key.Name,
+                              Type = "农村门牌合计",
+                              Count = g.Sum(t => t.Count)
+                          }).First());
+
+                List<Models.Entities.MPProduce> mpPros = new List<Models.Entities.MPProduce>();
+                foreach (var vilige in Vilige)
+                {
+                    Models.Entities.MPProduce mpPro = new Models.Entities.MPProduce();
+                    mpPro.ID = Guid.NewGuid().ToString();
+                    mpPro.CommunityID = vilige.CommunityID;
+                    mpPro.NeighborhoodsID = vilige.NeighborhoodsID;
+                    mpPro.CountyID = vilige.CountyID;
+                    mpPro.MPType = Enums.MPType.Country;
+                    mpPro.CreateTime = DateTime.Now.Date;
+                    mpPro.CreateUser = LoginUtils.CurrentUser.UserName;
+                    mpPro.CountryMPCount = NCMP.Where(t => t.CountyID == vilige.CountyID).Where(t => t.NeighborhoodsID == vilige.NeighborhoodsID).Where(t => t.CommunityID == vilige.CommunityID).Where(t => t.Name == vilige.Name).Where(t => t.Type == "农村门牌合计").Select(t => t.Count).First();
+                    mpPro.TotalCount = mpPro.CountryMPCount;
+                    mpPros.Add(mpPro);
+                }
+                dbContext.MPProduce.AddRange(mpPros);
+                dbContext.SaveChanges();
+                SummarySheet data = new SummarySheet();
+                data.StandardName = Vilige;
+                return data;
+            }
+            #endregion
             //HttpContext.Current.Session["_CountryMP"] = null;
             //HttpContext.Current.Session["_CountryMPErrors"] = null;
             //HttpContext.Current.Session["_CountryMPWarning"] = null;

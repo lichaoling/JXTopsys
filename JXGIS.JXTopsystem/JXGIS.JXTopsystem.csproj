@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Business\Common\DictUtils.cs" />
     <Compile Include="Business\Common\DistrictUtils.cs" />
     <Compile Include="Business\Common\EFExtend.cs" />
     <Compile Include="Business\Common\RoadUtils.cs" />

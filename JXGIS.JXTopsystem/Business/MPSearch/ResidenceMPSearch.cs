@@ -23,7 +23,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <param name="DistrictID"></param>
         /// <param name="Name"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> SearchResidenceMP(int PageSize, int PageNum, string DistrictID, string Name, int UseState)
+        public static Dictionary<string, object> SearchResidenceMP(int PageSize, int PageNum, string DistrictID, string ResidenceName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
         {
             #region sql语句写法 注释
             //string sql = $@"select a.[ID]
@@ -146,17 +146,21 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 {
                     query = query.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);
                 }
-                if (!string.IsNullOrEmpty(Name))
+                if (!string.IsNullOrEmpty(ResidenceName))
                 {
-                    //query = from t in query
-                    //        join d in dbContext.Road
-                    //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                    //        from dt in dd.DefaultIfEmpty()
-                    //        where dt.RoadName.Contains(Name) || t.ResidenceName.Contains(Name) || t.Dormitory.Contains(Name)
-                    //        select t;
-                    query = from t in query
-                            where t.ResidenceName.Contains(Name) || t.Dormitory.Contains(Name)
-                            select t;
+                    query = query.Where(t => t.ResidenceName.Contains(ResidenceName));
+                }
+                if (!string.IsNullOrEmpty(AddressCoding))
+                {
+                    query = query.Where(t => t.AddressCoding.Contains(AddressCoding));
+                }
+                if (!string.IsNullOrEmpty(PropertyOwner))
+                {
+                    query = query.Where(t => t.PropertyOwner.Contains(PropertyOwner));
+                }
+                if (!string.IsNullOrEmpty(StandardAddress))
+                {
+                    query = query.Where(t => t.PropertyOwner.Contains(StandardAddress));
                 }
                 count = query.Count();
                 //如果是导出，就返回所有
@@ -169,24 +173,6 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 {
                     query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
-
-                //data = (from t in query
-                //        join d in dbContext.Road
-                //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                //        from dt in dd.DefaultIfEmpty()
-                //        select new ResidenceMPDetails
-                //        {
-                //            ID = t.ID,
-                //            CountyID = t.CountyID,
-                //            NeighborhoodsID = t.NeighborhoodsID,
-                //            CommunityID = t.CommunityID,
-                //            //PlaceName = dt == null ? (t.ResidenceName) : (dt.RoadName + t.MPNumber + "号" + t.Dormitory),
-                //            ResidenceName = t.ResidenceName,
-                //            StandardAddress = t.StandardAddress,
-                //            PropertyOwner = t.PropertyOwner,
-                //            CreateTime = t.CreateTime,
-                //            RoadID = t.RoadID,
-                //        }).ToList();
 
                 data = (from t in query
                         join a in SystemUtils.Districts
@@ -206,11 +192,10 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             CountyName = at == null || at.Name == null ? null : at.Name,
                             NeighborhoodsName = bt == null || bt.Name == null ? null : bt.Name,
                             CommunityName = ct == null || ct.Name == null ? null : ct.Name,
-                            //PlaceName = t.PlaceName,
                             ResidenceName = t.ResidenceName,
                             StandardAddress = t.StandardAddress,
                             PropertyOwner = t.PropertyOwner,
-                            BZTime=t.BZTime,
+                            BZTime = t.BZTime,
                             CreateTime = t.CreateTime
                         }).ToList();
 
@@ -340,9 +325,9 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <param name="DistrictID"></param>
         /// <param name="Name"></param>
         /// <returns></returns>
-        public static MemoryStream ExportResidenceMP(string DistrictID, string Name, int UseState)
+        public static MemoryStream ExportResidenceMP(string DistrictID, string ResidenceName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
         {
-            Dictionary<string, object> dict = SearchResidenceMP(-1, -1, DistrictID, Name, UseState);
+            Dictionary<string, object> dict = SearchResidenceMP(-1, -1, DistrictID, ResidenceName, AddressCoding, PropertyOwner, StandardAddress, UseState);
 
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)

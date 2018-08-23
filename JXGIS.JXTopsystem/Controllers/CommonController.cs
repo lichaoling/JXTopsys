@@ -49,6 +49,22 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        public ContentResult getNamesByDistrict(string CommunityID, int MPType)
+        {
+            RtObj rt = null;
+            try
+            {
+                var names = DistrictUtils.getNamesByDistrict(CommunityID, MPType);
+                rt = new RtObj(names);
+
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
         //public ContentResult GetRoads(int PageSize, int PageNum, string Name = null)
         //{
         //    RtObj rt = null;
@@ -108,6 +124,23 @@ namespace JXGIS.JXTopsystem.Controllers
                 rt = new RtObj(ex);
             }
             return Json(rt);
+        }
+
+        public ContentResult GetMPSizeByMPType(int mpType)
+        {
+            RtObj rt = null;
+            try
+            {
+                var sizes = DictUtils.GetMPSizeByMPType(mpType);
+                rt = new RtObj(sizes);
+
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
         }
     }
 }
