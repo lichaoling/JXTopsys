@@ -16,7 +16,7 @@ namespace JXGIS.JXTopsystem.Business
         /// <param name="PageSize"></param>
         /// <param name="PageNum"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetMPBusinessDatas(int PageSize, int PageNum, string start, string end, string DistrictID, string Window, string CreateUser, string CertificateType)
+        public static Dictionary<string, object> GetMPBusinessDatas(int PageSize, int PageNum, string start, string end, string DistrictID, string Window, string CreateUser, int CertificateType)
         {
             int count = 0;
             List<MPBusiness> query = new List<Models.Extends.MPBusiness>();
@@ -133,6 +133,8 @@ namespace JXGIS.JXTopsystem.Business
                 {
                     queryAll = queryAll.Where(t => t.CreateUser == CreateUser);
                 }
+                if (CertificateType != Enums.CertificateType.All)
+                    queryAll = queryAll.Where(t => t.CertificateType == CertificateType);
 
                 count = queryAll.Count();
                 query = queryAll.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();

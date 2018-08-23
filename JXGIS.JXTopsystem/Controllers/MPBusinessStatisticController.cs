@@ -1,4 +1,5 @@
 ﻿using JXGIS.JXTopsystem.Business;
+using JXGIS.JXTopsystem.Models.Extends;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
 using System;
@@ -12,12 +13,12 @@ namespace JXGIS.JXTopsystem.Controllers
     public class MPBusinessStatisticController : Controller
     {
         // GET: MPBusinessStatistic
-        public ContentResult GetMPBusinessDatas(int PageSize, int PageNum, string start, string end)
+        public ContentResult GetMPBusinessDatas(int PageSize, int PageNum, string start, string end, string DistrictID, string Window, string CreateUser, int CertificateType = Enums.CertificateType.All)
         {
             RtObj rt = null;
             try
             {
-                var r = StatisticUtils.GetMPBusinessDatas(PageSize, PageNum, start, end);
+                var r = StatisticUtils.GetMPBusinessDatas(PageSize, PageNum, start, end, DistrictID, Window, CreateUser, CertificateType);
                 rt = new RtObj(r);
             }
             catch (Exception ex)

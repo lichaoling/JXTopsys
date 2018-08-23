@@ -28,7 +28,6 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
                 mpCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
                 mpCertificate.MPType = MPType;
                 mpCertificate.CertificateType = CertificateType;
-                //受理窗口属于？？ 待完成
                 mpCertificate.Window = string.Join(",", LoginUtils.CurrentUser.Window);
                 dbContext.MPOfCertificate.Add(mpCertificate);
                 dbContext.SaveChanges();
@@ -291,4 +290,4 @@ namespace JXGIS.JXTopsystem.Business.MPCertificate
             }
         }
     }
-} 
+}

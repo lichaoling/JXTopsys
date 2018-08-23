@@ -35,6 +35,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         {
             public const int Placename = 1;
             public const int MPZ = 2;
+            public const int All = 3;
         }
         public static class MPTypeStr
         {
