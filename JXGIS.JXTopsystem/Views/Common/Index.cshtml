@@ -17,9 +17,16 @@
     </div>
 </body>
 <script>
-    $.post('../MPSearch/SearchResidenceMP', { PageSize: 5, PageNum: 1, DistrictID: "1", Name: null }, function (rt) {
-        debugger
-        console.log(rt);
+    //$.post('../MPSearch/SearchResidenceMP', { PageSize: 5, PageNum: 1, DistrictID: "1", Name: null }, function (rt) {
+    //    debugger
+    //    console.log(rt);
+    //}, 'json')
+    var data = {
+        "ID": "1",
+        "ResidenceName": "紫金意境"
+    };
+    $.post('../MPModify/ModifyResidenceMP', { oldDataJson: JSON.stringify(data) }, function (rt) {
+        console.log(rt)
     }, 'json')
 </script>
 </html>

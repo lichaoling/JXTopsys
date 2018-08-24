@@ -146,6 +146,7 @@
     <Compile Include="Business\Common\DictUtils.cs" />
     <Compile Include="Business\Common\DistrictUtils.cs" />
     <Compile Include="Business\Common\EFExtend.cs" />
+    <Compile Include="Business\Common\ObjectReflection.cs" />
     <Compile Include="Business\Common\RoadUtils.cs" />
     <Compile Include="Business\Login\LoginUtils.cs" />
     <Compile Include="Business\Login\RSACryptoService.cs" />

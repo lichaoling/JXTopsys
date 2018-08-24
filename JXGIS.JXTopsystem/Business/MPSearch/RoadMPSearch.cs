@@ -103,8 +103,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             ReservedNumber = t.ReservedNumber,
                             BZTime = t.BZTime,
                             CreateTime = t.CreateTime,
-                            Lat = t.MPPosition.Latitude,
-                            Lng = t.MPPosition.Longitude
+                            Lat = t.MPPosition == null ? null : t.MPPosition.Latitude,
+                            Lng = t.MPPosition == null ? null : t.MPPosition.Longitude
                         }).ToList();
 
                 return new Dictionary<string, object> {

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Entities
@@ -69,5 +70,16 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CancelUser { get; set; }
         public DateTime? DelTime { get; set; }
         public string DelUser { get; set; }
+
+        private static PropertyInfo[] props = typeof(MPOfResidence).GetProperties();
+        public object this[string key]
+        {
+            get
+            {
+                var prop = props.Where(p => p.Name == key).FirstOrDefault();
+                return prop != null ? prop.GetValue(this) : null;
+            }
+        }
     }
+
 }

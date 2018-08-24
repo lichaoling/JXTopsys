@@ -15,13 +15,13 @@ namespace JXGIS.JXTopsystem.Controllers
     public class MPModifyController : Controller
     {
         #region 住宅门牌
-        public JsonResult ModifyResidenceMP(MPOfResidence oldData, MPOfResidence newData, List<string> FCZIDs, List<string> TDZIDs, List<string> BDCZIDs, List<string> HJIDs)
+        public JsonResult ModifyResidenceMP(MPOfResidence newData, string oldDataJson, List<string> FCZIDs, List<string> TDZIDs, List<string> BDCZIDs, List<string> HJIDs)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.ModifyResidenceMP(oldData, newData, FCZIDs, TDZIDs, BDCZIDs, HJIDs);
+                MPModifyUtils.ModifyResidenceMP(newData, oldDataJson, FCZIDs, TDZIDs, BDCZIDs, HJIDs);
             }
             catch (Exception ex)
             {
@@ -102,13 +102,13 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 道路门牌
-        public JsonResult ModifyRoadMP(MPOfRoad oldData, MPOfRoad newData, List<string> FCZIDs, List<string> TDZIDs, List<string> YYZZIDs)
+        public JsonResult ModifyRoadMP(MPOfRoad newData, string oldDataJson, List<string> FCZIDs, List<string> TDZIDs, List<string> YYZZIDs)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.ModifyRoadMP(oldData, newData, FCZIDs, TDZIDs, YYZZIDs);
+                MPModifyUtils.ModifyRoadMP(newData, oldDataJson, FCZIDs, TDZIDs, YYZZIDs);
             }
             catch (Exception ex)
             {
@@ -179,13 +179,13 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 农村门牌
-        public JsonResult ModifyCountryMP(MPOfCountry oldData, MPOfCountry newData, List<string> TDZIDs, List<string> QQZIDs)
+        public JsonResult ModifyCountryMP(MPOfCountry newData, string oldDataJson, List<string> TDZIDs, List<string> QQZIDs)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.ModifyCountryMP(oldData, newData, TDZIDs, QQZIDs);
+                MPModifyUtils.ModifyCountryMP(newData, oldDataJson, TDZIDs, QQZIDs);
             }
             catch (Exception ex)
             {

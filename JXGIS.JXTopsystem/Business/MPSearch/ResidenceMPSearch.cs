@@ -195,8 +195,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             ResidenceName = t.ResidenceName,
                             StandardAddress = t.StandardAddress,
                             PropertyOwner = t.PropertyOwner,
-                            Lat = t.DYPosition.Latitude,
-                            Lng = t.DYPosition.Longitude,
+                            Lat = t.DYPosition == null ? null : t.DYPosition.Latitude,
+                            Lng = t.DYPosition == null ? null : t.DYPosition.Longitude,
                             BZTime = t.BZTime,
                             CreateTime = t.CreateTime
                         }).ToList();

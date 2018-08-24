@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Services;
@@ -26,94 +27,83 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <param name="oldData"></param>
         /// <param name="newData"></param>
         ///  <param name="CurrentFileIDs">存储四个证件的所有ids</param>
-        public static void ModifyResidenceMP(MPOfResidence oldData, MPOfResidence newData, List<string> FCZIDs, List<string> TDZIDs, List<string> BDCZIDs, List<string> HJIDs)
+        public static void ModifyResidenceMP(MPOfResidence newData, string oldDataJson, List<string> FCZIDs, List<string> TDZIDs, List<string> BDCZIDs, List<string> HJIDs)
         {
-            #region 基本检查
+            #region 权限检查
             if (!DistrictUtils.CheckPermission(newData.CommunityID))
                 throw new Exception("无权操作其他镇街数据！");
-
-            //if (string.IsNullOrEmpty(newData.ResidenceName) && string.IsNullOrEmpty(newData.RoadID))
-            //{
-            //    throw new Exception("小区名或道路名不能同时为空！");
-            //}
-
-            if (string.IsNullOrEmpty(newData.ResidenceName))
-            {
-                throw new Exception("小区名不能为空！");
-            }
-
-            if (!string.IsNullOrEmpty(newData.MPNumber))
-            {
-                newData.MPNumber = newData.MPNumber.Replace(" ", "");
-                if (!CheckIsNumber(newData.MPNumber))
-                    throw new Exception("门牌号不是纯数字！");
-            }
-
-            if (!string.IsNullOrEmpty(newData.LZNumber))
-            {
-                newData.LZNumber = newData.LZNumber.Replace(" ", "");
-                if (!CheckIsNumber(newData.LZNumber))
-                    throw new Exception("楼幢号不是纯数字！");
-            }
-
-            if (!string.IsNullOrEmpty(newData.DYNumber))
-            {
-                newData.DYNumber = newData.DYNumber.Replace(" ", "");
-                if (!CheckIsNumber(newData.DYNumber))
-                    throw new Exception("单元号不是纯数字！");
-            }
-
-            if (string.IsNullOrEmpty(newData.HSNumber))
-            {
-                throw new Exception("户室号为空！");
-            }
-            else
-            {
-                newData.HSNumber = newData.HSNumber.Replace(" ", "");
-                if (!CheckIsNumber(newData.HSNumber))
-                    throw new Exception("户室号不是纯数字！");
-            }
-
-            if (!CheckResidenceMPIsAvailable(newData.CountyID, newData.NeighborhoodsID, newData.CommunityID, newData.ResidenceName, newData.MPNumber, newData.Dormitory, newData.HSNumber, newData.LZNumber, newData.DYNumber))
-                throw new Exception("该户室牌已经存在，请检查后重新输入！");
-
-            if (!string.IsNullOrEmpty(newData.ApplicantPhone))
-            {
-                if (!CheckIsPhone(newData.ApplicantPhone))
-                    throw new Exception("申办人联系电话不是正确的号码格式！");
-            }
             #endregion
-
-            IQueryable<MPOfResidence> query = null;
-            int count = 0;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                #region 标准地址拼接
-                //拼接标准住宅门牌地址，先获取对应的道路门牌的标准地址，再拼接好宿舍名、幢号、单元号、户室号
-                var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
-                var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
-                var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
-                //市辖区/镇街道/村社区/小区名/门牌号/宿舍名/幢号/单元号/房室号
-                var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ResidenceName + newData.MPNumber == null ? "" : newData.MPNumber + "号" + newData.Dormitory + newData.LZNumber == null ? "" : newData.LZNumber + "幢" + newData.DYNumber == null ? "" : newData.DYNumber + "单元" + newData.HSNumber == null ? "" : newData.HSNumber + "室";
-                #endregion
-                #region 地址编码前10位拼接
-                var guid = Guid.NewGuid().ToString();
-                var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                var mpCategory = SystemUtils.Config.MPCategory.Residence.Value.ToString();
-                var year = DateTime.Now.Year.ToString();
-                ////不再使用，用数据库触发器
-                //var ResidenceSql = $@"select max(cast (right([AddressCoding],5) as int)) from [TopSystemDB].[dbo].[MPOFRESIDENCE]";
-                //var maxCode = dbContext.Database.SqlQuery<int>(ResidenceSql).FirstOrDefault();
-                //var Code = (maxCode + 1).ToString().PadLeft(5, '0');//向左补齐0，共5位
-                //地址编码  不带流水号，流水号由数据库触发器生成
-                var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
-                #endregion
-
                 #region 新增
-                if (oldData == null)
+                if (string.IsNullOrEmpty(oldDataJson))
                 {
-                    //如果不重复，开始插入数据，X和Y坐标转换成DbGeography，生成AddressCoding，创建附件的文件夹，将二进制文件存入对应文件夹，获取附件名称存入File，CreateTime默认为当前日期，State默认为1
+                    #region 基本检查+重复性检查
+                    //if (string.IsNullOrEmpty(newData.ResidenceName))
+                    //{
+                    //    throw new Exception("小区名不能为空！");
+                    //}
+
+                    //if (!string.IsNullOrEmpty(newData.MPNumber))
+                    //{
+                    //    newData.MPNumber = newData.MPNumber.Replace(" ", "");
+                    //    if (!CheckIsNumber(newData.MPNumber))
+                    //        throw new Exception("门牌号不是纯数字！");
+                    //}
+
+                    //if (!string.IsNullOrEmpty(newData.LZNumber))
+                    //{
+                    //    newData.LZNumber = newData.LZNumber.Replace(" ", "");
+                    //    if (!CheckIsNumber(newData.LZNumber))
+                    //        throw new Exception("楼幢号不是纯数字！");
+                    //}
+
+                    //if (!string.IsNullOrEmpty(newData.DYNumber))
+                    //{
+                    //    newData.DYNumber = newData.DYNumber.Replace(" ", "");
+                    //    if (!CheckIsNumber(newData.DYNumber))
+                    //        throw new Exception("单元号不是纯数字！");
+                    //}
+
+                    //if (string.IsNullOrEmpty(newData.HSNumber))
+                    //{
+                    //    throw new Exception("户室号为空！");
+                    //}
+                    //else
+                    //{
+                    //    newData.HSNumber = newData.HSNumber.Replace(" ", "");
+                    //    if (!CheckIsNumber(newData.HSNumber))
+                    //        throw new Exception("户室号不是纯数字！");
+                    //}
+                    //if (!string.IsNullOrEmpty(newData.ApplicantPhone))
+                    //{
+                    //    if (!CheckIsPhone(newData.ApplicantPhone))
+                    //        throw new Exception("申办人联系电话不是正确的号码格式！");
+                    //}
+                    if (!CheckResidenceMPIsAvailable(newData.CountyID, newData.NeighborhoodsID, newData.CommunityID, newData.ResidenceName, newData.MPNumber, newData.Dormitory, newData.HSNumber, newData.LZNumber, newData.DYNumber))
+                        throw new Exception("该户室牌已经存在，请检查后重新输入！");
+                    #endregion
+                    #region 标准地址拼接
+                    //拼接标准住宅门牌地址，先获取对应的道路门牌的标准地址，再拼接好宿舍名、幢号、单元号、户室号
+                    var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
+                    var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
+                    var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
+                    //市辖区/镇街道/村社区/小区名/门牌号/宿舍名/幢号/单元号/房室号
+                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ResidenceName + newData.MPNumber == null ? "" : newData.MPNumber + "号" + newData.Dormitory + newData.LZNumber == null ? "" : newData.LZNumber + "幢" + newData.DYNumber == null ? "" : newData.DYNumber + "单元" + newData.HSNumber == null ? "" : newData.HSNumber + "室";
+                    #endregion
+                    #region 地址编码前10位拼接
+                    var guid = Guid.NewGuid().ToString();
+                    var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var mpCategory = SystemUtils.Config.MPCategory.Residence.Value.ToString();
+                    var year = DateTime.Now.Year.ToString();
+                    ////不再使用，用数据库触发器
+                    //var ResidenceSql = $@"select max(cast (right([AddressCoding],5) as int)) from [TopSystemDB].[dbo].[MPOFRESIDENCE]";
+                    //var maxCode = dbContext.Database.SqlQuery<int>(ResidenceSql).FirstOrDefault();
+                    //var Code = (maxCode + 1).ToString().PadLeft(5, '0');//向左补齐0，共5位
+                    //地址编码  不带流水号，流水号由数据库触发器生成
+                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
+                    #endregion
                     //单元空间位置
                     var DYPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
                     //创建时间
@@ -132,25 +122,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         SaveMPFilesByID(BDCZFiles, guid, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
                         SaveMPFilesByID(HJFiles, guid, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
                     }
-
-                    ////规定一个存放路径
-                    //var ResidenceMPFile_FCZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "FCZ");
-                    //var ResidenceMPFile_TDZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "TDZ");
-                    //var ResidenceMPFile_BDCZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "BDCZ");
-                    //var ResidenceMPFile_HJ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "ResidenceMP", guid, "HJ");
-
-                    ////保存文件
-                    //var FCZList = SaveFiles(FCZFiles, ResidenceMPFile_FCZ);
-                    //var TDZList = SaveFiles(TDZFiles, ResidenceMPFile_TDZ);
-                    //var BDCZList = SaveFiles(BDCZFiles, ResidenceMPFile_BDCZ);
-                    //var HJList = SaveFiles(HJFiles, ResidenceMPFile_HJ);
-
-                    ////将同一类型的文件名字组合成string  存入数据库用
-                    //var FCZFileNames = string.Join(",", FCZList);//文件名称
-                    //var TDZFileNames = string.Join(",", TDZList);//文件名称
-                    //var BDCZFileNames = string.Join(",", BDCZList);//文件名称
-                    //var HJFileNames = string.Join(",", HJList);//文件名称
-
                     //对这条数据进行默认赋值
                     newData.ID = guid;
                     newData.AddressCoding = AddressCoding;
@@ -159,44 +130,52 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     newData.State = State;
                     newData.CreateTime = CreateTime;
                     newData.CreateUser = LoginUtils.CurrentUser.UserName;
+
+                    dbContext.MPOFResidence.Add(newData);
                 }
                 #endregion
                 #region 修改
                 else
                 {
-                    query = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == oldData.ID);
-                    count = query.Count();
-                    if (count == 0)
-                        throw new Exception("该条数据已被注销，请重新查询并编辑！");
+                    //query = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == oldData.ID);
+                    //count = query.Count();
+                    //if (count == 0)
+                    //    throw new Exception("该条数据已被注销，请重新查询并编辑！");
+                    //dbContext.MPOFResidence.Remove(query.First());
+                    //newData.ID = oldData.ID;
+                    //newData.AddressCoding = AddressCoding;
+                    //newData.DYPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : oldData.DYPosition;//单元空间位置
+                    //newData.StandardAddress = StandardAddress;
+                    //newData.CreateTime = oldData.CreateTime;
+                    //newData.CreateUser = oldData.CreateUser;
+                    //newData.BZTime = oldData.BZTime;
+                    //newData.LastModifyTime = DateTime.Now.Date;//修改时间
+                    //newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    //newData.CancelTime = oldData.CancelTime;
+                    //newData.CancelUser = oldData.CancelUser;
+                    //newData.DelTime = newData.DelTime;
+                    //newData.DelUser = newData.DelUser;
+                    //newData.State = oldData.State;
 
-                    dbContext.MPOFResidence.Remove(query.First());
-                    newData.ID = oldData.ID;
-                    newData.AddressCoding = AddressCoding;
-                    newData.DYPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : oldData.DYPosition;//单元空间位置
-                    newData.StandardAddress = StandardAddress;
-                    newData.CreateTime = oldData.CreateTime;
-                    newData.CreateUser = oldData.CreateUser;
-                    newData.BZTime = oldData.BZTime;
-                    newData.LastModifyTime = DateTime.Now.Date;//修改时间
-                    newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
-                    newData.CancelTime = oldData.CancelTime;
-                    newData.CancelUser = oldData.CancelUser;
-                    newData.DelTime = newData.DelTime;
-                    newData.DelUser = newData.DelUser;
-                    newData.State = oldData.State;
+                    var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<MPOfResidence>(oldDataJson);
+                    var targetData = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
+                    if (targetData == null)
+                        throw new Exception("该条数据已被注销，请重新查询并编辑！");
+                    var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
+                    ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
+                    if (!CheckResidenceMPIsAvailable(targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityID, targetData.ResidenceName, targetData.MPNumber, targetData.Dormitory, targetData.HSNumber, targetData.LZNumber, targetData.DYNumber))
+                        throw new Exception("该户室牌已经存在，请检查后重新修改！");
                     //上传的附件进行修改
                     var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
                     var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                     var AddedBDCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.BDCZ);
                     var AddedHJFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.HJ);
-                    UpdateMPFilesByID(FCZIDs, AddedFCZFiles, oldData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
-                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, oldData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
-                    UpdateMPFilesByID(BDCZIDs, AddedBDCZFiles, oldData.ID, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
-                    UpdateMPFilesByID(HJIDs, AddedHJFiles, oldData.ID, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
+                    UpdateMPFilesByID(FCZIDs, AddedFCZFiles, sourceData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
+                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, sourceData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
+                    UpdateMPFilesByID(BDCZIDs, AddedBDCZFiles, sourceData.ID, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
+                    UpdateMPFilesByID(HJIDs, AddedHJFiles, sourceData.ID, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
                 }
                 #endregion
-
-                dbContext.MPOFResidence.Add(newData);
                 dbContext.SaveChanges();
             }
         }
@@ -522,7 +501,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     SBDW = mp.SBDW,
                     BZTime = mp.BZTime
                 };
-                ModifyResidenceMP(null, m, null, null, null, null);
+                ModifyResidenceMP(m, null, null, null, null, null);
             }
             temp.Remove(LoginUtils.CurrentUser.UserName);
             #endregion
@@ -749,89 +728,85 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// </summary>
         /// <param name="oldData"></param>
         /// <param name="newData"></param>
-        public static void ModifyRoadMP(MPOfRoad oldData, MPOfRoad newData, List<string> FCZIDs, List<string> TDZIDs, List<string> YYZZIDs)
+        public static void ModifyRoadMP(MPOfRoad newData, string oldDataJson, List<string> FCZIDs, List<string> TDZIDs, List<string> YYZZIDs)
         {
-            #region 基本检查
+            #region 权限检查
             if (!DistrictUtils.CheckPermission(newData.CommunityID))
                 throw new Exception("无权操作其他镇街数据！");
-
-            if (string.IsNullOrEmpty(newData.RoadName))
-                throw new Exception("道路名称不能为空！");
-
-            if (string.IsNullOrEmpty(newData.MPNumber))
-            {
-                throw new Exception("门牌号为空！");
-            }
-            else
-            {
-                newData.MPNumber = newData.MPNumber.Replace(" ", "");
-                if (!CheckIsNumber(newData.MPNumber))
-                    throw new Exception("门牌号不是数字！");
-            }
-
-            if (!CheckRoadMPIsAvailable(newData.MPNumber, newData.RoadName, newData.CountyID, newData.NeighborhoodsID, newData.CommunityID))
-            {
-                throw new Exception("该门牌号已经存在，请检查后重新输入！");
-            }
-
-            if (!string.IsNullOrEmpty(newData.ApplicantPhone))
-            {
-                if (!CheckIsPhone(newData.ApplicantPhone))
-                    throw new Exception("申办人联系电话不是正确的号码格式！");
-            }
-
-            if (newData.MPProduce == null) //是否制作门牌不能为空
-            {
-                throw new Exception("是否制作门牌为空！");
-            }
-            else
-            {
-                if (newData.MPProduce == Enums.MPProduce.ToBeMade) //如果制作门牌
-                {
-                    if (newData.MPMail == null) //门牌邮寄不能为空
-                    {
-                        throw new Exception("是否邮寄门牌为空！");
-                    }
-                    else if (newData.MPMail == Enums.MPMail.Yes)//如果门牌邮寄
-                    {
-                        if (!string.IsNullOrEmpty(newData.MailAddress))//必须填门牌邮寄的地址
-                            throw new Exception("门牌邮寄地址为空！");
-                    }
-                }
-                else if (newData.MPProduce == Enums.MPProduce.NotMake) //如果不制作门牌
-                {
-                    newData.MPMail = Enums.MPMail.No;   //不制作门牌时邮寄都设置为2
-                }
-            }
             #endregion
-            IQueryable<MPOfRoad> query = null;
-            int count = 0;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                #region 标准地址拼接
-                //拼接标准住宅门牌地址，先获取对应的道路门牌的标准地址，再拼接好宿舍名、幢号、单元号、户室号
-                var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
-                var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
-                var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
-                //var RoadName = dbContext.Road.Where(t => t.RoadID.ToString().ToLower() == newData.RoadID.ToLower()).Select(t => t.RoadName).FirstOrDefault();
-                var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.RoadName + newData.MPNumber + "号";
-                #endregion
-                #region 地址编码前10位拼接
-                var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                var mpCategory = SystemUtils.Config.MPCategory.Road.Value.ToString();
-                var year = DateTime.Now.Year.ToString();
-                var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
-                #endregion
-
                 #region 新增
                 //新增，则需对门牌号查重
-                if (oldData == null)
+                if (string.IsNullOrEmpty(oldDataJson))
                 {
+                    #region 基本检查
+                    if (string.IsNullOrEmpty(newData.RoadName))
+                        throw new Exception("道路名称不能为空！");
+
+                    if (string.IsNullOrEmpty(newData.MPNumber))
+                    {
+                        throw new Exception("门牌号为空！");
+                    }
+                    else
+                    {
+                        newData.MPNumber = newData.MPNumber.Replace(" ", "");
+                        if (!CheckIsNumber(newData.MPNumber))
+                            throw new Exception("门牌号不是数字！");
+                    }
+
+                    if (!CheckRoadMPIsAvailable(newData.MPNumber, newData.RoadName, newData.CountyID, newData.NeighborhoodsID, newData.CommunityID))
+                    {
+                        throw new Exception("该门牌号已经存在，请检查后重新输入！");
+                    }
+
+                    if (!string.IsNullOrEmpty(newData.ApplicantPhone))
+                    {
+                        if (!CheckIsPhone(newData.ApplicantPhone))
+                            throw new Exception("申办人联系电话不是正确的号码格式！");
+                    }
+
+                    if (newData.MPProduce == null) //是否制作门牌不能为空
+                    {
+                        throw new Exception("是否制作门牌为空！");
+                    }
+                    else
+                    {
+                        if (newData.MPProduce == Enums.MPProduce.ToBeMade) //如果制作门牌
+                        {
+                            if (newData.MPMail == null) //门牌邮寄不能为空
+                            {
+                                throw new Exception("是否邮寄门牌为空！");
+                            }
+                            else if (newData.MPMail == Enums.MPMail.Yes)//如果门牌邮寄
+                            {
+                                if (!string.IsNullOrEmpty(newData.MailAddress))//必须填门牌邮寄的地址
+                                    throw new Exception("门牌邮寄地址为空！");
+                            }
+                        }
+                        else if (newData.MPProduce == Enums.MPProduce.NotMake) //如果不制作门牌
+                        {
+                            newData.MPMail = Enums.MPMail.No;   //不制作门牌时邮寄都设置为2
+                        }
+                    }
+                    #endregion
+                    #region 标准地址拼接
+                    //拼接标准住宅门牌地址，先获取对应的道路门牌的标准地址，再拼接好宿舍名、幢号、单元号、户室号
+                    var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
+                    var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
+                    var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
+                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.RoadName + newData.MPNumber + "号";
+                    #endregion
+                    #region 地址编码前10位拼接
+                    var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var mpCategory = SystemUtils.Config.MPCategory.Road.Value.ToString();
+                    var year = DateTime.Now.Year.ToString();
+                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
+                    #endregion
                     var guid = Guid.NewGuid().ToString();
                     var MPPosition = (newData.Lng != 0 && newData.Lat != 0) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
                     var CreateTime = DateTime.Now.Date;
-
                     //获取所有上传的文件
                     if (HttpContext.Current.Request.Files.Count > 0)
                     {
@@ -842,22 +817,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
                         SaveMPFilesByID(YYZZFiles, guid, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
                     }
-
-                    ////规定一个存放路径
-                    //var RoadMPFile_FCZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RoadMP", guid, "FCZ");
-                    //var RoadMPFile_TDZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RoadMP", guid, "TDZ");
-                    //var RoadMPFile_YYZZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RoadMP", guid, "YYZZ");
-
-                    ////保存文件
-                    //var FCZList = SaveFiles(FCZFiles, RoadMPFile_FCZ);
-                    //var TDZList = SaveFiles(TDZFiles, RoadMPFile_TDZ);
-                    //var YYZZList = SaveFiles(YYZZFiles, RoadMPFile_YYZZ);
-
-                    ////将同一类型的文件名字组合成string  存入数据库用
-                    //var FCZFileNames = string.Join(",", FCZList);//文件名称
-                    //var TDZFileNames = string.Join(",", TDZList);//文件名称
-                    //var YYZZFileNames = string.Join(",", YYZZList);//文件名称
-
                     //对这条数据进行默认赋值
                     newData.ID = guid;
                     newData.AddressCoding = AddressCoding;
@@ -867,46 +826,31 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     newData.MPMail = newData.MPMail == null ? Enums.MPMail.No : newData.MPMail;
                     newData.CreateTime = CreateTime;
                     newData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    dbContext.MPOfRoad.Add(newData);
                 }
                 #endregion
                 #region 修改
-                //修改
                 else
                 {
-                    query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == oldData.ID);
-                    count = query.Count();
-                    if (count == 0)
+                    var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<MPOfRoad>(oldDataJson);
+                    var targetData = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
+                    if (targetData == null)
                         throw new Exception("该条数据已被注销，请重新查询并编辑！");
-
-                    dbContext.MPOfRoad.Remove(query.First());
-                    newData.ID = oldData.ID;
-                    newData.AddressCoding = AddressCoding;
-                    newData.MPPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;//单元空间位置
-                    newData.StandardAddress = StandardAddress;
-                    newData.CreateTime = oldData.CreateTime;
-                    newData.CreateUser = oldData.CreateUser;
-                    newData.BZTime = oldData.BZTime;
-                    newData.LastModifyTime = DateTime.Now.Date;//修改时间
-                    newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
-                    newData.CancelTime = oldData.CancelTime;
-                    newData.CancelUser = oldData.CancelUser;
-                    newData.DelTime = newData.DelTime;
-                    newData.DelUser = newData.DelUser;
-                    newData.State = oldData.State;
+                    var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
+                    ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
+                    if (!CheckRoadMPIsAvailable(targetData.MPNumber, targetData.RoadName, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityID))
+                        throw new Exception("该道路门牌已经存在，请检查后重新修改！");
                     //上传的附件进行修改 ？？？？？？？？？？待完成
                     var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
                     var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                     var AddedYYZZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.YYZZ);
-                    UpdateMPFilesByID(FCZIDs, AddedFCZFiles, oldData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
-                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, oldData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
-                    UpdateMPFilesByID(YYZZIDs, AddedYYZZFiles, oldData.ID, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
-
+                    UpdateMPFilesByID(FCZIDs, AddedFCZFiles, targetData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
+                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, targetData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
+                    UpdateMPFilesByID(YYZZIDs, AddedYYZZFiles, targetData.ID, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
                 }
                 #endregion
-                dbContext.MPOfRoad.Add(newData);
                 dbContext.SaveChanges();
             }
-
         }
         /// <summary>
         /// 检查某条路的门牌号是否重复
@@ -1249,7 +1193,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     ApplicantPhone = mp.ApplicantPhone,
                     MPProduce = mp.MPProduce
                 };
-                ModifyRoadMP(null, m, null, null, null);
+                ModifyRoadMP(m, null, null, null, null);
             }
             temp.Remove(LoginUtils.CurrentUser.UserName);
             #endregion
@@ -1376,98 +1320,93 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         #endregion
 
         #region 农村门牌
-        public static void ModifyCountryMP(MPOfCountry oldData, MPOfCountry newData, List<string> TDZIDs, List<string> QQZIDs)
+        public static void ModifyCountryMP(MPOfCountry newData, string oldDataJson, List<string> TDZIDs, List<string> QQZIDs)
         {
-            #region 基本检查
+            #region 权限检查
             if (!DistrictUtils.CheckPermission(newData.CommunityID))
                 throw new Exception("无权操作其他镇街数据！");
-
-            if (string.IsNullOrEmpty(newData.ViligeName))
-            {
-                throw new Exception("自然村名称为空！");
-            }
-            else
-            {
-                newData.ViligeName = newData.ViligeName.Trim();
-            }
-
-            if (string.IsNullOrEmpty(newData.MPNumber))
-            {
-                throw new Exception("门牌号为空！");
-            }
-            else
-            {
-                newData.MPNumber = newData.MPNumber.Replace(" ", "");
-                if (!CheckIsNumber(newData.MPNumber))
-                    throw new Exception("门牌号不是数字！");
-            }
-
-            if (!string.IsNullOrEmpty(newData.HSNumber))
-            {
-                newData.HSNumber = newData.HSNumber.Replace(" ", "");
-                if (!CheckIsNumber(newData.HSNumber))
-                    throw new Exception("户室号不是数字！");
-            }
-
-            if (!CheckCountryMPIsAvailable(newData.ViligeName, newData.MPNumber, newData.HSNumber, newData.CountyID, newData.NeighborhoodsID, newData.CommunityID))
-            {
-                throw new Exception("该门牌号已经存在，请检查后重新输入！");
-            }
-
-            if (!string.IsNullOrEmpty(newData.ApplicantPhone))
-            {
-                if (!CheckIsPhone(newData.ApplicantPhone))
-                    throw new Exception("申办人联系电话不是正确的号码格式！");
-            }
-
-            if (newData.MPProduce == null) //是否制作门牌不能为空
-            {
-                throw new Exception("是否制作门牌为空！");
-            }
-            else
-            {
-                if (newData.MPProduce == Enums.MPProduce.ToBeMade) //如果制作门牌
-                {
-                    if (newData.MPMail == null) //门牌邮寄不能为空
-                    {
-                        throw new Exception("是否邮寄门牌为空！");
-                    }
-                    else if (newData.MPMail == Enums.MPMail.Yes)//如果门牌邮寄
-                    {
-                        if (!string.IsNullOrEmpty(newData.MailAddress))//必须填门牌邮寄的地址
-                            throw new Exception("门牌邮寄地址为空！");
-                    }
-                }
-                else if (newData.MPProduce == Enums.MPProduce.NotMake) //如果不制作门牌
-                {
-                    newData.MPMail = Enums.MPMail.No;   //不制作门牌时邮寄都设置为2
-                }
-            }
-
             #endregion
-
-            IQueryable<MPOfCountry> query = null;
-            int count = 0;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                #region 标准地址拼接
-                var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
-                var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
-                var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
-                var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ViligeName + newData.MPNumber + "号" + newData.HSNumber == null ? string.Empty : newData.HSNumber + "室";
-                #endregion
-                #region 地址编码前10位拼接
-                var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                var mpCategory = SystemUtils.Config.MPCategory.Country.Value.ToString();
-                var year = DateTime.Now.Year.ToString();
-                var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
-                #endregion
-
                 #region 新增
-                //新增，则需对门牌号查重
-                if (oldData == null)
+                if (string.IsNullOrEmpty(oldDataJson))
                 {
+                    #region 基本检查
+                    if (string.IsNullOrEmpty(newData.ViligeName))
+                    {
+                        throw new Exception("自然村名称为空！");
+                    }
+                    else
+                    {
+                        newData.ViligeName = newData.ViligeName.Trim();
+                    }
+
+                    if (string.IsNullOrEmpty(newData.MPNumber))
+                    {
+                        throw new Exception("门牌号为空！");
+                    }
+                    else
+                    {
+                        newData.MPNumber = newData.MPNumber.Replace(" ", "");
+                        if (!CheckIsNumber(newData.MPNumber))
+                            throw new Exception("门牌号不是数字！");
+                    }
+
+                    if (!string.IsNullOrEmpty(newData.HSNumber))
+                    {
+                        newData.HSNumber = newData.HSNumber.Replace(" ", "");
+                        if (!CheckIsNumber(newData.HSNumber))
+                            throw new Exception("户室号不是数字！");
+                    }
+
+                    if (!CheckCountryMPIsAvailable(newData.ViligeName, newData.MPNumber, newData.HSNumber, newData.CountyID, newData.NeighborhoodsID, newData.CommunityID))
+                    {
+                        throw new Exception("该门牌号已经存在，请检查后重新输入！");
+                    }
+
+                    if (!string.IsNullOrEmpty(newData.ApplicantPhone))
+                    {
+                        if (!CheckIsPhone(newData.ApplicantPhone))
+                            throw new Exception("申办人联系电话不是正确的号码格式！");
+                    }
+
+                    if (newData.MPProduce == null) //是否制作门牌不能为空
+                    {
+                        throw new Exception("是否制作门牌为空！");
+                    }
+                    else
+                    {
+                        if (newData.MPProduce == Enums.MPProduce.ToBeMade) //如果制作门牌
+                        {
+                            if (newData.MPMail == null) //门牌邮寄不能为空
+                            {
+                                throw new Exception("是否邮寄门牌为空！");
+                            }
+                            else if (newData.MPMail == Enums.MPMail.Yes)//如果门牌邮寄
+                            {
+                                if (!string.IsNullOrEmpty(newData.MailAddress))//必须填门牌邮寄的地址
+                                    throw new Exception("门牌邮寄地址为空！");
+                            }
+                        }
+                        else if (newData.MPProduce == Enums.MPProduce.NotMake) //如果不制作门牌
+                        {
+                            newData.MPMail = Enums.MPMail.No;   //不制作门牌时邮寄都设置为2
+                        }
+                    }
+                    #endregion
+                    #region 标准地址拼接
+                    var CountyName = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Name).FirstOrDefault();
+                    var NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
+                    var CommunityName = SystemUtils.Districts.Where(t => t.ID == newData.CommunityID).Select(t => t.Name).FirstOrDefault();
+                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ViligeName + newData.MPNumber + "号" + newData.HSNumber == null ? string.Empty : newData.HSNumber + "室";
+                    #endregion
+                    #region 地址编码前10位拼接
+                    var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var mpCategory = SystemUtils.Config.MPCategory.Country.Value.ToString();
+                    var year = DateTime.Now.Year.ToString();
+                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
+                    #endregion
                     var guid = Guid.NewGuid().ToString();
                     var MPPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
                     var CreateTime = DateTime.Now.Date;
@@ -1479,19 +1418,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
                         SaveMPFilesByID(QQZFiles, guid, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
                     }
-
-                    ////规定一个存放路径
-                    //var CountryMPFile_TDZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "CountryMP", guid, "TDZ");
-                    //var CountryMPFile_QQZ = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "CountryMP", guid, "QQZ");
-
-                    ////保存文件
-                    //var TDZList = SaveFiles(TDZFiles, CountryMPFile_TDZ);
-                    //var QQZList = SaveFiles(QQZFiles, CountryMPFile_QQZ);
-
-                    ////将同一类型的文件名字组合成string  存入数据库用
-                    //var TDZFileNames = string.Join(",", TDZList);//文件名称
-                    //var QQZFileNames = string.Join(",", QQZList);//文件名称
-
                     //对这条数据进行默认赋值
                     newData.ID = guid;
                     newData.AddressCoding = AddressCoding;
@@ -1501,38 +1427,28 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     newData.MPMail = newData.MPMail == null ? Enums.MPMail.No : newData.MPMail;
                     newData.CreateTime = CreateTime;
                     newData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    dbContext.MPOfCountry.Add(newData);
                 }
                 #endregion
                 #region 修改
                 else
                 {
-                    query = dbContext.MPOfCountry.Where(t => t.State == 1).Where(t => t.ID == oldData.ID);
-                    count = query.Count();
-                    if (count == 0)
+                    var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<MPOfCountry>(oldDataJson);
+                    var targetData = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
+                    if (targetData == null)
                         throw new Exception("该条数据已被注销，请重新查询并编辑！");
-
-                    dbContext.MPOfCountry.Remove(query.First());
-                    newData.ID = oldData.ID;
-                    newData.AddressCoding = AddressCoding;
-                    newData.MPPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;//单元空间位置
-                    newData.StandardAddress = StandardAddress;
-                    newData.CreateTime = oldData.CreateTime;
-                    newData.CreateUser = oldData.CreateUser;
-                    newData.BZTime = oldData.BZTime;
-                    newData.LastModifyTime = DateTime.Now.Date;//修改时间
-                    newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
-                    newData.CancelTime = oldData.CancelTime;
-                    newData.CancelUser = oldData.CancelUser;
-                    newData.DelTime = newData.DelTime;
-                    newData.DelUser = newData.DelUser;
-                    newData.State = oldData.State;
+                    var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
+                    ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
+                    if (!CheckCountryMPIsAvailable(targetData.ViligeName, targetData.MPNumber, targetData.HSNumber, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityID))
+                        throw new Exception("该户室牌已经存在，请检查后重新修改！");
                     //上传的附件进行修改 ？？？？？？？？？？待完成
                     var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                     var AddedQQZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.QQZ);
-                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, oldData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
-                    UpdateMPFilesByID(QQZIDs, AddedQQZFiles, oldData.ID, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
+                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, targetData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
+                    UpdateMPFilesByID(QQZIDs, AddedQQZFiles, targetData.ID, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
                 }
                 #endregion
+                dbContext.SaveChanges();
             }
         }
         public static void UploadCountryMP(HttpPostedFileBase file)
@@ -1810,7 +1726,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     ApplicantPhone = mp.ApplicantPhone,
                     MPProduce = mp.MPProduce
                 };
-                ModifyCountryMP(null, m, null, null);
+                ModifyCountryMP(m, null, null, null);
             }
             temp.Remove(LoginUtils.CurrentUser.UserName);
             #endregion
