@@ -36,7 +36,14 @@ namespace JXGIS.JXTopsystem.Business.Common
                     targetPP.SetValue(t, value, null);
             }
         }
-
+        /// <summary>
+        /// 利用反射和字典中属性名称，用修改后的实体数据对原实体数据进行赋值
+        /// </summary>
+        /// <typeparam name="S"></typeparam>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sourceData">那些修改了的字段组成的实体</param>
+        /// <param name="targetData">从数据库中查询出来的一条老的数据实体</param>
+        /// <param name="Dic">字典中保存了一个实体中修改了的字段和值，这里需用到修改了的字段名称</param>
         public static void ModifyByReflection<S, T>(S sourceData, T targetData, Dictionary<string, object> Dic)
         {
             Type targetType = targetData.GetType();

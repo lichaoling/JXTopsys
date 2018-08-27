@@ -720,7 +720,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             }
 
         }
-        #endregion
+        #endregion 住宅门牌
 
         #region 道路门牌
         /// <summary>
@@ -1317,7 +1317,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             }
             return check;
         }
-        #endregion
+        #endregion 道路门牌
 
         #region 农村门牌
         public static void ModifyCountryMP(MPOfCountry newData, string oldDataJson, List<string> TDZIDs, List<string> QQZIDs)
@@ -1860,7 +1860,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             }
             return check;
         }
-        #endregion
+        #endregion 农村门牌
 
         /// <summary>
         /// 保存文件，检查文件是否重名，并返回文件名列表
