@@ -36,13 +36,13 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 var where = PredicateBuilder.False<MPOfRoad>();
                 foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
                 {
-                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                 }
                 var query = q.Where(where.Compile());
 
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
-                    query = query.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);
+                    query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }
                 if (MPNumberType != 0)
                 {
@@ -131,11 +131,11 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                           ,a.[CommunityID]
                           ,f.Name CommunityName
                           ,a.[RoadName]
-                          ,c.QiDian StartPoint
-                          ,c.ZhiDian EndPoint
+                          ,b.RoadStart
+                          ,b.RoadEnd
+                          ,b.MPRules
                           ,a.[ShopName]
                           ,a.[ResidenceName]
-                          ,a.[MPRules]
                           ,a.[MPNumberRange]
                           ,a.[MPNumber]
                           ,a.[MPNumberType]
@@ -154,13 +154,10 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                           ,a.[StandardAddress]
                           ,a.[FCZAddress]
                           ,a.[FCZNumber]
-                          ,a.[FCZFile]
                           ,a.[TDZAddress]
                           ,a.[TDZnumber]
-                          ,a.[TDZFile]
                           ,a.[YYZZAddress]
                           ,a.[YYZZNumber]
-                          ,a.[YYZZFile]
                           ,a.[OtherAddress]
                           ,a.[Applicant]
                           ,a.[ApplicantPhone]
@@ -174,6 +171,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                           ,a.[CancelTime]
                           ,a.[CancelUser]
                       FROM [TopSystemDB].[dbo].[MPOFROAD] a
+                      left join [TopSystemDB].[dbo].[ROADDIC] b on a.RoadName=b.RoadName
                       left join [TopSystemDB].[dbo].[DISTRICT] d on a.CountyID=d.ID
                       left join [TopSystemDB].[dbo].[DISTRICT] e on a.NeighborhoodsID=e.ID
                       left join [TopSystemDB].[dbo].[DISTRICT] f on a.CommunityID=f.ID

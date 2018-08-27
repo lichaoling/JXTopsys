@@ -24,13 +24,10 @@ namespace JXGIS.JXTopsystem.Models.Entities
         [NotMapped]
         public string NeighborhoodsCode { get; set; }
         public string CommunityID { get; set; }
-        //public string RoadID { get; set; }
+        public string RoadID { get; set; }
         public string RoadName { get; set; }
-        public string RoadStart { get; set; }
-        public string RoadEnd { get; set; }
         public string ShopName { get; set; } //如果这个门牌号对应是商铺，就填写商铺名称
         public string ResidenceName { get; set; } //如果这个门牌号对应是小区，就填写小区名称
-        public string MPRules { get; set; }
         public string MPNumberRange { get; set; }
         public string MPNumber { get; set; }
         public int? MPNumberType { get; set; } //门牌号码类型 1单 2 双

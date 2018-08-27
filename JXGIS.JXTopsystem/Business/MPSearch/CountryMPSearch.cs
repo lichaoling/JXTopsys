@@ -26,13 +26,13 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 var where = PredicateBuilder.False<MPOfCountry>();
                 foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
                 {
-                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                 }
                 var query = q.Where(where.Compile());
 
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
-                    query = query.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);
+                    query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }
                 if (!string.IsNullOrEmpty(ViligeName))
                 {
@@ -103,7 +103,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var sql = @"SELECT a.[ID]
+                var sql = $@"SELECT a.[ID]
                       ,a.[AddressCoding]
                       ,a.[CountyID]
 	                  ,d.Name CountyName
@@ -128,10 +128,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                       ,a.[StandardAddress]
                       ,a.[TDZAddress]
                       ,a.[TDZNumber]
-                      ,a.[TDZFile]
                       ,a.[QQZAddress]
                       ,a.[QQZNumber]
-                      ,a.[QQZFile]
                       ,a.[OtherAddress]
                       ,a.[Applicant]
                       ,a.[ApplicantPhone]
@@ -148,7 +146,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                   left join [TopSystemDB].[dbo].[DISTRICT] d on a.CountyID=d.ID
                   left join [TopSystemDB].[dbo].[DISTRICT] e on a.NeighborhoodsID=e.ID
                   left join [TopSystemDB].[dbo].[DISTRICT] f on a.CommunityID=f.ID
-                  where a.State=1";
+                  where a.State=1 and a.ID='{ID}'";
                 var query = SystemUtils.NewEFDbContext.Database.SqlQuery<CountryMPDetails>(sql).FirstOrDefault();
                 if (query == null)
                     throw new Exception("该门牌已经被注销！");

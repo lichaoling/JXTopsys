@@ -138,13 +138,13 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 var where = PredicateBuilder.False<MPOfResidence>();
                 foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
                 {
-                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                 }
                 var query = q.Where(where.Compile());
 
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
-                    query = query.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);
+                    query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }
                 if (!string.IsNullOrEmpty(ResidenceName))
                 {

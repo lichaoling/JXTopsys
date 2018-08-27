@@ -34,5 +34,6 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DbSet<DMBZDic> DMBZDic { get; set; }
         public DbSet<PostcodeDic> PostcodeDic { get; set; }
         public DbSet<RPBZDic> RPBZDic { get; set; }
+        public DbSet<RoadDic> RoadDic { get; set; }
     }
 }

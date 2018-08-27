@@ -1,5 +1,7 @@
 ﻿using JXGIS.JXTopsystem.Business;
 using JXGIS.JXTopsystem.Business.Common;
+using JXGIS.JXTopsystem.Models;
+using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using System;
 using System.Collections.Generic;
@@ -49,12 +51,12 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-        public ContentResult getNamesByDistrict(string CommunityID, int MPType)
+        public ContentResult getNamesByDistrict(string CountyID, string NeighbourhoodID, string CommunityID, int MPType)
         {
             RtObj rt = null;
             try
             {
-                var names = DistrictUtils.getNamesByDistrict(CommunityID, MPType);
+                var names = DistrictUtils.getNamesByDistrict(CountyID, NeighbourhoodID, CommunityID, MPType);
                 rt = new RtObj(names);
 
             }
@@ -96,21 +98,6 @@ namespace JXGIS.JXTopsystem.Controllers
         //    var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
         //    return Content(s);
         //}
-        public ContentResult GetRoadsByDistrict(string CountyID, string NeighborhoodsID, string CommunityID)
-        {
-            RtObj rt = null;
-            try
-            {
-                var data = RoadUtils.GetRoadsByDistrict(CountyID, NeighborhoodsID, CommunityID);
-                rt = new RtObj(data);
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
         public JsonResult CheckPermission(string CommunityID)
         {
             RtObj rt = null;
@@ -126,6 +113,7 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(rt);
         }
 
+        #region 地名标志
         public ContentResult GetMPSizeByMPType(int mpType)
         {
             RtObj rt = null;
@@ -142,13 +130,15 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        #endregion 地名标志
 
-        public ContentResult GetPostcodeByPID(string CountyID)
+        #region 邮编
+        public ContentResult GetPostcodeByDID(string CountyID, string NeighborhoodsID, string CommunityID)
         {
             RtObj rt = null;
             try
             {
-                var sizes = DictUtils.GetPostcodeByPID(CountyID);
+                var sizes = DictUtils.GetPostcodeByDID(CountyID, NeighborhoodsID, CommunityID);
                 rt = new RtObj(sizes);
 
             }
@@ -159,6 +149,57 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        public ContentResult AddPostcode(PostcodeDic postDic)
+        {
+            RtObj rt = null;
+            try
+            {
+                DictUtils.AddPostcode(postDic);
+                rt = new RtObj();
+
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        public ContentResult ModifyPostcode(PostcodeDic postDic)
+        {
+            RtObj rt = null;
+            try
+            {
+                DictUtils.ModifyPostcode(postDic);
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        #endregion 邮编
+
+        #region 道路字典
+        public ContentResult ModifyRoadDic(RoadDic roadDic)
+        {
+            RtObj rt = null;
+            try
+            {
+                DictUtils.ModifyRoadDic(roadDic);
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        #endregion 道路字典
+
 
         public ContentResult GetRPBZData(string Category)
         {

@@ -105,15 +105,6 @@ namespace JXGIS.JXTopsystem.Business.Common
         //        return rt;
         //    }
         //}
-
-
-        public static List<string> GetRoadsByDistrict(string CountyID, string NeighborhoodsID, string CommunityID)
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                var names = dbContext.MPOfRoad.Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityID == CommunityID).Select(t => t.RoadName).Distinct().ToList();
-                return names;
-            }
-        }
+        
     }
 }

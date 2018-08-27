@@ -13,6 +13,9 @@ namespace JXGIS.JXTopsystem.Models.Entities
         [Key]
         public string ID { get; set; }
         public string Postcode { get; set; }
-        public string PCode { get; set; }
+        public string CountyID { get; set; }  //*
+        public string NeighborhoodsID { get; set; }  //*
+        public string CommunityID { get; set; }  //*
+        public int State { get; set; }  //使用状态 1 使用 0 删除
     }
 }

@@ -105,7 +105,7 @@ namespace JXGIS.JXTopsystem.Business
                 var where = PredicateBuilder.False<MPBusiness>();
                 foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
                 {
-                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                 }
                 var queryAll = All.Where(where.Compile());
 
@@ -123,7 +123,7 @@ namespace JXGIS.JXTopsystem.Business
                 }
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
-                    queryAll = queryAll.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);
+                    queryAll = queryAll.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }
                 if (!string.IsNullOrEmpty(Window))
                 {
@@ -345,7 +345,7 @@ namespace JXGIS.JXTopsystem.Business
                 var where = PredicateBuilder.False<Models.Entities.MPProduce>();
                 foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
                 {
-                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                 }
                 var q = dbContext.MPProduce.Where(where.Compile());
                 //门牌制作时间筛选
@@ -363,7 +363,7 @@ namespace JXGIS.JXTopsystem.Business
                 //行政区划ID筛选
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
-                    q = q.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);
+                    q = q.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }
                 count = q.Count();
                 query = q.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();

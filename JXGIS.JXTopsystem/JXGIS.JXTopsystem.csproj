@@ -213,6 +213,7 @@
     <Compile Include="Models\Extends\RtObj\IRtObjCfg.cs" />
     <Compile Include="Models\Extends\RtObj\RtObj.cs" />
     <Compile Include="Models\Extends\SummarySheet.cs" />
+    <Compile Include="Models\RoadDic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

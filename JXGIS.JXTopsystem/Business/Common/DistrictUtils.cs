@@ -75,17 +75,45 @@ namespace JXGIS.JXTopsystem.Business.Common
         /// <param name="CommunityID"></param>
         /// <param name="MPType"></param>
         /// <returns></returns>
-        public static List<string> getNamesByDistrict(string CommunityID, int MPType)
+        public static List<string> getNamesByDistrict(string CountyID, string NeighbourhoodID, string CommunityID, int MPType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<string> name = new List<string>();
                 if (MPType == Enums.MPType.Residence)
-                    name = dbContext.MPOFResidence.Where(t => t.CommunityID == CommunityID).Select(t => t.ResidenceName).Distinct().ToList();
+                {
+                    IQueryable<MPOfResidence> query = null;
+                    if (!string.IsNullOrEmpty(CountyID))
+                        query = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID);
+                    if (!string.IsNullOrEmpty(NeighbourhoodID))
+                        query = query.Where(t => t.NeighborhoodsID == NeighbourhoodID);
+                    if (!string.IsNullOrEmpty(CommunityID))
+                        query = query.Where(t => t.CommunityID == CommunityID);
+                    name = query.Select(t => t.ResidenceName).Distinct().ToList();
+                }
                 else if (MPType == Enums.MPType.Road)
-                    name = dbContext.MPOfRoad.Where(t => t.CommunityID == CommunityID).Select(t => t.RoadName).Distinct().ToList();
+                {
+                    IQueryable<MPOfRoad> query = null;
+                    if (!string.IsNullOrEmpty(CountyID))
+                        query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID);
+                    if (!string.IsNullOrEmpty(NeighbourhoodID))
+                        query = query.Where(t => t.NeighborhoodsID == NeighbourhoodID);
+                    if (!string.IsNullOrEmpty(CommunityID))
+                        query = query.Where(t => t.CommunityID == CommunityID);
+                    name = query.Select(t => t.RoadName).Distinct().ToList();
+                }
                 else if (MPType == Enums.MPType.Country)
-                    name = dbContext.MPOfCountry.Where(t => t.CommunityID == CommunityID).Select(t => t.ViligeName).Distinct().ToList();
+                {
+                    IQueryable<MPOfCountry> query = null;
+                    if (!string.IsNullOrEmpty(CountyID))
+                        query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID);
+                    if (!string.IsNullOrEmpty(NeighbourhoodID))
+                        query = query.Where(t => t.NeighborhoodsID == NeighbourhoodID);
+                    if (!string.IsNullOrEmpty(CommunityID))
+                        query = query.Where(t => t.CommunityID == CommunityID);
+                    name = query.Select(t => t.ViligeName).Distinct().ToList();
+                }
+
                 return name;
             }
         }
@@ -160,7 +188,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         /// </summary>
         /// <param name="CommunityID"></param>
         /// <returns></returns>
-        public static bool CheckPermission(string CommunityID)
+        public static bool CheckPermission(string Neighbourhood)
         {
             var flag = false;
             var districtIDs = LoginUtils.CurrentUser.DistrictID;
@@ -168,7 +196,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 foreach (var districtID in districtIDs)
                 {
-                    if (CommunityID.IndexOf(districtID + ".") == 0)
+                    if (Neighbourhood.IndexOf(districtID + ".") == 0 || Neighbourhood == districtID)
                         flag = true;
                 }
             }

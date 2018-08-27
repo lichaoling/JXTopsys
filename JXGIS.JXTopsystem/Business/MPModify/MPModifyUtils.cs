@@ -1,5 +1,6 @@
 ﻿using Aspose.Cells;
 using JXGIS.JXTopsystem.Business.Common;
+using JXGIS.JXTopsystem.Models;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
@@ -30,7 +31,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         public static void ModifyResidenceMP(MPOfResidence newData, string oldDataJson, List<string> FCZIDs, List<string> TDZIDs, List<string> BDCZIDs, List<string> HJIDs)
         {
             #region 权限检查
-            if (!DistrictUtils.CheckPermission(newData.CommunityID))
+            if (!DistrictUtils.CheckPermission(newData.NeighborhoodsID))
                 throw new Exception("无权操作其他镇街数据！");
             #endregion
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -258,11 +259,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     #endregion
                     #region 村社区检查
-                    if (string.IsNullOrEmpty(CommunityName))
-                    {
-                        error.ErrorMessages.Add("村社区名称为空");
-                    }
-                    else
+                    if (!string.IsNullOrEmpty(CommunityName))
                     {
                         CommunityID = SystemUtils.Districts.Where(t => t.Name.Contains(CommunityName)).Select(t => t.ID).FirstOrDefault();
                         if (CommunityID == null)
@@ -684,8 +681,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 if (count == 0)
                     throw new Exception("该条数据已被注销，请重新查询！");
 
-                var CommunityID = query.Select(t => t.CommunityID).FirstOrDefault();
-                if (!DistrictUtils.CheckPermission(CommunityID))
+                var NeighborhoodsID = query.Select(t => t.NeighborhoodsID).FirstOrDefault();
+                if (!DistrictUtils.CheckPermission(NeighborhoodsID))
                     throw new Exception("无权修改其他镇街数据！");
 
                 var user = LoginUtils.CurrentUser;
@@ -731,7 +728,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         public static void ModifyRoadMP(MPOfRoad newData, string oldDataJson, List<string> FCZIDs, List<string> TDZIDs, List<string> YYZZIDs)
         {
             #region 权限检查
-            if (!DistrictUtils.CheckPermission(newData.CommunityID))
+            if (!DistrictUtils.CheckPermission(newData.NeighborhoodsID))
                 throw new Exception("无权操作其他镇街数据！");
             #endregion
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -807,7 +804,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var guid = Guid.NewGuid().ToString();
                     var MPPosition = (newData.Lng != 0 && newData.Lat != 0) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
                     var CreateTime = DateTime.Now.Date;
-                    //获取所有上传的文件
+                    string RoadID = null;
+                    CheckRoadNameAndSave(newData, out RoadID);
+                    #region 保存所有上传的文件
                     if (HttpContext.Current.Request.Files.Count > 0)
                     {
                         var FCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
@@ -817,8 +816,10 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
                         SaveMPFilesByID(YYZZFiles, guid, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
                     }
+                    #endregion 保存所有上传的文件
                     //对这条数据进行默认赋值
                     newData.ID = guid;
+                    newData.RoadID = RoadID;
                     newData.AddressCoding = AddressCoding;
                     newData.MPPosition = MPPosition;
                     newData.StandardAddress = StandardAddress;
@@ -838,9 +839,14 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         throw new Exception("该条数据已被注销，请重新查询并编辑！");
                     var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
+
+                    string RoadID = null;
+                    CheckRoadNameAndSave(targetData, out RoadID);
+                    targetData.RoadID = RoadID;
+
                     if (!CheckRoadMPIsAvailable(targetData.MPNumber, targetData.RoadName, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityID))
                         throw new Exception("该道路门牌已经存在，请检查后重新修改！");
-                    //上传的附件进行修改 ？？？？？？？？？？待完成
+                    //上传的附件进行修改 
                     var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
                     var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                     var AddedYYZZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.YYZZ);
@@ -860,18 +866,12 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <returns></returns>
         public static void UploadRoadMP(HttpPostedFileBase file)
         {
-            //HttpContext.Current.Session["_RoadMP"] = null;
-            //HttpContext.Current.Session["_RoadMPErrors"] = null;
-            //HttpContext.Current.Session["_RoadMPWarning"] = null;
-
             Stream fs = file.InputStream;
             Workbook wb = new Workbook(fs);
             if (wb == null || wb.Worksheets.Count == 0)
                 throw new Exception("上传文件不包含有效数据！");
 
             Worksheet ws = wb.Worksheets[0];
-            //ws.Cells.DeleteBlankRows();
-            //ws.Cells.DeleteBlankColumns();
             int rowCount = ws.Cells.Rows.Count;
             int columnCount = ws.Cells.Columns.Count;
 
@@ -894,23 +894,19 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var NeighborhoodsName = row[1].Value != null ? row[1].Value.ToString().Trim() : null;
                     var CommunityName = row[2].Value != null ? row[2].Value.ToString().Trim() : null;
                     var RoadName = row[3].Value != null ? row[3].Value.ToString().Trim() : null;
-                    var StartPoint = row[4].Value != null ? row[4].Value.ToString().Trim() : null;
-                    var EndPoint = row[5].Value != null ? row[5].Value.ToString().Trim() : null;
-                    var MPRules = row[6].Value != null ? row[6].Value.ToString().Trim() : null;
-                    var MPNumberRange = row[7].Value != null ? row[7].Value.ToString().Trim() : null;
-                    var MPNumber = row[8].Value != null ? row[8].Value.ToString().Trim() : null;
-                    var ReservedNumber = row[9].Value != null ? row[9].Value.ToString().Trim() : null;
-                    var OriginalNumber = row[10].Value != null ? row[10].Value.ToString().Trim() : null;
-                    var ShopName = row[11].Value != null ? row[11].Value.ToString().Trim() : null;
-                    var ResidenceName = row[12].Value != null ? row[12].Value.ToString().Trim() : null;
-                    var PropertyOwner = row[13].Value != null ? row[13].Value.ToString().Trim() : null;
-                    var BZTime = row[14].Value != null ? row[14].Value.ToString().Trim() : null;
-                    var MPSize = row[15].Value != null ? row[15].Value.ToString().Trim() : null;
-                    var Applicant = row[16].Value != null ? row[16].Value.ToString().Trim() : null;
-                    var ApplicantPhone = row[17].Value != null ? row[17].Value.ToString().Trim() : null;
-                    //var MPProduce = row[18].Value != null ? row[18].Value.ToString().Trim() : null;
-                    var Postcode = row[18].Value != null ? row[18].Value.ToString().Trim() : null;
-                    var SBDW = row[19].Value != null ? row[19].Value.ToString().Trim() : null;
+                    var MPNumberRange = row[4].Value != null ? row[4].Value.ToString().Trim() : null;
+                    var MPNumber = row[5].Value != null ? row[5].Value.ToString().Trim() : null;
+                    var ReservedNumber = row[6].Value != null ? row[6].Value.ToString().Trim() : null;
+                    var OriginalNumber = row[7].Value != null ? row[7].Value.ToString().Trim() : null;
+                    var ShopName = row[8].Value != null ? row[8].Value.ToString().Trim() : null;
+                    var ResidenceName = row[9].Value != null ? row[9].Value.ToString().Trim() : null;
+                    var PropertyOwner = row[10].Value != null ? row[10].Value.ToString().Trim() : null;
+                    var BZTime = row[11].Value != null ? row[11].Value.ToString().Trim() : null;
+                    var MPSize = row[12].Value != null ? row[12].Value.ToString().Trim() : null;
+                    var Applicant = row[13].Value != null ? row[13].Value.ToString().Trim() : null;
+                    var ApplicantPhone = row[14].Value != null ? row[14].Value.ToString().Trim() : null;
+                    var Postcode = row[15].Value != null ? row[15].Value.ToString().Trim() : null;
+                    var SBDW = row[16].Value != null ? row[16].Value.ToString().Trim() : null;
 
                     if (row.IsBlank)
                     {
@@ -949,11 +945,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     #endregion
                     #region 村社区检查
-                    if (string.IsNullOrEmpty(CommunityName))
-                    {
-                        error.ErrorMessages.Add("村社区名称为空");
-                    }
-                    else
+                    if (!string.IsNullOrEmpty(CommunityName))
                     {
                         CommunityID = SystemUtils.Districts.Where(t => t.Name.Contains(CommunityName)).Select(t => t.ID).FirstOrDefault();
                         if (CommunityID == null)
@@ -1026,7 +1018,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
 
                     #endregion
-                    #region 编制日期的格式检查  不填默认是当前时间
+                    #region 编制日期的格式检查
                     if (!string.IsNullOrEmpty(BZTime))
                     {
                         if (CheckIsDatetime(ref BZTime))
@@ -1081,11 +1073,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         NeighborhoodsName = NeighborhoodsName,
                         CommunityID = CommunityID,
                         CommunityName = CommunityName,
-                        //RoadID = RoadID,
                         RoadName = RoadName,
-                        RoadStart = StartPoint,
-                        RoadEnd = EndPoint,
-                        MPRules = MPRules,
                         MPNumberRange = MPNumberRange,
                         MPNumber = MPNumber,
                         ReservedNumber = ReservedNumber,
@@ -1138,9 +1126,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 D.Add(errorKey, errors);
                 D.Add(warningKey, warnings);
                 temp[LoginUtils.CurrentUser.UserName] = D;
-                //HttpContext.Current.Session["_RoadMP"] = mps;
-                //HttpContext.Current.Session["_RoadMPErrors"] = errors;
-                //HttpContext.Current.Session["_RoadMPWarning"] = warnings;
             }
         }
         public static Dictionary<string, object> GetUploadRoadMP(int PageSize, int PageNum)
@@ -1177,9 +1162,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     CommunityID = mp.CommunityID,
                     //RoadID = mp.RoadID,
                     RoadName = mp.RoadName,
-                    RoadStart = mp.RoadStart,
-                    RoadEnd = mp.RoadEnd,
-                    MPRules = mp.MPRules,
                     MPNumberRange = mp.MPNumberRange,
                     MPNumber = mp.MPNumber,
                     ReservedNumber = mp.ReservedNumber,
@@ -1280,9 +1262,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 return data;
             }
             #endregion
-            //HttpContext.Current.Session["_RoadMP"] = null;
-            //HttpContext.Current.Session["_RoadMPErrors"] = null;
-            //HttpContext.Current.Session["_RoadMPWarning"] = null;
         }
         public static void CancelOrDelRoadMP(string ID, int UseState)
         {
@@ -1823,8 +1802,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 if (count == 0)
                     throw new Exception("该条数据已被注销，请重新查询！");
 
-                var CommunityID = query.Select(t => t.CommunityID).FirstOrDefault();
-                if (!DistrictUtils.CheckPermission(CommunityID))
+                var NeighborhoodsID = query.Select(t => t.NeighborhoodsID).FirstOrDefault();
+                if (!DistrictUtils.CheckPermission(NeighborhoodsID))
                     throw new Exception("无权修改其他镇街数据！");
 
                 var user = LoginUtils.CurrentUser;
@@ -2045,6 +2024,33 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             else
                 t = false;
             return t;
+        }
+        /// <summary>
+        ///  判断道路字典表中某个行政区划下的RoadName是否已经存在，如果不存在则新增到RoadDic表中
+        /// </summary>
+        /// <param name="roadMP"></param>
+        /// <param name="RoadID"></param>
+        private static void CheckRoadNameAndSave(MPOfRoad roadMP, out string RoadID)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var road = dbContext.RoadDic.Where(t => t.CountyID == roadMP.CountyID).Where(t => t.NeighborhoodsID == roadMP.NeighborhoodsID).Where(t => t.CommunityID == roadMP.CommunityID).Where(t => t.RoadName == roadMP.RoadName);
+                if (road.Count() > 0)
+                {
+                    RoadID = road.Select(t => t.ID).First();
+                }
+                else
+                {
+                    RoadID = Guid.NewGuid().ToString();
+                    RoadDic roadDic = new RoadDic();
+                    roadDic.ID = RoadID;
+                    roadDic.CountyID = roadMP.CountyID;
+                    roadDic.NeighborhoodsID = roadMP.NeighborhoodsID;
+                    roadDic.CommunityID = roadMP.CommunityID;
+                    dbContext.RoadDic.Add(roadDic);
+                }
+                dbContext.SaveChanges();
+            }
         }
 
         //public void ProcessRequest(HttpContext context)

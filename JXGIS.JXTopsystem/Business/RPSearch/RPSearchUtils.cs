@@ -21,13 +21,13 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 var where = PredicateBuilder.False<RP>();
                 foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
                 {
-                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                 }
                 var query = q.Where(where.Compile());
                 //行政区划筛选
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
-                    query = query.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);
+                    query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }
                 //交叉路口筛选
                 if (!string.IsNullOrEmpty(Intersection))

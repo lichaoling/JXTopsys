@@ -14,10 +14,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
     {
         public static void ModifyRP(RP oldData, RP newData, List<string> files, List<string> FileIDs)
         {
-            //const string  _fileName = "RPFile";
-            //const string _codeFileName = "RPCodeFile"; 
-
-            if (!DistrictUtils.CheckPermission(newData.CommunityID))
+            if (!DistrictUtils.CheckPermission(newData.NeighborhoodsID))
                 throw new Exception("无权操作其他镇街数据！");
 
             using (var dbContext = SystemUtils.NewEFDbContext)

@@ -26,9 +26,6 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var all = (from a in dbContext.MPOfRoad
-                               //join d in dbContext.Road
-                               //on a.RoadID == null ? a.RoadID : a.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                               //from dt in dd.DefaultIfEmpty()
                            where a.State == Enums.UseState.Enable
                            select new MPProduceList
                            {
@@ -70,13 +67,13 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 var where = PredicateBuilder.False<MPProduceList>();
                 foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
                 {
-                    where = where.Or(t => t.CommunityID.IndexOf(userDID + ".") == 0);
+                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                 }
                 var q = all.Where(where.Compile());
 
                 if (!string.IsNullOrEmpty(DistrictID))
                 {
-                    q = q.Where(t => t.CommunityID.IndexOf(DistrictID + ".") == 0);
+                    q = q.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }
                 if (MPProduce != 0)
                 {

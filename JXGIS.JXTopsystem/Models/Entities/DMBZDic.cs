@@ -15,5 +15,6 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string Type { get; set; }
         public string Size { get; set; }
         public string Material { get; set; }
+        public int State { get; set; }
     }
 }
