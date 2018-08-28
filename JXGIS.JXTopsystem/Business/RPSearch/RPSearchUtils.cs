@@ -79,12 +79,6 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 //道路名称筛选
                 if (!string.IsNullOrEmpty(RoadName))
                 {
-                    //query = from t in query
-                    //        join d in dbContext.Road
-                    //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                    //        from dt in dd.DefaultIfEmpty()
-                    //        where dt.RoadName.Contains(RoadName)
-                    //        select t;
                     query = query.Where(t => t.RoadName.Contains(RoadName));
                 }
                 count = query.Count();
@@ -98,23 +92,6 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 {
                     query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
-
-                //data = (from t in query
-                //        join d in dbContext.Road
-                //        on t.RoadID == null ? t.RoadID : t.RoadID.ToLower() equals d.RoadID.ToString().ToLower() into dd
-                //        from dt in dd.DefaultIfEmpty()
-                //        select new RPDetails
-                //        {
-                //            ID = t.ID,
-                //            CountyID = t.CountyID,
-                //            NeighborhoodsID = t.NeighborhoodsID,
-                //            CommunityID = t.CommunityID,
-                //            RoadName = dt.RoadName,
-                //            Intersection = t.Intersection,
-                //            Direction = t.Direction,
-                //            CreateTime = t.CreateTime,
-                //            RepairedCount = t.RepairedCount
-                //        }).ToList();
 
                 data = (from t in query
                         join a in SystemUtils.Districts
@@ -195,7 +172,6 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                                    }).ToList();
                     data.Files = filelst;
                 }
-                //data.RoadName = dbContext.Road.Where(t => t.RoadID.ToString() == data.RoadID).Select(t => t.RoadName).FirstOrDefault();
                 data.CodeFile = "Files/RP/CodeFile/" + ID + ".jpg";
                 data.CountyName = SystemUtils.Districts.Where(t => t.ID == data.CountyID).Select(t => t.Name).FirstOrDefault();
                 data.NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == data.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
@@ -203,7 +179,5 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 return data;
             }
         }
-
-
     }
 }

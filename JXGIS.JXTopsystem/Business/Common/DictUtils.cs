@@ -11,6 +11,14 @@ namespace JXGIS.JXTopsystem.Business.Common
     public class DictUtils
     {
         #region 地名标志
+        public static List<DMBZDic> GetDMBZ()
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var data = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).ToList();
+                return data;
+            }
+        }
         public static List<string> GetMPType()
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -72,6 +80,38 @@ namespace JXGIS.JXTopsystem.Business.Common
                 query.RoadEnd = roadDic.RoadEnd;
                 query.MPRules = roadDic.MPRules;
                 dbContext.SaveChanges();
+            }
+        }
+        public static RoadDic GetRoadDic(string CountyID, string NeighborhoodsID, string CommunityID, string RoadName)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var query = dbContext.RoadDic.Where(t => t.State == Enums.UseState.Enable);
+                if (!string.IsNullOrEmpty(CountyID))
+                    query = query.Where(t => t.CountyID == CountyID);
+                if (!string.IsNullOrEmpty(NeighborhoodsID))
+                    query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
+                if (!string.IsNullOrEmpty(CommunityID))
+                    query = query.Where(t => t.CommunityID == CommunityID);
+                if (!string.IsNullOrEmpty(RoadName))
+                    query = query.Where(t => t.RoadName == RoadName);
+                var data = query.FirstOrDefault();
+                return data;
+            }
+        }
+        public static List<string> GetRoadNames(string CountyID, string NeighborhoodsID, string CommunityID)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var query = dbContext.RoadDic.Where(t => t.State == Enums.UseState.Enable);
+                if (!string.IsNullOrEmpty(CountyID))
+                    query = query.Where(t => t.CountyID == CountyID);
+                if (!string.IsNullOrEmpty(NeighborhoodsID))
+                    query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
+                if (!string.IsNullOrEmpty(CommunityID))
+                    query = query.Where(t => t.CommunityID == CommunityID);
+                var data = query.Select(t => t.RoadName).ToList();
+                return data;
             }
         }
         #endregion 道路字典

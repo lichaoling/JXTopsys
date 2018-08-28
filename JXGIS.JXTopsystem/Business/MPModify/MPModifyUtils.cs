@@ -137,32 +137,18 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 #region 修改
                 else
                 {
-                    //query = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == oldData.ID);
-                    //count = query.Count();
-                    //if (count == 0)
-                    //    throw new Exception("该条数据已被注销，请重新查询并编辑！");
-                    //dbContext.MPOFResidence.Remove(query.First());
-                    //newData.ID = oldData.ID;
-                    //newData.AddressCoding = AddressCoding;
-                    //newData.DYPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : oldData.DYPosition;//单元空间位置
-                    //newData.StandardAddress = StandardAddress;
-                    //newData.CreateTime = oldData.CreateTime;
-                    //newData.CreateUser = oldData.CreateUser;
-                    //newData.BZTime = oldData.BZTime;
-                    //newData.LastModifyTime = DateTime.Now.Date;//修改时间
-                    //newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
-                    //newData.CancelTime = oldData.CancelTime;
-                    //newData.CancelUser = oldData.CancelUser;
-                    //newData.DelTime = newData.DelTime;
-                    //newData.DelUser = newData.DelUser;
-                    //newData.State = oldData.State;
-
                     var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<MPOfResidence>(oldDataJson);
                     var targetData = dbContext.MPOFResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
                     if (targetData == null)
                         throw new Exception("该条数据已被注销，请重新查询并编辑！");
                     var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
+                    //空间位置
+                    targetData.DYPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.DYPosition;
+                    //修改时间
+                    targetData.LastModifyTime = DateTime.Now.Date;
+                    targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+
                     if (!CheckResidenceMPIsAvailable(targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityID, targetData.ResidenceName, targetData.MPNumber, targetData.Dormitory, targetData.HSNumber, targetData.LZNumber, targetData.DYNumber))
                         throw new Exception("该户室牌已经存在，请检查后重新修改！");
                     //上传的附件进行修改
@@ -729,7 +715,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 #region 新增
-                //新增，则需对门牌号查重
                 if (string.IsNullOrEmpty(oldDataJson))
                 {
                     #region 基本检查
@@ -799,6 +784,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var guid = Guid.NewGuid().ToString();
                     var MPPosition = (newData.Lng != 0 && newData.Lat != 0) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
                     var CreateTime = DateTime.Now.Date;
+                    //检查道路是否是新的道路，如果是新的就加到道路字典中
                     string RoadID = null;
                     CheckRoadNameAndSave(newData, out RoadID);
                     #region 保存所有上传的文件
@@ -812,6 +798,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         SaveMPFilesByID(YYZZFiles, guid, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
                     }
                     #endregion 保存所有上传的文件
+                    //门牌号码类型 单双号判断赋值
+                    if (!string.IsNullOrEmpty(newData.MPNumber))
+                        newData.MPNumberType = int.Parse(newData.MPNumber) % 2 == 1 ? 1 : 2;
                     //对这条数据进行默认赋值
                     newData.ID = guid;
                     newData.RoadID = RoadID;
@@ -838,6 +827,14 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     string RoadID = null;
                     CheckRoadNameAndSave(targetData, out RoadID);
                     targetData.RoadID = RoadID;
+                    //门牌号码单双号判断赋值
+                    if (!string.IsNullOrEmpty(targetData.MPNumber))
+                        targetData.MPNumberType = int.Parse(targetData.MPNumber) % 2 == 1 ? 1 : 2;
+                    //空间位置
+                    targetData.MPPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.MPPosition;
+                    //修改时间
+                    targetData.LastModifyTime = DateTime.Now.Date;
+                    targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
 
                     if (!CheckRoadMPIsAvailable(targetData.MPNumber, targetData.RoadName, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityID))
                         throw new Exception("该道路门牌已经存在，请检查后重新修改！");
@@ -1413,9 +1410,14 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         throw new Exception("该条数据已被注销，请重新查询并编辑！");
                     var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
+                    //空间位置
+                    targetData.MPPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.MPPosition;
+                    //修改时间
+                    targetData.LastModifyTime = DateTime.Now.Date;
+                    targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     if (!CheckCountryMPIsAvailable(targetData.ViligeName, targetData.MPNumber, targetData.HSNumber, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityID))
                         throw new Exception("该户室牌已经存在，请检查后重新修改！");
-                    //上传的附件进行修改 ？？？？？？？？？？待完成
+                    //上传的附件进行修改
                     var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
                     var AddedQQZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.QQZ);
                     UpdateMPFilesByID(TDZIDs, AddedTDZFiles, targetData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
@@ -2042,6 +2044,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     roadDic.CountyID = roadMP.CountyID;
                     roadDic.NeighborhoodsID = roadMP.NeighborhoodsID;
                     roadDic.CommunityID = roadMP.CommunityID;
+                    roadDic.RoadName = roadMP.RoadName;
+                    roadDic.State = Enums.UseState.Enable;
                     dbContext.RoadDic.Add(roadDic);
                 }
                 dbContext.SaveChanges();

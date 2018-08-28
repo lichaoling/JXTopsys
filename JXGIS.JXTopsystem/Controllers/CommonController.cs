@@ -114,6 +114,22 @@ namespace JXGIS.JXTopsystem.Controllers
         }
 
         #region 地名标志
+        public ContentResult GetDMBZ()
+        {
+            RtObj rt = null;
+            try
+            {
+                var data = DictUtils.GetDMBZ();
+                rt = new RtObj(data);
+
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
         public ContentResult GetMPSizeByMPType(int mpType)
         {
             RtObj rt = null;
@@ -198,8 +214,37 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        public ContentResult GetRoadDic(string CountyID, string NeighborhoodsID, string CommunityID, string RoadName)
+        {
+            RtObj rt = null;
+            try
+            {
+                DictUtils.GetRoadDic(CountyID, NeighborhoodsID, CommunityID, RoadName);
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        public ContentResult GetRoadNames(string CountyID, string NeighborhoodsID, string CommunityID)
+        {
+            RtObj rt = null;
+            try
+            {
+                DictUtils.GetRoadNames(CountyID, NeighborhoodsID, CommunityID);
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
         #endregion 道路字典
-
 
         public ContentResult GetRPBZData(string Category)
         {

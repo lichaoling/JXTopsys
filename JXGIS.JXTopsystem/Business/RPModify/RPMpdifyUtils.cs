@@ -1,4 +1,5 @@
 ﻿using JXGIS.JXTopsystem.Business.Common;
+using JXGIS.JXTopsystem.Models;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
@@ -12,7 +13,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
 {
     public class RPMpdifyUtils
     {
-        public static void ModifyRP(RP oldData, RP newData, List<string> files, List<string> FileIDs)
+        public static void ModifyRP(RP newData, string oldDataJson, List<string> files, List<string> FileIDs)
         {
             if (!DistrictUtils.CheckPermission(newData.NeighborhoodsID))
                 throw new Exception("无权操作其他镇街数据！");
@@ -20,7 +21,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 #region 新增
-                if (oldData == null)
+                if (string.IsNullOrEmpty(oldDataJson))
                 {
                     var CountyCode = SystemUtils.Districts.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
                     var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
@@ -34,6 +35,10 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     var State = Enums.UseState.Enable;
                     //GUID
                     var guid = Guid.NewGuid().ToString();
+                    //检查道路是否是新的道路，如果是新的就加到道路字典中
+                    string RoadID = null;
+                    CheckRoadNameAndSave(newData, out RoadID);
+
                     //Files && CodeFile
                     if (HttpContext.Current.Request.Files.Count > 0)
                     {
@@ -48,6 +53,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                         SaveRPFiles(codeFiles, codeDirectory, Enums.RPFilesType.RPCodeImage, guid, dbContext, newData.Code);
                     }
                     newData.ID = guid;
+                    newData.RoadID = RoadID;
                     newData.AddressCoding = AddressCoding;
                     newData.Position = Position;
                     newData.RepairedCount = 0;
@@ -60,29 +66,32 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                 #region 修改
                 else
                 {
-                    var query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == oldData.ID);
-                    if (query.Count() == 0)
+                    var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<RP>(oldDataJson);
+                    var targetData = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
+                    if (targetData == null)
                         throw new Exception("该条路牌已被注销，请重新查询并编辑！");
-                    dbContext.RP.Remove(query.First());
-
-                    newData.ID = oldData.ID;
-                    //单元空间位置
-                    newData.Position = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : oldData.Position;
+                    var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
+                    ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
+                    string RoadID = null;
+                    CheckRoadNameAndSave(newData, out RoadID);
+                    targetData.RoadID = RoadID;
+                    //空间位置
+                    targetData.Position=targetData.Lng!=null&& targetData.Lat!=null? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.Position;
                     //修改时间
-                    newData.LastModifyTime = DateTime.Now.Date;
-                    newData.LastModifyUser = LoginUtils.CurrentUser.UserName;
-                    newData.State = oldData.State;
+                    targetData.LastModifyTime = DateTime.Now.Date;
+                    targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+
                     //修改路牌照片
                     var AddedFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.RPFilesType.RPImages);
-                    var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RP", oldData.ID);
-                    UpdateRPFiles(FileIDs, AddedFiles, oldData.ID, directory, dbContext);
+                    var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RP", targetData.ID);
+                    UpdateRPFiles(FileIDs, AddedFiles, targetData.ID, directory, dbContext);
                     //修改二维码图片
                     var ModifyCodeFile = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.RPFilesType.RPCodeImage);
                     if (ModifyCodeFile[0].ContentLength > 0)
                     {
                         string codeDirectory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RP", "CodeFile");
-                        File.Delete(Path.Combine(codeDirectory, oldData.Code + ".jpg"));
-                        SaveRPFiles(ModifyCodeFile, codeDirectory, Enums.RPFilesType.RPCodeImage, oldData.ID, dbContext, newData.Code);
+                        File.Delete(Path.Combine(codeDirectory, targetData.Code + ".jpg"));
+                        SaveRPFiles(ModifyCodeFile, codeDirectory, Enums.RPFilesType.RPCodeImage, targetData.ID, dbContext, newData.Code);
                     }
                 }
                 #endregion
@@ -160,6 +169,31 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                 }
             }
 
+        }
+
+        private static void CheckRoadNameAndSave(RP rp, out string RoadID)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var road = dbContext.RoadDic.Where(t => t.CountyID == rp.CountyID).Where(t => t.NeighborhoodsID == rp.NeighborhoodsID).Where(t => t.CommunityID == rp.CommunityID).Where(t => t.RoadName == rp.RoadName);
+                if (road.Count() > 0)
+                {
+                    RoadID = road.Select(t => t.ID).First();
+                }
+                else
+                {
+                    RoadID = Guid.NewGuid().ToString();
+                    RoadDic roadDic = new RoadDic();
+                    roadDic.ID = RoadID;
+                    roadDic.CountyID = rp.CountyID;
+                    roadDic.NeighborhoodsID = rp.NeighborhoodsID;
+                    roadDic.CommunityID = rp.CommunityID;
+                    roadDic.RoadName = rp.RoadName;
+                    roadDic.State = Enums.UseState.Enable;
+                    dbContext.RoadDic.Add(roadDic);
+                }
+                dbContext.SaveChanges();
+            }
         }
     }
 }

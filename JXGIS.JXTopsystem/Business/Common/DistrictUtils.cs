@@ -70,7 +70,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return getDistrictTree();
         }
         /// <summary>
-        /// 根据行政区划获取小区名称或道路名称或自然村名称
+        /// 根据行政区划和门牌类型来获取所有的小区名称或道路名称或自然村名称
         /// </summary>
         /// <param name="CommunityID"></param>
         /// <param name="MPType"></param>

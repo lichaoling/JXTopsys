@@ -22,57 +22,50 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
             }
         }
 
-        public static void RepairOrChangeRP(RP rp, Models.Entities.RPRepair rpRepairInfo, int repairMode)
+        public static void RepairOrChangeRP(string ID, string Model, string Size, string Material, string Manufacturers, Models.Entities.RPRepair rpRepairInfo, int repairMode)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == rp.ID).First();
+                var query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).First();
                 if (query == null)
                     throw new Exception("该条路牌已被注销，请重新查询并编辑！");
-                dbContext.RP.Remove(query);
 
                 if (rpRepairInfo.IsFinish == Enums.RPRepairFinish.Yes)   //如果是修复
                 {
                     rpRepairInfo.FinishRepaireTime = rpRepairInfo.FinishRepaireTime == null ? DateTime.Now.Date : rpRepairInfo.FinishRepaireTime;
                     rpRepairInfo.FinishRepaireUser = LoginUtils.CurrentUser.UserName;
-                    //更新这条维修消息
-                    //检查这个路牌是否还有未修复的记录，如果没有了就更新这条路牌为结束维修
+                    var unfinishCount= dbContext.RPRepair.Where(t => t.RPID == query.ID).Where(t => t.IsFinish == Enums.RPRepairFinish.No).ToList();
+                    query.FinishRepaire= unfinishCount.Count() > 0 ? Enums.RPRepairFinish.No : Enums.RPRepairFinish.Yes;
+
+                    //上传维修后的照片
+                    //......
                 }
                 else  //如果是维修或更换
                 {
                     if (repairMode == Enums.RPRepairMode.Change)  //更换
                     {
-                        var CountyCode = SystemUtils.Districts.Where(t => t.ID == query.CountyID).Select(t => t.Code).FirstOrDefault();
-                        var NeighborhoodsCode = SystemUtils.Districts.Where(t => t.ID == query.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                        var year = DateTime.Now.Year.ToString();
-                        var AddressCoding = CountyCode + NeighborhoodsCode + year;
-                        rp.AddressCoding = AddressCoding;
-                        rp.Code = query.Code;
-                        rp.CountyID = query.CountyID;
-                        rp.NeighborhoodsID = query.NeighborhoodsID;
-                        rp.CommunityID = query.CommunityID;
-                        var Position = (rp.Lng != null && rp.Lat != null) ? (DbGeography.FromText($"POINT({rp.Lng},{rp.Lat})")) : null;
-                        rp.Position = Position;
-                        rp.FinishRepaire = Enums.RPRepairFinish.No;
-                        rp.State = query.State;
+                        query.Model = Model;
+                        query.Size = Size;
+                        query.Material = Material;
+                        query.Manufacturers = Manufacturers;
                     }
                     if (repairMode == Enums.RPRepairMode.Repair)  //维修
                     {
-                        rp = query;
+                        
                     }
-                    rp.RepairedCount = query.RepairedCount + 1;
 
+                    query.RepairedCount++;
+                    query.FinishRepaire = Enums.RPRepairFinish.No;
                     rpRepairInfo.ID = Guid.NewGuid().ToString();
-                    rpRepairInfo.RPID = rp.ID;
+                    rpRepairInfo.RPID = query.ID;
                     rpRepairInfo.RepairTime = rpRepairInfo.RepairTime == null ? DateTime.Now.Date : rpRepairInfo.RepairTime;
                     rpRepairInfo.RepairUser = LoginUtils.CurrentUser.UserName;
                     rpRepairInfo.IsFinish = Enums.RPRepairFinish.No;
-                    //新增这条维修消息
                     dbContext.RPRepair.Add(rpRepairInfo);
+
+                    //上传维修前的照片
+                    //......
                 }
-                var unfinishCount = dbContext.RPRepair.Where(t => t.RPID == rp.ID).Where(t => t.IsFinish == Enums.RPRepairFinish.No).ToList();
-                rp.FinishRepaire = unfinishCount.Count() > 0 ? Enums.RPRepairFinish.No : Enums.RPRepairFinish.Yes;
-                dbContext.RP.Add(rp);
                 dbContext.SaveChanges();
             }
         }
