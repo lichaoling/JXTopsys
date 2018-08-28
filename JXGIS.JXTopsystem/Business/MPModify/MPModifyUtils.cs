@@ -131,7 +131,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     newData.State = State;
                     newData.CreateTime = CreateTime;
                     newData.CreateUser = LoginUtils.CurrentUser.UserName;
-
                     dbContext.MPOFResidence.Add(newData);
                 }
                 #endregion
@@ -207,7 +206,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 {
                     var error = new ResidenceMPErrors();
                     string warning = string.Empty;
-
                     Row row = ws.Cells.Rows[i];
                     var CountyName = row[0].Value != null ? row[0].Value.ToString().Trim() : null;
                     var NeighborhoodsName = row[1].Value != null ? row[1].Value.ToString().Trim() : null;
@@ -224,7 +222,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var ApplicantPhone = row[12].Value != null ? row[12].Value.ToString().Trim() : null;
                     var SBDW = row[13].Value != null ? row[13].Value.ToString().Trim() : null;
                     var BZTime = row[14].Value != null ? row[14].Value.ToString().Trim() : null;
-
                     if (row.IsBlank)
                     {
                         warnings.Add($"第{i}行：空行");
@@ -266,11 +263,11 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                             error.ErrorMessages.Add("村社区名称有误");
                     }
                     #endregion
-                    #region 邮政编码检查 6位数，且以3140开头  可以为空
+                    #region 邮政编码检查 6位数，且以3140开头  可以为空 不做检查，因有可能有一个以上邮编
                     if (!string.IsNullOrEmpty(Postcode))
                     {
-                        if (!CheckPostcode(Postcode))
-                            error.ErrorMessages.Add("邮政编码有误");
+                        //if (!CheckPostcode(Postcode))
+                        //    error.ErrorMessages.Add("邮政编码有误");
                     }
                     #endregion
                     #region 小区名称和道路名称检查，两个不能同时为空，无小区名有道路名时，必须有门牌号，有小区名时可以有道路名，但不检查有无门牌号 已注释
@@ -390,7 +387,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         SBDW = SBDW,
                         BZTime = bzTime
                     };
-
                     // 将这个门牌加到List中
                     mps.Add(mp);
                     // 判断是否有错误，如果有将错误的行数、错误的门牌给这个error实体
@@ -433,7 +429,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     errors.Add(error);
                 }
                 #endregion
-
                 Dictionary<string, object> D = new Dictionary<string, object>();
                 D.Add(mpKey, mps);
                 D.Add(errorKey, errors);
@@ -2051,6 +2046,10 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 }
                 dbContext.SaveChanges();
             }
+        }
+        public static string GetGUID()
+        {
+            return Guid.NewGuid().ToString();
         }
 
         //public void ProcessRequest(HttpContext context)
