@@ -802,7 +802,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     #endregion 保存所有上传的文件
                     //门牌号码类型 单双号判断赋值
                     if (!string.IsNullOrEmpty(newData.MPNumber))
-                        newData.MPNumberType = int.Parse(newData.MPNumber) % 2 == 1 ? 1 : 2;
+                        newData.MPNumberType = int.Parse(newData.MPNumber) % 2 == 1 ? Enums.MPNumberType.Odd : Enums.MPNumberType.Even;
                     //对这条数据进行默认赋值
                     newData.ID = guid;
                     newData.RoadID = RoadID;
@@ -831,7 +831,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     targetData.RoadID = RoadID;
                     //门牌号码单双号判断赋值
                     if (!string.IsNullOrEmpty(targetData.MPNumber))
-                        targetData.MPNumberType = int.Parse(targetData.MPNumber) % 2 == 1 ? 1 : 2;
+                        targetData.MPNumberType = int.Parse(targetData.MPNumber) % 2 == 1 ? Enums.MPNumberType.Odd : Enums.MPNumberType.Even;
                     //空间位置
                     targetData.MPPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.MPPosition;
                     //修改时间
@@ -2064,7 +2064,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         {
             return Guid.NewGuid().ToString();
         }
-
         //public void ProcessRequest(HttpContext context)
         //{
         //    throw new NotImplementedException();

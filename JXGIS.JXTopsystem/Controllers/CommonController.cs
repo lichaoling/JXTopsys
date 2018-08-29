@@ -1,5 +1,6 @@
 ﻿using JXGIS.JXTopsystem.Business;
 using JXGIS.JXTopsystem.Business.Common;
+using JXGIS.JXTopsystem.Business.MPModify;
 using JXGIS.JXTopsystem.Models;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
@@ -26,7 +27,6 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 var tree = DistrictUtils.getDistrictTree(districtIDs);
                 rt = new RtObj(tree);
-
             }
             catch (Exception ex)
             {
@@ -42,7 +42,6 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 var tree = DistrictUtils.getDistrictTree(LoginUtils.CurrentUser.DistrictID);
                 rt = new RtObj(tree);
-
             }
             catch (Exception ex)
             {
@@ -58,7 +57,6 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 var names = DistrictUtils.getNamesByDistrict(CountyID, NeighbourhoodID, CommunityID, MPType);
                 rt = new RtObj(names);
-
             }
             catch (Exception ex)
             {
@@ -103,8 +101,9 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                rt = new RtObj();
-                DistrictUtils.CheckPermission(CommunityID);
+
+                var isVisible = DistrictUtils.CheckPermission(CommunityID);
+                rt = new RtObj(isVisible);
             }
             catch (Exception ex)
             {
@@ -204,8 +203,8 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                DictUtils.ModifyRoadDic(roadDic);
                 rt = new RtObj();
+                DictUtils.ModifyRoadDic(roadDic);
             }
             catch (Exception ex)
             {
@@ -219,8 +218,8 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                DictUtils.GetRoadDic(CountyID, NeighborhoodsID, CommunityID, RoadName);
-                rt = new RtObj();
+                var data = DictUtils.GetRoadDic(CountyID, NeighborhoodsID, CommunityID, RoadName);
+                rt = new RtObj(data);
             }
             catch (Exception ex)
             {
@@ -234,8 +233,8 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                DictUtils.GetRoadNames(CountyID, NeighborhoodsID, CommunityID);
-                rt = new RtObj();
+                var data = DictUtils.GetRoadNames(CountyID, NeighborhoodsID, CommunityID);
+                rt = new RtObj(data);
             }
             catch (Exception ex)
             {
@@ -296,5 +295,25 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+
+        /// <summary>
+        /// 获取GUID
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetNewGuiD()
+        {
+            RtObj rt = null;
+            try
+            {
+                var guid = MPModifyUtils.GetGUID();
+                rt = new RtObj(guid);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
+
     }
 }

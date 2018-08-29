@@ -80,7 +80,11 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const int Yes = 1;
             public const int No = 0;
         }
-
+        public static class MPNumberType
+        {
+            public const int Odd = 1;
+            public const int Even = 2;
+        }
         public static class RPRepairMode
         {
             public const int Repair = 1;
