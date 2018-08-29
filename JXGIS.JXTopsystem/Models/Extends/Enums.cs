@@ -26,7 +26,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public static class MPMail
         {
             public const int Yes = 1;
-            public const int No = 2;
+            public const int No = 0;
         }
         public static class MPType
         {
