@@ -295,25 +295,5 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-
-        /// <summary>
-        /// 获取GUID
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult GetNewGuiD()
-        {
-            RtObj rt = null;
-            try
-            {
-                var guid = MPModifyUtils.GetGUID();
-                rt = new RtObj(guid);
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            return Json(rt);
-        }
-
     }
 }

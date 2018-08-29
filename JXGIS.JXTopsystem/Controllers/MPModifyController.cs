@@ -253,7 +253,24 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(rt);
         }
         #endregion
-       
+        /// <summary>
+        /// 获取GUID
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetGUID()
+        {
+            RtObj rt = null;
+            try
+            {
+                var guid = MPModifyUtils.GetGUID();
+                rt = new RtObj(guid);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
         //测试用
         public ActionResult test1()
         {
