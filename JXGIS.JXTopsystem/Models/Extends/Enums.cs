@@ -28,6 +28,12 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const int Yes = 1;
             public const int No = 0;
         }
+        public static class Type
+        {
+            public const string MP = "MP";
+            public const string RP = "RP";
+            public const string RPRepair = "RPRepair";
+        }
         public static class MPType
         {
             public const int Residence = 1;
@@ -35,13 +41,18 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const int Country = 3;
             public const int All = 0;
         }
+        public static class RPRepairType
+        {
+            public const int Before = 0;
+            public const int After = 1;
+        }
         public static class CertificateType
         {
             public const int Placename = 1;
             public const int MPZ = 2;
-            public const int All = 3;
+            public const int All = 0;
         }
-        public static class MPTypeStr
+        public static class MPFileType
         {
             public const string ResidenceMP = "Residence";
             public const string RoadMP = "Road";
@@ -57,10 +68,11 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string QQZ = "QQZ";
 
         }
-        public static class RPFilesType
+        public static class RPFileType
         {
-            public const string RPImages = "RPImages";
-            public const string RPCodeImage = "RPCodeImage";
+            public const string BZPhoto = "BZPhoto";
+            public const string QRCode = "QRCode";
+            public const string RepairPhoto = "RepairPhoto";
 
         }
         public static class RPRepairFinish

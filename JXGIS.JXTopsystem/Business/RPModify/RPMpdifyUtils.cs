@@ -38,20 +38,20 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     //检查道路是否是新的道路，如果是新的就加到道路字典中
                     string RoadID = null;
                     CheckRoadNameAndSave(newData, out RoadID);
+                    #region Files && CodeFile
+                    //if (HttpContext.Current.Request.Files.Count > 0)
+                    //{
+                    //    //保存路牌照片并更新路牌附件表
+                    //    var Files = HttpContext.Current.Request.Files.GetMultiple(Enums.RPFileType.RPImages);
+                    //    var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RP", guid);
+                    //    SaveRPFiles(Files, directory, Enums.RPFileType.RPImages, guid, dbContext, newData.Code);
 
-                    //Files && CodeFile
-                    if (HttpContext.Current.Request.Files.Count > 0)
-                    {
-                        //保存路牌照片并更新路牌附件表
-                        var Files = HttpContext.Current.Request.Files.GetMultiple(Enums.RPFilesType.RPImages);
-                        var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RP", guid);
-                        SaveRPFiles(Files, directory, Enums.RPFilesType.RPImages, guid, dbContext, newData.Code);
-
-                        //保存二维码图片
-                        var codeFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.RPFilesType.RPCodeImage);
-                        var codeDirectory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RP", "CodeFile");
-                        SaveRPFiles(codeFiles, codeDirectory, Enums.RPFilesType.RPCodeImage, guid, dbContext, newData.Code);
-                    }
+                    //    //保存二维码图片
+                    //    var codeFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.RPFileType.RPCodeImage);
+                    //    var codeDirectory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RP", "CodeFile");
+                    //    SaveRPFiles(codeFiles, codeDirectory, Enums.RPFileType.RPCodeImage, guid, dbContext, newData.Code);
+                    //}
+                    #endregion Files && CodeFile
                     newData.ID = guid;
                     newData.RoadID = RoadID;
                     newData.AddressCoding = AddressCoding;
@@ -76,23 +76,23 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     CheckRoadNameAndSave(newData, out RoadID);
                     targetData.RoadID = RoadID;
                     //空间位置
-                    targetData.Position=targetData.Lng!=null&& targetData.Lat!=null? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.Position;
+                    targetData.Position = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.Position;
                     //修改时间
                     targetData.LastModifyTime = DateTime.Now.Date;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
 
-                    //修改路牌照片
-                    var AddedFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.RPFilesType.RPImages);
-                    var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RP", targetData.ID);
-                    UpdateRPFiles(FileIDs, AddedFiles, targetData.ID, directory, dbContext);
-                    //修改二维码图片
-                    var ModifyCodeFile = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.RPFilesType.RPCodeImage);
-                    if (ModifyCodeFile[0].ContentLength > 0)
-                    {
-                        string codeDirectory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RP", "CodeFile");
-                        File.Delete(Path.Combine(codeDirectory, targetData.Code + ".jpg"));
-                        SaveRPFiles(ModifyCodeFile, codeDirectory, Enums.RPFilesType.RPCodeImage, targetData.ID, dbContext, newData.Code);
-                    }
+                    #region 修改路牌照片和二维码图片
+                    //var AddedFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.RPFileType.RPImages);
+                    //var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RP", targetData.ID);
+                    //UpdateRPFiles(FileIDs, AddedFiles, targetData.ID, directory, dbContext);
+                    //var ModifyCodeFile = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.RPFileType.RPCodeImage);
+                    //if (ModifyCodeFile[0].ContentLength > 0)
+                    //{
+                    //    string codeDirectory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "RP", "CodeFile");
+                    //    File.Delete(Path.Combine(codeDirectory, targetData.Code + ".jpg"));
+                    //    SaveRPFiles(ModifyCodeFile, codeDirectory, Enums.RPFileType.RPCodeImage, targetData.ID, dbContext, newData.Code);
+                    //}
+                    #endregion 修改路牌照片
                 }
                 #endregion
                 dbContext.RP.Add(newData);
@@ -100,76 +100,76 @@ namespace JXGIS.JXTopsystem.Business.RPModify
             }
         }
 
-        private static void UpdateRPFiles(List<string> fileIDs, IList<HttpPostedFile> addedFiles, string RPID, string directory, SqlDBContext dbContext)
-        {
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-            if (fileIDs != null && fileIDs.Count() > 0)
-            {
-                string sql = $@"update [TopSystemDB].[dbo].[RPOFUPLOADFILES]  
-                                    set [State]={Enums.UseState.Delete} 
-                                    where [ID] not in ({string.Join(",", fileIDs)}) 
-                                    and [State]={Enums.UseState.Enable} 
-                                    and [RPID]='{RPID}'";
-                var rt = dbContext.Database.ExecuteSqlCommand(sql);
-            }
-            SaveRPFiles(addedFiles, directory, Enums.RPFilesType.RPImages, RPID, dbContext, null);
-        }
+        //private static void UpdateRPFiles(List<string> fileIDs, IList<HttpPostedFile> addedFiles, string RPID, string directory, SqlDBContext dbContext)
+        //{
+        //    if (!Directory.Exists(directory))
+        //    {
+        //        Directory.CreateDirectory(directory);
+        //    }
+        //    if (fileIDs != null && fileIDs.Count() > 0)
+        //    {
+        //        string sql = $@"update [TopSystemDB].[dbo].[RPOFUPLOADFILES]  
+        //                            set [State]={Enums.UseState.Delete} 
+        //                            where [ID] not in ({string.Join(",", fileIDs)}) 
+        //                            and [State]={Enums.UseState.Enable} 
+        //                            and [RPID]='{RPID}'";
+        //        var rt = dbContext.Database.ExecuteSqlCommand(sql);
+        //    }
+        //    SaveRPFiles(addedFiles, directory, Enums.RPFileType.BZPhoto, RPID, dbContext, null);
+        //}
 
-        private static void SaveRPFiles(IList<HttpPostedFile> files, string directory, string imageType, string guid, SqlDBContext dbContext, string Code)
-        {
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-            if (imageType == Enums.RPFilesType.RPImages)
-            {
-                foreach (var file in files)
-                {
-                    if (file.ContentLength > 0)
-                    {
-                        var id = Guid.NewGuid().ToString();
-                        string filename = file.FileName;
-                        string extension = Path.GetExtension(filename);
-                        string newfilename = id + extension;
-                        string fullPath = Path.Combine(directory, newfilename);
-                        MemoryStream m = new MemoryStream();
-                        FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate);
-                        BinaryWriter w = new BinaryWriter(fs);
-                        w.Write(m.ToArray());
-                        fs.Close();
-                        m.Close();
-                        RPOfUploadFiles data = new RPOfUploadFiles();
-                        data.ID = id;
-                        data.RPID = guid;
-                        data.Name = filename;
-                        data.FileType = extension;
-                        data.State = Enums.UseState.Enable;
-                        dbContext.RPOfUploadFiles.Add(data);
-                    }
-                }
-            }
-            else
-            {
-                var file = files[0];
-                if (file.ContentLength > 0)
-                {
-                    string filename = file.FileName;
-                    string extension = Path.GetExtension(filename);
-                    string newfilename = Code + extension;
-                    string fullPath = Path.Combine(directory, newfilename);
-                    MemoryStream m = new MemoryStream();
-                    FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate);
-                    BinaryWriter w = new BinaryWriter(fs);
-                    w.Write(m.ToArray());
-                    fs.Close();
-                    m.Close();
-                }
-            }
+        //private static void SaveRPFiles(IList<HttpPostedFile> files, string directory, string imageType, string guid, SqlDBContext dbContext, string Code)
+        //{
+        //    if (!Directory.Exists(directory))
+        //    {
+        //        Directory.CreateDirectory(directory);
+        //    }
+        //    if (imageType == Enums.RPFileType.BZPhoto)
+        //    {
+        //        foreach (var file in files)
+        //        {
+        //            if (file.ContentLength > 0)
+        //            {
+        //                var id = Guid.NewGuid().ToString();
+        //                string filename = file.FileName;
+        //                string extension = Path.GetExtension(filename);
+        //                string newfilename = id + extension;
+        //                string fullPath = Path.Combine(directory, newfilename);
+        //                MemoryStream m = new MemoryStream();
+        //                FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate);
+        //                BinaryWriter w = new BinaryWriter(fs);
+        //                w.Write(m.ToArray());
+        //                fs.Close();
+        //                m.Close();
+        //                RPOfUploadFiles data = new RPOfUploadFiles();
+        //                data.ID = id;
+        //                data.RPID = guid;
+        //                data.Name = filename;
+        //                data.FileEx = extension;
+        //                data.State = Enums.UseState.Enable;
+        //                dbContext.RPOfUploadFiles.Add(data);
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        var file = files[0];
+        //        if (file.ContentLength > 0)
+        //        {
+        //            string filename = file.FileName;
+        //            string extension = Path.GetExtension(filename);
+        //            string newfilename = Code + extension;
+        //            string fullPath = Path.Combine(directory, newfilename);
+        //            MemoryStream m = new MemoryStream();
+        //            FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate);
+        //            BinaryWriter w = new BinaryWriter(fs);
+        //            w.Write(m.ToArray());
+        //            fs.Close();
+        //            m.Close();
+        //        }
+        //    }
 
-        }
+        //}
 
         private static void CheckRoadNameAndSave(RP rp, out string RoadID)
         {

@@ -1,4 +1,5 @@
-﻿using JXGIS.JXTopsystem.Models.Entities;
+﻿using JXGIS.JXTopsystem.Models;
+using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
 using System.Collections.Generic;
@@ -93,9 +94,9 @@ namespace JXGIS.JXTopsystem.Business.Common
                 }
                 else if (MPType == Enums.MPType.Road)
                 {
-                    IQueryable<MPOfRoad> query = null;
+                    IQueryable<RoadDic> query = null;
                     if (!string.IsNullOrEmpty(CountyID))
-                        query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID);
+                        query = dbContext.RoadDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID);
                     if (!string.IsNullOrEmpty(NeighbourhoodID))
                         query = query.Where(t => t.NeighborhoodsID == NeighbourhoodID);
                     if (!string.IsNullOrEmpty(CommunityID))

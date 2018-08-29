@@ -140,6 +140,7 @@
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Web.config" />
+    <Content Include="需求.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -182,8 +183,9 @@
     <Compile Include="Models\Entities\MPOfRoad.cs" />
     <Compile Include="Models\Entities\PostcodeDic.cs" />
     <Compile Include="Models\Entities\RPBZDic.cs" />
-    <Compile Include="Models\Entities\RPOfUploadFiles.cs" />
     <Compile Include="Models\Entities\MPOfUploadFiles.cs" />
+    <Compile Include="Models\Entities\RPPeparUploadFiles.cs" />
+    <Compile Include="Models\Entities\RPOfUploadFiles.cs" />
     <Compile Include="Models\Entities\MPProduce.cs" />
     <Compile Include="Models\Entities\Road.cs" />
     <Compile Include="Models\Entities\RP.cs" />

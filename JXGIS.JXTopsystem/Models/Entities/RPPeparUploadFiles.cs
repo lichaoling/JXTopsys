@@ -7,15 +7,16 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Entities
 {
-    [Table("RPOFUPLOADFILES")]
-    public class RPOfUploadFiles
+    [Table("RPPEPAIRUPLOADFILES")]
+    public class RPPepairUploadFiles
     {
         [Key]
         public string ID { get; set; }
-        public string RPID { get; set; }
+        public string RPRepairID { get; set; }
 
         public string Name { get; set; }
         public string FileEx { get; set; }
+        public int? RepairType { get; set; } //0 维修前 1维修后
         public int State { get; set; }
     }
 }

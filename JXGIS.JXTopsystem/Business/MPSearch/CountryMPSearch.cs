@@ -99,7 +99,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 };
             }
         }
-        public static CountryMPDetails SearchCountryMPByID(string ID)
+        public static CountryMPDetails SearchCountryMPByID(string MPID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -146,17 +146,18 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                   left join [TopSystemDB].[dbo].[DISTRICT] d on a.CountyID=d.ID
                   left join [TopSystemDB].[dbo].[DISTRICT] e on a.NeighborhoodsID=e.ID
                   left join [TopSystemDB].[dbo].[DISTRICT] f on a.CommunityID=f.ID
-                  where a.State=1 and a.ID='{ID}'";
+                  where a.State=1 and a.ID='{MPID}'";
                 var query = SystemUtils.NewEFDbContext.Database.SqlQuery<CountryMPDetails>(sql).FirstOrDefault();
                 if (query == null)
                     throw new Exception("该门牌已经被注销！");
 
                 //将附件的名字都加上路径返回
-                var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == ID);
+                var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == MPID);
                 if (files.Count() > 0)
                 {
                     var TDZ = files.Where(t => t.DocType == Enums.DocType.TDZ);
                     var QQZ = files.Where(t => t.DocType == Enums.DocType.QQZ);
+                    var baseUrl = Path.Combine("Files", "MP", Enums.MPFileType.RoadMP, MPID);
 
                     if (TDZ.Count() > 0)
                     {
@@ -165,7 +166,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                      {
                                          pid = t.ID,
                                          name = t.Name,
-                                         url = "Files/CountryMP/" + ID + "/TDZ/" + t.ID + t.FileType
+                                         url = baseUrl + "/" + t.ID + t.FileEx,
+                                         turl = baseUrl + "/t-" + t.ID + t.FileEx
                                      }).ToList();
                     }
                     if (QQZ.Count() > 0)
@@ -175,7 +177,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                      {
                                          pid = t.ID,
                                          name = t.Name,
-                                         url = "Files/CountryMP/" + ID + "/QQZ/" + t.ID + t.FileType
+                                         url = baseUrl + "/" + t.ID + t.FileEx,
+                                         turl = baseUrl + "/t-" + t.ID + t.FileEx
                                      }).ToList();
                     }
                 }

@@ -135,7 +135,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                                        {
                                            pid = t.ID,
                                            name = t.Name,
-                                           url = "Files/RP/" + d.ID + "/" + t.ID + t.FileType
+                                           url = "Files/RP/" + d.ID + "/" + t.ID + t.FileEx
                                        }).ToList();
                         r.Files = filelst;
                     }
@@ -168,7 +168,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                                    {
                                        pid = t.ID,
                                        name = t.Name,
-                                       url = "Files/RP/" + ID + "/" + t.ID + t.FileType
+                                       url = "Files/RP/" + ID + "/" + t.ID + t.FileEx
                                    }).ToList();
                     data.Files = filelst;
                 }

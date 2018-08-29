@@ -40,7 +40,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 }
                 var query = q.Where(where.Compile());
 
-                if (!(string.IsNullOrEmpty(DistrictID)||DistrictID=="1"))
+                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "1"))
                 {
                     query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }
@@ -116,7 +116,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public static RoadMPDetails SearchRoadMPByID(string ID)
+        public static RoadMPDetails SearchRoadMPByID(string MPID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -173,18 +173,19 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                       left join [TopSystemDB].[dbo].[DISTRICT] d on a.CountyID=d.ID
                       left join [TopSystemDB].[dbo].[DISTRICT] e on a.NeighborhoodsID=e.ID
                       left join [TopSystemDB].[dbo].[DISTRICT] f on a.CommunityID=f.ID
-                      where a.State=1 and a.ID='{ID}'";
+                      where a.State=1 and a.ID='{MPID}'";
                 var query = SystemUtils.NewEFDbContext.Database.SqlQuery<RoadMPDetails>(sql).FirstOrDefault();
                 if (query == null)
                     throw new Exception("该门牌已经被注销！");
 
                 //将附件的名字都加上路径返回
-                var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == ID);
+                var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == MPID);
                 if (files.Count() > 0)
                 {
                     var FCZ = files.Where(t => t.DocType == Enums.DocType.FCZ);
                     var TDZ = files.Where(t => t.DocType == Enums.DocType.TDZ);
                     var YYZZ = files.Where(t => t.DocType == Enums.DocType.YYZZ);
+                    var baseUrl = Path.Combine("Files", "MP", Enums.MPFileType.RoadMP, MPID);
 
                     if (FCZ.Count() > 0)
                     {
@@ -193,7 +194,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                      {
                                          pid = t.ID,
                                          name = t.Name,
-                                         url = "Files/RoadMP/" + ID + "/FCZ/" + t.ID + t.FileType
+                                         url = baseUrl + "/" + t.ID + t.FileEx,
+                                         turl = baseUrl + "/t-" + t.ID + t.FileEx
                                      }).ToList();
                     }
                     if (TDZ.Count() > 0)
@@ -203,7 +205,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                      {
                                          pid = t.ID,
                                          name = t.Name,
-                                         url = "Files/RoadMP/" + ID + "/TDZ/" + t.ID + t.FileType
+                                         url = baseUrl + "/" + t.ID + t.FileEx,
+                                         turl = baseUrl + "/t-" + t.ID + t.FileEx
                                      }).ToList();
                     }
                     if (YYZZ.Count() > 0)
@@ -213,7 +216,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                       {
                                           pid = t.ID,
                                           name = t.Name,
-                                          url = "Files/RoadMP/" + ID + "/YYZZ/" + t.ID + t.FileType
+                                          url = baseUrl + "/" + t.ID + t.FileEx,
+                                          turl = baseUrl + "/t-" + t.ID + t.FileEx
                                       }).ToList();
                     }
                 }

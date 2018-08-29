@@ -39,7 +39,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 #region 新增
                 if (string.IsNullOrEmpty(oldDataJson))
                 {
-                    #region 基本检查+重复性检查
+                    #region 基本检查 已注释   只重复性检查
                     //if (string.IsNullOrEmpty(newData.ResidenceName))
                     //{
                     //    throw new Exception("小区名不能为空！");
@@ -111,18 +111,19 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var CreateTime = DateTime.Now.Date;
                     //使用状态
                     var State = Enums.UseState.Enable;
-                    //获取所有上传的文件
-                    if (HttpContext.Current.Request.Files.Count > 0)
-                    {
-                        var FCZFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
-                        var TDZFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
-                        var BDCZFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.BDCZ);
-                        var HJFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.HJ);
-                        SaveMPFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
-                        SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
-                        SaveMPFilesByID(BDCZFiles, guid, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
-                        SaveMPFilesByID(HJFiles, guid, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
-                    }
+                    #region 获取所有上传的文件并保存 已注释
+                    //if (HttpContext.Current.Request.Files.Count > 0)
+                    //{
+                    //    var FCZFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
+                    //    var TDZFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
+                    //    var BDCZFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.BDCZ);
+                    //    var HJFiles = HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.HJ);
+                    //    SaveMPFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
+                    //    SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
+                    //    SaveMPFilesByID(BDCZFiles, guid, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
+                    //    SaveMPFilesByID(HJFiles, guid, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
+                    //}
+                    #endregion 获取所有上传的文件并保存
                     //对这条数据进行默认赋值
                     newData.ID = guid;
                     newData.AddressCoding = AddressCoding;
@@ -151,15 +152,16 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
                     if (!CheckResidenceMPIsAvailable(targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityID, targetData.ResidenceName, targetData.MPNumber, targetData.Dormitory, targetData.HSNumber, targetData.LZNumber, targetData.DYNumber))
                         throw new Exception("该户室牌已经存在，请检查后重新修改！");
-                    //上传的附件进行修改
-                    var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
-                    var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
-                    var AddedBDCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.BDCZ);
-                    var AddedHJFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.HJ);
-                    UpdateMPFilesByID(FCZIDs, AddedFCZFiles, sourceData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
-                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, sourceData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
-                    UpdateMPFilesByID(BDCZIDs, AddedBDCZFiles, sourceData.ID, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
-                    UpdateMPFilesByID(HJIDs, AddedHJFiles, sourceData.ID, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
+                    #region 上传的附件进行修改 已注释
+                    //var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
+                    //var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
+                    //var AddedBDCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.BDCZ);
+                    //var AddedHJFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.HJ);
+                    //UpdateMPFilesByID(FCZIDs, AddedFCZFiles, sourceData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.ResidenceMP);
+                    //UpdateMPFilesByID(TDZIDs, AddedTDZFiles, sourceData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.ResidenceMP);
+                    //UpdateMPFilesByID(BDCZIDs, AddedBDCZFiles, sourceData.ID, Enums.DocType.BDCZ, Enums.MPTypeStr.ResidenceMP);
+                    //UpdateMPFilesByID(HJIDs, AddedHJFiles, sourceData.ID, Enums.DocType.HJ, Enums.MPTypeStr.ResidenceMP);
+                    #endregion 上传的附件进行修改
                 }
                 #endregion
                 dbContext.SaveChanges();
@@ -787,16 +789,16 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     //检查道路是否是新的道路，如果是新的就加到道路字典中
                     string RoadID = null;
                     CheckRoadNameAndSave(newData, out RoadID);
-                    #region 保存所有上传的文件
-                    if (HttpContext.Current.Request.Files.Count > 0)
-                    {
-                        var FCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
-                        var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
-                        var YYZZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.YYZZ);
-                        SaveMPFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
-                        SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
-                        SaveMPFilesByID(YYZZFiles, guid, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
-                    }
+                    #region 保存所有上传的文件 已注释
+                    //if (HttpContext.Current.Request.Files.Count > 0)
+                    //{
+                    //    var FCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
+                    //    var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
+                    //    var YYZZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.YYZZ);
+                    //    SaveMPFilesByID(FCZFiles, guid, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
+                    //    SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
+                    //    SaveMPFilesByID(YYZZFiles, guid, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
+                    //}
                     #endregion 保存所有上传的文件
                     //门牌号码类型 单双号判断赋值
                     if (!string.IsNullOrEmpty(newData.MPNumber))
@@ -838,13 +840,14 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 
                     if (!CheckRoadMPIsAvailable(targetData.MPNumber, targetData.RoadName, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityID))
                         throw new Exception("该道路门牌已经存在，请检查后重新修改！");
-                    //上传的附件进行修改 
-                    var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
-                    var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
-                    var AddedYYZZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.YYZZ);
-                    UpdateMPFilesByID(FCZIDs, AddedFCZFiles, targetData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
-                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, targetData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
-                    UpdateMPFilesByID(YYZZIDs, AddedYYZZFiles, targetData.ID, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
+                    #region 上传的附件进行修改 已注释
+                    //var AddedFCZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.FCZ);
+                    //var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
+                    //var AddedYYZZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.YYZZ);
+                    //UpdateMPFilesByID(FCZIDs, AddedFCZFiles, targetData.ID, Enums.DocType.FCZ, Enums.MPTypeStr.RoadMP);
+                    //UpdateMPFilesByID(TDZIDs, AddedTDZFiles, targetData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.RoadMP);
+                    //UpdateMPFilesByID(YYZZIDs, AddedYYZZFiles, targetData.ID, Enums.DocType.YYZZ, Enums.MPTypeStr.RoadMP);
+                    #endregion 上传的附件进行修改
                 }
                 #endregion
                 dbContext.SaveChanges();
@@ -1383,14 +1386,15 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var guid = Guid.NewGuid().ToString();
                     var MPPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
                     var CreateTime = DateTime.Now.Date;
-                    //获取所有上传的文件
-                    if (HttpContext.Current.Request.Files.Count > 0)
-                    {
-                        var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
-                        var QQZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.QQZ);
-                        SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
-                        SaveMPFilesByID(QQZFiles, guid, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
-                    }
+                    #region 获取所有上传的文件 已注释
+                    //if (HttpContext.Current.Request.Files.Count > 0)
+                    //{
+                    //    var TDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
+                    //    var QQZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.QQZ);
+                    //    SaveMPFilesByID(TDZFiles, guid, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
+                    //    SaveMPFilesByID(QQZFiles, guid, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
+                    //}
+                    #endregion  获取所有上传的文件 已注释
                     //对这条数据进行默认赋值
                     newData.ID = guid;
                     newData.AddressCoding = AddressCoding;
@@ -1419,11 +1423,12 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     if (!CheckCountryMPIsAvailable(targetData.ViligeName, targetData.MPNumber, targetData.HSNumber, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityID))
                         throw new Exception("该户室牌已经存在，请检查后重新修改！");
-                    //上传的附件进行修改
-                    var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
-                    var AddedQQZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.QQZ);
-                    UpdateMPFilesByID(TDZIDs, AddedTDZFiles, targetData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
-                    UpdateMPFilesByID(QQZIDs, AddedQQZFiles, targetData.ID, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
+                    #region 上传的附件进行修改 已注释
+                    //var AddedTDZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.TDZ);
+                    //var AddedQQZFiles = System.Web.HttpContext.Current.Request.Files.GetMultiple(Enums.DocType.QQZ);
+                    //UpdateMPFilesByID(TDZIDs, AddedTDZFiles, targetData.ID, Enums.DocType.TDZ, Enums.MPTypeStr.CountryMP);
+                    //UpdateMPFilesByID(QQZIDs, AddedQQZFiles, targetData.ID, Enums.DocType.QQZ, Enums.MPTypeStr.CountryMP);
+                    #endregion 上传的附件进行修改
                 }
                 #endregion
                 dbContext.SaveChanges();
@@ -1848,115 +1853,115 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// <param name="files"></param>
         /// <param name="directory"></param>
         /// <returns></returns>
-        private static List<string> SaveMPFiles(IList<HttpPostedFile> files, string directory)
-        {
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-            List<string> UploadNames = new List<string>();
+        //private static List<string> SaveMPFiles(IList<HttpPostedFile> files, string directory)
+        //{
+        //    if (!Directory.Exists(directory))
+        //    {
+        //        Directory.CreateDirectory(directory);
+        //    }
+        //    List<string> UploadNames = new List<string>();
 
-            foreach (var file in files)
-            {
-                if (file.ContentLength > 0)
-                {
-                    int counter = 1;
-                    string filename = file.FileName;
-                    string path = Path.Combine(directory, filename);
-                    string extension = Path.GetExtension(path);
-                    string newFullPath = path;
-                    while (System.IO.File.Exists(newFullPath))
-                    {
-                        string newFilename = $"{Path.GetFileNameWithoutExtension(path)}({counter}){extension}";
-                        newFullPath = Path.Combine(directory, newFilename);
-                        counter++;
-                    }
-                    UploadNames.Add(Path.GetFileName(newFullPath));
-                    MemoryStream m = new MemoryStream();
-                    FileStream fs = new FileStream(newFullPath, FileMode.OpenOrCreate);
-                    BinaryWriter w = new BinaryWriter(fs);
-                    w.Write(m.ToArray());
-                    fs.Close();
-                    m.Close();
-                }
-            }
-            return UploadNames;
-        }
-        /// <summary>
-        /// 将所有的文件存到文件夹，并将记录存入MPOfUploadFiles表中，首先要获取到每个文件的文件名和证件类型，取当前这个门牌ID，再生成一个GUID，存入数据库
-        /// </summary>
-        /// <param name="files">文件集合</param>
-        /// <param name="MPID">门牌ID</param>
-        /// <param name="DocType">证件类型</param>
-        /// <param name="MPTypeStr">门牌类型</param>
-        /// <returns></returns>
-        private static void SaveMPFilesByID(IList<HttpPostedFile> files, string MPID, string DocType, string MPTypeStr)
-        {
-            var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", MPTypeStr, MPID, DocType);
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                foreach (var file in files)
-                {
-                    if (file.ContentLength > 0)
-                    {
-                        var guid = Guid.NewGuid().ToString();
-                        string filename = file.FileName;
-                        string extension = Path.GetExtension(filename);
-                        string newfilename = guid + extension;
-                        string fullPath = Path.Combine(directory, newfilename);
-                        MemoryStream m = new MemoryStream();
-                        FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate);
-                        BinaryWriter w = new BinaryWriter(fs);
-                        w.Write(m.ToArray());
-                        fs.Close();
-                        m.Close();
-                        MPOfUploadFiles data = new MPOfUploadFiles();
-                        data.ID = guid;
-                        data.MPID = MPID;
-                        data.Name = filename;
-                        data.FileType = extension;
-                        data.DocType = DocType;
-                        data.State = Enums.UseState.Enable;
-                        dbContext.MPOfUploadFiles.Add(data);
-                    }
-                }
-                dbContext.SaveChanges();
-            }
-        }
-        /// <summary>
-        /// 从表中所有文件中删选出不在当前文件中的一些数据并逻辑删除，新增的一些文件存进去
-        /// </summary>
-        /// <param name="CurrentIDs">当前所有文件的ID/param>
-        /// <param name="AdddedFiles">新增加的文件</param>
-        /// <param name="MPID"></param>
-        /// <param name="DocType"></param>
-        /// <param name="MPTypeStr"></param>
-        private static void UpdateMPFilesByID(List<string> CurrentIDs, IList<HttpPostedFile> AdddedFiles, string MPID, string DocType, string MPTypeStr)
-        {
-            var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", MPTypeStr, MPID, DocType);
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                if (CurrentIDs != null && CurrentIDs.Count() > 0)
-                {
-                    string sql = $@"update [TopSystemDB].[dbo].[MPOFUPLOADFILES]  
-                                    set [State]={Enums.UseState.Delete} 
-                                    where [ID] not in ({string.Join(",", CurrentIDs)}) 
-                                    and [State]={Enums.UseState.Enable} 
-                                    and [MPID]='{MPID}' 
-                                    and [DocType]='{DocType}'";
-                    var rt = dbContext.Database.ExecuteSqlCommand(sql);
-                }
-                SaveMPFilesByID(AdddedFiles, MPID, DocType, MPTypeStr);
-            }
-        }
+        //    foreach (var file in files)
+        //    {
+        //        if (file.ContentLength > 0)
+        //        {
+        //            int counter = 1;
+        //            string filename = file.FileName;
+        //            string path = Path.Combine(directory, filename);
+        //            string extension = Path.GetExtension(path);
+        //            string newFullPath = path;
+        //            while (System.IO.File.Exists(newFullPath))
+        //            {
+        //                string newFilename = $"{Path.GetFileNameWithoutExtension(path)}({counter}){extension}";
+        //                newFullPath = Path.Combine(directory, newFilename);
+        //                counter++;
+        //            }
+        //            UploadNames.Add(Path.GetFileName(newFullPath));
+        //            MemoryStream m = new MemoryStream();
+        //            FileStream fs = new FileStream(newFullPath, FileMode.OpenOrCreate);
+        //            BinaryWriter w = new BinaryWriter(fs);
+        //            w.Write(m.ToArray());
+        //            fs.Close();
+        //            m.Close();
+        //        }
+        //    }
+        //    return UploadNames;
+        //}
+        ///// <summary>
+        ///// 将所有的文件存到文件夹，并将记录存入MPOfUploadFiles表中，首先要获取到每个文件的文件名和证件类型，取当前这个门牌ID，再生成一个GUID，存入数据库
+        ///// </summary>
+        ///// <param name="files">文件集合</param>
+        ///// <param name="MPID">门牌ID</param>
+        ///// <param name="DocType">证件类型</param>
+        ///// <param name="MPTypeStr">门牌类型</param>
+        ///// <returns></returns>
+        //private static void SaveMPFilesByID(IList<HttpPostedFile> files, string MPID, string DocType, string MPTypeStr)
+        //{
+        //    var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", MPTypeStr, MPID, DocType);
+        //    if (!Directory.Exists(directory))
+        //    {
+        //        Directory.CreateDirectory(directory);
+        //    }
+        //    using (var dbContext = SystemUtils.NewEFDbContext)
+        //    {
+        //        foreach (var file in files)
+        //        {
+        //            if (file.ContentLength > 0)
+        //            {
+        //                var guid = Guid.NewGuid().ToString();
+        //                string filename = file.FileName;
+        //                string extension = Path.GetExtension(filename);
+        //                string newfilename = guid + extension;
+        //                string fullPath = Path.Combine(directory, newfilename);
+        //                MemoryStream m = new MemoryStream();
+        //                FileStream fs = new FileStream(fullPath, FileMode.OpenOrCreate);
+        //                BinaryWriter w = new BinaryWriter(fs);
+        //                w.Write(m.ToArray());
+        //                fs.Close();
+        //                m.Close();
+        //                MPOfUploadFiles data = new MPOfUploadFiles();
+        //                data.ID = guid;
+        //                data.MPID = MPID;
+        //                data.Name = filename;
+        //                data.FileEx = extension;
+        //                data.DocType = DocType;
+        //                data.State = Enums.UseState.Enable;
+        //                dbContext.MPOfUploadFiles.Add(data);
+        //            }
+        //        }
+        //        dbContext.SaveChanges();
+        //    }
+        //}
+        ///// <summary>
+        ///// 从表中所有文件中删选出不在当前文件中的一些数据并逻辑删除，新增的一些文件存进去
+        ///// </summary>
+        ///// <param name="CurrentIDs">当前所有文件的ID/param>
+        ///// <param name="AdddedFiles">新增加的文件</param>
+        ///// <param name="MPID"></param>
+        ///// <param name="DocType"></param>
+        ///// <param name="MPTypeStr"></param>
+        //private static void UpdateMPFilesByID(List<string> CurrentIDs, IList<HttpPostedFile> AdddedFiles, string MPID, string DocType, string MPTypeStr)
+        //{
+        //    var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", MPTypeStr, MPID, DocType);
+        //    if (!Directory.Exists(directory))
+        //    {
+        //        Directory.CreateDirectory(directory);
+        //    }
+        //    using (var dbContext = SystemUtils.NewEFDbContext)
+        //    {
+        //        if (CurrentIDs != null && CurrentIDs.Count() > 0)
+        //        {
+        //            string sql = $@"update [TopSystemDB].[dbo].[MPOFUPLOADFILES]  
+        //                            set [State]={Enums.UseState.Delete} 
+        //                            where [ID] not in ({string.Join(",", CurrentIDs)}) 
+        //                            and [State]={Enums.UseState.Enable} 
+        //                            and [MPID]='{MPID}' 
+        //                            and [DocType]='{DocType}'";
+        //            var rt = dbContext.Database.ExecuteSqlCommand(sql);
+        //        }
+        //        SaveMPFilesByID(AdddedFiles, MPID, DocType, MPTypeStr);
+        //    }
+        //}
         /// <summary>
         /// 正则表达式检查字符串是否是数字
         /// </summary>

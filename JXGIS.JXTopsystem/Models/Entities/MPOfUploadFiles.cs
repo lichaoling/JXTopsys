@@ -7,15 +7,16 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Entities
 {
-    [Table("RPOFUPLOADFILES")]
-    public class RPOfUploadFiles
+    [Table("MPOFUPLOADFILES")]
+    public class MPOfUploadFiles
     {
         [Key]
         public string ID { get; set; }
-        public string RPID { get; set; }
+        public string MPID { get; set; }
 
         public string Name { get; set; }
-        public string FileType { get; set; }
+        public string FileEx { get; set; }
+        public string DocType { get; set; }
         public int State { get; set; }
     }
 }

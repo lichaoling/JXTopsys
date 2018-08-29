@@ -211,7 +211,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// 根据一条住宅门牌数据的ID来查详情
         /// </summary>
         /// <param name="ID"></param>
-        public static ResidenceMPDetails SearchResidenceMPByID(string ID)
+        public static ResidenceMPDetails SearchResidenceMPByID(string MPID)
         {//left join [TopSystemDB].[dbo].[TopCombineRoad] c on a.roadid=c.dmid  ,a.[RoadID]  ,c.biaozhunmingcheng RoadName
             string sql = $@"select a.[ID]
                           ,a.[AddressCoding]
@@ -261,7 +261,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                       left join [TopSystemDB].[dbo].[DISTRICT] d on a.CountyID=d.ID
                       left join [TopSystemDB].[dbo].[DISTRICT] e on a.NeighborhoodsID=e.ID
                       left join [TopSystemDB].[dbo].[DISTRICT] f on a.CommunityID=f.ID
-                      where a.[State]=1 and a.ID='{ID}'";
+                      where a.[State]=1 and a.ID='{MPID}'";
             var query = SystemUtils.NewEFDbContext.Database.SqlQuery<ResidenceMPDetails>(sql).FirstOrDefault();
 
             if (query == null)
@@ -269,21 +269,24 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 //将附件的名字都加上路径返回
-                var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == ID);
+                var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == MPID);
                 if (files.Count() > 0)
                 {
                     var FCZ = files.Where(t => t.DocType == Enums.DocType.FCZ);
                     var TDZ = files.Where(t => t.DocType == Enums.DocType.TDZ);
                     var BDCZ = files.Where(t => t.DocType == Enums.DocType.BDCZ);
                     var HJ = files.Where(t => t.DocType == Enums.DocType.HJ);
+                    var baseUrl = Path.Combine("Files", "MP", Enums.MPFileType.ResidenceMP, MPID);
                     if (FCZ.Count() > 0)
                     {
+
                         query.FCZ = (from t in FCZ
                                      select new Pictures
                                      {
                                          pid = t.ID,
                                          name = t.Name,
-                                         url = "Files/ResidenceMP/" + ID + "/FCZ/" + t.ID + t.FileType
+                                         url = baseUrl + "/" + t.ID + t.FileEx,
+                                         turl = baseUrl + "/t-" + t.ID + t.FileEx
                                      }).ToList();
                     }
                     if (TDZ.Count() > 0)
@@ -293,7 +296,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                      {
                                          pid = t.ID,
                                          name = t.Name,
-                                         url = "Files/ResidenceMP/" + ID + "/TDZ/" + t.ID + t.FileType
+                                         url = baseUrl + "/" + t.ID + t.FileEx,
+                                         turl = baseUrl + "/t-" + t.ID + t.FileEx
                                      }).ToList();
                     }
                     if (BDCZ.Count() > 0)
@@ -303,7 +307,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                       {
                                           pid = t.ID,
                                           name = t.Name,
-                                          url = "Files/ResidenceMP/" + ID + "/BDCZ/" + t.ID + t.FileType
+                                          url = baseUrl + "/" + t.ID + t.FileEx,
+                                          turl = baseUrl + "/t-" + t.ID + t.FileEx
                                       }).ToList();
                     }
                     if (HJ.Count() > 0)
@@ -313,7 +318,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                     {
                                         pid = t.ID,
                                         name = t.Name,
-                                        url = "Files/ResidenceMP/" + ID + "/HJ/" + t.ID + t.FileType
+                                        url = baseUrl + "/" + t.ID + t.FileEx,
+                                        turl = baseUrl + "/t-" + t.ID + t.FileEx
                                     }).ToList();
                     }
                 }
