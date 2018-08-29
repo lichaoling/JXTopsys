@@ -14,8 +14,10 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string NeighborhoodsName { get; set; }
         public string CommunityName { get; set; }
         public string MPTypeName { get; set; }
-        public int? MPProduce { get; set; } //门牌制作情况 1待制作 2不制作 3已制作
-        public string MPProduceName { get; set; }
+        public int? MPProduce { get; set; } //是否门牌制作 0不制作 1制作
+        public int? MPProduceComplete { get; set; } //门牌制作完成情况 0未完成 1已完成
+        public string MPProduceName { get; set; }//是否门牌制作 0不制作 1制作
+        public string MPProduceCompleteName { get; set; } //门牌制作完成情况 0未完成 1已完成
         public string PlaceName { get; set; }//道路名称和自然村名称
         public string MPNumber { get; set; }//门牌号码
         public string MPSize { get; set; }

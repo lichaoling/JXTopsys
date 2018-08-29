@@ -25,7 +25,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 }
                 var query = q.Where(where.Compile());
                 //行政区划筛选
-                if (!string.IsNullOrEmpty(DistrictID))
+                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "1"))
                 {
                     query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }

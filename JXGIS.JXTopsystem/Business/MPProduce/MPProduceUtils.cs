@@ -36,7 +36,9 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                MPID = a.ID,
                                MPTypeName = "道路门牌",
                                MPProduce = a.MPProduce,
-                               MPProduceName = a.MPProduce == Enums.MPProduce.ToBeMade ? "待制作" : (a.MPProduce == Enums.MPProduce.NotMake ? "不制作" : "已制作"),
+                               MPProduceName = a.MPProduce == Enums.MPProduce.Yes ? "制作" : "不制作",
+                               MPProduceComplete = a.MPProduceComplete,
+                               MPProduceCompleteName = a.MPProduceComplete == Enums.MPProduceComplete.Yes ? "已制作" : "未制作",
                                PlaceName = a.RoadName,
                                MPNumber = a.MPNumber,
                                MPSize = a.MPSize,
@@ -54,7 +56,9 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                  MPID = b.ID,
                                  MPTypeName = "农村门牌",
                                  MPProduce = b.MPProduce,
-                                 MPProduceName = b.MPProduce == Enums.MPProduce.ToBeMade ? "待制作" : (b.MPProduce == Enums.MPProduce.NotMake ? "不制作" : "已制作"),
+                                 MPProduceName = b.MPProduce == Enums.MPProduce.Yes ? "制作" : "不制作",
+                                 MPProduceComplete = b.MPProduceComplete,
+                                 MPProduceCompleteName = b.MPProduceComplete == Enums.MPProduceComplete.Yes ? "已制作" : "未制作",
                                  PlaceName = b.ViligeName,
                                  MPNumber = b.MPNumber,
                                  MPSize = b.MPSize,
@@ -71,7 +75,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 }
                 var q = all.Where(where.Compile());
 
-                if (!string.IsNullOrEmpty(DistrictID))
+                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "1"))
                 {
                     q = q.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }
@@ -116,6 +120,8 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             MPTypeName = t.MPTypeName,
                             MPProduce = t.MPProduce,
                             MPProduceName = t.MPProduceName,
+                            MPProduceComplete = t.MPProduceComplete,
+                            MPProduceCompleteName = t.MPProduceCompleteName,
                             PlaceName = t.PlaceName,
                             MPNumber = t.MPNumber,
                             MPSize = t.MPSize,
@@ -159,12 +165,12 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             mpPro.BigMPCount = 1;
                         else
                             mpPro.SmallMPCount = 1;
-                        sql = $"update [TopSystemDB].[dbo].[MPOFROAD] set [MPProduce]={Enums.MPProduce.HasBeenMade} where ID='{mp.MPID}'";
+                        sql = $"update [TopSystemDB].[dbo].[MPOFROAD] set [MPProduceComplete]={Enums.MPProduceComplete.Yes} where ID='{mp.MPID}'";
                     }
                     else if (mp.MPType == Enums.MPType.Country)
                     {
                         mpPro.CountryMPCount = 1;
-                        sql = $"update [TopSystemDB].[dbo].[MPOFCOUNTRY] set [MPProduce]={Enums.MPProduce.HasBeenMade} where ID='{mp.MPID}'";
+                        sql = $"update [TopSystemDB].[dbo].[MPOFCOUNTRY] set [MPProduceComplete]={Enums.MPProduceComplete.Yes} where ID='{mp.MPID}'";
                     }
                     dbContext.Database.ExecuteSqlCommand(sql);
                     mpPro.TotalCount = mpPro.BigMPCount + mpPro.SmallMPCount + mpPro.CountryMPCount + mpPro.LZMPCount + mpPro.DYMPCount + mpPro.HSMPCount;

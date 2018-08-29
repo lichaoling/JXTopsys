@@ -30,8 +30,9 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string OriginalNumber { get; set; }
         public string MPSize { get; set; }
         public string HSNumber { get; set; }
-        public int? MPProduce { get; set; } //是否门牌制作 1 待制作 2不制作 3已制作
-        public int? MPMail { get; set; } //是否门牌邮寄 1 邮寄 2 不邮寄
+        public int? MPProduce { get; set; } //是否门牌制作 0不制作 1制作
+        public int? MPProduceComplete { get; set; } //门牌制作完成情况 0未完成 1已完成
+        public int? MPMail { get; set; } //是否门牌邮寄 1 邮寄 0不邮寄
         public string MailAddress { get; set; }
         public string Postcode { get; set; }
         public string PropertyOwner { get; set; }

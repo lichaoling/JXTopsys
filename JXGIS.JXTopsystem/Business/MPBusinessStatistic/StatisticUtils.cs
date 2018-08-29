@@ -121,7 +121,7 @@ namespace JXGIS.JXTopsystem.Business
                         queryAll = queryAll.Where(t => String.Compare(t.CreateTime.ToString(), end, StringComparison.Ordinal) <= 0);
                     }
                 }
-                if (!string.IsNullOrEmpty(DistrictID))
+                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "1"))
                 {
                     queryAll = queryAll.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }
@@ -361,7 +361,7 @@ namespace JXGIS.JXTopsystem.Business
                     }
                 }
                 //行政区划ID筛选
-                if (!string.IsNullOrEmpty(DistrictID))
+                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "1"))
                 {
                     q = q.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
                 }

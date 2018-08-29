@@ -749,7 +749,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else
                     {
-                        if (newData.MPProduce == Enums.MPProduce.ToBeMade) //如果制作门牌
+                        if (newData.MPProduce == Enums.MPProduce.Yes) //如果制作门牌
                         {
                             if (newData.MPMail == null) //门牌邮寄不能为空
                             {
@@ -761,7 +761,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                                     throw new Exception("门牌邮寄地址为空！");
                             }
                         }
-                        else if (newData.MPProduce == Enums.MPProduce.NotMake) //如果不制作门牌
+                        else if (newData.MPProduce == Enums.MPProduce.NO) //如果不制作门牌
                         {
                             newData.MPMail = Enums.MPMail.No;   //不制作门牌时邮寄都设置为2
                         }
@@ -910,7 +910,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     string CommunityID = null;
                     string RoadID = null;
                     DateTime bzTime = DateTime.Now.Date;
-                    int mpProduce = Enums.MPProduce.HasBeenMade;
+                    int mpProduce = Enums.MPProduce.Yes;
+                    int mpProduceComplete = Enums.MPProduceComplete.Yes;
 
                     #region 市辖区检查
                     if (string.IsNullOrEmpty(CountyName))
@@ -1078,6 +1079,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         Applicant = Applicant,
                         ApplicantPhone = ApplicantPhone,
                         MPProduce = mpProduce,
+                        MPProduceComplete = mpProduceComplete,
                         Postcode = Postcode,
                         SBDW = SBDW
                     };
@@ -1347,7 +1349,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     }
                     else
                     {
-                        if (newData.MPProduce == Enums.MPProduce.ToBeMade) //如果制作门牌
+                        if (newData.MPProduce == Enums.MPProduce.Yes) //如果制作门牌
                         {
                             if (newData.MPMail == null) //门牌邮寄不能为空
                             {
@@ -1359,7 +1361,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                                     throw new Exception("门牌邮寄地址为空！");
                             }
                         }
-                        else if (newData.MPProduce == Enums.MPProduce.NotMake) //如果不制作门牌
+                        else if (newData.MPProduce == Enums.MPProduce.NO) //如果不制作门牌
                         {
                             newData.MPMail = Enums.MPMail.No;   //不制作门牌时邮寄都设置为2
                         }
@@ -1482,7 +1484,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     string NeighborhoodsID = null;
                     string CommunityID = null;
                     DateTime bzTime = DateTime.Now.Date;
-                    int mpProduce = Enums.MPProduce.HasBeenMade;
+                    int mpProduce = Enums.MPProduce.Yes;
+                    int mpProduceComplete = Enums.MPProduceComplete.Yes;
 
                     #region 市辖区检查
                     if (string.IsNullOrEmpty(CountyName))
@@ -1612,6 +1615,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         Applicant = Applicant,
                         ApplicantPhone = ApplicantPhone,
                         MPProduce = mpProduce,
+                        MPProduceComplete = mpProduceComplete,
                         Postcode = Postcode,
                         SBDW = SBDW
                     };

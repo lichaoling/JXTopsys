@@ -15,9 +15,13 @@ namespace JXGIS.JXTopsystem.Models.Extends
         };
         public static class MPProduce
         {
-            public const int ToBeMade = 1;
-            public const int NotMake = 2;
-            public const int HasBeenMade = 3;
+            public const int NO = 0;
+            public const int Yes = 1;
+        };
+        public static class MPProduceComplete
+        {
+            public const int NO = 0;
+            public const int Yes = 1;
         };
         public static class MPMail
         {
@@ -39,9 +43,9 @@ namespace JXGIS.JXTopsystem.Models.Extends
         }
         public static class MPTypeStr
         {
-            public const string ResidenceMP = "ResidenceMP";
-            public const string RoadMP = "RoadMP";
-            public const string CountryMP = "CountryMP";
+            public const string ResidenceMP = "Residence";
+            public const string RoadMP = "Road";
+            public const string CountryMP = "Country";
         }
         public static class DocType
         {
