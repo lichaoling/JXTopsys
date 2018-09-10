@@ -14,7 +14,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
     public class CountryMPSearch
     {
         #region 农村门牌
-        public static Dictionary<string, object> SearchCountryMP(int PageSize, int PageNum, string DistrictID, string ViligeName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
+        public static Dictionary<string, object> SearchCountryMP(int PageSize, int PageNum, string DistrictID, string CommunityName, string ViligeName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
         {
             int count = 0;
             List<CountryMPDetails> data = null;
@@ -32,7 +32,11 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
 
                 if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "1"))
                 {
-                    query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
+                    query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID);
+                }
+                if (!string.IsNullOrEmpty(CommunityName))
+                {
+                    query = query.Where(t => t.CommunityName == CommunityName);
                 }
                 if (!string.IsNullOrEmpty(ViligeName))
                 {
@@ -55,40 +59,48 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    query = query.OrderByDescending(t => t.BZTime);
+                    query = query.OrderByDescending(t => t.BZTime).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize);
+                    query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
                 data = (from t in query
-                        join a in SystemUtils.Districts
-                        on t.CountyID equals a.ID into aa
-                        from at in aa.DefaultIfEmpty()
-
-                        join b in SystemUtils.Districts
-                        on t.NeighborhoodsID equals b.ID into bb
-                        from bt in bb.DefaultIfEmpty()
-
-                        join c in SystemUtils.Districts
-                        on t.CommunityID equals c.ID into cc
-                        from ct in cc.DefaultIfEmpty()
                         select new CountryMPDetails
                         {
                             ID = t.ID,
+                            AddressCoding = t.AddressCoding,
                             CountyID = t.CountyID,
+                            CountyName = t.CountyID.Split('.').Last(),
                             NeighborhoodsID = t.NeighborhoodsID,
-                            CommunityID = t.CommunityID,
-                            CountyName = at == null || at.Name == null ? null : at.Name,
-                            NeighborhoodsName = bt == null || bt.Name == null ? null : bt.Name,
-                            CommunityName = ct == null || ct.Name == null ? null : ct.Name,
+                            NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
+                            CommunityName = t.CommunityName,
                             ViligeName = t.ViligeName,
                             MPNumber = t.MPNumber,
+                            OriginalMPAddress = t.OriginalMPAddress,
+                            MPSize = t.MPSize,
                             HSNumber = t.HSNumber,
-                            OriginalNumber = t.OriginalNumber,
+                            LXMPProduce = t.LXMPProduce,
+                            LXMPProduceComplete = t.LXMPProduceComplete,
+                            PLID = t.PLID,
+                            PLMPProduceComplete = t.PLMPProduceComplete,
+                            MPMail = t.MPMail,
+                            MailAddress = t.MailAddress,
+                            Postcode = t.Postcode,
                             PropertyOwner = t.PropertyOwner,
-                            CreateTime = t.CreateTime,
+                            IDType = t.IDType,
+                            IDNumber = t.IDNumber,
+                            StandardAddress = t.StandardAddress,
+                            TDZAddress = t.TDZAddress,
+                            TDZNumber = t.TDZNumber,
+                            QQZAddress = t.QQZAddress,
+                            QQZNumber = t.QQZNumber,
+                            OtherAddress = t.OtherAddress,
+                            Applicant = t.Applicant,
+                            ApplicantPhone = t.ApplicantPhone,
+                            SBDW = t.SBDW,
+                            BZTime = t.BZTime,
                             Lat = t.MPPosition == null ? null : t.MPPosition.Latitude,
                             Lng = t.MPPosition == null ? null : t.MPPosition.Longitude
                         }).ToList();
@@ -103,51 +115,45 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var sql = $@"SELECT a.[ID]
-                      ,a.[AddressCoding]
-                      ,a.[CountyID]
-	                  ,d.Name CountyName
-                      ,a.[NeighborhoodsID]
-                      ,e.Name NeighborhoodsName
-                      ,a.[CommunityID]
-                      ,f.Name CommunityName
-                      ,a.[ViligeName]
-                      ,a.[MPNumber]
-                      ,a.[MPPosition].Lat Lat
-                      ,a.[MPPosition].Long Lng
-                      ,a.[OriginalNumber]
-                      ,a.[MPSize]
-                      ,a.[HSNumber]
-                      ,a.[MPProduce]
-                      ,a.[MPMail]
-                      ,a.[MailAddress]
-                      ,a.[Postcode]
-                      ,a.[PropertyOwner]
-                      ,a.[IDType]
-                      ,a.[IDNumber]
-                      ,a.[StandardAddress]
-                      ,a.[TDZAddress]
-                      ,a.[TDZNumber]
-                      ,a.[QQZAddress]
-                      ,a.[QQZNumber]
-                      ,a.[OtherAddress]
-                      ,a.[Applicant]
-                      ,a.[ApplicantPhone]
-                      ,a.[SBDW]
-                      ,a.[BZTime]
-                      ,a.[CreateTime]
-                      ,a.[CreateUser]
-                      ,a.[LastModifyTime]
-                      ,a.[LastModifyUser]
-                      ,a.[State]
-                      ,a.[CancelTime]
-                      ,a.[CancelUser]
-                  FROM [TopSystemDB].[dbo].[MPOFCOUNTRY] a
-                  left join [TopSystemDB].[dbo].[DISTRICT] d on a.CountyID=d.ID
-                  left join [TopSystemDB].[dbo].[DISTRICT] e on a.NeighborhoodsID=e.ID
-                  left join [TopSystemDB].[dbo].[DISTRICT] f on a.CommunityID=f.ID
-                  where a.State=1 and a.ID='{MPID}'";
-                var query = SystemUtils.NewEFDbContext.Database.SqlQuery<CountryMPDetails>(sql).FirstOrDefault();
+                var query = (from t in dbContext.MPOfCountry
+                             where t.State == Enums.UseState.Enable && t.ID == MPID
+                             select new CountryMPDetails
+                             {
+                                 ID = t.ID,
+                                 AddressCoding = t.AddressCoding,
+                                 CountyID = t.CountyID,
+                                 CountyName = t.CountyID.Split('.').Last(),
+                                 NeighborhoodsID = t.NeighborhoodsID,
+                                 NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
+                                 CommunityName = t.CommunityName,
+                                 ViligeName = t.ViligeName,
+                                 MPNumber = t.MPNumber,
+                                 OriginalMPAddress = t.OriginalMPAddress,
+                                 MPSize = t.MPSize,
+                                 HSNumber = t.HSNumber,
+                                 LXMPProduce = t.LXMPProduce,
+                                 LXMPProduceComplete = t.LXMPProduceComplete,
+                                 PLID = t.PLID,
+                                 PLMPProduceComplete = t.PLMPProduceComplete,
+                                 MPMail = t.MPMail,
+                                 MailAddress = t.MailAddress,
+                                 Postcode = t.Postcode,
+                                 PropertyOwner = t.PropertyOwner,
+                                 IDType = t.IDType,
+                                 IDNumber = t.IDNumber,
+                                 StandardAddress = t.StandardAddress,
+                                 TDZAddress = t.TDZAddress,
+                                 TDZNumber = t.TDZNumber,
+                                 QQZAddress = t.QQZAddress,
+                                 QQZNumber = t.QQZNumber,
+                                 OtherAddress = t.OtherAddress,
+                                 Applicant = t.Applicant,
+                                 ApplicantPhone = t.ApplicantPhone,
+                                 SBDW = t.SBDW,
+                                 BZTime = t.BZTime,
+                                 Lat = t.MPPosition == null ? null : t.MPPosition.Latitude,
+                                 Lng = t.MPPosition == null ? null : t.MPPosition.Longitude
+                             }).FirstOrDefault();
                 if (query == null)
                     throw new Exception("该门牌已经被注销！");
 
@@ -185,9 +191,9 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 return query;
             }
         }
-        public static MemoryStream ExportCountryMP(string DistrictID, string ViligeName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
+        public static MemoryStream ExportCountryMP(string DistrictID, string CommunityName, string ViligeName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
         {
-            Dictionary<string, object> dict = SearchCountryMP(-1, -1, DistrictID, ViligeName, AddressCoding, PropertyOwner, StandardAddress, UseState);
+            Dictionary<string, object> dict = SearchCountryMP(-1, -1, DistrictID, CommunityName, ViligeName, AddressCoding, PropertyOwner, StandardAddress, UseState);
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
@@ -212,15 +218,31 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             styleData.Borders[BorderType.BottomBorder].LineStyle = CellBorderType.Thin;
 
             List<ExcelFields> Fields = new List<ExcelFields> {
+                new ExcelFields() { Field="地址编码",Alias="AddressCoding"},
                 new ExcelFields() { Field="市辖区",Alias="CountyName"},
                 new ExcelFields() { Field="镇街道",Alias="NeighborhoodsName"},
                 new ExcelFields() { Field="村社区",Alias="CommunityName"},
                 new ExcelFields() { Field="自然村名称",Alias="ViligeName"},
-                new ExcelFields() { Field="门牌号码",Alias="MPNumber"},
+                new ExcelFields() { Field="门牌号",Alias="MPNumber"},
+                new ExcelFields() { Field="原门牌地址",Alias="OriginalMPAddress"},
+                new ExcelFields() { Field="门牌规格",Alias="MPSize"},
                 new ExcelFields() { Field="户室号",Alias="HSNumber"},
-                new ExcelFields() { Field="原门牌号码",Alias="OriginalNumber"},
+                new ExcelFields() { Field="邮寄地址",Alias="MailAddress"},
+                new ExcelFields() { Field="邮政编码",Alias="MailAddress"},
                 new ExcelFields() { Field="产权人",Alias="PropertyOwner"},
-                new ExcelFields() { Field="编制日期",Alias="BZTime"},
+                new ExcelFields() { Field="证件类型",Alias="IDType"},
+                new ExcelFields() { Field="证件号",Alias="IDNumber"},
+                new ExcelFields() { Field="土地证地址",Alias="TDZAddress"},
+                new ExcelFields() { Field="土地证号",Alias="TDZNumber"},
+                new ExcelFields() { Field="确权证地址",Alias="QQZAddress"},
+                new ExcelFields() { Field="确权证号",Alias="QQZNumber"},
+                new ExcelFields() { Field="其他地址",Alias="OtherAddress"},
+                new ExcelFields() { Field="申请人",Alias="Applicant"},
+                new ExcelFields() { Field="联系电话",Alias="ApplicantPhone"},
+                new ExcelFields() { Field="申办单位",Alias="SBDW"},
+                new ExcelFields() { Field="编制时间",Alias="BZTime"},
+                new ExcelFields() { Field="纬度",Alias="Lat"},
+                new ExcelFields() { Field="经度",Alias="Lng"},
             };
             //写入表头
             for (int i = 0, l = Fields.Count; i < l; i++)

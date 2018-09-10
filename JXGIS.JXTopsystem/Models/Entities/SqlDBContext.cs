@@ -20,13 +20,13 @@ namespace JXGIS.JXTopsystem.Models.Entities
         }
         public DbSet<District> District { get; set; }
         public DbSet<MPOfRoad> MPOfRoad { get; set; }
-        public DbSet<MPOfResidence> MPOFResidence { get; set; }
+        public DbSet<MPOfResidence> MPOfResidence { get; set; }
         public DbSet<MPOfCountry> MPOfCountry { get; set; }
         public DbSet<SysUser> SysUser { get; set; }
         public DbSet<SysRole> SysRole { get; set; }
         public DbSet<SysUser_SysRole> UserRole { get; set; }
         public DbSet<MPOfCertificate> MPOfCertificate { get; set; }
-        public DbSet<MPProduce> MPProduce { get; set; }
+        public DbSet<MPProduceTJ> MPProduce { get; set; }
         public DbSet<MPOfUploadFiles> MPOfUploadFiles { get; set; }
         public DbSet<RP> RP { get; set; }
         public DbSet<RPRepair> RPRepair { get; set; }
@@ -35,6 +35,11 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DbSet<PostcodeDic> PostcodeDic { get; set; }
         public DbSet<RPBZDic> RPBZDic { get; set; }
         public DbSet<RoadDic> RoadDic { get; set; }
+        public DbSet<ResidenceDic> ResidenceDic { get; set; }
+        public DbSet<ViligeDic> ViligeDic { get; set; }
+        public DbSet<CommunityDic> CommunityDic { get; set; }
         public DbSet<RPPepairUploadFiles> RPPepairUploadFiles { get; set; }
+        public DbSet<RPRepairContent> RPRepairContent { get; set; }
+        public DbSet<DirectionDic> DirectionDic { get; set; }
     }
 }

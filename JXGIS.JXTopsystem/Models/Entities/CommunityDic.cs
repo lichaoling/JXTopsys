@@ -7,14 +7,13 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Entities
 {
-    [Table("DISTRICTNew")]
-    public class District
+    [Table("COMMUNITYDIC")]
+    public class CommunityDic
     {
         [Key]
         public string ID { get; set; }
-        public string ParentID { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public int? State { get; set; }
+        public string CountyID { get; set; }  //*
+        public string NeighborhoodsID { get; set; }  //*
+        public string CommunityName { get; set; }  //*
     }
 }

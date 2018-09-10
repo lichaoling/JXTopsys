@@ -34,6 +34,8 @@ namespace JXGIS.JXTopsystem.Business
                 user.UserName = "测试用户";
                 user.UserID = "1";
                 user.DistrictID = new List<string>() { "1.1.2", "1.1.3", "1" };
+                //user.DistrictID = new List<string>() { "1.1.2", "1.1.3" };
+                //user.DistrictID = new List<string>() { "1.2", "1.1.3" };
                 user.Window = new List<string>() { "市级行政审批窗口", "乡镇便民服务中心" };
                 HttpContext.Current.Session[_user] = user;
                 return HttpContext.Current != null ? (HttpContext.Current.Session[_user] as IUser) : null;

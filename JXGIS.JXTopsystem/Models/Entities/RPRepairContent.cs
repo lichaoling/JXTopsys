@@ -7,14 +7,11 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Entities
 {
-    [Table("DISTRICTNew")]
-    public class District
+    [Table("RPREPAIRCONTENT")]
+    public class RPRepairContent
     {
         [Key]
         public string ID { get; set; }
-        public string ParentID { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public int? State { get; set; }
+        public string RepairContent { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using JXGIS.JXTopsystem.Business.MPCertificate;
+﻿using JXGIS.JXTopsystem.Business.MPPrintUtils;
 using JXGIS.JXTopsystem.Business.MPModify;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
@@ -15,13 +15,13 @@ namespace JXGIS.JXTopsystem.Controllers
     public class MPModifyController : Controller
     {
         #region 住宅门牌
-        public JsonResult ModifyResidenceMP(MPOfResidence newData, string oldDataJson, List<string> FCZIDs, List<string> TDZIDs, List<string> BDCZIDs, List<string> HJIDs)
+        public JsonResult ModifyResidenceMP(MPOfResidence newData, string oldDataJson)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.ModifyResidenceMP(newData, oldDataJson, FCZIDs, TDZIDs, BDCZIDs, HJIDs);
+                ResidenceMPModify.ModifyResidenceMP(newData, oldDataJson);
             }
             catch (Exception ex)
             {
@@ -29,7 +29,6 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-
         /// <summary>
         /// 上传数据
         /// </summary>
@@ -42,7 +41,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 var file = this.Request.Files;
                 if (file == null || file.Count == 0)
                     throw new Exception("文件不存在，请重新上传！");
-                MPModifyUtils.UploadResidenceMP(file[0]);
+                ResidenceMPModify.UploadResidenceMP(file[0]);
             }
             catch (Exception ex)
             {
@@ -50,48 +49,13 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-        public ContentResult GetUploadResidenceMP(int PageSize, int PageNum)
-        {
-            RtObj rt = null;
-            try
-            {
-                var r = MPModifyUtils.GetUploadResidenceMP(PageSize, PageNum);
-                rt = new RtObj(r);
-
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
-        /// <summary>
-        /// 将没有错的上传的数据更新到数据库中,返回门牌制作汇总表
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult UpdateResidenceMP()
-        {
-            RtObj rt = null;
-            try
-            {
-                var r = MPModifyUtils.UpdateResidenceMP();
-                rt = new RtObj(r);
-
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            return Json(rt);
-        }
-        public JsonResult CancelOrDelResidenceMP(string ID, int UseState)
+        public JsonResult CancelResidenceMP(List<string> ID)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.CancelOrDelResidenceMP(ID, UseState);
+                ResidenceMPModify.CancelResidenceMP(ID);
             }
             catch (Exception ex)
             {
@@ -102,13 +66,13 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 道路门牌
-        public JsonResult ModifyRoadMP(MPOfRoad newData, string oldDataJson, List<string> FCZIDs, List<string> TDZIDs, List<string> YYZZIDs)
+        public JsonResult ModifyRoadMP(MPOfRoad newData, string oldDataJson)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.ModifyRoadMP(newData, oldDataJson, FCZIDs, TDZIDs, YYZZIDs);
+                RoadMPModify.ModifyRoadMP(newData, oldDataJson);
             }
             catch (Exception ex)
             {
@@ -124,7 +88,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 var file = this.Request.Files;
                 if (file == null || file.Count == 0)
                     throw new Exception("文件不存在，请重新上传！");
-                MPModifyUtils.UploadRoadMP(file[0]);
+                RoadMPModify.UploadRoadMP(file[0]);
             }
             catch (Exception ex)
             {
@@ -132,43 +96,13 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-        public ContentResult GetUploadRoadMP(int PageSize, int PageNum)
-        {
-            RtObj rt = null;
-            try
-            {
-                var r = MPModifyUtils.GetUploadRoadMP(PageSize, PageNum);
-                rt = new RtObj(r);
-
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
-        public JsonResult UpdateRoadMP()
+        public JsonResult CancelRoadMP(List<string> ID)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.UpdateRoadMP();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            return Json(rt);
-        }
-        public JsonResult CancelOrDelRoadMP(string ID, int UseState)
-        {
-            RtObj rt = null;
-            try
-            {
-                rt = new RtObj();
-                MPModifyUtils.CancelOrDelRoadMP(ID, UseState);
+                RoadMPModify.CancelRoadMP(ID);
             }
             catch (Exception ex)
             {
@@ -179,13 +113,13 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 农村门牌
-        public JsonResult ModifyCountryMP(MPOfCountry newData, string oldDataJson, List<string> TDZIDs, List<string> QQZIDs)
+        public JsonResult ModifyCountryMP(MPOfCountry newData, string oldDataJson)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.ModifyCountryMP(newData, oldDataJson, TDZIDs, QQZIDs);
+                CountryMPModify.ModifyCountryMP(newData, oldDataJson);
             }
             catch (Exception ex)
             {
@@ -201,7 +135,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 var file = this.Request.Files;
                 if (file == null || file.Count == 0)
                     throw new Exception("文件不存在，请重新上传！");
-                MPModifyUtils.UploadCountryMP(file[0]);
+                CountryMPModify.UploadCountryMP(file[0]);
             }
             catch (Exception ex)
             {
@@ -209,42 +143,13 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-        public ContentResult GetUploadCountryMP(int PageSize, int PageNum)
-        {
-            RtObj rt = null;
-            try
-            {
-                var r = MPModifyUtils.GetUploadCountryMP(PageSize, PageNum);
-                rt = new RtObj(r);
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
-        public JsonResult UpdateCountryMP()
+        public JsonResult CancelCountryMP(List<string> ID)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                MPModifyUtils.UpdateCountryMP();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            return Json(rt);
-        }
-        public JsonResult CancelOrDelCountryMP(string ID, int UseState)
-        {
-            RtObj rt = null;
-            try
-            {
-                rt = new RtObj();
-                MPModifyUtils.CancelOrDelCountryMP(ID, UseState);
+                CountryMPModify.CancelCountryMP(ID);
             }
             catch (Exception ex)
             {
@@ -271,6 +176,24 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+
+        #region 地名证明和门牌证打印
+        public JsonResult MPCertificatePrint(List<string> IDs, int MPType, int CertificateType)
+        {
+            RtObj rt = null;
+            try
+            {
+                rt = new RtObj();
+                MPPrintUtils.MPCertificatePrint(IDs, MPType, CertificateType);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
+        #endregion
+
         //测试用
         public ActionResult test1()
         {
@@ -307,35 +230,5 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(rt);
         }
 
-        #region 地名证明和门牌证浏览打印
-        public JsonResult MPCertificateQuery(string ID, int MPType, int CertificateType)
-        {
-            RtObj rt = null;
-            try
-            {
-                rt = new RtObj();
-                MPCertificateUtils.MPCertificateQuery(ID, MPType, CertificateType);
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            return Json(rt);
-        }
-        public JsonResult MPCertificatePrint(string ID, int MPType, int CertificateType)
-        {
-            RtObj rt = null;
-            try
-            {
-                rt = new RtObj();
-                MPCertificateUtils.MPCertificatePrint(ID, MPType, CertificateType);
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            return Json(rt);
-        }
-        #endregion
     }
 }

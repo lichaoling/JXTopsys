@@ -19,7 +19,6 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string OtherAddress { get; set; }
         public string CountyID { get; set; }
         public string NeighborhoodsID { get; set; }
-        public string CommunityID { get; set; }
         public string CountyName { get; set; }
         public string NeighborhoodsName { get; set; }
         public string CommunityName { get; set; }
@@ -31,7 +30,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string LZNumber { get; set; }
         public string DYNumber { get; set; }
         public string HSNumber { get; set; }
-        public string OriginalNumber { get; set; }
+        public string OriginalMPAddress { get; set; }
         public string AddressCoding { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var r = StatisticUtils.GetMPBusinessDatas(PageSize, PageNum, start, end, DistrictID, Window, CreateUser, CertificateType);
+                var r = MPStatisticUtils.GetMPBusinessDatas(PageSize, PageNum, start, end, DistrictID, Window, CreateUser, CertificateType);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -35,7 +35,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var r = StatisticUtils.GetMPProduceStatistic(PageSize, PageNum, Districts, start, end);
+                var r = MPStatisticUtils.GetMPProduceTJ(PageSize, PageNum, Districts, start, end);
                 rt = new RtObj(r);
             }
             catch (Exception ex)

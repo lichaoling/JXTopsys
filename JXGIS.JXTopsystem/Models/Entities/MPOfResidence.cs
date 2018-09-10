@@ -21,10 +21,10 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string AddressCoding { get; set; }
         public string CountyID { get; set; }  //*
         public string NeighborhoodsID { get; set; }  //*
-        public string CommunityID { get; set; }  //*
-        //public string RoadID { get; set; } //*
+        public string CommunityName { get; set; }  //*
         public string MPNumber { get; set; } //*
-        public string ResidenceName { get; set; } //小区名 可为空
+        public string ResidenceID { get; set; } //小区名
+        public string ResidenceName { get; set; } //小区名
         public string Dormitory { get; set; }
         public string LZNumber { get; set; } //没有楼幢时可为空
         public string DYNumber { get; set; } //没有单元时可为空
@@ -61,6 +61,13 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string ApplicantPhone { get; set; }
         public string SBDW { get; set; }
         public DateTime? BZTime { get; set; }
+        public int? AddType { get; set; }//门牌新增方式 0批量 1零星
+        public int? MPProduce { get; set; } //门牌制作 0不制作 1制作
+        public int? MPProduceComplete { get; set; } //门牌制作完成情况 0未完成 1已完成
+        public DateTime? MPProduceCompleteTime { get; set; }//门牌制作完成时间
+        public string PLID { get; set; } //批量导入的一个批次GUID
+        public int? MPZPrintComplete { get; set; }//门牌证是否已打印
+        public int? DZZMPrintComplete { get; set; }//地址证明是否已打印
         public DateTime? CreateTime { get; set; }
         public string CreateUser { get; set; }
         public DateTime? LastModifyTime { get; set; }

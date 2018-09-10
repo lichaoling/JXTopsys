@@ -33,16 +33,16 @@ namespace JXGIS.JXTopsystem.Business
             }
         }
 
-        public static List<District> Districts
-        {
-            get
-            {
-                if (SystemUtils._Districts == null)
-                    lock (_lockObject4)
-                        SystemUtils._Districts = SystemUtils.NewEFDbContext.District.ToList();
-                return SystemUtils._Districts;
-            }
-        }
+        //public static List<District> Districts
+        //{
+        //    get
+        //    {
+        //        if (SystemUtils._Districts == null)
+        //            lock (_lockObject4)
+        //                SystemUtils._Districts = SystemUtils.NewEFDbContext.District.ToList();
+        //        return SystemUtils._Districts;
+        //    }
+        //}
 
         /// <summary>
         /// 调试配置文件地址

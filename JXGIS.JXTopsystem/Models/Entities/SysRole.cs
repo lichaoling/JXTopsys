@@ -12,6 +12,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
     {
         [Key]
         public string RoleID { get; set; }
+        public string Role { get; set; }
         public string RoleName { get; set; }
         public string Window { get; set; }
         public string DistrictID { get; set; }

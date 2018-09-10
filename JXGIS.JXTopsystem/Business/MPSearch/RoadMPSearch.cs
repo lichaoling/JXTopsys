@@ -24,7 +24,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <param name="Name"></param>
         /// <param name="MPNumberType"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> SearchRoadMP(int PageSize, int PageNum, string DistrictID, string RoadName, int MPNumberType, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
+        public static Dictionary<string, object> SearchRoadMP(int PageSize, int PageNum, string DistrictID, string CommunityName, string RoadName, string ShopName, string AddressCoding, string PropertyOwner, string StandardAddress, int MPNumberType, int UseState)
         {
             int count = 0;
             List<RoadMPDetails> data = null;
@@ -40,17 +40,25 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 }
                 var query = q.Where(where.Compile());
 
-                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "1"))
+                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))
                 {
-                    query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
+                    query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID);
                 }
-                if (MPNumberType != 0)
+                if (!string.IsNullOrEmpty(CommunityName))
                 {
-                    query = query.Where(t => t.MPNumberType == MPNumberType);
+                    query = query.Where(t => t.CommunityName == CommunityName);
                 }
                 if (!string.IsNullOrEmpty(RoadName))
                 {
                     query = query.Where(t => t.RoadName.Contains(RoadName));
+                }
+                if (!string.IsNullOrEmpty(ShopName))
+                {
+                    query = query.Where(t => t.ShopName.Contains(ShopName));
+                }
+                if (MPNumberType != 0)
+                {
+                    query = query.Where(t => t.MPNumberType == MPNumberType);
                 }
                 if (!string.IsNullOrEmpty(AddressCoding))
                 {
@@ -76,31 +84,48 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                     query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
                 data = (from t in query
-                        join a in SystemUtils.Districts
-                        on t.CountyID equals a.ID into aa
-                        from at in aa.DefaultIfEmpty()
-
-                        join b in SystemUtils.Districts
-                        on t.NeighborhoodsID equals b.ID into bb
-                        from bt in bb.DefaultIfEmpty()
-
-                        join c in SystemUtils.Districts
-                        on t.CommunityID equals c.ID into cc
-                        from ct in cc.DefaultIfEmpty()
                         select new RoadMPDetails
                         {
                             ID = t.ID,
-                            CountyName = at == null || at.Name == null ? null : at.Name,
-                            NeighborhoodsName = bt == null || bt.Name == null ? null : bt.Name,
-                            CommunityName = ct == null || ct.Name == null ? null : ct.Name,
+                            AddressCoding = t.AddressCoding,
+                            CountyID = t.CountyID,
+                            CountyName = t.CountyID.Split('.').Last(),
+                            NeighborhoodsID = t.NeighborhoodsID,
+                            NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
+                            CommunityName = t.CommunityName,
                             RoadName = t.RoadName,
-                            MPNumber = t.MPNumber,
-                            OriginalNumber = t.OriginalNumber,
-                            PropertyOwner = t.PropertyOwner,
                             ShopName = t.ShopName,
+                            RoadStart = t.RoadStart,
+                            RoadEnd = t.RoadEnd,
+                            BZRules = t.BZRules,
+                            ResidenceName = t.ResidenceName,
+                            MPNumberRange = t.MPNumberRange,
+                            MPNumber = t.MPNumber,
                             ReservedNumber = t.ReservedNumber,
+                            OriginalMPAddress = t.OriginalMPAddress,
+                            MPSize = t.MPSize,
+                            LXMPProduce = t.LXMPProduce,
+                            LXMPProduceComplete = t.LXMPProduceComplete,
+                            PLID = t.PLID,
+                            PLMPProduceComplete = t.PLMPProduceComplete,
+                            MPMail = t.MPMail,
+                            MailAddress = t.MailAddress,
+                            Postcode = t.Postcode,
+                            PropertyOwner = t.PropertyOwner,
+                            IDType = t.IDType,
+                            IDNumber = t.IDNumber,
+                            StandardAddress = t.StandardAddress,
+                            FCZAddress = t.FCZAddress,
+                            FCZNumber = t.FCZNumber,
+                            TDZAddress = t.TDZAddress,
+                            TDZNumber = t.TDZNumber,
+                            YYZZAddress = t.YYZZAddress,
+                            YYZZNumber = t.YYZZNumber,
+                            OtherAddress = t.OtherAddress,
+                            Applicant = t.Applicant,
+                            ApplicantPhone = t.ApplicantPhone,
+                            SBDW = t.SBDW,
                             BZTime = t.BZTime,
-                            CreateTime = t.CreateTime,
                             Lat = t.MPPosition == null ? null : t.MPPosition.Latitude,
                             Lng = t.MPPosition == null ? null : t.MPPosition.Longitude
                         }).ToList();
@@ -120,61 +145,53 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                string sql = $@"SELECT a.[ID]
-                          ,a.[AddressCoding]
-                          ,a.[CountyID]
-                          ,d.Name CountyName
-                          ,a.[NeighborhoodsID]
-                          ,e.Name NeighborhoodsName
-                          ,a.[CommunityID]
-                          ,f.Name CommunityName
-                          ,a.[RoadName]
-                          ,b.RoadStart
-                          ,b.RoadEnd
-                          ,b.MPRules
-                          ,a.[ShopName]
-                          ,a.[ResidenceName]
-                          ,a.[MPNumberRange]
-                          ,a.[MPNumber]
-                          ,a.[MPNumberType]
-                          ,a.[MPPosition].Lat Lat
-                          ,a.[MPPosition].Long Lng
-                          ,a.[ReservedNumber]
-                          ,a.[OriginalNumber]
-                          ,a.[MPSize]
-                          ,a.[MPProduce]
-                          ,a.[MPMail]
-                          ,a.[MailAddress]
-                          ,a.[Postcode]
-                          ,a.[PropertyOwner]
-                          ,a.[IDType]
-                          ,a.[IDNumber]
-                          ,a.[StandardAddress]
-                          ,a.[FCZAddress]
-                          ,a.[FCZNumber]
-                          ,a.[TDZAddress]
-                          ,a.[TDZnumber]
-                          ,a.[YYZZAddress]
-                          ,a.[YYZZNumber]
-                          ,a.[OtherAddress]
-                          ,a.[Applicant]
-                          ,a.[ApplicantPhone]
-                          ,a.[SBDW]
-                          ,a.[BZTime]
-                          ,a.[CreateTime]
-                          ,a.[CreateUser]
-                          ,a.[LastModifyTime]
-                          ,a.[LastModifyUser]
-                          ,a.[State]
-                          ,a.[CancelTime]
-                          ,a.[CancelUser]
-                      FROM [TopSystemDB].[dbo].[MPOFROAD] a
-                      left join [TopSystemDB].[dbo].[ROADDIC] b on a.RoadName=b.RoadName
-                      left join [TopSystemDB].[dbo].[DISTRICT] d on a.CountyID=d.ID
-                      left join [TopSystemDB].[dbo].[DISTRICT] e on a.NeighborhoodsID=e.ID
-                      left join [TopSystemDB].[dbo].[DISTRICT] f on a.CommunityID=f.ID
-                      where a.State=1 and a.ID='{MPID}'";
-                var query = SystemUtils.NewEFDbContext.Database.SqlQuery<RoadMPDetails>(sql).FirstOrDefault();
+                var query = (from t in dbContext.MPOfRoad
+                             where t.State == Enums.UseState.Enable && t.ID == MPID
+                             select new RoadMPDetails
+                             {
+                                 ID = t.ID,
+                                 AddressCoding = t.AddressCoding,
+                                 CountyID = t.CountyID,
+                                 CountyName = t.CountyID.Split('.').Last(),
+                                 NeighborhoodsID = t.NeighborhoodsID,
+                                 NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
+                                 CommunityName = t.CommunityName,
+                                 RoadName = t.RoadName,
+                                 ShopName = t.ShopName,
+                                 RoadStart = t.RoadStart,
+                                 RoadEnd = t.RoadEnd,
+                                 BZRules = t.BZRules,
+                                 ResidenceName = t.ResidenceName,
+                                 MPNumberRange = t.MPNumberRange,
+                                 MPNumber = t.MPNumber,
+                                 ReservedNumber = t.ReservedNumber,
+                                 OriginalMPAddress = t.OriginalMPAddress,
+                                 MPSize = t.MPSize,
+                                 LXMPProduce = t.LXMPProduce,
+                                 LXMPProduceComplete = t.LXMPProduceComplete,
+                                 PLID = t.PLID,
+                                 PLMPProduceComplete = t.PLMPProduceComplete,
+                                 MPMail = t.MPMail,
+                                 MailAddress = t.MailAddress,
+                                 Postcode = t.Postcode,
+                                 PropertyOwner = t.PropertyOwner,
+                                 IDType = t.IDType,
+                                 IDNumber = t.IDNumber,
+                                 StandardAddress = t.StandardAddress,
+                                 FCZAddress = t.FCZAddress,
+                                 FCZNumber = t.FCZNumber,
+                                 TDZAddress = t.TDZAddress,
+                                 TDZNumber = t.TDZNumber,
+                                 YYZZAddress = t.YYZZAddress,
+                                 YYZZNumber = t.YYZZNumber,
+                                 OtherAddress = t.OtherAddress,
+                                 Applicant = t.Applicant,
+                                 ApplicantPhone = t.ApplicantPhone,
+                                 SBDW = t.SBDW,
+                                 BZTime = t.BZTime,
+                                 Lat = t.MPPosition == null ? null : t.MPPosition.Latitude,
+                                 Lng = t.MPPosition == null ? null : t.MPPosition.Longitude
+                             }).FirstOrDefault();
                 if (query == null)
                     throw new Exception("该门牌已经被注销！");
 
@@ -231,9 +248,9 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
         /// <param name="Name"></param>
         /// <param name="MPNumberType"></param>
         /// <returns></returns>
-        public static MemoryStream ExportRoadMP(string DistrictID, string RoadName, int MPNumberType, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
+        public static MemoryStream ExportRoadMP(string DistrictID, string CommunityName, string RoadName, string ShopName, string AddressCoding, string PropertyOwner, string StandardAddress, int MPNumberType, int UseState)
         {
-            Dictionary<string, object> dict = SearchRoadMP(-1, -1, DistrictID, RoadName, MPNumberType, AddressCoding, PropertyOwner, StandardAddress, UseState);
+            Dictionary<string, object> dict = SearchRoadMP(-1, -1, DistrictID, CommunityName, RoadName, ShopName, AddressCoding, PropertyOwner, StandardAddress, MPNumberType, UseState);
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
@@ -258,16 +275,39 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             styleData.Borders[BorderType.BottomBorder].LineStyle = CellBorderType.Thin;
 
             List<ExcelFields> Fields = new List<ExcelFields> {
+                new ExcelFields() { Field="地址编码",Alias="AddressCoding"},
                 new ExcelFields() { Field="市辖区",Alias="CountyName"},
                 new ExcelFields() { Field="镇街道",Alias="NeighborhoodsName"},
                 new ExcelFields() { Field="村社区",Alias="CommunityName"},
                 new ExcelFields() { Field="道路名称",Alias="RoadName"},
-                new ExcelFields() { Field="门牌号码",Alias="MPNumber"},
-                new ExcelFields() { Field="原门牌号码",Alias="OriginalNumber"},
-                new ExcelFields() { Field="产权人",Alias="PropertyOwner"},
                 new ExcelFields() { Field="商铺名称",Alias="ShopName"},
-                new ExcelFields() { Field="预留号段",Alias="ReservedNumber"},
-                new ExcelFields() { Field="编制日期",Alias="BZTime"},
+                new ExcelFields() { Field="道路起点",Alias="RoadStart"},
+                new ExcelFields() { Field="道路讫点",Alias="RoadEnd"},
+                new ExcelFields() { Field="编制规则",Alias="BZRules"},
+                new ExcelFields() { Field="小区名称",Alias="ResidenceName"},
+                new ExcelFields() { Field="门牌区段",Alias="MPNumberRange"},
+                new ExcelFields() { Field="门牌号",Alias="MPNumber"},
+                new ExcelFields() { Field="预留号",Alias="ReservedNumber"},
+                new ExcelFields() { Field="原门牌地址",Alias="OriginalMPAddress"},
+                new ExcelFields() { Field="门牌规格",Alias="MPSize"},
+                new ExcelFields() { Field="邮寄地址",Alias="MailAddress"},
+                new ExcelFields() { Field="邮政编码",Alias="MailAddress"},
+                new ExcelFields() { Field="产权人",Alias="PropertyOwner"},
+                new ExcelFields() { Field="证件类型",Alias="IDType"},
+                new ExcelFields() { Field="证件号",Alias="IDNumber"},
+                new ExcelFields() { Field="房产证地址",Alias="FCZAddress"},
+                new ExcelFields() { Field="房产证号",Alias="FCZNumber"},
+                new ExcelFields() { Field="土地证地址",Alias="TDZAddress"},
+                new ExcelFields() { Field="土地证号",Alias="TDZNumber"},
+                new ExcelFields() { Field="营业执照地址",Alias="YYZZAddress"},
+                new ExcelFields() { Field="营业执照号",Alias="YYZZNumber"},
+                new ExcelFields() { Field="其他地址",Alias="OtherAddress"},
+                new ExcelFields() { Field="申请人",Alias="Applicant"},
+                new ExcelFields() { Field="联系电话",Alias="ApplicantPhone"},
+                new ExcelFields() { Field="申办单位",Alias="SBDW"},
+                new ExcelFields() { Field="编制时间",Alias="BZTime"},
+                new ExcelFields() { Field="纬度",Alias="Lat"},
+                new ExcelFields() { Field="经度",Alias="Lng"},
             };
             //写入表头
             for (int i = 0, l = Fields.Count; i < l; i++)

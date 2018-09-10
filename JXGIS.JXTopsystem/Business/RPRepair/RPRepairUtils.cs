@@ -34,11 +34,8 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 {
                     rpRepairInfo.FinishRepaireTime = rpRepairInfo.FinishRepaireTime == null ? DateTime.Now.Date : rpRepairInfo.FinishRepaireTime;
                     rpRepairInfo.FinishRepaireUser = LoginUtils.CurrentUser.UserName;
-                    var unfinishCount= dbContext.RPRepair.Where(t => t.RPID == query.ID).Where(t => t.IsFinish == Enums.RPRepairFinish.No).ToList();
-                    query.FinishRepaire= unfinishCount.Count() > 0 ? Enums.RPRepairFinish.No : Enums.RPRepairFinish.Yes;
-
-                    //上传维修后的照片
-                    //......
+                    var unfinishCount = dbContext.RPRepair.Where(t => t.RPID == query.ID).Where(t => t.IsFinish == Enums.RPRepairFinish.No).ToList();
+                    query.FinishRepaire = unfinishCount.Count() > 0 ? Enums.RPRepairFinish.No : Enums.RPRepairFinish.Yes;
                 }
                 else  //如果是维修或更换
                 {
@@ -51,22 +48,35 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                     }
                     if (repairMode == Enums.RPRepairMode.Repair)  //维修
                     {
-                        
-                    }
 
+                    }
                     query.RepairedCount++;
                     query.FinishRepaire = Enums.RPRepairFinish.No;
                     rpRepairInfo.ID = Guid.NewGuid().ToString();
                     rpRepairInfo.RPID = query.ID;
+                    AddRPRepairContent(rpRepairInfo.RepairContent);
                     rpRepairInfo.RepairTime = rpRepairInfo.RepairTime == null ? DateTime.Now.Date : rpRepairInfo.RepairTime;
                     rpRepairInfo.RepairUser = LoginUtils.CurrentUser.UserName;
                     rpRepairInfo.IsFinish = Enums.RPRepairFinish.No;
                     dbContext.RPRepair.Add(rpRepairInfo);
-
-                    //上传维修前的照片
-                    //......
                 }
                 dbContext.SaveChanges();
+            }
+        }
+
+        public static void AddRPRepairContent(string content)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var data = dbContext.RPRepairContent.Where(t => t.RepairContent == content);
+                if (data.Count() == 0)
+                {
+                    RPRepairContent d = new Models.Entities.RPRepairContent();
+                    d.ID = Guid.NewGuid().ToString(); ;
+                    d.RepairContent = content;
+                    dbContext.RPRepairContent.Add(d);
+                    dbContext.SaveChanges();
+                }
             }
         }
     }

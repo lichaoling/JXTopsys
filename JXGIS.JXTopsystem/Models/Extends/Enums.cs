@@ -18,7 +18,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const int NO = 0;
             public const int Yes = 1;
         };
-        public static class MPProduceComplete
+        public static class Complete
         {
             public const int NO = 0;
             public const int Yes = 1;
@@ -28,17 +28,25 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const int Yes = 1;
             public const int No = 0;
         }
-        public static class Type
+        public static class MPAddType
+        {
+            public const int LX = 1;
+            public const int PL = 0;
+        }
+        public static class TypeStr
         {
             public const string MP = "MP";
             public const string RP = "RP";
             public const string RPRepair = "RPRepair";
         }
-        public static class MPType
+
+        public static class TypeInt
         {
             public const int Residence = 1;
             public const int Road = 2;
             public const int Country = 3;
+            public const int Community = 4;
+            public const int RP = 5;
             public const int All = 0;
         }
         public static class RPRepairType
@@ -84,6 +92,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         {
             public const int Odd = 1;
             public const int Even = 2;
+            public const int Other = 3;
         }
         public static class RPRepairMode
         {

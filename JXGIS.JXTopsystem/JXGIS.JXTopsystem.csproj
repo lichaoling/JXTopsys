@@ -140,25 +140,30 @@
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Web.config" />
-    <Content Include="需求.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Business\Common\DictUtils.cs" />
+    <Compile Include="Business\Common\BaseUtils.cs" />
+    <Compile Include="Business\Common\DicUtils.cs" />
     <Compile Include="Business\Common\DistrictUtils.cs" />
     <Compile Include="Business\Common\EFExtend.cs" />
     <Compile Include="Business\Common\ObjectReflection.cs" />
+    <Compile Include="Business\Common\PictureUtils.cs" />
     <Compile Include="Business\Common\RoadUtils.cs" />
     <Compile Include="Business\Login\LoginUtils.cs" />
     <Compile Include="Business\Login\RSACryptoService.cs" />
     <Compile Include="Business\Login\SecurityUtils.cs" />
-    <Compile Include="Business\MPBusinessStatistic\StatisticUtils.cs" />
-    <Compile Include="Business\MPModify\MPCertificateUtils.cs" />
+    <Compile Include="Business\MPBusinessStatistic\MPStatisticUtils.cs" />
+    <Compile Include="Business\MPModify\CountryMPModify.cs" />
+    <Compile Include="Business\MPModify\MPPrintUtils.cs" />
     <Compile Include="Business\MPModify\MPModifyUtils.cs" />
+    <Compile Include="Business\MPModify\ResidenceMPModify.cs" />
+    <Compile Include="Business\MPModify\RoadMPModify.cs" />
     <Compile Include="Business\MPProduce\MPProduceUtils.cs" />
     <Compile Include="Business\MPSearch\CountryMPSearch.cs" />
     <Compile Include="Business\MPSearch\ResidenceMPSearch.cs" />
     <Compile Include="Business\MPSearch\RoadMPSearch.cs" />
+    <Compile Include="Business\RPBusinessStatistic\RPStatisticUtils.cs" />
     <Compile Include="Business\RPModify\RPMpdifyUtils.cs" />
     <Compile Include="Business\RPRepair\RPRepairUtils.cs" />
     <Compile Include="Business\RPSearch\RPSearchUtils.cs" />
@@ -175,6 +180,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\CommunityDic.cs" />
+    <Compile Include="Models\Entities\DirectionDic.cs" />
     <Compile Include="Models\Entities\District.cs" />
     <Compile Include="Models\Entities\DMBZDic.cs" />
     <Compile Include="Models\Entities\MPOfCertificate.cs" />
@@ -182,11 +189,14 @@
     <Compile Include="Models\Entities\MPOfResidence.cs" />
     <Compile Include="Models\Entities\MPOfRoad.cs" />
     <Compile Include="Models\Entities\PostcodeDic.cs" />
+    <Compile Include="Models\Entities\ResidenceDic.cs" />
     <Compile Include="Models\Entities\RPBZDic.cs" />
     <Compile Include="Models\Entities\MPOfUploadFiles.cs" />
     <Compile Include="Models\Entities\RPPeparUploadFiles.cs" />
     <Compile Include="Models\Entities\RPOfUploadFiles.cs" />
-    <Compile Include="Models\Entities\MPProduce.cs" />
+    <Compile Include="Models\Entities\RPRepairContent.cs" />
+    <Compile Include="Models\Extends\PLMPProduceList.cs" />
+    <Compile Include="Models\Extends\MPProduce.cs" />
     <Compile Include="Models\Entities\Road.cs" />
     <Compile Include="Models\Entities\RP.cs" />
     <Compile Include="Models\Entities\RPRepair.cs" />
@@ -194,6 +204,7 @@
     <Compile Include="Models\Entities\SysRole.cs" />
     <Compile Include="Models\Entities\SysUser.cs" />
     <Compile Include="Models\Entities\SysUser_SysRole.cs" />
+    <Compile Include="Models\Entities\ViligeDic.cs" />
     <Compile Include="Models\Extends\CountryMPDetails.cs" />
     <Compile Include="Models\Extends\CountryMPErrors.cs" />
     <Compile Include="Models\Extends\Enums.cs" />
@@ -202,7 +213,7 @@
     <Compile Include="Models\Extends\MPBusiness.cs" />
     <Compile Include="Models\Extends\MPCertificate.cs" />
     <Compile Include="Models\Extends\MPErrors.cs" />
-    <Compile Include="Models\Extends\MPProduceList.cs" />
+    <Compile Include="Models\Extends\LXMPProduceList.cs" />
     <Compile Include="Models\Extends\MPProduceStatistic.cs" />
     <Compile Include="Models\Extends\ResidenceMPErrors.cs" />
     <Compile Include="Models\Extends\ResidenceMP.cs" />
@@ -236,6 +247,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="需求2018.9.5.docx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,7 +30,7 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
-        public ContentResult SaveAndGetProduceMPList(int PageSize, int PageNum, List<MPProduceList> mps)
+        public ContentResult SaveAndGetProduceMPList(int PageSize, int PageNum, List<LXMPProduceList> mps)
         {
             RtObj rt = null;
             try

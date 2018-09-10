@@ -5,12 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace JXGIS.JXTopsystem.Models.Entities
+namespace JXGIS.JXTopsystem.Models.Extends
 {
-    [Table("MPPRODUCE")]
-    public class MPProduce
+    public class MPProduceTJ
     {
-        [Key]
         public string ID { get; set; }
         public string CountyID { get; set; }
         public string NeighborhoodsID { get; set; }

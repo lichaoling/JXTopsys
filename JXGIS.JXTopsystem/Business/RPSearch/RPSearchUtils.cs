@@ -3,6 +3,7 @@ using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -24,16 +25,19 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                     where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                 }
                 var query = q.Where(where.Compile());
+
                 //行政区划筛选
-                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "1"))
+                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))
                 {
-                    query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID || t.CommunityID == DistrictID);
+                    query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID);
                 }
+
                 //交叉路口筛选
                 if (!string.IsNullOrEmpty(Intersection))
                 {
                     query = query.Where(t => t.Intersection.Contains(Intersection));
                 }
+
                 //样式筛选
                 if (!string.IsNullOrEmpty(Model))
                 {
@@ -94,26 +98,14 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 }
 
                 data = (from t in query
-                        join a in SystemUtils.Districts
-                        on t.CountyID equals a.ID into aa
-                        from at in aa.DefaultIfEmpty()
-
-                        join b in SystemUtils.Districts
-                        on t.NeighborhoodsID equals b.ID into bb
-                        from bt in bb.DefaultIfEmpty()
-
-                        join c in SystemUtils.Districts
-                        on t.CommunityID equals c.ID into cc
-                        from ct in cc.DefaultIfEmpty()
                         select new RPDetails
                         {
                             ID = t.ID,
                             CountyID = t.CountyID,
                             NeighborhoodsID = t.NeighborhoodsID,
-                            CommunityID = t.CommunityID,
-                            CountyName = at == null || at.Name == null ? null : at.Name,
-                            NeighborhoodsName = bt == null || bt.Name == null ? null : bt.Name,
-                            CommunityName = ct == null || ct.Name == null ? null : ct.Name,
+                            CountyName = t.CountyID.Split('.').Last(),
+                            NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
+                            CommunityName = t.CommunityName,
                             RoadName = t.RoadName,
                             Intersection = t.Intersection,
                             Direction = t.Direction,
@@ -121,12 +113,12 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                             CreateTime = t.CreateTime,
                             RepairedCount = t.RepairedCount
                         }).ToList();
+
                 //关联路牌照片 重组url
                 List<RPDetails> rt = new List<RPDetails>();
                 foreach (var d in data)
                 {
-                    RPDetails r = new RPDetails();
-                    r = d;
+                    var baseUrl = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.BZPhoto, d.ID);
                     var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == d.ID);
                     if (files.Count() > 0)
                     {
@@ -135,47 +127,52 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                                        {
                                            pid = t.ID,
                                            name = t.Name,
-                                           url = "Files/RP/" + d.ID + "/" + t.ID + t.FileEx
+                                           url = baseUrl + "/" + t.ID + t.FileEx,
+                                           turl = baseUrl + "/t-" + t.ID + t.FileEx
                                        }).ToList();
-                        r.Files = filelst;
+                        d.RPBZPhoto = filelst;
                     }
-                    r.CodeFile = "Files/RP/CodeFile/" + d.ID + ".jpg";
-                    rt.Add(r);
+                    rt.Add(d);
                 }
 
                 return new Dictionary<string, object> {
                    { "Data",rt},
                    { "Count",count}
                 };
-
             }
         }
 
-        public static RPDetails SearchRPByID(string ID)
+        public static RPDetails SearchRPByID(string RPID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var data = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault() as RPDetails;
+                var data = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == RPID).FirstOrDefault() as RPDetails;
                 if (data == null)
                     throw new Exception("该路牌已经被注销！");
 
-                var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == ID);
+                var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == RPID);
+                var baseUrl_QRCode = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.QRCode);
                 if (files.Count() > 0)
                 {
+                    var baseUrl_BZ = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.BZPhoto, RPID);
 
                     var filelst = (from t in files
                                    select new Pictures
                                    {
                                        pid = t.ID,
                                        name = t.Name,
-                                       url = "Files/RP/" + ID + "/" + t.ID + t.FileEx
+                                       url = baseUrl_BZ + "/" + t.ID + t.FileEx,
+                                       turl = baseUrl_BZ + "/t-" + t.ID + t.FileEx
                                    }).ToList();
-                    data.Files = filelst;
+                    data.RPBZPhoto = filelst;
                 }
-                data.CodeFile = "Files/RP/CodeFile/" + ID + ".jpg";
-                data.CountyName = SystemUtils.Districts.Where(t => t.ID == data.CountyID).Select(t => t.Name).FirstOrDefault();
-                data.NeighborhoodsName = SystemUtils.Districts.Where(t => t.ID == data.NeighborhoodsID).Select(t => t.Name).FirstOrDefault();
-                data.CommunityName = SystemUtils.Districts.Where(t => t.ID == data.CommunityID).Select(t => t.Name).FirstOrDefault();
+                data.CodeFile = new Pictures()
+                {
+                    url = baseUrl_QRCode + "/" + data.Code + ".jpg",
+                    turl = baseUrl_QRCode + "/t-" + data.Code + ".jpg",
+                };
+                data.CountyName = data.CountyID.Split('.').Last();
+                data.NeighborhoodsName = data.NeighborhoodsID.Split('.').Last();
                 return data;
             }
         }
