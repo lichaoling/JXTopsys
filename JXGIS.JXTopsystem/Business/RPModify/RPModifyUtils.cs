@@ -2,21 +2,22 @@
 using JXGIS.JXTopsystem.Models;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using QRCoder;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
 
 namespace JXGIS.JXTopsystem.Business.RPModify
 {
-    public class RPMpdifyUtils
+    public class RPModifyUtils
     {
         public static void ModifyRP(RP newData, string oldDataJson)
         {
-           
-
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 #region 新增
@@ -27,8 +28,8 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                         throw new Exception("无权操作其他镇街数据！");
                     #endregion
                     #region 地址编码前10位拼接
-                    var CountyCode = dbContext.District.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = dbContext.District.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                     var year = DateTime.Now.Year.ToString();
                     var AddressCoding = CountyCode + NeighborhoodsCode + year;
                     #endregion
@@ -59,6 +60,26 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     newData.State = Enums.UseState.Enable;
                     newData.CreateTime = DateTime.Now.Date;
                     newData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    //生成二维码图和缩略图
+                    newData.Code = dbContext.RP.Max(t => t.Code) + 1;
+                    string strCode = "http://www.walys.com";
+                    QRCodeGenerator qrGenerator = new QRCoder.QRCodeGenerator();
+                    QRCodeData qrCodeData = qrGenerator.CreateQrCode(strCode, QRCodeGenerator.ECCLevel.Q);
+                    QRCode qrcode = new QRCode(qrCodeData);
+                    Bitmap qrCodeImage = qrcode.GetGraphic(5, Color.Black, Color.White, null, 15, 6, false);
+                    Image img = qrCodeImage;
+                    string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files", Enums.TypeStr.RP, Enums.RPFileType.QRCode);
+                    string fileName = newData.Code + ".jpg";
+                    string fileNameThum = "t-" + newData.Code + ".jpg";
+                    string path = Path.Combine(filePath, fileName);
+                    string pathThum = Path.Combine(filePath, fileNameThum);
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    qrCodeImage.Save(path);
+                    Image imgThum = PictureUtils.GetHvtThumbnail(img, 200);
+                    imgThum.Save(pathThum);
                     dbContext.RP.Add(newData);
                 }
                 #endregion
@@ -97,7 +118,8 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     targetData.Position = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.Position;
                     targetData.LastModifyTime = DateTime.Now.Date;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
-                   
+
+                    BaseUtils.UpdateAddressCode(null, null, null, targetData, Enums.TypeInt.RP);
                 }
                 #endregion
                 dbContext.SaveChanges();

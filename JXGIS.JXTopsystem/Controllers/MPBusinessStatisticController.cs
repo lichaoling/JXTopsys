@@ -13,12 +13,12 @@ namespace JXGIS.JXTopsystem.Controllers
     public class MPBusinessStatisticController : Controller
     {
         // GET: MPBusinessStatistic
-        public ContentResult GetMPBusinessDatas(int PageSize, int PageNum, string start, string end, string DistrictID, string Window, string CreateUser, int CertificateType = Enums.CertificateType.All)
+        public ContentResult GetMPBusinessUserTJ(int PageSize, int PageNum, string start, string end, string Window, string CreateUser, int CertificateType = Enums.CertificateType.All)
         {
             RtObj rt = null;
             try
             {
-                var r = MPStatisticUtils.GetMPBusinessDatas(PageSize, PageNum, start, end, DistrictID, Window, CreateUser, CertificateType);
+                var r = MPStatisticUtils.GetMPBusinessUserTJ(PageSize, PageNum, start, end, Window, CreateUser, CertificateType);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -30,12 +30,31 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        public ContentResult GetMPProduceStatistic(int PageSize, int PageNum, string Districts, string start, string end)
+
+        public ContentResult GetMPBusinessNumTJ(int PageSize, int PageNum, string start, string end, string DistrictID, int CertificateType = Enums.CertificateType.All)
         {
             RtObj rt = null;
             try
             {
-                var r = MPStatisticUtils.GetMPProduceTJ(PageSize, PageNum, Districts, start, end);
+                var r = MPStatisticUtils.GetMPBusinessNumTJ(PageSize, PageNum, start, end, DistrictID, CertificateType);
+                rt = new RtObj(r);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
+            return Content(s);
+        }
+
+        public ContentResult GetMPProduceTJ(int PageSize, int PageNum, string DistrictID)
+        {
+            RtObj rt = null;
+            try
+            {
+                var r = MPStatisticUtils.GetMPProduceTJ(PageSize, PageNum, DistrictID);
                 rt = new RtObj(r);
             }
             catch (Exception ex)

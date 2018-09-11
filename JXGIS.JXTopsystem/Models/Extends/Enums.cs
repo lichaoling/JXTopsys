@@ -22,6 +22,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         {
             public const int NO = 0;
             public const int Yes = 1;
+            public const int All = 2;
         };
         public static class MPMail
         {
@@ -98,6 +99,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         {
             public const int Repair = 1;
             public const int Change = 2;
+            public const int All = 3;
         }
     }
 }

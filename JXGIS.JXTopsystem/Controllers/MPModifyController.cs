@@ -158,24 +158,6 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(rt);
         }
         #endregion
-        /// <summary>
-        /// 获取GUID
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult GetGUID()
-        {
-            RtObj rt = null;
-            try
-            {
-                var guid = MPModifyUtils.GetGUID();
-                rt = new RtObj(guid);
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            return Json(rt);
-        }
 
         #region 地名证明和门牌证打印
         public JsonResult MPCertificatePrint(List<string> IDs, int MPType, int CertificateType)

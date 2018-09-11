@@ -1,5 +1,4 @@
-﻿using JXGIS.JXTopsystem.Business.RPSearch;
-using JXGIS.JXTopsystem.Models.Extends;
+﻿using JXGIS.JXTopsystem.Business.RPBusinessStatistic;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
 using System;
@@ -10,14 +9,14 @@ using System.Web.Mvc;
 
 namespace JXGIS.JXTopsystem.Controllers
 {
-    public class RPSearchController : Controller
+    public class RPBusinessStatisticController : Controller
     {
-        public ContentResult SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, string start, string end, int UseState=Enums.UseState.Enable)
+        public ContentResult GetRPNumTJ(int PageSize, int PageNum, string start, string end, string DistrictID, string CommunityName, string RoadName, string Model, string Material, string Size)
         {
             RtObj rt = null;
             try
             {
-                var r = RPSearchUtils.SearchRP(PageSize, PageNum, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, UseState);
+                var r = RPStatisticUtils.GetRPNumTJ(PageSize, PageNum, start, end, DistrictID, CommunityName, RoadName, Model, Material, Size);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -29,13 +28,12 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-
-        public ContentResult SearchRPByID(string RPID)
+        public ContentResult GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, int RepairMode, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, string FinishTimeStart, string FinishTimeEnd)
         {
             RtObj rt = null;
             try
             {
-                var r = RPSearchUtils.SearchRPByID(RPID);
+                var r = RPStatisticUtils.GetRPRepairTJ(PageSize, PageNum, DistrictID, CommunityName, RepairMode, RepairedCount, RepairParts, RepairContent, RepairFactory, isFinishRepair, FinishTimeStart, FinishTimeEnd);
                 rt = new RtObj(r);
             }
             catch (Exception ex)

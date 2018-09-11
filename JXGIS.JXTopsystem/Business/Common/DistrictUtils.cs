@@ -20,7 +20,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var districts = dbContext.District.Select(t => new DistrictNode()
+                var districts = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Select(t => new DistrictNode()
                 {
                     ID = t.ID,
                     PID = t.ParentID,
@@ -47,7 +47,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 {
                     foreach (var districtID in districtIDs)
                     {
-                        var query1 = dbContext.District.Where(t => t.ID.IndexOf(districtID + ".") == 0).ToList();
+                        var query1 = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID.IndexOf(districtID + ".") == 0).ToList();
                         districtTree.AddRange(query1);
 
                         var ids = districtID.Split('.');
@@ -55,7 +55,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                         foreach (var id in ids)
                         {
                             concat = (concat + '.' + id).Trim('.');
-                            var query2 = dbContext.District.Where(t => t.ID == concat).ToList();
+                            var query2 = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == concat).ToList();
                             districtTree.AddRange(query2);
                         }
                     }
@@ -194,6 +194,60 @@ namespace JXGIS.JXTopsystem.Business.Common
                     n.SubDistrict = leafs;
                     GetLeaf(leafs, all);
                 }
+            }
+        }
+
+        public static void AddCounty(string CountyName, string Code)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                District dis = new District();
+                dis.ID = $"嘉兴市.{CountyName}";
+                dis.ParentID = "嘉兴市";
+                dis.Code = Code;
+                dis.Name = CountyName;
+                dis.State = Enums.UseState.Enable;
+                dbContext.District.Add(dis);
+                dbContext.SaveChanges();
+            }
+        }
+        public static void AddNeighborhoods(string CountyName, string NeighborhoodsName, string Code)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                District dis = new District();
+                dis.ID = $"嘉兴市.{CountyName}.{NeighborhoodsName}";
+                dis.ParentID = $"嘉兴市.{CountyName}";
+                dis.Code = Code;
+                dis.Name = NeighborhoodsName;
+                dis.State = Enums.UseState.Enable;
+                dbContext.District.Add(dis);
+                dbContext.SaveChanges();
+            }
+        }
+        public static void DeleteCounty(string CountyName)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var County = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Name == CountyName).First();
+                if (County == null)
+                    throw new Exception("该县区已经被删除！");
+                County.State = Enums.UseState.Cancel;
+                var neighbors = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ParentID == "嘉兴市." + CountyName).ToList();
+                foreach (var n in neighbors)
+                    n.State = Enums.UseState.Cancel;
+                dbContext.SaveChanges();
+            }
+        }
+        public static void DeleteNeighborhoods(string NeighborhoodsName)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var neighbor = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Name == NeighborhoodsName).First();
+                if (neighbor == null)
+                    throw new Exception("该乡镇已经被删除！");
+                neighbor.State = Enums.UseState.Cancel;
+                dbContext.SaveChanges();
             }
         }
         #endregion

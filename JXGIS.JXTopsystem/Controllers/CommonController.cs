@@ -71,14 +71,8 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-        /// <summary>
-        /// 根据获取类型从当前表中获取社区名称
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="NeighborhoodsID"></param>
-        /// <returns></returns>
 
-        public JsonResult CheckPermission(string CommunityID)
+        public ContentResult CheckPermission(string CommunityID)
         {
             RtObj rt = null;
             try
@@ -86,6 +80,64 @@ namespace JXGIS.JXTopsystem.Controllers
 
                 var isVisible = DistrictUtils.CheckPermission(CommunityID);
                 rt = new RtObj(isVisible);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        public JsonResult AddCounty(string CountyName, string Code)
+        {
+            RtObj rt = null;
+            try
+            {
+                DistrictUtils.AddCounty(CountyName, Code);
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
+        public JsonResult AddNeighborhoods(string CountyName, string NeighborhoodsName, string Code)
+        {
+            RtObj rt = null;
+            try
+            {
+                DistrictUtils.AddNeighborhoods(CountyName, NeighborhoodsName, Code);
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
+        public JsonResult DeleteCounty(string CountyName)
+        {
+            RtObj rt = null;
+            try
+            {
+                DistrictUtils.DeleteCounty(CountyName);
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
+
+        public JsonResult DeleteNeighborhoods(string NeighborhoodsName)
+        {
+            RtObj rt = null;
+            try
+            {
+                DistrictUtils.DeleteNeighborhoods(NeighborhoodsName);
+                rt = new RtObj();
             }
             catch (Exception ex)
             {
@@ -102,7 +154,21 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 var data = DicUtils.GetDMBZ();
                 rt = new RtObj(data);
-
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        public ContentResult GetMPType()
+        {
+            RtObj rt = null;
+            try
+            {
+                var data = DicUtils.GetMPType();
+                rt = new RtObj(data);
             }
             catch (Exception ex)
             {
@@ -118,7 +184,6 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 var sizes = DicUtils.GetMPSizeByMPType(mpType);
                 rt = new RtObj(sizes);
-
             }
             catch (Exception ex)
             {
@@ -177,6 +242,21 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        public ContentResult GetPostcodes(int PageSize, int PageNum)
+        {
+            RtObj rt = null;
+            try
+            {
+                var result = DicUtils.GetPostcodes(PageSize, PageNum);
+                rt = new RtObj(result);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
         #endregion 邮编
 
         #region 道路字典
@@ -188,8 +268,8 @@ namespace JXGIS.JXTopsystem.Controllers
                 var names = new List<string>();
                 if (type == Enums.TypeInt.Residence)
                     names = DicUtils.getResidenceNamesFromData(CountyID, NeighborhoodsID, CommunityName);
-                else if (type == Enums.TypeInt.Road)
-                    names = DicUtils.getRoadNamesFromData(CountyID, NeighborhoodsID, CommunityName);
+                else if (type == Enums.TypeInt.Road || type == Enums.TypeInt.RP)
+                    names = DicUtils.getRoadNamesFromData(CountyID, NeighborhoodsID, CommunityName, type);
                 else if (type == Enums.TypeInt.Country)
                     names = DicUtils.getViligeNamesFromData(CountyID, NeighborhoodsID, CommunityName);
                 else if (type == Enums.TypeInt.Community)
@@ -300,7 +380,38 @@ namespace JXGIS.JXTopsystem.Controllers
         }
         #endregion 道路字典
 
-        public ContentResult GetRPBZData(string Category)
+        public ContentResult GetDirectionFromDic()
+        {
+            RtObj rt = null;
+            try
+            {
+                var data = DicUtils.GetDirectionFromDic();
+                rt = new RtObj(data);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        public ContentResult GetRepairContentFromDic()
+        {
+            RtObj rt = null;
+            try
+            {
+                var data = DicUtils.GetRepairContentFromDic();
+                rt = new RtObj(data);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+
+        public ContentResult GetRPBZDataFromDic(string Category)
         {
             RtObj rt = null;
             try
@@ -316,6 +427,38 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        public ContentResult GetRPBZDataFromData()
+        {
+            RtObj rt = null;
+            try
+            {
+                var datas = DicUtils.GetRPBZDataFromData();
+                rt = new RtObj(datas);
+
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        public JsonResult AddRPBZData(string Category, string Data)
+        {
+            RtObj rt = null;
+            try
+            {
+                DicUtils.AddRPBZData(Category, Data);
+                rt = new RtObj();
+
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
+
 
         public ContentResult GetUserWindows()
         {
@@ -349,6 +492,26 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
+        }
+
+
+        /// <summary>
+        /// 获取GUID
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetGUID()
+        {
+            RtObj rt = null;
+            try
+            {
+                var guid = BaseUtils.GetGUID();
+                rt = new RtObj(guid);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
         }
     }
 }

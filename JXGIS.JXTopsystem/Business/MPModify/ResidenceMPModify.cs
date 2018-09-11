@@ -45,8 +45,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ResidenceName + newData.MPNumber == null ? "" : newData.MPNumber + "号" + newData.Dormitory + newData.LZNumber == null ? "" : newData.LZNumber + "幢" + newData.DYNumber == null ? "" : newData.DYNumber + "单元" + newData.HSNumber == null ? "" : newData.HSNumber + "室";
                     #endregion
                     #region 地址编码前10位拼接
-                    var CountyCode = dbContext.District.Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = dbContext.District.Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                     var mpCategory = SystemUtils.Config.MPCategory.Residence.Value.ToString();
                     var year = DateTime.Now.Year.ToString();
                     //地址编码  不带流水号，流水号由数据库触发器生成
@@ -129,6 +129,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     targetData.StandardAddress = StandardAddress;
                     targetData.LastModifyTime = DateTime.Now.Date;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    BaseUtils.UpdateAddressCode(targetData, null, null, null, Enums.TypeInt.Residence);
                 }
                 #endregion
                 dbContext.SaveChanges();
@@ -257,8 +258,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                             continue;
                         }
                         #region 地址编码前10位拼接
-                        var CountyCode = dbContext.District.Where(t => t.ID == CountyID).Select(t => t.Code).FirstOrDefault();
-                        var NeighborhoodsCode = dbContext.District.Where(t => t.ID == NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                        var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == CountyID).Select(t => t.Code).FirstOrDefault();
+                        var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                         var mpCategory = SystemUtils.Config.MPCategory.Residence.Value.ToString();
                         var year = DateTime.Now.Year.ToString();
                         AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;

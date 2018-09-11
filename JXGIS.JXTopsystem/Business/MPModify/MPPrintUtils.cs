@@ -1,4 +1,5 @@
-﻿using JXGIS.JXTopsystem.Models.Entities;
+﻿using JXGIS.JXTopsystem.Business.Common;
+using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
 using System.Collections.Generic;
@@ -24,18 +25,6 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
 
                 foreach (var ID in IDs)
                 {
-                    var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).First();
-                    if (mpOfResidence == null)
-                        throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
-
-                    var mpOfRoad = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).First();
-                    if (mpOfRoad == null)
-                        throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
-
-                    var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).First();
-                    if (mpOfCounty == null)
-                        throw new Exception($"ID为{ID}的农村门牌已经注销，请重新查询！");
-
                     MPOfCertificate mpCertificate = new Models.Entities.MPOfCertificate();
                     var GUID = Guid.NewGuid().ToString();
                     var CreateTime = DateTime.Now.Date;
@@ -52,6 +41,10 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     certificate.ID = ID;
                     if (MPType == Enums.TypeInt.Residence)
                     {
+                        var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).First();
+                        if (mpOfResidence == null)
+                            throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
+
                         certificate.PropertyOwner = mpOfResidence.PropertyOwner;
                         certificate.StandardAddress = mpOfResidence.StandardAddress;
                         certificate.FCZAddress = mpOfResidence.FCZAddress;
@@ -76,9 +69,15 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                             mpOfResidence.MPZPrintComplete = Enums.Complete.Yes;
                         else if (CertificateType == Enums.CertificateType.Placename)
                             mpOfResidence.DZZMPrintComplete = Enums.Complete.Yes;
+
+                        BaseUtils.UpdateAddressCode(mpOfResidence, null, null, null, Enums.TypeInt.Residence);
                     }
                     else if (MPType == Enums.TypeInt.Road)
                     {
+                        var mpOfRoad = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).First();
+                        if (mpOfRoad == null)
+                            throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
+
                         certificate.PropertyOwner = mpOfRoad.PropertyOwner;
                         certificate.StandardAddress = mpOfRoad.StandardAddress;
                         certificate.FCZAddress = mpOfRoad.FCZAddress;
@@ -100,9 +99,15 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                             mpOfRoad.MPZPrintComplete = Enums.Complete.Yes;
                         else if (CertificateType == Enums.CertificateType.Placename)
                             mpOfRoad.DZZMPrintComplete = Enums.Complete.Yes;
+
+                        BaseUtils.UpdateAddressCode(null, mpOfRoad, null, null, Enums.TypeInt.Road);
                     }
                     else if (MPType == Enums.TypeInt.Country)
                     {
+                        var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).First();
+                        if (mpOfCounty == null)
+                            throw new Exception($"ID为{ID}的农村门牌已经注销，请重新查询！");
+
                         certificate.PropertyOwner = mpOfCounty.PropertyOwner;
                         certificate.StandardAddress = mpOfCounty.StandardAddress;
                         certificate.TDZAddress = mpOfCounty.TDZAddress;
@@ -122,6 +127,8 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                             mpOfCounty.MPZPrintComplete = Enums.Complete.Yes;
                         else if (CertificateType == Enums.CertificateType.Placename)
                             mpOfCounty.DZZMPrintComplete = Enums.Complete.Yes;
+
+                        BaseUtils.UpdateAddressCode(null, null, mpOfCounty, null, Enums.TypeInt.Country);
                     }
                     certificates.Add(certificate);
                 }

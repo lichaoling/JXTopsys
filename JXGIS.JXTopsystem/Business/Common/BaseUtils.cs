@@ -198,5 +198,76 @@ namespace JXGIS.JXTopsystem.Business.Common
                 t = false;
             return t;
         }
+
+        public static string GetGUID()
+        {
+            return Guid.NewGuid().ToString();
+        }
+
+
+        public static void UpdateAddressCode(MPOfResidence zz, MPOfRoad dl, MPOfCountry nc, RP rp, int type)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var dis = dbContext.District.Where(t => t.State == Enums.UseState.Enable);
+                if (type == Enums.TypeInt.Residence)
+                {
+                    var CountyCode = zz.AddressCoding.Substring(0, 2);
+                    var NeighborhoodsCode = zz.AddressCoding.Substring(2, 3);
+                    var county = dis.Where(t => t.Code == CountyCode).First();
+                    var neighbor = dis.Where(t => t.Code == NeighborhoodsCode).First();
+                    if (county == null || neighbor == null)
+                    {
+                        var othercode = zz.AddressCoding.Substring(5, 10);
+                        CountyCode = dis.Where(t => t.ID == zz.CountyID).Select(t => t.Code).FirstOrDefault();
+                        NeighborhoodsCode = dis.Where(t => t.ID == zz.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                        zz.AddressCoding = CountyCode + NeighborhoodsCode + othercode;
+                    }
+                }
+                else if (type == Enums.TypeInt.Road)
+                {
+                    var CountyCode = dl.AddressCoding.Substring(0, 2);
+                    var NeighborhoodsCode = dl.AddressCoding.Substring(2, 3);
+                    var county = dis.Where(t => t.Code == CountyCode).First();
+                    var neighbor = dis.Where(t => t.Code == NeighborhoodsCode).First();
+                    if (county == null || neighbor == null)
+                    {
+                        var othercode = dl.AddressCoding.Substring(5, 10);
+                        CountyCode = dis.Where(t => t.ID == dl.CountyID).Select(t => t.Code).FirstOrDefault();
+                        NeighborhoodsCode = dis.Where(t => t.ID == dl.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                        dl.AddressCoding = CountyCode + NeighborhoodsCode + othercode;
+                    }
+                }
+                else if (type == Enums.TypeInt.Country)
+                {
+                    var CountyCode = nc.AddressCoding.Substring(0, 2);
+                    var NeighborhoodsCode = nc.AddressCoding.Substring(2, 3);
+                    var county = dis.Where(t => t.Code == CountyCode).First();
+                    var neighbor = dis.Where(t => t.Code == NeighborhoodsCode).First();
+                    if (county == null || neighbor == null)
+                    {
+                        var othercode = nc.AddressCoding.Substring(5, 10);
+                        CountyCode = dis.Where(t => t.ID == nc.CountyID).Select(t => t.Code).FirstOrDefault();
+                        NeighborhoodsCode = dis.Where(t => t.ID == nc.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                        nc.AddressCoding = CountyCode + NeighborhoodsCode + othercode;
+                    }
+                }
+                else if (type == Enums.TypeInt.RP)
+                {
+                    var CountyCode = rp.AddressCoding.Substring(0, 2);
+                    var NeighborhoodsCode = rp.AddressCoding.Substring(2, 3);
+                    var county = dis.Where(t => t.Code == CountyCode).First();
+                    var neighbor = dis.Where(t => t.Code == NeighborhoodsCode).First();
+                    if (county == null || neighbor == null)
+                    {
+                        var othercode = rp.AddressCoding.Substring(5, 10);
+                        CountyCode = dis.Where(t => t.ID == rp.CountyID).Select(t => t.Code).FirstOrDefault();
+                        NeighborhoodsCode = dis.Where(t => t.ID == rp.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                        rp.AddressCoding = CountyCode + NeighborhoodsCode + othercode;
+                    }
+                }
+                dbContext.SaveChanges();
+            }
+        }
     }
 }

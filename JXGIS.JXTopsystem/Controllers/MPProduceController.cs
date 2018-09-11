@@ -12,12 +12,12 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class MPProduceController : Controller
     {
-        public ContentResult GetProduceMP(int PageSize, int PageNum, string DistrictID, int MPProduce, int MPType, string Name)
+        public ContentResult GetLXMPProduce(int PageSize, int PageNum, int LXMPProduceComplete)
         {
             RtObj rt = null;
             try
             {
-                var r = MPProduceUtils.GetProduceMP(PageSize, PageNum, DistrictID, MPProduce, MPType, Name);
+                var r = MPProduceUtils.GetLXMPProduce(PageSize, PageNum, LXMPProduceComplete);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -29,13 +29,30 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-
-        public ContentResult SaveAndGetProduceMPList(int PageSize, int PageNum, List<LXMPProduceList> mps)
+        public JsonResult ProduceLXMP(List<LXMPProduceList> mpLists)
         {
             RtObj rt = null;
             try
             {
-                var r = MPProduceUtils.SaveAndGetProduceMPList(PageSize, PageNum, mps);
+                MPProduceUtils.ProduceLXMP(mpLists);
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
+            return Json(s);
+        }
+
+        public ContentResult GetPLMPProduce(int PageSize, int PageNum, int PLMPProduceComplete)
+        {
+            RtObj rt = null;
+            try
+            {
+                var r = MPProduceUtils.GetPLMPProduce(PageSize, PageNum, PLMPProduceComplete);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -46,6 +63,23 @@ namespace JXGIS.JXTopsystem.Controllers
             timeConverter.DateTimeFormat = "yyyy-MM-dd";
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
+        }
+        public JsonResult ProducePLMP(List<PLMPProduceList> mpLists)
+        {
+            RtObj rt = null;
+            try
+            {
+                MPProduceUtils.ProducePLMP(mpLists);
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
+            return Json(s);
         }
     }
 }

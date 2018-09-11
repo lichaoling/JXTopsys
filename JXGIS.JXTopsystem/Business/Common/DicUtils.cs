@@ -68,7 +68,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         }
         #endregion 地名标志
 
-        #region 道路字典
+
         #region 从当前表中获取社区名、小区名、道路名和自然村名
         public static List<string> getCommunityNamesFromData(int type, string NeighborhoodsID)
         {
@@ -86,6 +86,10 @@ namespace JXGIS.JXTopsystem.Business.Common
                 else if (type == Enums.TypeInt.Country)
                 {
                     s = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Select(t => t.CommunityName).Distinct().ToList();
+                }
+                else if (type == Enums.TypeInt.RP)
+                {
+                    s = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Select(t => t.CommunityName).Distinct().ToList();
                 }
                 return s;
             }
@@ -220,12 +224,13 @@ namespace JXGIS.JXTopsystem.Business.Common
             }
         }
         #endregion
+
+        #region 道路字典
         public static string AddRoadDic(RoadDic roadDic)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContext.RoadDic.Where(t => t.CountyID == roadDic.CountyID).Where(t => t.NeighborhoodsID == roadDic.NeighborhoodsID).Where(t => t.CommunityName == roadDic.CommunityName).Where(t => t.RoadName == roadDic.RoadName).Where(t => t.RoadStart == roadDic.RoadStart).Where(t => t.RoadEnd == roadDic.RoadEnd).Where(t => t.BZRules == roadDic.BZRules).Where(t => t.StartEndNum == roadDic.StartEndNum).Where(t => t.Intersection == roadDic.Intersection
-                ).FirstOrDefault();
+                var query = dbContext.RoadDic.Where(t => t.CountyID == roadDic.CountyID).Where(t => t.NeighborhoodsID == roadDic.NeighborhoodsID).Where(t => t.CommunityName == roadDic.CommunityName).Where(t => t.RoadName == roadDic.RoadName).Where(t => t.RoadStart == roadDic.RoadStart).Where(t => t.RoadEnd == roadDic.RoadEnd).Where(t => t.BZRules == roadDic.BZRules).Where(t => t.StartEndNum == roadDic.StartEndNum).Where(t => t.Intersection == roadDic.Intersection).FirstOrDefault();
                 string ID = null;
                 if (query == null)
                 {
@@ -303,9 +308,9 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return data;
             }
         }
+        #endregion
 
-        #endregion 道路字典
-
+     
         #region 邮编
         public static List<string> GetPostcodeByDID(string CountyID, string NeighborhoodsID, string CommunityID)
         {
@@ -348,14 +353,61 @@ namespace JXGIS.JXTopsystem.Business.Common
                     throw new Exception($"该邮编已经被删除");
                 query.CountyID = postDic.CountyID;
                 query.NeighborhoodsID = postDic.NeighborhoodsID;
-                query.CommunityID = postDic.CommunityID;
+                query.CommunityName = postDic.CommunityName;
                 query.Postcode = postDic.Postcode;
                 dbContext.SaveChanges();
+            }
+        }
+        public static Dictionary<string, object> GetPostcodes(int PageSize, int PageNum)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var data = from t in dbContext.PostcodeDic
+                           where t.State == Enums.UseState.Enable
+                           group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
+                           select new
+                           {
+                               g.Key.CountyID,
+                               g.Key.NeighborhoodsID,
+                               g.Key.CommunityName,
+                               Postcode = g.Select(t => t.Postcode).ToList()
+                           };
+                int count = data.Count();
+                var query = data.OrderByDescending(t => t.NeighborhoodsID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                var rt = (from t in query
+                          select new
+                          {
+                              CountyName = t.CountyID.Split('.').Last(),
+                              NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
+                              CommunityName = t.CommunityName,
+                              Postcode = t.Postcode,
+                          }).ToList();
+                return new Dictionary<string, object> {
+                   { "Data",rt},
+                   { "Count",count}
+                };
             }
         }
         #endregion 邮编
 
         #region 路牌标志
+        public static List<string> GetDirectionFromDic()
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var rt = dbContext.DirectionDic.Select(t => t.Diretion).ToList();
+                return rt;
+            }
+        }
+        public static List<string> GetRepairContentFromDic()
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var rt = dbContext.RPRepairContent.Select(t => t.RepairContent).ToList();
+                return rt;
+            }
+        }
+
         public static object GetRPBZDataFromDic(string Category)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -376,13 +428,27 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
+                var Intersection = dbContext.RP.Select(t => t.Intersection).Distinct().ToList();
+                var Direction = dbContext.RP.Select(t => t.Direction).Distinct().ToList();
                 var Model = dbContext.RP.Select(t => t.Model).Distinct().ToList();
                 var Material = dbContext.RP.Select(t => t.Material).Distinct().ToList();
                 var Size = dbContext.RP.Select(t => t.Size).Distinct().ToList();
+                var Manufacturers = dbContext.RP.Select(t => t.Manufacturers).Distinct().ToList();
+                var RepairMode = dbContext.RPRepair.Select(t => t.RepairMode).Distinct().ToList();
+                var RepairedCount = dbContext.RP.Select(t => t.RepairedCount).Distinct().ToList();
+                var RepairParts = dbContext.RPRepair.Select(t => t.RepairParts).Distinct().ToList();
+                var RepairFactory = dbContext.RPRepair.Select(t => t.RepairFactory).Distinct().ToList();
                 return new Dictionary<string, object> {
+                    { "Intersection",Intersection},
+                    { "Direction",Direction},
                     { "Model",Model},
                     { "Material",Material},
                     { "Size",Size},
+                    { "Manufacturers",Manufacturers},
+                    {"RepairMode",RepairMode },
+                    {"RepairedCount",RepairedCount },
+                    {"RepairParts",RepairParts },
+                    {"RepairFactory",RepairFactory },
                 };
             }
         }

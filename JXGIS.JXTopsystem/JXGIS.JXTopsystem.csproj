@@ -95,6 +95,10 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="QRCoder, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.3.3\lib\net40\QRCoder.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -111,6 +115,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.3.3\lib\net40\UnityEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -156,7 +164,6 @@
     <Compile Include="Business\MPBusinessStatistic\MPStatisticUtils.cs" />
     <Compile Include="Business\MPModify\CountryMPModify.cs" />
     <Compile Include="Business\MPModify\MPPrintUtils.cs" />
-    <Compile Include="Business\MPModify\MPModifyUtils.cs" />
     <Compile Include="Business\MPModify\ResidenceMPModify.cs" />
     <Compile Include="Business\MPModify\RoadMPModify.cs" />
     <Compile Include="Business\MPProduce\MPProduceUtils.cs" />
@@ -164,7 +171,7 @@
     <Compile Include="Business\MPSearch\ResidenceMPSearch.cs" />
     <Compile Include="Business\MPSearch\RoadMPSearch.cs" />
     <Compile Include="Business\RPBusinessStatistic\RPStatisticUtils.cs" />
-    <Compile Include="Business\RPModify\RPMpdifyUtils.cs" />
+    <Compile Include="Business\RPModify\RPModifyUtils.cs" />
     <Compile Include="Business\RPRepair\RPRepairUtils.cs" />
     <Compile Include="Business\RPSearch\RPSearchUtils.cs" />
     <Compile Include="Business\SystemUtils.cs" />
@@ -176,6 +183,9 @@
     <Compile Include="Controllers\MPModifyController.cs" />
     <Compile Include="Controllers\MPProduceController.cs" />
     <Compile Include="Controllers\MPSearchController.cs" />
+    <Compile Include="Controllers\RPBusinessStatisticController.cs" />
+    <Compile Include="Controllers\RPModifyController.cs" />
+    <Compile Include="Controllers\RPRepairController.cs" />
     <Compile Include="Controllers\RPSearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -252,13 +262,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Lib\" />
-    <Folder Include="Views\File\" />
-    <Folder Include="Views\Login\" />
-    <Folder Include="Views\MPBusinessStatistic\" />
-    <Folder Include="Views\MPModify\" />
-    <Folder Include="Views\MPProduce\" />
-    <Folder Include="Views\MPSearch\" />
-    <Folder Include="Views\RPSearch\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
