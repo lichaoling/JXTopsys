@@ -310,9 +310,9 @@ namespace JXGIS.JXTopsystem.Business.Common
         }
         #endregion
 
-     
+
         #region 邮编
-        public static List<string> GetPostcodeByDID(string CountyID, string NeighborhoodsID, string CommunityID)
+        public static List<string> GetPostcodeByDID(string CountyID, string NeighborhoodsID, string CommunityName)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -321,8 +321,8 @@ namespace JXGIS.JXTopsystem.Business.Common
                     codes = codes.Where(t => t.CountyID == CountyID);
                 if (!string.IsNullOrEmpty(NeighborhoodsID))
                     codes = codes.Where(t => t.NeighborhoodsID == NeighborhoodsID);
-                if (!string.IsNullOrEmpty(CommunityID))
-                    codes = codes.Where(t => t.CommunityID == CommunityID);
+                if (!string.IsNullOrEmpty(CommunityName))
+                    codes = codes.Where(t => t.CommunityName == CommunityName);
                 var query = codes.Select(t => t.Postcode).ToList();
                 return query;
             }
@@ -331,14 +331,14 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var count = dbContext.PostcodeDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == postDic.CountyID).Where(t => t.NeighborhoodsID == postDic.NeighborhoodsID).Where(t => t.CommunityID == postDic.CommunityID).Where(t => t.Postcode == postDic.Postcode).Count();
+                var count = dbContext.PostcodeDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == postDic.CountyID).Where(t => t.NeighborhoodsID == postDic.NeighborhoodsID).Where(t => t.CommunityName == postDic.CommunityName).Where(t => t.Postcode == postDic.Postcode).Count();
                 if (count > 0)
                     throw new Exception($"该{postDic.Postcode}已经存在");
                 PostcodeDic pDic = new PostcodeDic();
                 pDic.ID = Guid.NewGuid().ToString();
                 pDic.CountyID = postDic.CountyID;
                 pDic.NeighborhoodsID = postDic.NeighborhoodsID;
-                pDic.CommunityID = postDic.CommunityID;
+                pDic.CommunityName = postDic.CommunityName;
                 pDic.Postcode = postDic.Postcode;
                 dbContext.PostcodeDic.Add(pDic);
                 dbContext.SaveChanges();

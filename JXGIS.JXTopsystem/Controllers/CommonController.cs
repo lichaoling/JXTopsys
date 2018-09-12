@@ -195,12 +195,12 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion 地名标志
 
         #region 邮编
-        public ContentResult GetPostcodeByDID(string CountyID, string NeighborhoodsID, string CommunityID)
+        public ContentResult GetPostcodeByDID(string CountyID, string NeighborhoodsID, string CommunityName)
         {
             RtObj rt = null;
             try
             {
-                var sizes = DicUtils.GetPostcodeByDID(CountyID, NeighborhoodsID, CommunityID);
+                var sizes = DicUtils.GetPostcodeByDID(CountyID, NeighborhoodsID, CommunityName);
                 rt = new RtObj(sizes);
 
             }
@@ -477,12 +477,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
-        public ContentResult GetCreateUsers()
+        public ContentResult GetCreateUsers(string Role)
         {
             RtObj rt = null;
             try
             {
-                var createUsers = DistrictUtils.getCreateUsers(LoginUtils.CurrentUser.DistrictID);
+                var createUsers = DistrictUtils.getCreateUsers(LoginUtils.CurrentUser.DistrictID, Role);
                 rt = new RtObj(createUsers);
 
             }
