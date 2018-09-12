@@ -259,23 +259,20 @@ namespace JXGIS.JXTopsystem.Controllers
         }
         #endregion 邮编
 
-        #region 道路字典
-        public ContentResult getNamesFromData(int type, string CountyID, string NeighborhoodsID, string CommunityName)
+        #region 道路字典、
+        /// <summary>
+        /// 获取小区名称
+        /// </summary>
+        /// <param name="CountyID"></param>
+        /// <param name="NeighborhoodsID"></param>
+        /// <param name="CommunityName"></param>
+        /// <returns></returns>
+        public ContentResult getResidenceNamesFromData(string CountyID, string NeighborhoodsID, string CommunityName)
         {
             RtObj rt = null;
             try
             {
-                var names = new List<string>();
-                if (type == Enums.TypeInt.Residence)
-                    names = DicUtils.getResidenceNamesFromData(CountyID, NeighborhoodsID, CommunityName);
-                else if (type == Enums.TypeInt.Road || type == Enums.TypeInt.RP)
-                    names = DicUtils.getRoadNamesFromData(CountyID, NeighborhoodsID, CommunityName, type);
-                else if (type == Enums.TypeInt.Country)
-                    names = DicUtils.getViligeNamesFromData(CountyID, NeighborhoodsID, CommunityName);
-                else if (type == Enums.TypeInt.Community)
-                    names = DicUtils.getCommunityNamesFromData(type, NeighborhoodsID);
-                else
-                    throw new Exception("获取类型不正确");
+                var names = DicUtils.getResidenceNamesFromData(CountyID, NeighborhoodsID, CommunityName);
                 rt = new RtObj(names);
             }
             catch (Exception ex)
@@ -285,6 +282,76 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        /// <summary>
+        /// 获取道路名称
+        /// </summary>
+        /// <param name="type">2道路门牌中的道路，5路牌表中的道路</param>
+        /// <param name="CountyID"></param>
+        /// <param name="NeighborhoodsID"></param>
+        /// <param name="CommunityName"></param>
+        /// <returns></returns>
+        public ContentResult getRoadNamesFromData(int type, string CountyID, string NeighborhoodsID, string CommunityName)
+        {
+            RtObj rt = null;
+            try
+            {
+                var names = DicUtils.getRoadNamesFromData(CountyID, NeighborhoodsID, CommunityName, type);
+                rt = new RtObj(names);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        /// <summary>
+        /// 获取自然村名称
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="CountyID"></param>
+        /// <param name="NeighborhoodsID"></param>
+        /// <param name="CommunityName"></param>
+        /// <returns></returns>
+        public ContentResult getViligeNamesFromData(string CountyID, string NeighborhoodsID, string CommunityName)
+        {
+            RtObj rt = null;
+            try
+            {
+                var names = DicUtils.getViligeNamesFromData(CountyID, NeighborhoodsID, CommunityName);
+                rt = new RtObj(names);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        /// <summary>
+        /// 获取社区名称
+        /// </summary>
+        /// <param name="type">1住宅门牌表 2道路门牌表  3农村门牌表 5路牌表</param>
+        /// <param name="CountyID"></param>
+        /// <param name="NeighborhoodsID"></param>
+        /// <param name="CommunityName"></param>
+        /// <returns></returns>
+        public ContentResult getCommunityNamesFromData(int type, string NeighborhoodsID)
+        {
+            RtObj rt = null;
+            try
+            {
+                var names = DicUtils.getCommunityNamesFromData(type, NeighborhoodsID);
+                rt = new RtObj(names);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+
         /// <summary>
         /// 根据获取类型从字典表中获取小区名称、社区名称、道路名称或者自然村名称
         /// </summary>
