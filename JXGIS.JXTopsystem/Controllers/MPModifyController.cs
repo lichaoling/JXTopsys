@@ -33,15 +33,13 @@ namespace JXGIS.JXTopsystem.Controllers
         /// 上传数据
         /// </summary>
         /// <returns></returns>
-        public JsonResult UploadResidenceMP()
+        public JsonResult CheckResidenceMPIsAvailable(string CountyID, string NeighborhoodsID, string CommunityName, string ResidenceName, string MPNumber, string Dormitory, string HSNumber, string LZNumber, string DYNumber)
         {
             RtObj rt = null;
             try
             {
-                var file = this.Request.Files;
-                if (file == null || file.Count == 0)
-                    throw new Exception("文件不存在，请重新上传！");
-                ResidenceMPModify.UploadResidenceMP(file[0]);
+                var b = ResidenceMPModify.CheckResidenceMPIsAvailable(CountyID, NeighborhoodsID, CommunityName, ResidenceName, MPNumber, Dormitory, HSNumber, LZNumber, DYNumber);
+                rt = new RtObj(b);
             }
             catch (Exception ex)
             {
@@ -80,15 +78,13 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-        public JsonResult UploadRoadMP()
+        public JsonResult CheckRoadMPIsAvailable(string CountyID, string NeighborhoodsID, string CommunityName, string RoadName, string MPNumber)
         {
             RtObj rt = null;
             try
             {
-                var file = this.Request.Files;
-                if (file == null || file.Count == 0)
-                    throw new Exception("文件不存在，请重新上传！");
-                RoadMPModify.UploadRoadMP(file[0]);
+                var b = RoadMPModify.CheckRoadMPIsAvailable(CountyID, NeighborhoodsID, CommunityName, RoadName, MPNumber);
+                rt = new RtObj(b);
             }
             catch (Exception ex)
             {
@@ -127,15 +123,13 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-        public JsonResult UploadCountryMP()
+        public JsonResult CheckCountryMPIsAvailable(string CountyID, string NeighborhoodsID, string CommunityName, string ViligeName, string MPNumber, string HSNumber)
         {
             RtObj rt = null;
             try
             {
-                var file = this.Request.Files;
-                if (file == null || file.Count == 0)
-                    throw new Exception("文件不存在，请重新上传！");
-                CountryMPModify.UploadCountryMP(file[0]);
+                var b = CountryMPModify.CheckCountryMPIsAvailable(CountyID, NeighborhoodsID, CommunityName, ViligeName, MPNumber, HSNumber);
+                rt = new RtObj(b);
             }
             catch (Exception ex)
             {
@@ -148,7 +142,6 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                rt = new RtObj();
                 CountryMPModify.CancelCountryMP(ID);
             }
             catch (Exception ex)
@@ -165,7 +158,6 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                rt = new RtObj();
                 MPPrintUtils.MPCertificatePrint(IDs, MPType, CertificateType);
             }
             catch (Exception ex)
