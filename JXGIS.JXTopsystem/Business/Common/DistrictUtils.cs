@@ -176,7 +176,19 @@ namespace JXGIS.JXTopsystem.Business.Common
                     tree.Add(DistrictNode2);
                     tree.Add(DistrictNode3);
                 }
-                tree = tree.Distinct().ToList();
+                tree = (from t in tree
+                        group t by new
+                        {
+                            t.PID,
+                            t.ID,
+                            t.Name
+                        } into g
+                        select new DistrictNode()
+                        {
+                            ID = g.Key.ID,
+                            PID = g.Key.PID,
+                            Name = g.Key.Name
+                        }).ToList();
 
                 var parent = tree.Where(t => t.PID == null).ToList();
                 GetLeaf(parent, tree);
