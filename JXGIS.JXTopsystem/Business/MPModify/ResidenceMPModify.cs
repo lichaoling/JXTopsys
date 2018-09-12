@@ -329,9 +329,6 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         data.Postcode = Postcode;
                         data.LastModifyTime = DateTime.Now.Date;
                         data.LastModifyUser = LoginUtils.CurrentUser.UserName;
-
-                        dbContext.MPOfResidence.Add(data);
-
                     }
                     #endregion 更新
                     success = $"第{i}行导入成功";

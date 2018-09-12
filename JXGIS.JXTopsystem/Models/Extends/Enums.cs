@@ -12,18 +12,18 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const int Delete = 0;
             public const int Enable = 1;
             public const int Cancel = 2;
-        };
+        }
         public static class MPProduce
         {
             public const int NO = 0;
             public const int Yes = 1;
-        };
+        }
         public static class Complete
         {
             public const int NO = 0;
             public const int Yes = 1;
             public const int All = 2;
-        };
+        }
         public static class MPMail
         {
             public const int Yes = 1;

@@ -33,10 +33,10 @@ namespace JXGIS.JXTopsystem.Business
                 SysUser user = new SysUser();
                 user.UserName = "测试用户";
                 user.UserID = "1";
-                user.DistrictID = new List<string>() { "1.1.2", "1.1.3", "1" };
-                //user.DistrictID = new List<string>() { "1.1.2", "1.1.3" };
-                //user.DistrictID = new List<string>() { "1.2", "1.1.3" };
-                user.Window = new List<string>() { "市级行政审批窗口", "乡镇便民服务中心" };
+                user.DistrictID = new List<string>() { "嘉兴市.秀洲区.新塍镇", "嘉兴市.南湖区.新兴街道", "嘉兴市" };
+                //user.DistrictID = new List<string>() { "嘉兴市.南湖区.新兴街道", "嘉兴市.秀洲区.塘汇街道" };
+                //user.DistrictID = new List<string>() { "嘉兴市.南湖区.建设街道"};
+                user.Window = new List<string>() { "地名办公室", "便民窗口" };
                 HttpContext.Current.Session[_user] = user;
                 return HttpContext.Current != null ? (HttpContext.Current.Session[_user] as IUser) : null;
 #endif
