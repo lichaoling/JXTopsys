@@ -99,9 +99,9 @@ namespace JXGIS.JXTopsystem.Business.Common
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<string> name = new List<string>();
-                IQueryable<MPOfResidence> query = null;
+                IQueryable<MPOfResidence> query = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable);
                 if (!string.IsNullOrEmpty(CountyID))
-                    query = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID);
+                    query = query.Where(t => t.CountyID == CountyID);
                 if (!string.IsNullOrEmpty(NeighborhoodsID))
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
@@ -118,9 +118,9 @@ namespace JXGIS.JXTopsystem.Business.Common
                 List<string> name = new List<string>();
                 if (type == Enums.TypeInt.Road)
                 {
-                    IQueryable<MPOfRoad> query = null;
+                    IQueryable<MPOfRoad> query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable);
                     if (!string.IsNullOrEmpty(CountyID))
-                        query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID);
+                        query = query.Where(t => t.CountyID == CountyID);
                     if (!string.IsNullOrEmpty(NeighborhoodsID))
                         query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                     if (!string.IsNullOrEmpty(CommunityName))
@@ -129,9 +129,9 @@ namespace JXGIS.JXTopsystem.Business.Common
                 }
                 else if (type == Enums.TypeInt.RP)
                 {
-                    IQueryable<RP> query = null;
+                    IQueryable<RP> query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable);
                     if (!string.IsNullOrEmpty(CountyID))
-                        query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID);
+                        query = query.Where(t => t.CountyID == CountyID);
                     if (!string.IsNullOrEmpty(NeighborhoodsID))
                         query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                     if (!string.IsNullOrEmpty(CommunityName))
@@ -146,9 +146,9 @@ namespace JXGIS.JXTopsystem.Business.Common
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<string> name = new List<string>();
-                IQueryable<MPOfCountry> query = null;
+                IQueryable<MPOfCountry> query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable);
                 if (!string.IsNullOrEmpty(CountyID))
-                    query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID);
+                    query = query.Where(t => t.CountyID == CountyID);
                 if (!string.IsNullOrEmpty(NeighborhoodsID))
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
@@ -165,9 +165,9 @@ namespace JXGIS.JXTopsystem.Business.Common
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<string> name = new List<string>();
-                IQueryable<ResidenceDic> query = null;
+                IQueryable<ResidenceDic> query = dbContext.ResidenceDic;
                 if (!string.IsNullOrEmpty(CountyID))
-                    query = dbContext.ResidenceDic.Where(t => t.CountyID == CountyID);
+                    query = query.Where(t => t.CountyID == CountyID);
                 if (!string.IsNullOrEmpty(NeighborhoodsID))
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
@@ -182,9 +182,9 @@ namespace JXGIS.JXTopsystem.Business.Common
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<string> name = new List<string>();
-                IQueryable<CommunityDic> query = null;
+                IQueryable<CommunityDic> query = dbContext.CommunityDic;
                 if (!string.IsNullOrEmpty(CountyID))
-                    query = dbContext.CommunityDic.Where(t => t.CountyID == CountyID);
+                    query = query.Where(t => t.CountyID == CountyID);
                 if (!string.IsNullOrEmpty(NeighborhoodsID))
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 name = query.Select(t => t.CommunityName).ToList();
@@ -196,9 +196,9 @@ namespace JXGIS.JXTopsystem.Business.Common
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<string> name = new List<string>();
-                IQueryable<RoadDic> query = null;
+                IQueryable<RoadDic> query = dbContext.RoadDic;
                 if (!string.IsNullOrEmpty(CountyID))
-                    query = dbContext.RoadDic.Where(t => t.CountyID == CountyID);
+                    query = query.Where(t => t.CountyID == CountyID);
                 if (!string.IsNullOrEmpty(NeighborhoodsID))
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
@@ -212,9 +212,9 @@ namespace JXGIS.JXTopsystem.Business.Common
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<string> name = new List<string>();
-                IQueryable<ViligeDic> query = null;
+                IQueryable<ViligeDic> query = dbContext.ViligeDic;
                 if (!string.IsNullOrEmpty(CountyID))
-                    query = dbContext.ViligeDic.Where(t => t.CountyID == CountyID);
+                    query = query.Where(t => t.CountyID == CountyID);
                 if (!string.IsNullOrEmpty(NeighborhoodsID))
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
@@ -297,9 +297,9 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                IQueryable<RoadDic> query = null;
+                IQueryable<RoadDic> query = dbContext.RoadDic;
                 if (!string.IsNullOrEmpty(NeighborhoodsID))
-                    query = dbContext.RoadDic.Where(t => t.NeighborhoodsID == NeighborhoodsID);
+                    query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
                 if (!string.IsNullOrEmpty(RoadName))
