@@ -1009,6 +1009,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="需求2018.9.5.docx" />
+    <Content Include="路牌管理.docx" />
+    <Content Include="门牌管理%28新%29.docx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
