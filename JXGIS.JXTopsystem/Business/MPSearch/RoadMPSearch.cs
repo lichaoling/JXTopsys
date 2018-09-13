@@ -204,7 +204,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                     var FCZ = files.Where(t => t.DocType == Enums.DocType.FCZ);
                     var TDZ = files.Where(t => t.DocType == Enums.DocType.TDZ);
                     var YYZZ = files.Where(t => t.DocType == Enums.DocType.YYZZ);
-                    var baseUrl = Path.Combine("Files", "MP", Enums.MPFileType.RoadMP, MPID);
+                    var baseUrl = Path.Combine("Files", Enums.TypeStr.MP, Enums.MPFileType.RoadMP, MPID);
 
                     if (FCZ.Count() > 0)
                     {
