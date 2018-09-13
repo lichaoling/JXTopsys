@@ -57,7 +57,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     roadDic.StartEndNum = targetData.StartEndNum;
                     targetData.RoadID = DicUtils.AddRoadDic(roadDic);
                     #endregion
-                    targetData.Position = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : null;
+                    targetData.Position = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : null;
                     targetData.RepairedCount = 0;
                     targetData.FinishRepaire = Enums.RPRepairFinish.Yes;
                     targetData.State = Enums.UseState.Enable;
@@ -112,7 +112,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     roadDic.StartEndNum = targetData.StartEndNum;
                     targetData.RoadID = DicUtils.AddRoadDic(roadDic);
                     #endregion
-                    targetData.Position = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.Position;
+                    targetData.Position = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.Position;
                     targetData.LastModifyTime = DateTime.Now.Date;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     BaseUtils.UpdateAddressCode(null, null, null, targetData, Enums.TypeInt.RP);

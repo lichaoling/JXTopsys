@@ -85,7 +85,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.RoadName + targetData.MPNumber + "号";
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.MPPosition = (targetData.Lng != 0 && targetData.Lat != 0) ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : null;
+                    targetData.MPPosition = (targetData.Lng != 0 && targetData.Lat != 0) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : null;
                     targetData.AddType = Enums.MPAddType.LX;
                     targetData.MPProduce = targetData.MPProduce == null ? Enums.MPProduce.NO : targetData.MPProduce;
                     targetData.MPProduceComplete = Enums.Complete.NO;
@@ -143,7 +143,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.RoadName + targetData.MPNumber + "号";
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.MPPosition = (targetData.Lng != 0 && targetData.Lat != 0) ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : null;
+                    targetData.MPPosition = (targetData.Lng != 0 && targetData.Lat != 0) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : null;
                     targetData.LastModifyTime = DateTime.Now.Date;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     BaseUtils.UpdateAddressCode(null, targetData, null, null, Enums.TypeInt.Road);

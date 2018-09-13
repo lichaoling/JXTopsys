@@ -52,8 +52,11 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 PropertyInfo targetPP = targetType.GetProperty(key);
                 PropertyInfo sourcePP = sourceType.GetProperty(key);
-                var value = sourcePP.GetValue(sourceData);
-                targetPP.SetValue(targetData, value);
+                if (targetPP != null && sourcePP != null)
+                {
+                    var value = sourcePP.GetValue(sourceData);
+                    targetPP.SetValue(targetData, value);
+                }
             }
         }
     }

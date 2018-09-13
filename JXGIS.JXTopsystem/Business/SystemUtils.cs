@@ -12,8 +12,6 @@ namespace JXGIS.JXTopsystem.Business
         private static readonly object _lockObject3 = new object();
         private static SqlDBContext _EFDbContext;
         private static readonly object _lockObject4 = new object();
-        private static List<District> _Districts;
-
         public static SqlDBContext EFDbContext
         {
             get
@@ -33,22 +31,10 @@ namespace JXGIS.JXTopsystem.Business
             }
         }
 
-        //public static List<District> Districts
-        //{
-        //    get
-        //    {
-        //        if (SystemUtils._Districts == null)
-        //            lock (_lockObject4)
-        //                SystemUtils._Districts = SystemUtils.NewEFDbContext.District.ToList();
-        //        return SystemUtils._Districts;
-        //    }
-        //}
-
         /// <summary>
         /// 调试配置文件地址
         /// </summary>
         private static string debugConfigPath = AppDomain.CurrentDomain.BaseDirectory + "Config\\SystemParameters.json";
-
         private static dynamic _Config;
         private static readonly object _lockObject1 = new object();
         public static dynamic Config

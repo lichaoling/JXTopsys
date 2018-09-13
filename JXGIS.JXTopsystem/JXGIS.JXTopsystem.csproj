@@ -958,7 +958,6 @@
     <Compile Include="Models\Entities\RPRepairContent.cs" />
     <Compile Include="Models\Extends\PLMPProduceList.cs" />
     <Compile Include="Models\Extends\MPProduce.cs" />
-    <Compile Include="Models\Entities\Road.cs" />
     <Compile Include="Models\Entities\RP.cs" />
     <Compile Include="Models\Entities\RPRepair.cs" />
     <Compile Include="Models\Entities\SqlDBContext.cs" />
@@ -975,11 +974,9 @@
     <Compile Include="Models\Extends\MPCertificate.cs" />
     <Compile Include="Models\Extends\MPErrors.cs" />
     <Compile Include="Models\Extends\LXMPProduceList.cs" />
-    <Compile Include="Models\Extends\MPProduceStatistic.cs" />
     <Compile Include="Models\Extends\ResidenceMPErrors.cs" />
     <Compile Include="Models\Extends\ResidenceMP.cs" />
     <Compile Include="Models\Extends\ResidenceMPDetails.cs" />
-    <Compile Include="Models\Extends\RoadDetails.cs" />
     <Compile Include="Models\Extends\RoadMPDetails.cs" />
     <Compile Include="Models\Extends\RoadMPErrors.cs" />
     <Compile Include="Models\Extends\RPDetails.cs" />
@@ -988,7 +985,7 @@
     <Compile Include="Models\Extends\RtObj\IRtObjCfg.cs" />
     <Compile Include="Models\Extends\RtObj\RtObj.cs" />
     <Compile Include="Models\Extends\SummarySheet.cs" />
-    <Compile Include="Models\RoadDic.cs" />
+    <Compile Include="Models\Entities\RoadDic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

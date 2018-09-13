@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace JXGIS.JXTopsystem.Models
+namespace JXGIS.JXTopsystem.Models.Entities
 {
     [Table("ROADDIC")]
     public class RoadDic

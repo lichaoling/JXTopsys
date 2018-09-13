@@ -561,7 +561,6 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
-
         /// <summary>
         /// 获取GUID
         /// </summary>

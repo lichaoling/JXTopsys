@@ -76,7 +76,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.ResidenceName + MPNumber1 + targetData.Dormitory + LZNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.DYPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.DYPosition;
+                    targetData.DYPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;
                     targetData.AddType = Enums.MPAddType.LX;
                     targetData.MPProduce = Enums.MPProduce.NO;
                     targetData.MPProduceComplete = Enums.Complete.NO;
@@ -124,7 +124,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.ResidenceName + MPNumber1 + targetData.Dormitory + LZNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.DYPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.DYPosition;
+                    targetData.DYPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;
                     targetData.LastModifyTime = DateTime.Now.Date;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     BaseUtils.UpdateAddressCode(targetData, null, null, null, Enums.TypeInt.Residence);
