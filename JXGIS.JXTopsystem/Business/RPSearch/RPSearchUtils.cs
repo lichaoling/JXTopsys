@@ -125,10 +125,10 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                         var filelst = (from t in files
                                        select new Pictures
                                        {
-                                           pid = t.ID,
-                                           name = t.Name,
-                                           url = baseUrl + "/" + t.ID + t.FileEx,
-                                           turl = baseUrl + "/t-" + t.ID + t.FileEx
+                                           FileID = t.ID,
+                                           Name = t.Name,
+                                           RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                           TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
                                        }).ToList();
                         d.RPBZPhoto = filelst;
                     }
@@ -159,17 +159,17 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                     var filelst = (from t in files
                                    select new Pictures
                                    {
-                                       pid = t.ID,
-                                       name = t.Name,
-                                       url = baseUrl_BZ + "/" + t.ID + t.FileEx,
-                                       turl = baseUrl_BZ + "/t-" + t.ID + t.FileEx
+                                       FileID = t.ID,
+                                       Name = t.Name,
+                                       RelativePath = baseUrl_BZ + "/" + t.ID + t.FileEx,
+                                       TRelativePath = baseUrl_BZ + "/t-" + t.ID + t.FileEx
                                    }).ToList();
                     data.RPBZPhoto = filelst;
                 }
                 data.CodeFile = new Pictures()
                 {
-                    url = baseUrl_QRCode + "/" + data.Code + ".jpg",
-                    turl = baseUrl_QRCode + "/t-" + data.Code + ".jpg",
+                    RelativePath = baseUrl_QRCode + "/" + data.Code + ".jpg",
+                    TRelativePath = baseUrl_QRCode + "/t-" + data.Code + ".jpg",
                 };
                 data.CountyName = data.CountyID.Split('.').Last();
                 data.NeighborhoodsName = data.NeighborhoodsID.Split('.').Last();

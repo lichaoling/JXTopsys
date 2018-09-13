@@ -34,9 +34,9 @@ namespace JXGIS.JXTopsystem.Models.Extends
     }
     public class Pictures
     {
-        public string pid { get; set; }
-        public string name { get; set; }
-        public string url { get; set; }
-        public string turl { get; set; }
+        public string FileID { get; set; }
+        public string Name { get; set; }
+        public string RelativePath { get; set; }
+        public string TRelativePath { get; set; }
     }
 }

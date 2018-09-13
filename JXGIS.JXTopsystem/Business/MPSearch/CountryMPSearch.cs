@@ -172,10 +172,10 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                         query.TDZ = (from t in TDZ
                                      select new Pictures
                                      {
-                                         pid = t.ID,
-                                         name = t.Name,
-                                         url = baseUrl + "/" + t.ID + t.FileEx,
-                                         turl = baseUrl + "/t-" + t.ID + t.FileEx
+                                         FileID = t.ID,
+                                         Name = t.Name,
+                                         RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                         TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
                                      }).ToList();
                     }
                     if (QQZ.Count() > 0)
@@ -183,10 +183,10 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                         query.QQZ = (from t in QQZ
                                      select new Pictures
                                      {
-                                         pid = t.ID,
-                                         name = t.Name,
-                                         url = baseUrl + "/" + t.ID + t.FileEx,
-                                         turl = baseUrl + "/t-" + t.ID + t.FileEx
+                                         FileID = t.ID,
+                                         Name = t.Name,
+                                         RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                         TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
                                      }).ToList();
                     }
                 }

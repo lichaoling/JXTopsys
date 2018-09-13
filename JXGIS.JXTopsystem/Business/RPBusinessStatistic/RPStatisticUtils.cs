@@ -188,10 +188,10 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                         var filelst = (from t in files
                                        select new Pictures
                                        {
-                                           pid = t.ID,
-                                           name = t.Name,
-                                           url = baseUrl + "/" + t.ID + t.FileEx,
-                                           turl = baseUrl + "/t-" + t.ID + t.FileEx
+                                           FileID = t.ID,
+                                           Name = t.Name,
+                                           RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                           TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
                                        }).ToList();
                         r.RPBZPhoto = filelst;
                     }

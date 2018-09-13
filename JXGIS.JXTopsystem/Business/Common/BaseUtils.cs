@@ -214,15 +214,19 @@ namespace JXGIS.JXTopsystem.Business.Common
                 {
                     var CountyCode = zz.AddressCoding.Substring(0, 2);
                     var NeighborhoodsCode = zz.AddressCoding.Substring(2, 3);
-                    var county = dis.Where(t => t.Code == CountyCode).First();
-                    var neighbor = dis.Where(t => t.Code == NeighborhoodsCode).First();
-                    if (county == null || neighbor == null)
+                    var CountyCode_ST = dis.Where(t => t.ID == zz.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode_ST = dis.Where(t => t.ID == zz.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    if (CountyCode_ST != null && CountyCode != CountyCode_ST)
                     {
-                        var othercode = zz.AddressCoding.Substring(5, 10);
-                        CountyCode = dis.Where(t => t.ID == zz.CountyID).Select(t => t.Code).FirstOrDefault();
-                        NeighborhoodsCode = dis.Where(t => t.ID == zz.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                        zz.AddressCoding = CountyCode + NeighborhoodsCode + othercode;
+                        CountyCode = CountyCode_ST;
                     }
+                    if (NeighborhoodsCode_ST != null && NeighborhoodsCode != NeighborhoodsCode_ST)
+                    {
+                        NeighborhoodsCode = NeighborhoodsCode_ST;
+                    }
+                    var othercode = zz.AddressCoding.Substring(5, 10);
+                    zz.AddressCoding = CountyCode + NeighborhoodsCode + othercode;
+
                 }
                 else if (type == Enums.TypeInt.Road)
                 {

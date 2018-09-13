@@ -211,10 +211,10 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                         query.FCZ = (from t in FCZ
                                      select new Pictures
                                      {
-                                         pid = t.ID,
-                                         name = t.Name,
-                                         url = baseUrl + "/" + t.ID + t.FileEx,
-                                         turl = baseUrl + "/t-" + t.ID + t.FileEx
+                                         FileID = t.ID,
+                                         Name = t.Name,
+                                         RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                         TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
                                      }).ToList();
                     }
                     if (TDZ.Count() > 0)
@@ -222,10 +222,10 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                         query.TDZ = (from t in TDZ
                                      select new Pictures
                                      {
-                                         pid = t.ID,
-                                         name = t.Name,
-                                         url = baseUrl + "/" + t.ID + t.FileEx,
-                                         turl = baseUrl + "/t-" + t.ID + t.FileEx
+                                         FileID = t.ID,
+                                         Name = t.Name,
+                                         RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                         TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
                                      }).ToList();
                     }
                     if (YYZZ.Count() > 0)
@@ -233,10 +233,10 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                         query.YYZZ = (from t in YYZZ
                                       select new Pictures
                                       {
-                                          pid = t.ID,
-                                          name = t.Name,
-                                          url = baseUrl + "/" + t.ID + t.FileEx,
-                                          turl = baseUrl + "/t-" + t.ID + t.FileEx
+                                          FileID = t.ID,
+                                          Name = t.Name,
+                                          RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                          TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
                                       }).ToList();
                     }
                 }
