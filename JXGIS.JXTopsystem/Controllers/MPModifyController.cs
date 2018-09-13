@@ -15,13 +15,13 @@ namespace JXGIS.JXTopsystem.Controllers
     public class MPModifyController : Controller
     {
         #region 住宅门牌
-        public JsonResult ModifyResidenceMP(MPOfResidence newData, string oldDataJson)
+        public JsonResult ModifyResidenceMP(string oldDataJson)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                ResidenceMPModify.ModifyResidenceMP(newData, oldDataJson);
+                ResidenceMPModify.ModifyResidenceMP(oldDataJson);
             }
             catch (Exception ex)
             {
