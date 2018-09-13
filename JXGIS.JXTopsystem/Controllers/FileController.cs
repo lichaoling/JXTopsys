@@ -200,7 +200,31 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
+        }
+        public ContentResult GetPictureUrls(string ID, string FileType, string DocType)
+        {
+            RtObj rt = null;
+            try
+            {
+                using (var dbContext = SystemUtils.NewEFDbContext)
+                {
+                    var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == ID).Where(t => t.DocType == DocType).ToList();
+                    List<Paths> paths = new List<Paths>();
+                    foreach (var f in files)
+                    {
+                        var p = GetUploadFilePath(FileType, ID, f.ID, f.FileEx);
+                        paths.Add(p);
+                    }
+                    rt = new RtObj(paths);
 
+                }
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
         }
     }
 }
