@@ -26,7 +26,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).First();
+                var query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                 if (query == null)
                     throw new Exception("该条路牌已被注销，请重新查询并编辑！");
 

@@ -92,7 +92,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     LXMPHZ lxmphz = new LXMPHZ();
                     if (mp.MPType == Enums.TypeInt.Road)
                     {
-                        var query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mp.MPID).First(); ;
+                        var query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mp.MPID).FirstOrDefault();
                         if (query == null)
                             throw new Exception($"ID为{mp.MPID}门牌已被注销");
                         if (query.MPProduceComplete == Enums.Complete.NO)
@@ -109,7 +109,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     }
                     else if (mp.MPType == Enums.TypeInt.Country)
                     {
-                        var query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mp.MPID).First(); ;
+                        var query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mp.MPID).FirstOrDefault() ;
                         if (query == null)
                             throw new Exception($"ID为{mp.MPID}门牌已被注销");
                         if (query.MPProduceComplete == Enums.Complete.NO)

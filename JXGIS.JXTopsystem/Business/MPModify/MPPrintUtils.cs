@@ -41,7 +41,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     certificate.ID = ID;
                     if (MPType == Enums.TypeInt.Residence)
                     {
-                        var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).First();
+                        var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfResidence == null)
                             throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
 
@@ -74,7 +74,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     }
                     else if (MPType == Enums.TypeInt.Road)
                     {
-                        var mpOfRoad = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).First();
+                        var mpOfRoad = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfRoad == null)
                             throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
 
@@ -104,7 +104,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     }
                     else if (MPType == Enums.TypeInt.Country)
                     {
-                        var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).First();
+                        var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfCounty == null)
                             throw new Exception($"ID为{ID}的农村门牌已经注销，请重新查询！");
 

@@ -106,7 +106,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
-                name = query.Select(t => t.ResidenceName).ToList();
+                name = query.Select(t => t.ResidenceName).Distinct().ToList();
 
                 return name;
             }
@@ -125,7 +125,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                         query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                     if (!string.IsNullOrEmpty(CommunityName))
                         query = query.Where(t => t.CommunityName == CommunityName);
-                    name = query.Select(t => t.RoadName).ToList();
+                    name = query.Select(t => t.RoadName).Distinct().ToList();
                 }
                 else if (type == Enums.TypeInt.RP)
                 {
@@ -136,7 +136,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                         query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                     if (!string.IsNullOrEmpty(CommunityName))
                         query = query.Where(t => t.CommunityName == CommunityName);
-                    name = query.Select(t => t.RoadName).ToList();
+                    name = query.Select(t => t.RoadName).Distinct().ToList();
                 }
                 return name;
             }
@@ -153,7 +153,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
-                name = query.Select(t => t.ViligeName).ToList();
+                name = query.Select(t => t.ViligeName).Distinct().ToList();
                 return name;
             }
         }

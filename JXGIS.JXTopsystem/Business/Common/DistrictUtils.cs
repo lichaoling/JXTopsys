@@ -241,7 +241,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var County = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Name == CountyName).First();
+                var County = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Name == CountyName).FirstOrDefault();
                 if (County == null)
                     throw new Exception("该县区已经被删除！");
                 County.State = Enums.UseState.Cancel;
@@ -255,7 +255,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var neighbor = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Name == NeighborhoodsName).First();
+                var neighbor = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Name == NeighborhoodsName).FirstOrDefault();
                 if (neighbor == null)
                     throw new Exception("该乡镇已经被删除！");
                 neighbor.State = Enums.UseState.Cancel;
