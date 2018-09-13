@@ -1,0 +1,55 @@
+=======2018/9/13 星期四 10:55:08
+|Message:Error converting value "{" to type 'JXGIS.JXTopsystem.Models.Entities.MPOfResidence'. Path '', line 1, position 3.
+|StackTrace:   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   在 Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 JXGIS.JXTopsystem.Business.MPModify.ResidenceMPModify.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\ResidenceMPModify.cs:行号 30
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 24
+=======2018/9/13 星期四 10:56:42
+|Message:Error converting value ""{"ID":"10","CountyID":"嘉兴市.南湖区","NeighborhoodsID":"嘉兴市.南湖区.东栅街道","CommunityName":"阳光社区","ResidenceName":"南湖壹品","LZNumber":"4","DYNumber":"2","HSNumber":"1501","PropertyOwner":"陈韬"}"" to type 'JXGIS.JXTopsystem.Models.Entities.MPOfResidence'. Path '', line 1, position 184.
+|StackTrace:   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   在 Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 JXGIS.JXTopsystem.Business.MPModify.ResidenceMPModify.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\ResidenceMPModify.cs:行号 30
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 24
+=======2018/9/13 星期四 10:57:56
+|Message:Error converting value "{ID: "10", CountyID: "嘉兴市.南湖区", NeighborhoodsID: "嘉兴市.南湖区.东栅街道", CommunityName: "阳光社区", ResidenceName: "南湖壹品", …}" to type 'JXGIS.JXTopsystem.Models.Entities.MPOfResidence'. Path '', line 1, position 115.
+|StackTrace:   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   在 Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 JXGIS.JXTopsystem.Business.MPModify.ResidenceMPModify.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\ResidenceMPModify.cs:行号 30
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 24
+=======2018/9/13 星期四 10:59:41
+|Message:Error converting value "{"ID":"10","CountyID":"嘉兴市.南湖区","NeighborhoodsID":"嘉兴市.南湖区.东栅街道","CommunityName":"阳光社区","ResidenceName":"南湖壹品","LZNumber":"4","DYNumber":"2","HSNumber":"1501","PropertyOwner":"陈韬"}" to type 'JXGIS.JXTopsystem.Models.Entities.MPOfResidence'. Path '', line 1, position 182.
+|StackTrace:   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   在 Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 JXGIS.JXTopsystem.Business.MPModify.ResidenceMPModify.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\ResidenceMPModify.cs:行号 30
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 24
+=======2018/9/13 星期四 11:00:19
+|Message:Error converting value "{'ID':'10','CountyID':'嘉兴市.南湖区','NeighborhoodsID':'嘉兴市.南湖区.东栅街道','CommunityName':'阳光社区','ResidenceName':'南湖壹品','LZNumber':'4','DYNumber':'2','HSNumber':'1501','PropertyOwner':'陈韬'}" to type 'JXGIS.JXTopsystem.Models.Entities.MPOfResidence'. Path '', line 1, position 182.
+|StackTrace:   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   在 Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   在 Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   在 Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   在 JXGIS.JXTopsystem.Business.MPModify.ResidenceMPModify.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\ResidenceMPModify.cs:行号 30
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 24

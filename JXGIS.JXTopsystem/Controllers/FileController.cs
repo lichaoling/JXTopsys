@@ -41,11 +41,15 @@ namespace JXGIS.JXTopsystem.Controllers
             public string TRelativePath { get; set; }
             // 缩略图绝对路径
             public string TFullPath { get; set; }
+
+            public string FileID { get; set; }
+            public string Name { get; set; }
         }
 
-        private Paths GetUploadFilePath(string FileType, string ID, string fileID, string fileEx)
+        private Paths GetUploadFilePath(string FileType, string ID, string fileID, string fileName)
         {
             string relativePath = string.Empty;
+            var fileEx = new FileInfo(fileName).Extension;
             switch (FileType.ToUpper())
             {
                 case "RESIDENCE":
@@ -75,8 +79,6 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 Directory.CreateDirectory(savePath);
             }
-
-            //string fileID = System.Guid.NewGuid().ToString();
             string rPath = Path.Combine(relativePath, ID, fileID + fileEx);
             string fPath = Path.Combine(savePath, fileID + fileEx);
             string trPath = Path.Combine(relativePath, ID, "t-" + fileID + fileEx);
@@ -87,7 +89,9 @@ namespace JXGIS.JXTopsystem.Controllers
                 FullPath = fPath,
                 RelativePath = rPath,
                 TFullPath = tfPath,
-                TRelativePath = trPath
+                TRelativePath = trPath,
+                FileID = fileID,
+                Name = fileName,
             };
         }
 
@@ -104,7 +108,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     var fileName = file.FileName;
                     var fileID = System.Guid.NewGuid().ToString();
                     var fileEx = new FileInfo(fileName).Extension;
-                    var paths = GetUploadFilePath(FileType, ID, fileID, fileEx);
+                    var paths = GetUploadFilePath(FileType, ID, fileID, fileName);
                     // 保存图片
                     file.SaveAs(paths.FullPath);
                     // 保存缩略图片
@@ -212,11 +216,10 @@ namespace JXGIS.JXTopsystem.Controllers
                     List<Paths> paths = new List<Paths>();
                     foreach (var f in files)
                     {
-                        var p = GetUploadFilePath(FileType, ID, f.ID, f.FileEx);
+                        var p = GetUploadFilePath(FileType, ID, f.ID, f.Name);
                         paths.Add(p);
                     }
                     rt = new RtObj(paths);
-
                 }
             }
             catch (Exception ex)
