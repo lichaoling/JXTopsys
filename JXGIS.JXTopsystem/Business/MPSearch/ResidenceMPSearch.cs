@@ -238,9 +238,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                  ID = t.ID,
                                  AddressCoding = t.AddressCoding,
                                  CountyID = t.CountyID,
-                                 CountyName = t.CountyID.Split('.').Last(),
                                  NeighborhoodsID = t.NeighborhoodsID,
-                                 NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
                                  CommunityName = t.CommunityName,
                                  ResidenceName = t.ResidenceName,
                                  MPNumber = t.MPNumber,
@@ -270,9 +268,10 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                  SBDW = t.SBDW,
                                  BZTime = t.BZTime,
                              }).FirstOrDefault();
-
                 if (query == null)
                     throw new Exception("该门牌已经被注销！");
+                query.NeighborhoodsName = query.NeighborhoodsID.Split('.').Last();
+                query.CountyName = query.CountyID.Split('.').Last();
                 //将附件的名字都加上路径返回
                 var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == MPID);
                 if (files.Count() > 0)
