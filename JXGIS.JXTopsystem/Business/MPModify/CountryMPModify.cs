@@ -17,92 +17,32 @@ namespace JXGIS.JXTopsystem.Business.MPModify
 {
     public class CountryMPModify
     {
-        public static void ModifyCountryMP(MPOfCountry newData, string oldDataJson)
+        public static void ModifyCountryMP(string oldDataJson)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                #region 新增
-                if (string.IsNullOrEmpty(oldDataJson))
+                var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<MPOfCountry>(oldDataJson);
+                var targetData = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
+                var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
+                if (targetData == null) //新增
                 {
-                    #region 权限检查
-                    if (!DistrictUtils.CheckPermission(newData.NeighborhoodsID))
-                        throw new Exception("无权操作其他镇街数据！");
-                    #endregion
-                    #region 农村门牌查重
-                    if (!CheckCountryMPIsAvailable(newData.CountyID, newData.NeighborhoodsID, newData.CommunityName, newData.ViligeName, newData.MPNumber, newData.HSNumber))
-                    {
-                        throw new Exception("该农村门牌号已经存在，请检查后重新输入！");
-                    }
-                    #endregion
-                    #region 标准地址拼接 市辖区+镇街道+村社区+自然村名称+门牌号码+户室号
-                    var CountyName = newData.NeighborhoodsID.Split('.')[1];
-                    var NeighborhoodsName = newData.NeighborhoodsID.Split('.')[2];
-                    var CommunityName = newData.CommunityName;
-                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ViligeName + newData.MPNumber + "号" + newData.HSNumber == null ? string.Empty : newData.HSNumber + "室";
-                    #endregion
-                    #region 地址编码前10位拼接
-                    var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                    var mpCategory = SystemUtils.Config.MPCategory.Country.Value.ToString();
-                    var year = DateTime.Now.Year.ToString();
-                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
-                    #endregion
-                    #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
-                    var CommunityDic = new CommunityDic();
-                    CommunityDic.CountyID = newData.CountyID;
-                    CommunityDic.NeighborhoodsID = newData.NeighborhoodsID;
-                    CommunityDic.CommunityName = newData.CommunityName;
-                    DicUtils.AddCommunityDic(CommunityDic);
-                    #endregion
-                    #region 检查这个行政区下自然村名称是否在字典表中存在，若不存在就新增
-                    var ViligeDic = new ViligeDic();
-                    ViligeDic.CountyID = newData.CountyID;
-                    ViligeDic.NeighborhoodsID = newData.NeighborhoodsID;
-                    ViligeDic.CommunityName = newData.CommunityName;
-                    ViligeDic.ViligeName = newData.ViligeName;
-                    newData.ViligeID = DicUtils.AddViligeDic(ViligeDic);
-                    #endregion
-
-                    //对这条数据进行默认赋值
-                    newData.ID = Guid.NewGuid().ToString();
-                    newData.AddressCoding = AddressCoding;
-                    newData.MPPosition = (newData.Lng != null && newData.Lat != null) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
-                    newData.StandardAddress = StandardAddress;
-                    newData.AddType = Enums.MPAddType.LX;
-                    newData.MPProduce = newData.MPProduce == null ? Enums.MPProduce.NO : newData.MPProduce;
-                    newData.MPProduceComplete = Enums.Complete.NO;
-                    newData.MPZPrintComplete = Enums.Complete.NO;
-                    newData.DZZMPrintComplete = Enums.Complete.NO;
-                    newData.State = Enums.UseState.Enable;
-                    newData.MPMail = newData.MPMail == null ? Enums.MPMail.No : newData.MPMail;
-                    newData.CreateTime = DateTime.Now.Date;
-                    newData.CreateUser = LoginUtils.CurrentUser.UserName;
-                    dbContext.MPOfCountry.Add(newData);
-                }
-                #endregion
-                #region 修改
-                else
-                {
-                    var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<MPOfCountry>(oldDataJson);
-                    var targetData = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
-                    if (targetData == null)
-                        throw new Exception("该条数据已被注销，请重新查询并编辑！");
-                    var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
+                    targetData = new MPOfCountry();
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
-
                     #region 权限检查
                     if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
                         throw new Exception("无权操作其他镇街数据！");
                     #endregion
                     #region 重复性检查
-                    if (!CheckCountryMPIsAvailable(targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.ViligeName, targetData.MPNumber, targetData.HSNumber))
+                    if (!CheckCountryMPIsAvailable(targetData.ID, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.ViligeName, targetData.MPNumber, targetData.HSNumber))
                         throw new Exception("该农村门牌已经存在，请检查后重新输入！");
                     #endregion
-                    #region 标准地址拼接 市辖区+镇街道+村社区+自然村名称+门牌号码+户室号
-                    var CountyName = targetData.NeighborhoodsID.Split('.')[1];
-                    var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
-                    var CommunityName = targetData.CommunityName;
-                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.ViligeName + newData.MPNumber + "号" + newData.HSNumber == null ? string.Empty : newData.HSNumber + "室";
+                    #region 地址编码前10位拼接
+                    var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var mpCategory = SystemUtils.Config.MPCategory.Country.Value.ToString();
+                    var year = DateTime.Now.Year.ToString();
+                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
+                    targetData.AddressCoding = AddressCoding;
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
@@ -119,15 +59,65 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     ViligeDic.ViligeName = targetData.ViligeName;
                     targetData.ViligeID = DicUtils.AddViligeDic(ViligeDic);
                     #endregion
-
-                    targetData.MPPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.MPPosition;
+                    #region 标准地址拼接 市辖区+镇街道+村社区+自然村名称+门牌号码+户室号
+                    var CountyName = targetData.NeighborhoodsID.Split('.')[1];
+                    var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
+                    var CommunityName = targetData.CommunityName;
+                    var HSNumber1 = targetData.HSNumber == null ? string.Empty : targetData.HSNumber + "室";
+                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.ViligeName + targetData.MPNumber + "号" + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
+                    #endregion
+                    targetData.MPPosition = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : null;
+                    targetData.AddType = Enums.MPAddType.LX;
+                    targetData.MPProduce = targetData.MPProduce == null ? Enums.MPProduce.NO : targetData.MPProduce;
+                    targetData.MPProduceComplete = Enums.Complete.NO;
+                    targetData.MPZPrintComplete = Enums.Complete.NO;
+                    targetData.DZZMPrintComplete = Enums.Complete.NO;
+                    targetData.State = Enums.UseState.Enable;
+                    targetData.MPMail = targetData.MPMail == null ? Enums.MPMail.No : targetData.MPMail;
+                    targetData.CreateTime = DateTime.Now.Date;
+                    targetData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    dbContext.MPOfCountry.Add(targetData);
+                }
+                else //修改
+                {
+                    ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
+                    #region 权限检查
+                    if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
+                        throw new Exception("无权操作其他镇街数据！");
+                    #endregion
+                    #region 重复性检查
+                    if (!CheckCountryMPIsAvailable(targetData.ID, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.ViligeName, targetData.MPNumber, targetData.HSNumber))
+                        throw new Exception("该农村门牌已经存在，请检查后重新输入！");
+                    #endregion
+                    #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
+                    var CommunityDic = new CommunityDic();
+                    CommunityDic.CountyID = targetData.CountyID;
+                    CommunityDic.NeighborhoodsID = targetData.NeighborhoodsID;
+                    CommunityDic.CommunityName = targetData.CommunityName;
+                    DicUtils.AddCommunityDic(CommunityDic);
+                    #endregion
+                    #region 检查这个行政区下自然村名称是否在字典表中存在，若不存在就新增
+                    var ViligeDic = new ViligeDic();
+                    ViligeDic.CountyID = targetData.CountyID;
+                    ViligeDic.NeighborhoodsID = targetData.NeighborhoodsID;
+                    ViligeDic.CommunityName = targetData.CommunityName;
+                    ViligeDic.ViligeName = targetData.ViligeName;
+                    targetData.ViligeID = DicUtils.AddViligeDic(ViligeDic);
+                    #endregion
+                    #region 标准地址拼接 市辖区+镇街道+村社区+自然村名称+门牌号码+户室号
+                    var CountyName = targetData.NeighborhoodsID.Split('.')[1];
+                    var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
+                    var CommunityName = targetData.CommunityName;
+                    var HSNumber1 = targetData.HSNumber == null ? string.Empty : targetData.HSNumber + "室";
+                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.ViligeName + targetData.MPNumber + "号" + HSNumber1;
+                    targetData.StandardAddress = StandardAddress;
+                    #endregion
+                    targetData.MPPosition = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : null;
                     targetData.LastModifyTime = DateTime.Now.Date;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
-
                     BaseUtils.UpdateAddressCode(null, null, targetData, null, Enums.TypeInt.Country);
                 }
-                #endregion
                 dbContext.SaveChanges();
             }
         }
@@ -148,11 +138,11 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 dbContext.SaveChanges();
             }
         }
-        public static bool CheckCountryMPIsAvailable(string CountyID, string NeighborhoodsID, string CommunityName, string ViligeName, string MPNumber, string HSNumber)
+        public static bool CheckCountryMPIsAvailable(string ID, string CountyID, string NeighborhoodsID, string CommunityName, string ViligeName, string MPNumber, string HSNumber)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var count = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityName == CommunityName).Where(t => t.ViligeName == ViligeName).Where(t => t.MPNumber == MPNumber).Where(t => t.HSNumber == HSNumber).Count();
+                var count = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID != ID).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityName == CommunityName).Where(t => t.ViligeName == ViligeName).Where(t => t.MPNumber == MPNumber).Where(t => t.HSNumber == HSNumber).Count();
                 return count == 0;
             }
 

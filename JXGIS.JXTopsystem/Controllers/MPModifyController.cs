@@ -64,13 +64,13 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 道路门牌
-        public JsonResult ModifyRoadMP(MPOfRoad newData, string oldDataJson)
+        public JsonResult ModifyRoadMP(string oldDataJson)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                RoadMPModify.ModifyRoadMP(newData, oldDataJson);
+                RoadMPModify.ModifyRoadMP(oldDataJson);
             }
             catch (Exception ex)
             {
@@ -78,12 +78,12 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-        public JsonResult CheckRoadMPIsAvailable(string CountyID, string NeighborhoodsID, string CommunityName, string RoadName, string MPNumber)
+        public JsonResult CheckRoadMPIsAvailable(string ID, string CountyID, string NeighborhoodsID, string CommunityName, string RoadName, string MPNumber)
         {
             RtObj rt = null;
             try
             {
-                var b = RoadMPModify.CheckRoadMPIsAvailable(CountyID, NeighborhoodsID, CommunityName, RoadName, MPNumber);
+                var b = RoadMPModify.CheckRoadMPIsAvailable(ID, CountyID, NeighborhoodsID, CommunityName, RoadName, MPNumber);
                 rt = new RtObj(b);
             }
             catch (Exception ex)
@@ -109,13 +109,13 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 农村门牌
-        public JsonResult ModifyCountryMP(MPOfCountry newData, string oldDataJson)
+        public JsonResult ModifyCountryMP(string oldDataJson)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                CountryMPModify.ModifyCountryMP(newData, oldDataJson);
+                CountryMPModify.ModifyCountryMP(oldDataJson);
             }
             catch (Exception ex)
             {
@@ -123,12 +123,12 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-        public JsonResult CheckCountryMPIsAvailable(string CountyID, string NeighborhoodsID, string CommunityName, string ViligeName, string MPNumber, string HSNumber)
+        public JsonResult CheckCountryMPIsAvailable(string ID, string CountyID, string NeighborhoodsID, string CommunityName, string ViligeName, string MPNumber, string HSNumber)
         {
             RtObj rt = null;
             try
             {
-                var b = CountryMPModify.CheckCountryMPIsAvailable(CountyID, NeighborhoodsID, CommunityName, ViligeName, MPNumber, HSNumber);
+                var b = CountryMPModify.CheckCountryMPIsAvailable(ID, CountyID, NeighborhoodsID, CommunityName, ViligeName, MPNumber, HSNumber);
                 rt = new RtObj(b);
             }
             catch (Exception ex)

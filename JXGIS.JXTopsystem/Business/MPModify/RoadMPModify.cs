@@ -22,103 +22,32 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         /// </summary>
         /// <param name="oldData"></param>
         /// <param name="newData"></param>
-        public static void ModifyRoadMP(MPOfRoad newData, string oldDataJson)
+        public static void ModifyRoadMP(string oldDataJson)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                #region 新增
-                if (string.IsNullOrEmpty(oldDataJson))
+                var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<MPOfRoad>(oldDataJson);
+                var targetData = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
+                var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
+                if (targetData == null) //新增
                 {
-                    #region 权限检查
-                    if (!DistrictUtils.CheckPermission(newData.NeighborhoodsID))
-                        throw new Exception("无权操作其他镇街数据！");
-                    #endregion
-                    #region 重复性检查
-                    if (!CheckRoadMPIsAvailable(newData.CountyID, newData.NeighborhoodsID, newData.CommunityName, newData.RoadName, newData.MPNumber))
-                        throw new Exception("该道路门牌已经存在，请检查后重新输入！");
-                    #endregion
-                    #region 标准地址拼接 市辖区+镇街道+村社区+道路名称+门牌号码
-                    var CountyName = newData.NeighborhoodsID.Split('.')[1];
-                    var NeighborhoodsName = newData.NeighborhoodsID.Split('.')[2];
-                    var CommunityName = newData.CommunityName;
-                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.RoadName + newData.MPNumber + "号";
-                    #endregion
-                    #region 地址编码前10位拼接
-                    var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                    var mpCategory = SystemUtils.Config.MPCategory.Road.Value.ToString();
-                    var year = DateTime.Now.Year.ToString();
-                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
-                    #endregion
-                    #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
-                    var CommunityDic = new CommunityDic();
-                    CommunityDic.CountyID = newData.CountyID;
-                    CommunityDic.NeighborhoodsID = newData.NeighborhoodsID;
-                    CommunityDic.CommunityName = newData.CommunityName;
-                    DicUtils.AddCommunityDic(CommunityDic);
-                    #endregion
-                    #region 检查这个行政区划道路名称、起止点、编制规则是否存在，若不存在就新增
-                    var roadDic = new RoadDic();
-                    roadDic.CountyID = newData.CountyID;
-                    roadDic.NeighborhoodsID = newData.NeighborhoodsID;
-                    roadDic.CommunityName = newData.CommunityName;
-                    roadDic.RoadName = newData.RoadName;
-                    roadDic.RoadStart = newData.RoadStart;
-                    roadDic.RoadEnd = newData.RoadEnd;
-                    roadDic.BZRules = newData.BZRules;
-                    newData.RoadID = DicUtils.AddRoadDic(roadDic);
-                    #endregion
-                    #region 门牌号码类型 单双号判断赋值
-                    if (!string.IsNullOrEmpty(newData.MPNumber))
-                    {
-                        int num = 0;
-                        bool result = int.TryParse(newData.MPNumber, out num);
-                        if (result)
-                            newData.MPNumberType = num % 2 == 1 ? Enums.MPNumberType.Odd : Enums.MPNumberType.Even;
-                        else
-                            newData.MPNumberType = Enums.MPNumberType.Other;
-                    }
-                    #endregion
-
-                    //对这条数据进行默认赋值
-                    newData.ID = Guid.NewGuid().ToString();
-                    newData.AddressCoding = AddressCoding;
-                    newData.MPPosition = (newData.Lng != 0 && newData.Lat != 0) ? (DbGeography.FromText($"POINT({newData.Lng},{newData.Lat})")) : null;
-                    newData.StandardAddress = StandardAddress;
-                    newData.AddType = Enums.MPAddType.LX;
-                    newData.MPProduce = newData.MPProduce == null ? Enums.MPProduce.NO : newData.MPProduce;
-                    newData.MPProduceComplete = Enums.Complete.NO;
-                    newData.MPZPrintComplete = Enums.Complete.NO;
-                    newData.DZZMPrintComplete = Enums.Complete.NO;
-                    newData.State = Enums.UseState.Enable;
-                    newData.CreateTime = DateTime.Now.Date; ;
-                    newData.CreateUser = LoginUtils.CurrentUser.UserName;
-                    dbContext.MPOfRoad.Add(newData);
-                }
-                #endregion
-                #region 修改
-                else
-                {
-                    var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<MPOfRoad>(oldDataJson);
-                    var targetData = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
-                    if (targetData == null)
-                        throw new Exception("该条数据已被注销，请重新查询并编辑！");
-                    var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
+                    targetData = new MPOfRoad();
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
-
                     #region 权限检查
                     if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
                         throw new Exception("无权操作其他镇街数据！");
                     #endregion
                     #region 重复性检查
-                    if (!CheckRoadMPIsAvailable(targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.RoadName, targetData.MPNumber))
+                    if (!CheckRoadMPIsAvailable(targetData.ID, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.RoadName, targetData.MPNumber))
                         throw new Exception("该道路门牌已经存在，请检查后重新输入！");
                     #endregion
-                    #region 标准地址拼接 市辖区+镇街道+村社区+道路名称+门牌号码
-                    var CountyName = targetData.NeighborhoodsID.Split('.')[1];
-                    var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
-                    var CommunityName = targetData.CommunityName;
-                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + newData.RoadName + targetData.MPNumber + "号";
+                    #region 地址编码前10位拼接
+                    var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var mpCategory = SystemUtils.Config.MPCategory.Road.Value.ToString();
+                    var year = DateTime.Now.Year.ToString();
+                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
+                    targetData.AddressCoding = AddressCoding;
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
@@ -132,7 +61,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     roadDic.CountyID = targetData.CountyID;
                     roadDic.NeighborhoodsID = targetData.NeighborhoodsID;
                     roadDic.CommunityName = targetData.CommunityName;
-                    roadDic.RoadName = newData.RoadName;
+                    roadDic.RoadName = targetData.RoadName;
                     roadDic.RoadStart = targetData.RoadStart;
                     roadDic.RoadEnd = targetData.RoadEnd;
                     roadDic.BZRules = targetData.BZRules;
@@ -149,15 +78,76 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                             targetData.MPNumberType = Enums.MPNumberType.Other;
                     }
                     #endregion
-
-                    targetData.MPPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : targetData.MPPosition;
+                    #region 标准地址拼接 市辖区+镇街道+村社区+道路名称+门牌号码
+                    var CountyName = targetData.NeighborhoodsID.Split('.')[1];
+                    var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
+                    var CommunityName = targetData.CommunityName;
+                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.RoadName + targetData.MPNumber + "号";
                     targetData.StandardAddress = StandardAddress;
+                    #endregion
+                    targetData.MPPosition = (targetData.Lng != 0 && targetData.Lat != 0) ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : null;
+                    targetData.AddType = Enums.MPAddType.LX;
+                    targetData.MPProduce = targetData.MPProduce == null ? Enums.MPProduce.NO : targetData.MPProduce;
+                    targetData.MPProduceComplete = Enums.Complete.NO;
+                    targetData.MPZPrintComplete = Enums.Complete.NO;
+                    targetData.DZZMPrintComplete = Enums.Complete.NO;
+                    targetData.State = Enums.UseState.Enable;
+                    targetData.CreateTime = DateTime.Now.Date; ;
+                    targetData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    dbContext.MPOfRoad.Add(targetData);
+                }
+                else //修改
+                {
+                    ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
+                    #region 权限检查
+                    if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
+                        throw new Exception("无权操作其他镇街数据！");
+                    #endregion
+                    #region 重复性检查
+                    if (!CheckRoadMPIsAvailable(targetData.ID, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.RoadName, targetData.MPNumber))
+                        throw new Exception("该道路门牌已经存在，请检查后重新输入！");
+                    #endregion
+                    #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
+                    var CommunityDic = new CommunityDic();
+                    CommunityDic.CountyID = targetData.CountyID;
+                    CommunityDic.NeighborhoodsID = targetData.NeighborhoodsID;
+                    CommunityDic.CommunityName = targetData.CommunityName;
+                    DicUtils.AddCommunityDic(CommunityDic);
+                    #endregion
+                    #region 检查这个行政区划道路名称、起止点、编制规则是否存在，若不存在就新增
+                    var roadDic = new RoadDic();
+                    roadDic.CountyID = targetData.CountyID;
+                    roadDic.NeighborhoodsID = targetData.NeighborhoodsID;
+                    roadDic.CommunityName = targetData.CommunityName;
+                    roadDic.RoadName = targetData.RoadName;
+                    roadDic.RoadStart = targetData.RoadStart;
+                    roadDic.RoadEnd = targetData.RoadEnd;
+                    roadDic.BZRules = targetData.BZRules;
+                    targetData.RoadID = DicUtils.AddRoadDic(roadDic);
+                    #endregion
+                    #region 门牌号码类型 单双号判断赋值
+                    if (!string.IsNullOrEmpty(targetData.MPNumber))
+                    {
+                        int num = 0;
+                        bool result = int.TryParse(targetData.MPNumber, out num);
+                        if (result)
+                            targetData.MPNumberType = num % 2 == 1 ? Enums.MPNumberType.Odd : Enums.MPNumberType.Even;
+                        else
+                            targetData.MPNumberType = Enums.MPNumberType.Other;
+                    }
+                    #endregion
+                    #region 标准地址拼接 市辖区+镇街道+村社区+道路名称+门牌号码
+                    var CountyName = targetData.NeighborhoodsID.Split('.')[1];
+                    var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
+                    var CommunityName = targetData.CommunityName;
+                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.RoadName + targetData.MPNumber + "号";
+                    targetData.StandardAddress = StandardAddress;
+                    #endregion
+                    targetData.MPPosition = (targetData.Lng != 0 && targetData.Lat != 0) ? (DbGeography.FromText($"POINT({targetData.Lng},{targetData.Lat})")) : null;
                     targetData.LastModifyTime = DateTime.Now.Date;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
-
                     BaseUtils.UpdateAddressCode(null, targetData, null, null, Enums.TypeInt.Road);
                 }
-                #endregion
                 dbContext.SaveChanges();
             }
         }
@@ -178,11 +168,11 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 dbContext.SaveChanges();
             }
         }
-        public static bool CheckRoadMPIsAvailable(string CountyID, string NeighborhoodsID, string CommunityName, string RoadName, string MPNumber)
+        public static bool CheckRoadMPIsAvailable(string ID, string CountyID, string NeighborhoodsID, string CommunityName, string RoadName, string MPNumber)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var count = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityName == CommunityName).Where(t => t.RoadName == RoadName).Where(t => t.MPNumber == MPNumber).Count();
+                var count = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID != ID).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityName == CommunityName).Where(t => t.RoadName == RoadName).Where(t => t.MPNumber == MPNumber).Count();
                 return count == 0;
             }
         }

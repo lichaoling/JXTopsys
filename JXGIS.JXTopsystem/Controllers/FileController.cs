@@ -15,21 +15,21 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class FileController : Controller
     {
-        private static readonly string uploadBasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files");
+        public static readonly string uploadBasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files");
 
         // 住宅门牌上传相对路径
-        private static readonly string residenceMPRelativePath = Path.Combine(Enums.TypeStr.MP, Enums.MPFileType.ResidenceMP);
+        public static readonly string residenceMPRelativePath = Path.Combine(Enums.TypeStr.MP, Enums.MPFileType.ResidenceMP);
         // 道路门牌上传相对路径
-        private static readonly string roadMPRelativePath = Path.Combine(Enums.TypeStr.MP, Enums.MPFileType.RoadMP);
+        public static readonly string roadMPRelativePath = Path.Combine(Enums.TypeStr.MP, Enums.MPFileType.RoadMP);
         // 农村门牌上传相对路径
-        private static readonly string countryMPRelativePath = Path.Combine(Enums.TypeStr.MP, Enums.MPFileType.CountryMP);
+        public static readonly string countryMPRelativePath = Path.Combine(Enums.TypeStr.MP, Enums.MPFileType.CountryMP);
 
         //路牌标志照片上传相对路径
-        private static readonly string RPBZPhotoRelativePath = Path.Combine(Enums.TypeStr.RP, Enums.RPFileType.BZPhoto);
+        public static readonly string RPBZPhotoRelativePath = Path.Combine(Enums.TypeStr.RP, Enums.RPFileType.BZPhoto);
         //路牌二维码照片上传相对路径
-        private static readonly string RPQRCodeRelativePath = Path.Combine(Enums.TypeStr.RP, Enums.RPFileType.QRCode);
+        public static readonly string RPQRCodeRelativePath = Path.Combine(Enums.TypeStr.RP, Enums.RPFileType.QRCode);
         //路牌维修前后照片上传相对路径
-        private static readonly string RPPepairPhotoRelativePath = Path.Combine(Enums.TypeStr.RP, Enums.RPFileType.RepairPhoto);
+        public static readonly string RPPepairPhotoRelativePath = Path.Combine(Enums.TypeStr.RP, Enums.RPFileType.RepairPhoto);
 
         public class Paths
         {
@@ -196,7 +196,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     }
                     dbContext.SaveChanges();
                 }
-
+                rt = new RtObj();
             }
             catch (Exception ex)
             {

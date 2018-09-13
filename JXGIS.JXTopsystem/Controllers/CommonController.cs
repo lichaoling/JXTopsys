@@ -15,12 +15,12 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class CommonController : Controller
     {
-        // GET: Common
         public ActionResult Index()
         {
             return View();
         }
 
+        #region 行政区划相关
         public ContentResult getDistrictTree()
         {
             RtObj rt = null;
@@ -71,7 +71,6 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-
         public ContentResult CheckPermission(string CommunityID)
         {
             RtObj rt = null;
@@ -130,7 +129,6 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-
         public JsonResult DeleteNeighborhoods(string NeighborhoodsName)
         {
             RtObj rt = null;
@@ -145,6 +143,7 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+        #endregion 行政区划相关
 
         #region 地名标志
         public ContentResult GetDMBZ()
@@ -259,7 +258,7 @@ namespace JXGIS.JXTopsystem.Controllers
         }
         #endregion 邮编
 
-        #region 道路字典、
+        #region 从数据表中和字典表获取小区名、道路名、自然村名、社区名
         /// <summary>
         /// 获取小区名称
         /// </summary>
@@ -351,7 +350,6 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-
         /// <summary>
         /// 根据获取类型从字典表中获取小区名称、社区名称、道路名称或者自然村名称
         /// </summary>
@@ -385,6 +383,24 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        public ContentResult GetRoadInfosFromDic(string NeighborhoodsID, string CommunityName, string RoadName)
+        {
+            RtObj rt = null;
+            try
+            {
+                var data = DicUtils.GetRoadInfosFromDic(NeighborhoodsID, CommunityName, RoadName);
+                rt = new RtObj(data);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        #endregion 从数据表中和字典表获取小区名、道路名、自然村名、社区名
+
+        #region 添加道路信息、小区名、自然村信息到字典表
         public ContentResult AddRoadDic(RoadDic roadDic)
         {
             RtObj rt = null;
@@ -430,23 +446,9 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-        public ContentResult GetRoadInfosFromDic(string NeighborhoodsID, string CommunityName, string RoadName)
-        {
-            RtObj rt = null;
-            try
-            {
-                var data = DicUtils.GetRoadInfosFromDic(NeighborhoodsID, CommunityName, RoadName);
-                rt = new RtObj(data);
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
-        #endregion 道路字典
+        #endregion 添加道路信息、小区名、自然村信息到字典表
 
+        #region 路牌相关
         public ContentResult GetDirectionFromDic()
         {
             RtObj rt = null;
@@ -477,7 +479,6 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-
         public ContentResult GetRPBZDataFromDic(string Category)
         {
             RtObj rt = null;
@@ -525,7 +526,7 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-
+        #endregion 路牌相关
 
         public ContentResult GetUserWindows()
         {
@@ -543,7 +544,6 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-
         public ContentResult GetCreateUsers(string Role)
         {
             RtObj rt = null;
