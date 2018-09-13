@@ -43,8 +43,8 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         throw new Exception("该住宅门牌已经存在，请检查后重新输入！");
                     #endregion
                     #region 地址编码前10位拼接
-                    var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == newData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == newData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                     var mpCategory = SystemUtils.Config.MPCategory.Residence.Value.ToString();
                     var year = DateTime.Now.Year.ToString();
                     var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;

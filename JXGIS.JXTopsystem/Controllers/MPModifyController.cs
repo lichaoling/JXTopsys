@@ -33,12 +33,12 @@ namespace JXGIS.JXTopsystem.Controllers
         /// 上传数据
         /// </summary>
         /// <returns></returns>
-        public JsonResult CheckResidenceMPIsAvailable(string CountyID, string NeighborhoodsID, string CommunityName, string ResidenceName, string MPNumber, string Dormitory, string HSNumber, string LZNumber, string DYNumber)
+        public JsonResult CheckResidenceMPIsAvailable(string ID, string CountyID, string NeighborhoodsID, string CommunityName, string ResidenceName, string MPNumber, string Dormitory, string HSNumber, string LZNumber, string DYNumber)
         {
             RtObj rt = null;
             try
             {
-                var b = ResidenceMPModify.CheckResidenceMPIsAvailable(CountyID, NeighborhoodsID, CommunityName, ResidenceName, MPNumber, Dormitory, HSNumber, LZNumber, DYNumber);
+                var b = ResidenceMPModify.CheckResidenceMPIsAvailable(ID, CountyID, NeighborhoodsID, CommunityName, ResidenceName, MPNumber, Dormitory, HSNumber, LZNumber, DYNumber);
                 rt = new RtObj(b);
             }
             catch (Exception ex)
