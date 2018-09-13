@@ -11,13 +11,13 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class RPModifyController : Controller
     {
-        public JsonResult ModifyRP(RP newData, string oldDataJson)
+        public JsonResult ModifyRP(string oldDataJson)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                RPModifyUtils.ModifyRP(newData, oldDataJson);
+                RPModifyUtils.ModifyRP(oldDataJson);
             }
             catch (Exception ex)
             {
