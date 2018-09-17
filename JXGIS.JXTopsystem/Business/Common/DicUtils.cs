@@ -68,7 +68,6 @@ namespace JXGIS.JXTopsystem.Business.Common
         }
         #endregion 地名标志
 
-
         #region 从当前表中获取社区名、小区名、道路名和自然村名
         public static List<string> getCommunityNamesFromData(int type, string NeighborhoodsID)
         {
@@ -266,6 +265,8 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
+                if (string.IsNullOrEmpty(communityDic.CommunityName))
+                    communityDic.CommunityName = null;
                 var query = dbContext.CommunityDic.Where(t => t.CountyID == communityDic.CountyID).Where(t => t.NeighborhoodsID == communityDic.NeighborhoodsID).Where(t => t.CommunityName == communityDic.CommunityName).Where(t => t.CommunityName == communityDic.CommunityName).FirstOrDefault();
                 if (query == null)
                 {
@@ -309,7 +310,6 @@ namespace JXGIS.JXTopsystem.Business.Common
             }
         }
         #endregion
-
 
         #region 邮编
         public static List<string> GetPostcodeByDID(string CountyID, string NeighborhoodsID, string CommunityName)
