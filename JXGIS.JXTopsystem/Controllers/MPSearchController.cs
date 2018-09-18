@@ -86,13 +86,13 @@ namespace JXGIS.JXTopsystem.Controllers
             try
             {
                 rt = new RtObj();
-                var Did = Session["_ResidenceMPDistrictID"].ToString();
-                var CommunityName = Session["_ResidenceMPCommunityName"].ToString();
-                var ResidenceName = Session["_ResidenceMPName"].ToString();
-                var AddressCoding = Session["_ResidenceMPAddressCoding"].ToString();
-                var PropertyOwner = Session["_ResidenceMPPropertyOwner"].ToString();
-                var StandardAddress = Session["_ResidenceMPStandardAddress"].ToString();
-                var UseState = (int)Session["_ResidenceMPUseState"];
+                var Did = Session["_ResidenceMPDistrictID"] != null ? Session["_ResidenceMPDistrictID"].ToString() : null;
+                var CommunityName = Session["_ResidenceMPCommunityName"] != null ? Session["_ResidenceMPCommunityName"].ToString() : null;
+                var ResidenceName = Session["_ResidenceMPName"] != null ? Session["_ResidenceMPName"].ToString() : null;
+                var AddressCoding = Session["_ResidenceMPAddressCoding"] != null ? Session["_ResidenceMPAddressCoding"].ToString() : null;
+                var PropertyOwner = Session["_ResidenceMPPropertyOwner"] != null ? Session["_ResidenceMPPropertyOwner"].ToString() : null;
+                var StandardAddress = Session["_ResidenceMPStandardAddress"] != null ? Session["_ResidenceMPStandardAddress"].ToString() : null;
+                var UseState = Session["_ResidenceMPStandardAddress"] != null ? (int)Session["_ResidenceMPUseState"] : 1;
 
                 var ms = ResidenceMPSearch.ExportResidenceMP(Did, CommunityName, ResidenceName, AddressCoding, PropertyOwner, StandardAddress, UseState);
                 Session["_ResidenceMPDistrictID"] = null;
@@ -177,15 +177,15 @@ namespace JXGIS.JXTopsystem.Controllers
             try
             {
                 rt = new RtObj();
-                var DistrictID = Session["_RoadMPDistrictID"].ToString();
-                var CommunityName = Session["_RoadMPCommunityName"].ToString();
-                var RoadName = Session["_RoadMPRoadName"].ToString();
-                var ShopName = Session["_RoadMPShopName"].ToString();
-                var AddressCoding = Session["_RoadMPAddressCoding"].ToString();
-                var PropertyOwner = Session["_RoadMPPropertyOwner"].ToString();
-                var StandardAddress = Session["_RoadMPStandardAddress"].ToString();
-                var MPNumberType = (int)Session["_RoadMPNumberType"];
-                var UseState = (int)Session["_RoadMPUseState"];
+                var DistrictID = Session["_RoadMPDistrictID"] != null ? Session["_RoadMPDistrictID"].ToString() : null;
+                var CommunityName = Session["_RoadMPCommunityName"] != null ? Session["_RoadMPCommunityName"].ToString() : null;
+                var RoadName = Session["_RoadMPRoadName"] != null ? Session["_RoadMPRoadName"].ToString() : null;
+                var ShopName = Session["_RoadMPShopName"] != null ? Session["_RoadMPShopName"].ToString() : null;
+                var AddressCoding = Session["_RoadMPAddressCoding"] != null ? Session["_RoadMPAddressCoding"].ToString() : null;
+                var PropertyOwner = Session["_RoadMPPropertyOwner"] != null ? Session["_RoadMPPropertyOwner"].ToString() : null;
+                var StandardAddress = Session["_RoadMPStandardAddress"] != null ? Session["_RoadMPStandardAddress"].ToString() : null;
+                var MPNumberType = Session["_RoadMPNumberType"] != null ? (int)Session["_RoadMPNumberType"] : 0;
+                var UseState = Session["_RoadMPUseState"] != null ? (int)Session["_RoadMPUseState"] : 1;
                 var ms = RoadMPSearch.ExportRoadMP(DistrictID, CommunityName, RoadName, ShopName, AddressCoding, PropertyOwner, StandardAddress, MPNumberType, UseState);
                 Session["_RoadMPDistrictID"] = null;
                 Session["_RoadMPCommunityName"] = null;
@@ -269,13 +269,13 @@ namespace JXGIS.JXTopsystem.Controllers
             try
             {
                 rt = new RtObj();
-                var DistrictID = Session["_CountryMPDistrictID"].ToString();
-                var CommunityName = Session["_CountryMPCommunityName"].ToString();
-                var ViligeName = Session["_CountryMPName"].ToString();
-                var AddressCoding = Session["_CountryMPAddressCoding"].ToString();
-                var PropertyOwner = Session["_CountryMPPropertyOwner"].ToString();
-                var StandardAddress = Session["_CountryMPStandardAddress"].ToString();
-                var UseState = (int)Session["_CountryMPUseState"];
+                var DistrictID = Session["_CountryMPDistrictID"] != null ? Session["_CountryMPDistrictID"].ToString() : null;
+                var CommunityName = Session["_CountryMPCommunityName"] != null ? Session["_CountryMPCommunityName"].ToString() : null;
+                var ViligeName = Session["_CountryMPName"] != null ? Session["_CountryMPName"].ToString() : null;
+                var AddressCoding = Session["_CountryMPAddressCoding"] != null ? Session["_CountryMPAddressCoding"].ToString() : null;
+                var PropertyOwner = Session["_CountryMPPropertyOwner"] != null ? Session["_CountryMPPropertyOwner"].ToString() : null;
+                var StandardAddress = Session["_CountryMPStandardAddress"] != null ? Session["_CountryMPStandardAddress"].ToString() : null;
+                var UseState = Session["_CountryMPUseState"] != null ? (int)Session["_CountryMPUseState"] : 1;
                 var ms = CountryMPSearch.ExportCountryMP(DistrictID, CommunityName, ViligeName, AddressCoding, PropertyOwner, StandardAddress, UseState);
                 Session["_CountryMPDistrictID"] = null;
                 Session["_CountryMPCommunityName"] = null;
