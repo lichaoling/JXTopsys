@@ -29,6 +29,25 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
+        public ContentResult SearchRPRepairDetailByID(string RepairID)
+        {
+            RtObj rt = null;
+            try
+            {
+                var r = RPRepairUtils.SearchRPRepairDetailByID(RepairID);
+                rt = new RtObj(r);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
+            return Content(s);
+        }
+
+
         public JsonResult RepairOrChangeRP(string ID, string Model, string Size, string Material, string Manufacturers, Models.Entities.RPRepair rpRepairInfo, int repairMode)
         {
             RtObj rt = null;

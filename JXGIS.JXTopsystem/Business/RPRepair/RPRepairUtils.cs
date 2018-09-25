@@ -21,6 +21,16 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 return data;
             }
         }
+        public static Models.Entities.RPRepair SearchRPRepairDetailByID(string RepairID)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var RepairInfo = dbContext.RPRepair.Where(t => t.ID == RepairID).FirstOrDefault();
+                if (RepairInfo == null)
+                    throw new Exception("不存在该维修信息！");
+                return RepairInfo;
+            }
+        }
 
         public static void RepairOrChangeRP(string ID, string Model, string Size, string Material, string Manufacturers, Models.Entities.RPRepair rpRepairInfo, int repairMode)
         {
