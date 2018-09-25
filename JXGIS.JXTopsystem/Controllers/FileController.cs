@@ -212,13 +212,37 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 using (var dbContext = SystemUtils.NewEFDbContext)
                 {
-                    var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == ID).Where(t => t.DocType == DocType).ToList();
+                    string[] mpTypes = new string[] { "RESIDENCE", "ROAD", "COUNTRY" };
                     List<Paths> paths = new List<Paths>();
-                    foreach (var f in files)
+                    if (mpTypes.Contains(FileType.ToUpper()))
                     {
-                        var p = GetUploadFilePath(FileType, ID, f.ID, f.Name);
-                        paths.Add(p);
+                        var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == ID).Where(t => t.DocType == DocType).ToList();
+                        foreach (var f in files)
+                        {
+                            var p = GetUploadFilePath(FileType, ID, f.ID, f.Name);
+                            paths.Add(p);
+                        }
                     }
+                    else if (FileType.ToUpper() == "RPBZPHOTO")
+                    {
+                        var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == ID).ToList();
+                        foreach (var f in files)
+                        {
+                            var p = GetUploadFilePath(FileType, ID, f.ID, f.Name);
+                            paths.Add(p);
+                        }
+                    }
+                    else if (FileType.ToUpper() == "RPPEPAIRPHOTO")
+                    {
+                        var files = dbContext.RPPepairUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPRepairID == ID).ToList();
+                        foreach (var f in files)
+                        {
+                            var p = GetUploadFilePath(FileType, ID, f.ID, f.Name);
+                            paths.Add(p);
+                        }
+                    }
+                    else
+                        throw new Exception("未知的图片类型");
                     rt = new RtObj(paths);
                 }
             }
