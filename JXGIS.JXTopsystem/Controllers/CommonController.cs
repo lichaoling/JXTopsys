@@ -56,7 +56,7 @@ namespace JXGIS.JXTopsystem.Controllers
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public ContentResult getDistrictTreeFromData(int type)
+        public ContentResult getDistrictTreeFromData(int type = Enums.TypeInt.Residence)
         {
             RtObj rt = null;
             try
@@ -176,7 +176,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-        public ContentResult GetMPSizeByMPType(int mpType)
+        public ContentResult GetMPSizeByMPType(int? mpType)
         {
             RtObj rt = null;
             try

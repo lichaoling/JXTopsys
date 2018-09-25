@@ -113,7 +113,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.ViligeName + targetData.MPNumber + "号" + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.MPPosition = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : null;
+                    targetData.MPPosition = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.MPPosition;
                     targetData.LastModifyTime = DateTime.Now.Date;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     BaseUtils.UpdateAddressCode(null, null, targetData, null, Enums.TypeInt.Country);

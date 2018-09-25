@@ -35,7 +35,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return sizes;
             }
         }
-        public static List<string> GetMPSizeByMPType(int mpType)
+        public static List<string> GetMPSizeByMPType(int? mpType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -222,13 +222,59 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return name;
             }
         }
+        public static List<RoadDic> GetRoadInfosFromDic(string NeighborhoodsID, string CommunityName, string RoadName)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                IQueryable<RoadDic> query = dbContext.RoadDic;
+                if (!string.IsNullOrEmpty(NeighborhoodsID))
+                    query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
+                if (!string.IsNullOrEmpty(CommunityName))
+                    query = query.Where(t => t.CommunityName == CommunityName);
+                if (!string.IsNullOrEmpty(RoadName))
+                    query = query.Where(t => t.RoadName == RoadName);
+                var data = query.ToList();
+                return data;
+            }
+        }
         #endregion
 
-        #region 道路字典
+        #region 字典添加
+        public static void AddCommunityDic(CommunityDic communityDic)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                if (string.IsNullOrEmpty(communityDic.CommunityName))
+                    communityDic.CommunityName = null;
+
+                var query = dbContext.CommunityDic.Where(t => t.CountyID == communityDic.CountyID).Where(t => t.NeighborhoodsID == communityDic.NeighborhoodsID).Where(t => t.CommunityName == communityDic.CommunityName).Where(t => t.CommunityName == communityDic.CommunityName).FirstOrDefault();
+                if (query == null)
+                {
+                    communityDic.ID = Guid.NewGuid().ToString();
+                    dbContext.CommunityDic.Add(communityDic);
+                    dbContext.SaveChanges();
+                }
+            }
+        }
         public static string AddRoadDic(RoadDic roadDic)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
+                if (string.IsNullOrEmpty(roadDic.CommunityName))
+                    roadDic.CommunityName = null;
+                if (string.IsNullOrEmpty(roadDic.RoadName))
+                    roadDic.RoadName = null;
+                if (string.IsNullOrEmpty(roadDic.RoadStart))
+                    roadDic.RoadStart = null;
+                if (string.IsNullOrEmpty(roadDic.RoadEnd))
+                    roadDic.RoadEnd = null;
+                if (string.IsNullOrEmpty(roadDic.BZRules))
+                    roadDic.BZRules = null;
+                if (string.IsNullOrEmpty(roadDic.StartEndNum))
+                    roadDic.StartEndNum = null;
+                if (string.IsNullOrEmpty(roadDic.Intersection))
+                    roadDic.Intersection = null;
+
                 var query = dbContext.RoadDic.Where(t => t.CountyID == roadDic.CountyID).Where(t => t.NeighborhoodsID == roadDic.NeighborhoodsID).Where(t => t.CommunityName == roadDic.CommunityName).Where(t => t.RoadName == roadDic.RoadName).Where(t => t.RoadStart == roadDic.RoadStart).Where(t => t.RoadEnd == roadDic.RoadEnd).Where(t => t.BZRules == roadDic.BZRules).Where(t => t.StartEndNum == roadDic.StartEndNum).Where(t => t.Intersection == roadDic.Intersection).FirstOrDefault();
                 string ID = null;
                 if (query == null)
@@ -247,6 +293,11 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
+                if (string.IsNullOrEmpty(residenceDic.CommunityName))
+                    residenceDic.CommunityName = null;
+                if (string.IsNullOrEmpty(residenceDic.ResidenceName))
+                    residenceDic.ResidenceName = null;
+
                 var query = dbContext.ResidenceDic.Where(t => t.CountyID == residenceDic.CountyID).Where(t => t.NeighborhoodsID == residenceDic.NeighborhoodsID).Where(t => t.CommunityName == residenceDic.CommunityName).Where(t => t.ResidenceName == residenceDic.ResidenceName).FirstOrDefault();
                 string ID = null;
                 if (query == null)
@@ -261,25 +312,15 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return ID;
             }
         }
-        public static void AddCommunityDic(CommunityDic communityDic)
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                if (string.IsNullOrEmpty(communityDic.CommunityName))
-                    communityDic.CommunityName = null;
-                var query = dbContext.CommunityDic.Where(t => t.CountyID == communityDic.CountyID).Where(t => t.NeighborhoodsID == communityDic.NeighborhoodsID).Where(t => t.CommunityName == communityDic.CommunityName).Where(t => t.CommunityName == communityDic.CommunityName).FirstOrDefault();
-                if (query == null)
-                {
-                    communityDic.ID = Guid.NewGuid().ToString();
-                    dbContext.CommunityDic.Add(communityDic);
-                    dbContext.SaveChanges();
-                }
-            }
-        }
         public static string AddViligeDic(ViligeDic viligeDic)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
+                if (string.IsNullOrEmpty(viligeDic.CommunityName))
+                    viligeDic.CommunityName = null;
+                if (string.IsNullOrEmpty(viligeDic.ViligeName))
+                    viligeDic.ViligeName = null;
+
                 var query = dbContext.ViligeDic.Where(t => t.CountyID == viligeDic.CountyID).Where(t => t.NeighborhoodsID == viligeDic.NeighborhoodsID).Where(t => t.CommunityName == viligeDic.CommunityName).Where(t => t.ViligeName == viligeDic.ViligeName).FirstOrDefault();
                 string ID = null;
                 if (query == null)
@@ -292,21 +333,6 @@ namespace JXGIS.JXTopsystem.Business.Common
                 else
                     ID = query.ID;
                 return ID;
-            }
-        }
-        public static List<RoadDic> GetRoadInfosFromDic(string NeighborhoodsID, string CommunityName, string RoadName)
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                IQueryable<RoadDic> query = dbContext.RoadDic;
-                if (!string.IsNullOrEmpty(NeighborhoodsID))
-                    query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
-                if (!string.IsNullOrEmpty(CommunityName))
-                    query = query.Where(t => t.CommunityName == CommunityName);
-                if (!string.IsNullOrEmpty(RoadName))
-                    query = query.Where(t => t.RoadName == RoadName);
-                var data = query.ToList();
-                return data;
             }
         }
         #endregion

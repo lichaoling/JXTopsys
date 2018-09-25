@@ -59,8 +59,6 @@ D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\S
 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.dll
 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.pdb
 D:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.csprojResolveAssemblyReference.cache
-E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.dll
-E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.pdb
 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\ApplicationInsights.config
 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\roslyn\csc.exe
 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -122,3 +120,11 @@ E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\S
 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Helpers.resources.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Mvc.resources.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.csprojResolveAssemblyReference.cache
+E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.dll
+E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.pdb
+E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\System.Net.Http.Formatting.dll
+E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\System.Web.Http.dll
+E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\System.Web.Http.WebHost.dll
+E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\System.Net.Http.Formatting.xml
+E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\System.Web.Http.xml
+E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\bin\System.Web.Http.WebHost.xml

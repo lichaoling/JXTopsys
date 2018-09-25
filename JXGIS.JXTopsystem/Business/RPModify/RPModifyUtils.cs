@@ -65,27 +65,46 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     targetData.CreateUser = LoginUtils.CurrentUser.UserName;
 
                     //生成二维码图和缩略图并保存
-                    targetData.Code = dbContext.RP.Max(t => t.Code) + 1;
-                    string strCode = "http://www.walys.com";
-                    QRCodeGenerator qrGenerator = new QRCoder.QRCodeGenerator();
-                    QRCodeData qrCodeData = qrGenerator.CreateQrCode(strCode, QRCodeGenerator.ECCLevel.Q);
-                    QRCode qrcode = new QRCode(qrCodeData);
-                    Bitmap qrCodeImage = qrcode.GetGraphic(5, Color.Black, Color.White, null, 15, 6, false);
-                    Image img = qrCodeImage;
-                    string filePath = Path.Combine(FileController.uploadBasePath, FileController.RPQRCodeRelativePath);
-                    string fileName = targetData.Code + ".jpg";
-                    string fileNameThum = "t-" + targetData.Code + ".jpg";
-                    string path = Path.Combine(filePath, fileName);
-                    string pathThum = Path.Combine(filePath, fileNameThum);
-                    if (!Directory.Exists(filePath))
-                    {
-                        Directory.CreateDirectory(filePath);
-                    }
-                    qrCodeImage.Save(path);
-                    Image imgThum = PictureUtils.GetHvtThumbnail(img, 200);
-                    imgThum.Save(pathThum);
-                    dbContext.RP.Add(targetData);
+                    var tt = dbContext.RP.Max(t => t.Code);
+                    targetData.Code = tt == null ? 1 : tt + 1;
+                    SaveQRCodeController saveQRCodeController = new SaveQRCodeController();
+                    saveQRCodeController.SaveQRCodeImgs(targetData.Code);
 
+                    //string strCode = $"http://www.cristbin.com/DMQuery_wx/LPYH/BaseInfo?Id={targetData.Code}";
+                    //QRCodeGenerator qrGenerator = new QRCoder.QRCodeGenerator();
+                    //QRCodeData qrCodeData = qrGenerator.CreateQrCode(strCode, QRCodeGenerator.ECCLevel.H);
+                    //QRCode qrcode = new QRCode(qrCodeData);
+                    //Bitmap qrCodeImage = qrcode.GetGraphic(10, Color.Black, Color.White, null, 960, 960, false);
+                    //Image img = qrCodeImage;
+
+                    ////位图宽高
+                    //int Margin = 80;
+                    //int width = img.Width + Margin;
+                    //int height = img.Height + Margin;
+                    //Bitmap BitmapResult = new Bitmap(width, height);
+                    //Graphics Grp = Graphics.FromImage(BitmapResult);
+                    //SolidBrush b = new SolidBrush(Color.White);//这里修改颜色
+                    //Grp.FillRectangle(b, 0, 0, width, height);
+                    //System.Drawing.Rectangle Rec = new System.Drawing.Rectangle(0, 0, img.Width, img.Height);
+                    ////向矩形框内填充Img
+                    //Grp.DrawImage(img, Margin / 2, Margin / 2, Rec, GraphicsUnit.Pixel);
+                    ////返回位图文件
+                    //Grp.Dispose();
+                    //GC.Collect();
+
+                    //string filePath = Path.Combine(FileController.uploadBasePath, FileController.RPQRCodeRelativePath);
+                    //string fileName = targetData.Code + ".jpg";
+                    //string fileNameThum = "t-" + targetData.Code + ".jpg";
+                    //string path = Path.Combine(filePath, fileName);
+                    //string pathThum = Path.Combine(filePath, fileNameThum);
+                    //if (!Directory.Exists(filePath))
+                    //{
+                    //    Directory.CreateDirectory(filePath);
+                    //}
+                    //BitmapResult.Save(path);
+                    //Image imgThum = PictureUtils.GetHvtThumbnail(BitmapResult, 200);
+                    //imgThum.Save(pathThum);
+                    dbContext.RP.Add(targetData);
                 }
                 else //修改
                 {
