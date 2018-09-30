@@ -11,6 +11,11 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
 {
     public class RPRepairUtils
     {
+        /// <summary>
+        /// 根据路牌ID获取还未修复的维修记录
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         public static RPDetails SearchRPRepairByID(string ID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -21,6 +26,11 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 return data;
             }
         }
+        /// <summary>
+        /// 根据路牌维修ID获取维修记录详情
+        /// </summary>
+        /// <param name="RepairID"></param>
+        /// <returns></returns>
         public static Models.Entities.RPRepair SearchRPRepairDetailByID(string RepairID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
