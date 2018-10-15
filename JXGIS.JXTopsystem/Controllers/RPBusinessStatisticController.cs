@@ -11,7 +11,7 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class RPBusinessStatisticController : Controller
     {
-        public ContentResult GetRPNumTJ(int PageSize, int PageNum, string start, string end, string DistrictID, string CommunityName, string RoadName, string Model, string Material, string Size)
+        public ContentResult GetRPNumTJ(int PageSize, int PageNum, DateTime start, DateTime end, string DistrictID, string CommunityName, string RoadName, string Model, string Material, string Size)
         {
             RtObj rt = null;
             try

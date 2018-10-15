@@ -166,6 +166,19 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+        public JsonResult DZZMPrint(List<string> IDs, int MPType)
+        {
+            RtObj rt = null;
+            try
+            {
+                MPPrintUtils.DZZMPrint(IDs, MPType);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
         #endregion
 
         //测试用

@@ -544,12 +544,12 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-        public ContentResult GetCreateUsers(string Role)
+        public ContentResult GetCreateUsers(string window)
         {
             RtObj rt = null;
             try
             {
-                var createUsers = DistrictUtils.getCreateUsers(LoginUtils.CurrentUser.DistrictID, Role);
+                var createUsers = DistrictUtils.getCreateUsers(LoginUtils.CurrentUser.DistrictID, window);
                 rt = new RtObj(createUsers);
 
             }

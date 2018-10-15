@@ -1,0 +1,10 @@
+=======2018/10/13 星期六 8:28:53
+|Message:文件“E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Files\DZZMandMPZTemplate\Merge\merge.pdf”正由另一进程使用，因此该进程无法访问此文件。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   在 System.IO.FileStream..ctor(String path, FileMode mode)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.mergePDFFiles(List`1 fileList, String outMergeFile)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MergePDF(String Directorypath, String outpath)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, Int32 MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, Int32 MPType)

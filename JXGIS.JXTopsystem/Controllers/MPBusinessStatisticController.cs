@@ -13,7 +13,7 @@ namespace JXGIS.JXTopsystem.Controllers
     public class MPBusinessStatisticController : Controller
     {
         // GET: MPBusinessStatistic
-        public ContentResult GetMPBusinessUserTJ(int PageSize, int PageNum, string start, string end, string Window, string CreateUser, int CertificateType = Enums.CertificateType.All)
+        public ContentResult GetMPBusinessUserTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string Window, string CreateUser, int CertificateType = Enums.CertificateType.All)
         {
             RtObj rt = null;
             try
@@ -31,7 +31,7 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
-        public ContentResult GetMPBusinessNumTJ(int PageSize, int PageNum, string start, string end, string DistrictID, int CertificateType = Enums.CertificateType.All)
+        public ContentResult GetMPBusinessNumTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string DistrictID, int CertificateType = Enums.CertificateType.All)
         {
             RtObj rt = null;
             try
@@ -49,12 +49,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
-        public ContentResult GetMPProduceTJ(int PageSize, int PageNum, string DistrictID)
+        public ContentResult GetMPProduceTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, DateTime? start, DateTime? end)
         {
             RtObj rt = null;
             try
             {
-                var r = MPStatisticUtils.GetMPProduceTJ(PageSize, PageNum, DistrictID);
+                var r = MPStatisticUtils.GetMPProduceTJ(PageSize, PageNum, DistrictID, CommunityName, start, end);
                 rt = new RtObj(r);
             }
             catch (Exception ex)

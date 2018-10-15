@@ -25,21 +25,29 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
         /// <param name="Material"></param>
         /// <param name="Size"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetRPNumTJ(int PageSize, int PageNum, string start, string end, string DistrictID, string CommunityName, string RoadName, string Model, string Material, string Size)
+        public static Dictionary<string, object> GetRPNumTJ(int PageSize, int PageNum, DateTime start, DateTime end, string DistrictID, string CommunityName, string RoadName, string Model, string Material, string Size)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable);
-                if (!string.IsNullOrEmpty(start) || !string.IsNullOrEmpty(end))
+
+                //if (!string.IsNullOrEmpty(start) || !string.IsNullOrEmpty(end))
+                //{
+                //    if (!string.IsNullOrEmpty(start))
+                //    {
+                //        query = query.Where(t => String.Compare(t.BZTime.ToString(), start, StringComparison.Ordinal) >= 0);
+                //    }
+                //    if (!string.IsNullOrEmpty(end))
+                //    {
+                //        query = query.Where(t => String.Compare(t.BZTime.ToString(), end, StringComparison.Ordinal) <= 0);
+                //    }
+                //}
+                if (start != null || end != null)
                 {
-                    if (!string.IsNullOrEmpty(start))
-                    {
-                        query = query.Where(t => String.Compare(t.BZTime.ToString(), start, StringComparison.Ordinal) >= 0);
-                    }
-                    if (!string.IsNullOrEmpty(end))
-                    {
-                        query = query.Where(t => String.Compare(t.BZTime.ToString(), end, StringComparison.Ordinal) <= 0);
-                    }
+                    if (start != null)
+                        query = query.Where(t => t.BZTime >= start);
+                    if (end != null)
+                        query = query.Where(t => t.BZTime <= end);
                 }
 
                 if (!string.IsNullOrEmpty(DistrictID))

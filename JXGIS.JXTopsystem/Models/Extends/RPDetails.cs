@@ -10,6 +10,18 @@ namespace JXGIS.JXTopsystem.Models.Extends
     [NotMapped]
     public class RPDetails : RP
     {
+        public static System.Reflection.PropertyInfo[] ps = typeof(RP).GetProperties();
+        public RPDetails(RP rp)
+        {
+            if (rp != null)
+            {
+                foreach (var pi in ps)
+                {
+                    pi.SetValue(this, pi.GetValue(rp));
+                }
+            }
+        }
+        public RPDetails() { }
         public string CountyName { get; set; }
         public string NeighborhoodsName { get; set; }
         public Pictures CodeFile { get; set; }

@@ -1,4 +1,5 @@
 ﻿using JXGIS.JXTopsystem.Business.Common;
+using JXGIS.JXTopsystem.Controllers;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
@@ -11,7 +12,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
 {
     public class RPSearchUtils
     {
-        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, string start, string end, int UseState)
+        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime start, DateTime end, int UseState)
         {
             int count = 0;
             List<RPDetails> data = null;
@@ -69,16 +70,23 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                     query = query.Where(t => t.BackTagline.Contains(BackTagline));
                 }
                 //设置时间筛选
-                if (!string.IsNullOrEmpty(start) || !string.IsNullOrEmpty(end))
+                //if (!string.IsNullOrEmpty(start) || !string.IsNullOrEmpty(end))
+                //{
+                //    if (!string.IsNullOrEmpty(start))
+                //    {
+                //        query = query.Where(t => String.Compare(t.BZTime.ToString(), start, StringComparison.Ordinal) >= 0);
+                //    }
+                //    if (!string.IsNullOrEmpty(end))
+                //    {
+                //        query = query.Where(t => String.Compare(t.BZTime.ToString(), end, StringComparison.Ordinal) <= 0);
+                //    }
+                //}
+                if (start != null || end != null)
                 {
-                    if (!string.IsNullOrEmpty(start))
-                    {
-                        query = query.Where(t => String.Compare(t.BZTime.ToString(), start, StringComparison.Ordinal) >= 0);
-                    }
-                    if (!string.IsNullOrEmpty(end))
-                    {
-                        query = query.Where(t => String.Compare(t.BZTime.ToString(), end, StringComparison.Ordinal) <= 0);
-                    }
+                    if (start != null)
+                        query = query.Where(t => t.BZTime >= start);
+                    if (end != null)
+                        query = query.Where(t => t.BZTime <= end);
                 }
                 //道路名称筛选
                 if (!string.IsNullOrEmpty(RoadName))
@@ -146,15 +154,16 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var data = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == RPID).FirstOrDefault() as RPDetails;
+                var rp = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == RPID).FirstOrDefault();
+                var data = new RPDetails(rp);
                 if (data == null)
                     throw new Exception("该路牌已经被注销！");
 
                 var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == RPID);
-                var baseUrl_QRCode = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.QRCode);
+                var baseUrl_QRCode = FileController.RPQRCodeRelativePath;
                 if (files.Count() > 0)
                 {
-                    var baseUrl_BZ = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.BZPhoto, RPID);
+                    var baseUrl_BZ = Path.Combine(FileController.RPBZPhotoRelativePath, RPID);
 
                     var filelst = (from t in files
                                    select new Pictures

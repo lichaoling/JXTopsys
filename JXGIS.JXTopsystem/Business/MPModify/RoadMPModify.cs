@@ -45,7 +45,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.CountyID).Select(t => t.Code).FirstOrDefault();
                     var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                     var mpCategory = SystemUtils.Config.MPCategory.Road.Value.ToString();
-                    var year = DateTime.Now.Year.ToString();
+                    var year = targetData.BZTime == null ? DateTime.Now.Year.ToString() : ((DateTime)(targetData.BZTime)).Year.ToString();
                     var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
                     targetData.AddressCoding = AddressCoding;
                     #endregion

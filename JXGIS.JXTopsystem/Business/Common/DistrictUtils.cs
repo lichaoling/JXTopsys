@@ -295,7 +295,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         /// </summary>
         /// <param name="districtIDs"></param>
         /// <returns></returns>
-        public static List<string> getCreateUsers(List<string> districtIDs, string Role)
+        public static List<string> getCreateUsers(List<string> districtIDs, string window)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -311,9 +311,9 @@ namespace JXGIS.JXTopsystem.Business.Common
                     }
                     var query = roles.Where(where.Compile()).Distinct();
 
-                    if (!string.IsNullOrEmpty(Role))
+                    if (!string.IsNullOrEmpty(window))
                     {
-                        query = query.Where(t => t.Role == Role);
+                        query = query.Where(t => t.Window == window);
                     }
                     var roleIDS = query.Select(t => t.RoleID).Distinct().ToList();
                     var userIDS = dbContext.UserRole.Where(t => roleIDS.Contains(t.RoleID)).Select(t => t.UserID).Distinct().ToList();
