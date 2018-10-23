@@ -77,6 +77,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CancelUser { get; set; }
         public DateTime? DelTime { get; set; }
         public string DelUser { get; set; }
+        public int ArchiveFileStatus { get; set; }
 
         private static PropertyInfo[] props = typeof(MPOfResidence).GetProperties();
         public object this[string key]

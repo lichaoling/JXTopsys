@@ -930,6 +930,8 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Business\ArchiveFileUtils.cs" />
+    <Compile Include="Business\ArchiveFile\ArchiveFile.cs" />
     <Compile Include="Business\Common\BaseUtils.cs" />
     <Compile Include="Business\Common\DicUtils.cs" />
     <Compile Include="Business\Common\DistrictUtils.cs" />
@@ -970,6 +972,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\ARCHIVEFILE.cs" />
     <Compile Include="Models\Entities\CommunityDic.cs" />
     <Compile Include="Models\Entities\DirectionDic.cs" />
     <Compile Include="Models\Entities\District.cs" />
@@ -985,6 +988,10 @@
     <Compile Include="Models\Entities\RPPeparUploadFiles.cs" />
     <Compile Include="Models\Entities\RPOfUploadFiles.cs" />
     <Compile Include="Models\Entities\RPRepairContent.cs" />
+    <Compile Include="Models\Extends\ArchiveFile\ArchiveConfigTab.cs" />
+    <Compile Include="Models\Extends\ArchiveFile\ArchivePacketDirectory.cs" />
+    <Compile Include="Models\Extends\ArchiveFile\BaseInfoDescription.cs" />
+    <Compile Include="Models\Extends\ArchiveFile\ProcessInfoDescription.cs" />
     <Compile Include="Models\Extends\PLMPProduceList.cs" />
     <Compile Include="Models\Extends\MPProduce.cs" />
     <Compile Include="Models\Entities\RP.cs" />
@@ -1043,6 +1050,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="任务.txt" />
     <Content Include="需求2018.9.5.docx" />
     <Content Include="路牌管理.docx" />
     <Content Include="门牌管理%28新%29.docx" />
