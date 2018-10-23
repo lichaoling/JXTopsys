@@ -16,12 +16,20 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public static RPDetails SearchRPRepairByID(string ID)
+        public static RPDetails SearchRPRepairByID(string ID, int RPRange)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 RPDetails data = RPSearchUtils.SearchRPByID(ID);
-                var infos = dbContext.RPRepair.Where(t => t.RPID == ID).Where(t => t.IsFinish == Enums.RPRepairFinish.No).ToList();
+
+                var rps = dbContext.RPRepair.Where(t => t.RPID == ID);
+                List<Models.Entities.RPRepair> infos = new List<Models.Entities.RPRepair>();
+                if (RPRange == Enums.RPRange.All)
+                    infos = rps.ToList();
+                else if (RPRange == Enums.RPRange.YXF)
+                    infos = rps.Where(t => t.IsFinish == Enums.RPRepairFinish.Yes).ToList();
+                else
+                    infos = rps.Where(t => t.IsFinish == Enums.RPRepairFinish.No).ToList();
                 data.RepairInfos = infos;
                 return data;
             }

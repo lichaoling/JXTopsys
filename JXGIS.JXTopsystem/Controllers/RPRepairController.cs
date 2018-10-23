@@ -11,12 +11,12 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class RPRepairController : Controller
     {
-        public ContentResult SearchRPRepairByID(string ID)
+        public ContentResult SearchRPRepairByID(string ID, int RPRange)
         {
             RtObj rt = null;
             try
             {
-                var r = RPRepairUtils.SearchRPRepairByID(ID);
+                var r = RPRepairUtils.SearchRPRepairByID(ID, RPRange);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
