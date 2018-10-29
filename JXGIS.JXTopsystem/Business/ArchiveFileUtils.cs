@@ -38,7 +38,30 @@ namespace JXGIS.JXTopsystem.Business
                 }
             }
         }
-
+        public class servicetype
+        {
+            public static string bj
+            {
+                get
+                {
+                    return SystemUtils.Config.ArchiveFilesPara.servicetype.bj.ToString();
+                }
+            }
+            public static string cnj
+            {
+                get
+                {
+                    return SystemUtils.Config.ArchiveFilesPara.servicetype.cnj.ToString();
+                }
+            }
+            public static string qt
+            {
+                get
+                {
+                    return SystemUtils.Config.ArchiveFilesPara.servicetype.qt.ToString();
+                }
+            }
+        }
         public class servicename
         {
             public static string dmhz

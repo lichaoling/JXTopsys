@@ -67,6 +67,6 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CancelUser { get; set; }
         public DateTime? DelTime { get; set; }
         public string DelUser { get; set; }
-        public int ArchiveFileStatus { get; set; }
+        public string ArchiveFileStatus { get; set; }
     }
 }

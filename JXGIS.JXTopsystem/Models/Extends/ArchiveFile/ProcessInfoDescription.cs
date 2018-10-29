@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Xml.Serialization;
 
 namespace JXGIS.JXTopsystem.Models.Extends.ArchiveFile
 {
+    [XmlRootAttribute("Opinions")]
     public class ProcessInfoDescription
     {
-        List<Opinions> Opinions { get; set; }
+        public List<Opinions> Opinions { get; set; }
     }
+    [XmlRootAttribute("Opinion")]
     public class Opinions
     {
+        [XmlAttribute("nodename")]
         public string nodename { get; set; }
         public string author { get; set; }
         public string type { get; set; }

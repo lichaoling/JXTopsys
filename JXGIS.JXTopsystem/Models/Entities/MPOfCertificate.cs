@@ -21,6 +21,6 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CreateUser { get; set; }
         public string Window { get; set; }
         public int CertificateType { get; set; }
-        public int ArchiveFileStatus { get; set; }
+        public string ArchiveFileStatus { get; set; }
     }
 }

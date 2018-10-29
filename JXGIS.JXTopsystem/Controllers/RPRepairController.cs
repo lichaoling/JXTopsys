@@ -1,4 +1,5 @@
 ﻿using JXGIS.JXTopsystem.Business.RPRepair;
+using JXGIS.JXTopsystem.Models.Extends;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
 using System;
@@ -11,7 +12,7 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class RPRepairController : Controller
     {
-        public ContentResult SearchRPRepairByID(string ID, int RPRange)
+        public ContentResult SearchRPRepairByID(string ID, int RPRange = Enums.RPRange.All)
         {
             RtObj rt = null;
             try
@@ -46,7 +47,6 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-
 
         public JsonResult RepairOrChangeRP(string ID, string Model, string Size, string Material, string Manufacturers, Models.Entities.RPRepair rpRepairInfo, int repairMode)
         {

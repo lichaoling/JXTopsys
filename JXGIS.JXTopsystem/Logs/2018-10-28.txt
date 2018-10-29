@@ -1,0 +1,12 @@
+=======2018/10/28 星期日 16:18:22
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.ArchiveFile.ArchiveFile.ArchiveMPFile(Nullable`1 start, Nullable`1 end)
+   在 JXGIS.JXTopsystem.Controllers.ArchiveFileController.ArchiveMPFile(Nullable`1 start, Nullable`1 end)
+=======2018/10/28 星期日 16:18:34
+|Message:文件“E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Files\ArchiveFiles\33040013-10-00325-000-2018-30年-0000001\归档配置表.XML”正由另一进程使用，因此该进程无法访问此文件。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   在 System.Xml.XmlTextWriter..ctor(String filename, Encoding encoding)
+   在 JXGIS.JXTopsystem.Business.ArchiveFile.ArchiveFile.ArchiveMPFile(Nullable`1 start, Nullable`1 end)
+   在 JXGIS.JXTopsystem.Controllers.ArchiveFileController.ArchiveMPFile(Nullable`1 start, Nullable`1 end)

@@ -171,6 +171,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Files\DZZMandMPZTemplate\门牌证模板.png" />
     <Content Include="Files\RP\二维码图片备份\1.jpg" />
     <Content Include="Files\RP\二维码图片备份\10.jpg" />
     <Content Include="Files\RP\二维码图片备份\100.jpg" />
@@ -957,6 +958,7 @@
     <Compile Include="Business\RPSearch\RPSearchUtils.cs" />
     <Compile Include="Business\SystemUtils.cs" />
     <Compile Include="Business\Login\ValidateGraphic.cs" />
+    <Compile Include="Controllers\ArchiveFileController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -1061,6 +1063,7 @@
     <Folder Include="Files\DZZMandMPZTemplate\Merge\" />
     <Folder Include="Files\RP\QRCode\" />
     <Folder Include="Lib\" />
+    <Folder Include="Views\ArchiveFile\" />
     <Folder Include="Views\SaveQRCode\" />
   </ItemGroup>
   <PropertyGroup>

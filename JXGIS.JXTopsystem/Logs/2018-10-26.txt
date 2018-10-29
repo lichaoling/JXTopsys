@@ -1,0 +1,21 @@
+=======2018/10/26 星期五 15:43:14
+|Message:对路径“C:\Program Files (x86)\IIS Express\33040013-10-00325-000-2018-30年--0000001”的访问被拒绝。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   在 JXGIS.JXTopsystem.Business.ArchiveFile.ArchiveFile.ArchiveMPFile(Nullable`1 start, Nullable`1 end)
+   在 JXGIS.JXTopsystem.Controllers.ArchiveFileController.ArchiveMPFile(Nullable`1 start, Nullable`1 end)
+=======2018/10/26 星期五 15:43:46
+|Message:未能找到路径“E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Files\ArchiveFiles\33040013-10-00325-000-2018-30年--0000001\归档配置表.XML”的一部分。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   在 JXGIS.JXTopsystem.Business.ArchiveFile.ArchiveFile.ArchiveMPFile(Nullable`1 start, Nullable`1 end)
+   在 JXGIS.JXTopsystem.Controllers.ArchiveFileController.ArchiveMPFile(Nullable`1 start, Nullable`1 end)
+=======2018/10/26 星期五 15:50:26
+|Message:未能找到路径“E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Files\ArchiveFiles\33040013-10-00325-000-2018-30年-0000001\归档配置表.XML”的一部分。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   在 JXGIS.JXTopsystem.Business.ArchiveFile.ArchiveFile.ArchiveMPFile(Nullable`1 start, Nullable`1 end)
+   在 JXGIS.JXTopsystem.Controllers.ArchiveFileController.ArchiveMPFile(Nullable`1 start, Nullable`1 end)

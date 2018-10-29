@@ -2,11 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Xml.Serialization;
 
 namespace JXGIS.JXTopsystem.Models.Extends.ArchiveFile
 {
+    [XmlRootAttribute("description")]
     public class BaseInfoDescription
     {
+        [XmlAttribute("title")]
+        public string title
+        {
+            get;
+            set;
+        } = "基本信息描述";
+
         public string deptname { get; set; }
         public string documentnumber { get; set; }
         public string retentionperiod { get; set; }
