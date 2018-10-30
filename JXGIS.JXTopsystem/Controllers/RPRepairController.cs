@@ -29,6 +29,21 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
+        public ContentResult GetNewRPRepair(string RPID)
+        {
+            RtObj rt = null;
+            try
+            {
+                var r = RPRepairUtils.GetNewRPRepair(RPID);
+                rt = new RtObj(r);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
 
         public ContentResult SearchRPRepairDetailByID(string RepairID)
         {
@@ -48,13 +63,13 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
-        public JsonResult RepairOrChangeRP(string ID, string Model, string Size, string Material, string Manufacturers, Models.Entities.RPRepair rpRepairInfo, int repairMode)
+        public JsonResult RepairOrChangeRP(string oldDataJson)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                RPRepairUtils.RepairOrChangeRP(ID, Model, Size, Material, Manufacturers, rpRepairInfo, repairMode);
+                RPRepairUtils.RepairOrChangeRP(oldDataJson);
             }
             catch (Exception ex)
             {

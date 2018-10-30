@@ -76,19 +76,19 @@ namespace JXGIS.JXTopsystem.Business.Common
                 var s = new List<string>();
                 if (type == Enums.TypeInt.Residence)
                 {
-                    s = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Select(t => t.CommunityName).Distinct().ToList();
+                    s = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 }
                 else if (type == Enums.TypeInt.Road)
                 {
-                    s = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Select(t => t.CommunityName).Distinct().ToList();
+                    s = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 }
                 else if (type == Enums.TypeInt.Country)
                 {
-                    s = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Select(t => t.CommunityName).Distinct().ToList();
+                    s = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 }
                 else if (type == Enums.TypeInt.RP)
                 {
-                    s = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Select(t => t.CommunityName).Distinct().ToList();
+                    s = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 }
                 return s;
             }
@@ -105,7 +105,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
-                name = query.Select(t => t.ResidenceName).Distinct().ToList();
+                name = query.Where(t => !string.IsNullOrEmpty(t.ResidenceName)).Select(t => t.ResidenceName).Distinct().ToList();
 
                 return name;
             }
@@ -124,7 +124,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                         query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                     if (!string.IsNullOrEmpty(CommunityName))
                         query = query.Where(t => t.CommunityName == CommunityName);
-                    name = query.Select(t => t.RoadName).Distinct().ToList();
+                    name = query.Where(t => !string.IsNullOrEmpty(t.RoadName)).Select(t => t.RoadName).Distinct().ToList();
                 }
                 else if (type == Enums.TypeInt.RP)
                 {
@@ -135,7 +135,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                         query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                     if (!string.IsNullOrEmpty(CommunityName))
                         query = query.Where(t => t.CommunityName == CommunityName);
-                    name = query.Select(t => t.RoadName).Distinct().ToList();
+                    name = query.Where(t => !string.IsNullOrEmpty(t.RoadName)).Select(t => t.RoadName).Distinct().ToList();
                 }
                 return name;
             }
@@ -152,7 +152,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
-                name = query.Select(t => t.ViligeName).Distinct().ToList();
+                name = query.Where(t => !string.IsNullOrEmpty(t.ViligeName)).Select(t => t.ViligeName).Distinct().ToList();
                 return name;
             }
         }
@@ -171,7 +171,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
-                name = query.Select(t => t.ResidenceName).ToList();
+                name = query.Where(t => !string.IsNullOrEmpty(t.ResidenceName)).Select(t => t.ResidenceName).ToList();
 
                 return name;
             }
@@ -186,7 +186,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.CountyID == CountyID);
                 if (!string.IsNullOrEmpty(NeighborhoodsID))
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
-                name = query.Select(t => t.CommunityName).ToList();
+                name = query.Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).ToList();
                 return name;
             }
         }
@@ -202,7 +202,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
-                name = query.Select(t => t.RoadName).ToList();
+                name = query.Where(t => !string.IsNullOrEmpty(t.RoadName)).Select(t => t.RoadName).ToList();
                 return name;
             }
         }
@@ -218,7 +218,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
-                name = query.Select(t => t.ViligeName).ToList();
+                name = query.Where(t => !string.IsNullOrEmpty(t.ViligeName)).Select(t => t.ViligeName).ToList();
                 return name;
             }
         }
@@ -421,7 +421,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var rt = dbContext.DirectionDic.Select(t => t.Diretion).ToList();
+                var rt = dbContext.DirectionDic.Where(t => !string.IsNullOrEmpty(t.Diretion)).Select(t => t.Diretion).ToList();
                 return rt;
             }
         }
@@ -429,7 +429,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var rt = dbContext.RPRepairContent.Select(t => t.RepairContent).ToList();
+                var rt = dbContext.RPRepairContent.Where(t => !string.IsNullOrEmpty(t.RepairContent)).Select(t => t.RepairContent).ToList();
                 return rt;
             }
         }
@@ -443,7 +443,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                             select new
                             {
                                 Category = g.Key,
-                                Data = g.Select(t => t.Data).ToList(),
+                                Data = g.Where(t => !string.IsNullOrEmpty(t.Data)).Select(t => t.Data).ToList(),
                             }).ToList();
                 if (!string.IsNullOrEmpty(Category))
                     data = data.Where(t => t.Category == Category).ToList();
@@ -454,16 +454,16 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var Intersection = dbContext.RP.Select(t => t.Intersection).Distinct().ToList();
-                var Direction = dbContext.RP.Select(t => t.Direction).Distinct().ToList();
-                var Model = dbContext.RP.Select(t => t.Model).Distinct().ToList();
-                var Material = dbContext.RP.Select(t => t.Material).Distinct().ToList();
-                var Size = dbContext.RP.Select(t => t.Size).Distinct().ToList();
-                var Manufacturers = dbContext.RP.Select(t => t.Manufacturers).Distinct().ToList();
+                var Intersection = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Intersection)).Select(t => t.Intersection).Distinct().ToList();
+                var Direction = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Direction)).Select(t => t.Direction).Distinct().ToList();
+                var Model = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Model)).Select(t => t.Model).Distinct().ToList();
+                var Material = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Material)).Select(t => t.Material).Distinct().ToList();
+                var Size = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Size)).Select(t => t.Size).Distinct().ToList();
+                var Manufacturers = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Manufacturers)).Select(t => t.Manufacturers).Distinct().ToList();
                 var RepairMode = dbContext.RPRepair.Select(t => t.RepairMode).Distinct().ToList();
                 var RepairedCount = dbContext.RP.Select(t => t.RepairedCount).Distinct().ToList();
-                var RepairParts = dbContext.RPRepair.Select(t => t.RepairParts).Distinct().ToList();
-                var RepairFactory = dbContext.RPRepair.Select(t => t.RepairFactory).Distinct().ToList();
+                var RepairParts = dbContext.RPRepair.Where(t => !string.IsNullOrEmpty(t.RepairParts)).Select(t => t.RepairParts).Distinct().ToList();
+                var RepairFactory = dbContext.RPRepair.Where(t => !string.IsNullOrEmpty(t.RepairFactory)).Select(t => t.RepairFactory).Distinct().ToList();
                 return new Dictionary<string, object> {
                     { "Intersection",Intersection},
                     { "Direction",Direction},

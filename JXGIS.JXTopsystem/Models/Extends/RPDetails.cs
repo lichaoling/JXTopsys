@@ -27,5 +27,18 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public Pictures CodeFile { get; set; }
         public List<Pictures> RPBZPhoto { get; set; }
         public List<RPRepair> RepairInfos { get; set; }
+
+    }
+    [NotMapped]
+    public class RPRepareInfos : RP
+    {
+        public string RepairID { get; set; }
+        public string RepairParts { get; set; }
+        public string RepairFactory { get; set; }
+        public string RepairContent { get; set; }
+        public int RepairMode { get; set; }
+        public DateTime? RepairTime { get; set; }
+        public DateTime? FinishRepaireTime { get; set; }
+
     }
 }

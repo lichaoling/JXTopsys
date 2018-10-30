@@ -42,22 +42,22 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 //样式筛选
                 if (!string.IsNullOrEmpty(Model))
                 {
-                    query = query.Where(t => t.Model==Model);
+                    query = query.Where(t => t.Model == Model);
                 }
                 //规格筛选
                 if (!string.IsNullOrEmpty(Size))
                 {
-                    query = query.Where(t => t.Size==Size);
+                    query = query.Where(t => t.Size == Size);
                 }
                 //材质筛选
                 if (!string.IsNullOrEmpty(Material))
                 {
-                    query = query.Where(t => t.Material==Material);
+                    query = query.Where(t => t.Material == Material);
                 }
                 //生产厂家筛选
                 if (!string.IsNullOrEmpty(Manufacturers))
                 {
-                    query = query.Where(t => t.Manufacturers==Manufacturers);
+                    query = query.Where(t => t.Manufacturers == Manufacturers);
                 }
                 //正面宣传语筛选
                 if (!string.IsNullOrEmpty(FrontTagline))
@@ -119,7 +119,9 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                             Direction = t.Direction,
                             BZTime = t.BZTime,
                             CreateTime = t.CreateTime,
-                            RepairedCount = t.RepairedCount
+                            RepairedCount = t.RepairedCount,
+                            Lat = t.Position.Latitude,
+                            Lng = t.Position.Longitude
                         }).ToList();
 
                 //关联路牌照片 重组url
@@ -182,6 +184,8 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 };
                 data.CountyName = data.CountyID.Split('.').Last();
                 data.NeighborhoodsName = data.NeighborhoodsID.Split('.').Last();
+                data.Lat = data.Position.Latitude;
+                data.Lng = data.Position.Longitude;
                 return data;
             }
         }
