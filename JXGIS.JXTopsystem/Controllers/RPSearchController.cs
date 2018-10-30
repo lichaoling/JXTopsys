@@ -12,7 +12,7 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class RPSearchController : Controller
     {
-        public ContentResult SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime start, DateTime end, int UseState=Enums.UseState.Enable)
+        public ContentResult SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int UseState=Enums.UseState.Enable)
         {
             RtObj rt = null;
             try

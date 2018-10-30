@@ -994,6 +994,7 @@
     <Compile Include="Models\Extends\ArchiveFile\ArchivePacketDirectory.cs" />
     <Compile Include="Models\Extends\ArchiveFile\BaseInfoDescription.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ProcessInfoDescription.cs" />
+    <Compile Include="Models\Extends\Certificate.cs" />
     <Compile Include="Models\Extends\PLMPProduceList.cs" />
     <Compile Include="Models\Extends\MPProduce.cs" />
     <Compile Include="Models\Entities\RP.cs" />
@@ -1060,7 +1061,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\DZZMandMPZTemplate\DZZM\County\" />
+    <Folder Include="Files\DZZMandMPZTemplate\DZZM\Road\" />
     <Folder Include="Files\DZZMandMPZTemplate\Merge\" />
+    <Folder Include="Files\DZZMandMPZTemplate\MPZM\County\" />
+    <Folder Include="Files\DZZMandMPZTemplate\MPZM\Residence\" />
+    <Folder Include="Files\DZZMandMPZTemplate\MPZM\Road\" />
     <Folder Include="Files\RP\QRCode\" />
     <Folder Include="Lib\" />
     <Folder Include="Views\ArchiveFile\" />

@@ -1,6 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using JXGIS.JXTopsystem.Business.Common;
+using JXGIS.JXTopsystem.Controllers;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using Microsoft.Office.Core;
@@ -15,11 +16,11 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
 {
     public class MPPrintUtils
     {
-        public static readonly string basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files", "DZZMandMPZTemplate");
+        public static readonly string basePath = Path.Combine(FileController.uploadBasePath, "Files", "DZZMandMPZTemplate");
         public static readonly string templateFile = Path.Combine(basePath, "地址证明模板.docx");
         public static readonly string TempPdf = Path.Combine(basePath, "Temp");
-        public static readonly string mergeFile = Path.Combine(basePath, "Merge", "merge.pdf");
         public static readonly string mergePath = Path.Combine(basePath, "Merge");
+        public static readonly string mergeFile = Path.Combine(mergePath, "merge.pdf");
 
         /// <summary>
         /// 地名证明打印或门牌证打印

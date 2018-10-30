@@ -1,0 +1,49 @@
+=======2018/10/30 星期二 10:01:28
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.BaseUtils.UpdateAddressCode(MPOfResidence zz, MPOfRoad dl, MPOfCountry nc, RP rp, Int32 type)
+   在 JXGIS.JXTopsystem.Business.RPModify.RPModifyUtils.ModifyRP(String oldDataJson)
+   在 JXGIS.JXTopsystem.Controllers.RPModifyController.ModifyRP(String oldDataJson)
+=======2018/10/30 星期二 10:03:09
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.BaseUtils.UpdateAddressCode(MPOfResidence zz, MPOfRoad dl, MPOfCountry nc, RP rp, Int32 type)
+   在 JXGIS.JXTopsystem.Business.RPModify.RPModifyUtils.ModifyRP(String oldDataJson)
+   在 JXGIS.JXTopsystem.Controllers.RPModifyController.ModifyRP(String oldDataJson)
+=======2018/10/30 星期二 10:09:55
+|Message:索引和长度必须引用该字符串内的位置。
+参数名: length
+|StackTrace:   在 System.String.Substring(Int32 startIndex, Int32 length)
+   在 JXGIS.JXTopsystem.Business.Common.BaseUtils.UpdateAddressCode(MPOfResidence zz, MPOfRoad dl, MPOfCountry nc, RP rp, Int32 type)
+   在 JXGIS.JXTopsystem.Business.RPModify.RPModifyUtils.ModifyRP(String oldDataJson)
+   在 JXGIS.JXTopsystem.Controllers.RPModifyController.ModifyRP(String oldDataJson)
+=======2018/10/30 星期二 10:16:49
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.<>c__DisplayClass0_0.<SearchRP>b__1(RP t)
+   在 System.Linq.Enumerable.<>c__DisplayClass6_0`1.<CombinePredicates>b__0(TSource x)
+   在 System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   在 System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.RPSearchController.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+=======2018/10/30 星期二 10:23:15
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.<>c__DisplayClass0_0.<SearchRP>b__1(RP t)
+   在 System.Linq.Enumerable.<>c__DisplayClass6_0`1.<CombinePredicates>b__0(TSource x)
+   在 System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   在 System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.RPSearchController.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+=======2018/10/30 星期二 10:24:57
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.<>c__DisplayClass0_0.<SearchRP>b__1(RP t)
+   在 System.Linq.Enumerable.<>c__DisplayClass6_0`1.<CombinePredicates>b__0(TSource x)
+   在 System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   在 System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.RPSearchController.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+=======2018/10/30 星期二 10:25:59
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.<>c__DisplayClass0_0.<SearchRP>b__1(RP t)
+   在 System.Linq.Enumerable.<>c__DisplayClass6_0`1.<CombinePredicates>b__0(TSource x)
+   在 System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   在 System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.RPSearchController.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)

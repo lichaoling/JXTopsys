@@ -12,7 +12,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
 {
     public class RPSearchUtils
     {
-        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime start, DateTime end, int UseState)
+        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int UseState)
         {
             int count = 0;
             List<RPDetails> data = null;
@@ -36,28 +36,28 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 //交叉路口筛选
                 if (!string.IsNullOrEmpty(Intersection))
                 {
-                    query = query.Where(t => t.Intersection.Contains(Intersection));
+                    query = query.Where(t => t.Intersection == Intersection);
                 }
 
                 //样式筛选
                 if (!string.IsNullOrEmpty(Model))
                 {
-                    query = query.Where(t => t.Model.Contains(Model));
+                    query = query.Where(t => t.Model==Model);
                 }
                 //规格筛选
                 if (!string.IsNullOrEmpty(Size))
                 {
-                    query = query.Where(t => t.Size.Contains(Size));
+                    query = query.Where(t => t.Size==Size);
                 }
                 //材质筛选
                 if (!string.IsNullOrEmpty(Material))
                 {
-                    query = query.Where(t => t.Material.Contains(Material));
+                    query = query.Where(t => t.Material==Material);
                 }
                 //生产厂家筛选
                 if (!string.IsNullOrEmpty(Manufacturers))
                 {
-                    query = query.Where(t => t.Manufacturers.Contains(Manufacturers));
+                    query = query.Where(t => t.Manufacturers==Manufacturers);
                 }
                 //正面宣传语筛选
                 if (!string.IsNullOrEmpty(FrontTagline))
@@ -155,9 +155,9 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var rp = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == RPID).FirstOrDefault();
-                var data = new RPDetails(rp);
-                if (data == null)
+                if (rp == null)
                     throw new Exception("该路牌已经被注销！");
+                var data = new RPDetails(rp);
 
                 var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == RPID);
                 var baseUrl_QRCode = FileController.RPQRCodeRelativePath;

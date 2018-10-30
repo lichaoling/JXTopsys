@@ -25,7 +25,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
         /// <param name="Material"></param>
         /// <param name="Size"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetRPNumTJ(int PageSize, int PageNum, DateTime start, DateTime end, string DistrictID, string CommunityName, string RoadName, string Model, string Material, string Size)
+        public static Dictionary<string, object> GetRPNumTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string DistrictID, string CommunityName, string RoadName, string Model, string Material, string Size)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
