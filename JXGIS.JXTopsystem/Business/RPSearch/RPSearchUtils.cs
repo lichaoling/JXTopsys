@@ -111,8 +111,8 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                             ID = t.ID,
                             CountyID = t.CountyID,
                             NeighborhoodsID = t.NeighborhoodsID,
-                            CountyName = t.CountyID.Split('.').Last(),
-                            NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
+                            CountyName = string.IsNullOrEmpty(t.CountyID) ? null : t.CountyID.Split('.').Last(),
+                            NeighborhoodsName = string.IsNullOrEmpty(t.NeighborhoodsID) ? null : t.NeighborhoodsID.Split('.').Last(),
                             CommunityName = t.CommunityName,
                             RoadName = t.RoadName,
                             Intersection = t.Intersection,
@@ -120,8 +120,8 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                             BZTime = t.BZTime,
                             CreateTime = t.CreateTime,
                             RepairedCount = t.RepairedCount,
-                            Lat = t.Position.Latitude,
-                            Lng = t.Position.Longitude
+                            Lat = t.Position != null ? t.Position.Latitude : null,
+                            Lng = t.Position != null ? t.Position.Longitude : null
                         }).ToList();
 
                 //关联路牌照片 重组url

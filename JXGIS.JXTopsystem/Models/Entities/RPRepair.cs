@@ -20,7 +20,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public int RepairMode { get; set; }
         public DateTime? RepairTime { get; set; }
         public string RepairUser { get; set; }
-        public int IsFinish { get; set; }
+        //public int IsFinish { get; set; }
         public DateTime? FinishRepaireTime { get; set; }
         public string FinishRepaireUser { get; set; }
     }

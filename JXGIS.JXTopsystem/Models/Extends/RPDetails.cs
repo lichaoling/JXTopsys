@@ -32,7 +32,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
     [NotMapped]
     public class RPRepareInfos : RP
     {
-        public string RepairID { get; set; }
+        public string RPID { get; set; }
         public string RepairParts { get; set; }
         public string RepairFactory { get; set; }
         public string RepairContent { get; set; }

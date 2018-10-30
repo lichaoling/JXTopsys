@@ -62,6 +62,34 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
+        public ContentResult DeletehRPRepairByID(string RepairID)
+        {
+            RtObj rt = null;
+            try
+            {
+                RPRepairUtils.DeletehRPRepairByID(RepairID);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        public ContentResult ModifyRPRepair(string oldDataJson)
+        {
+            RtObj rt = null;
+            try
+            {
+                RPRepairUtils.ModifyRPRepair(oldDataJson);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
 
         public JsonResult RepairOrChangeRP(string oldDataJson)
         {

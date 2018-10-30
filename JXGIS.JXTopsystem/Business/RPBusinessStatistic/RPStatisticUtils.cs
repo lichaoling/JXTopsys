@@ -160,6 +160,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 }
                 var rpID = query.Select(t => t.RPID).Distinct().ToList();
                 var rps = dbContext.RP.Where(t => rpID.Contains(t.ID));
+
                 rps = rps.Where(t => t.RepairedCount == RepairedCount);
                 if (!string.IsNullOrEmpty(DistrictID))
                     rps = rps.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + '.') == 0 || t.NeighborhoodsID == DistrictID);
