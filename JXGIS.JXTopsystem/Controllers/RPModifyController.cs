@@ -25,5 +25,20 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+
+        public JsonResult CancelRP(List<string> IDs)
+        {
+            RtObj rt = null;
+            try
+            {
+                rt = new RtObj();
+                RPModifyUtils.CancelRP(IDs);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
     }
 }

@@ -171,7 +171,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
-                name = query.Where(t => !string.IsNullOrEmpty(t.ResidenceName)).Select(t => t.ResidenceName).ToList();
+                name = query.Where(t => !string.IsNullOrEmpty(t.ResidenceName)).Select(t => t.ResidenceName).Distinct().ToList();
 
                 return name;
             }
@@ -186,7 +186,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.CountyID == CountyID);
                 if (!string.IsNullOrEmpty(NeighborhoodsID))
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
-                name = query.Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).ToList();
+                name = query.Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 return name;
             }
         }
@@ -202,7 +202,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
-                name = query.Where(t => !string.IsNullOrEmpty(t.RoadName)).Select(t => t.RoadName).ToList();
+                name = query.Where(t => !string.IsNullOrEmpty(t.RoadName)).Select(t => t.RoadName).Distinct().ToList();
                 return name;
             }
         }
@@ -218,7 +218,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
-                name = query.Where(t => !string.IsNullOrEmpty(t.ViligeName)).Select(t => t.ViligeName).ToList();
+                name = query.Where(t => !string.IsNullOrEmpty(t.ViligeName)).Select(t => t.ViligeName).Distinct().ToList();
                 return name;
             }
         }

@@ -139,6 +139,23 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                 dbContext.SaveChanges();
             }
         }
+
+        public static void CancelRP(List<string> IDs)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => IDs.Contains(t.ID)).ToList();
+                if (IDs.Count != query.Count)
+                    throw new Exception("部分门牌数据已被注销，请重新查询！");
+                foreach (var q in query)
+                {
+                    q.State = Enums.UseState.Cancel;
+                    q.CancelTime = DateTime.Now.Date;
+                    q.CancelUser = LoginUtils.CurrentUser.UserName;
+                }
+                dbContext.SaveChanges();
+            }
+        }
         //private static void UpdateRPFiles(List<string> fileIDs, IList<HttpPostedFile> addedFiles, string RPID, string directory, SqlDBContext dbContext)
         //{
         //    if (!Directory.Exists(directory))

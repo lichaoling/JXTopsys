@@ -411,7 +411,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 {
                     var field = Fields[j];
                     var value = row[field.Alias];
-                    if (field.Field == "编制日期")
+                    if (field.Field == "编制时间")
                     {
                         IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
                         timeConverter.DateTimeFormat = "yyyy-MM-dd";
