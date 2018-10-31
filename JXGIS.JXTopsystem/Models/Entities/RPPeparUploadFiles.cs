@@ -16,7 +16,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
 
         public string Name { get; set; }
         public string FileEx { get; set; }
-        public int? RepairType { get; set; } //0 维修前 1维修后
+        public string RepairType { get; set; } //0 维修前 1维修后
         public int State { get; set; }
     }
 }

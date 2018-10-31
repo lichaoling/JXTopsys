@@ -52,8 +52,8 @@ namespace JXGIS.JXTopsystem.Models.Extends
         }
         public static class RPRepairType
         {
-            public const int Before = 0;
-            public const int After = 1;
+            public const string Before ="维修前";
+            public const string After = "维修后";
         }
         public static class CertificateType
         {

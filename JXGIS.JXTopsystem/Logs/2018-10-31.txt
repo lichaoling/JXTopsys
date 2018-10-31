@@ -9,3 +9,43 @@
    在 System.Data.Entity.DbContext.SaveChanges()
    在 JXGIS.JXTopsystem.Business.RPRepair.RPRepairUtils.RepairOrChangeRP(String oldDataJson)
    在 JXGIS.JXTopsystem.Controllers.RPRepairController.RepairOrChangeRP(String oldDataJson)
+=======2018/10/31 星期三 14:16:27
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.<>c__DisplayClass0_0.<SearchRP>b__10(RP t) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\RPSearch\RPSearchUtils.cs:行号 94
+   在 System.Linq.Enumerable.<>c__DisplayClass6_0`1.<CombinePredicates>b__0(TSource x)
+   在 System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   在 System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\RPSearch\RPSearchUtils.cs:行号 96
+   在 JXGIS.JXTopsystem.Controllers.RPSearchController.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\RPSearchController.cs:行号 20
+=======2018/10/31 星期三 14:20:30
+|Message:值不能为 null。
+参数名: value
+|StackTrace:   在 System.String.IndexOf(String value, Int32 startIndex, Int32 count, StringComparison comparisonType)
+   在 System.String.Contains(String value)
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.<>c__DisplayClass0_0.<SearchRP>b__10(RP t)
+   在 System.Linq.Enumerable.<>c__DisplayClass6_0`1.<CombinePredicates>b__0(TSource x)
+   在 System.Linq.Enumerable.<>c__DisplayClass6_0`1.<CombinePredicates>b__0(TSource x)
+   在 System.Linq.Enumerable.<>c__DisplayClass6_0`1.<CombinePredicates>b__0(TSource x)
+   在 System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   在 System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.RPSearchController.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+=======2018/10/31 星期三 14:21:46
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.<>c__DisplayClass0_0.<SearchRP>b__10(RP t)
+   在 System.Linq.Enumerable.<>c__DisplayClass6_0`1.<CombinePredicates>b__0(TSource x)
+   在 System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   在 System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.RPSearchController.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+=======2018/10/31 星期三 14:22:32
+|Message:值不能为 null。
+参数名: value
+|StackTrace:   在 System.String.IndexOf(String value, Int32 startIndex, Int32 count, StringComparison comparisonType)
+   在 System.String.IndexOf(String value)
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.<>c__DisplayClass0_0.<SearchRP>b__10(RP t)
+   在 System.Linq.Enumerable.<>c__DisplayClass6_0`1.<CombinePredicates>b__0(TSource x)
+   在 System.Linq.Enumerable.WhereEnumerableIterator`1.MoveNext()
+   在 System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.RPSearchController.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)

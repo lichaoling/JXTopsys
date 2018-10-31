@@ -91,7 +91,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 //道路名称筛选
                 if (!string.IsNullOrEmpty(RoadName))
                 {
-                    query = query.Where(t => t.RoadName.Contains(RoadName));
+                    query = query.Where(t => t.RoadName == RoadName);
                 }
                 count = query.Count();
                 //如果是导出，就返回所有

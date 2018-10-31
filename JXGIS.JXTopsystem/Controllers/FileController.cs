@@ -46,10 +46,11 @@ namespace JXGIS.JXTopsystem.Controllers
             public string Name { get; set; }
         }
 
-        private Paths GetUploadFilePath(string FileType, string ID, string fileID, string fileName)
+        private Paths GetUploadFilePath(string FileType, string ID, string fileID, string fileName, string RepairType)
         {
             string relativePath = string.Empty;
             var fileEx = new FileInfo(fileName).Extension;
+
             switch (FileType.ToUpper())
             {
                 case "RESIDENCE":
@@ -70,8 +71,9 @@ namespace JXGIS.JXTopsystem.Controllers
                 default:
                     throw new Exception("未知的文件目录");
             }
-
             string savePath = Path.Combine(uploadBasePath, relativePath, ID);
+            if (FileType.ToUpper() == "RPPEPAIRPHOTO")
+                savePath = Path.Combine(savePath, RepairType);
             if (!Directory.Exists(savePath))
             {
                 Directory.CreateDirectory(savePath);
@@ -92,7 +94,7 @@ namespace JXGIS.JXTopsystem.Controllers
             };
         }
 
-        public ActionResult UploadPicture(string ID, string FileType, int RepairType, string DocType)
+        public ActionResult UploadPicture(string ID, string FileType, string RepairType, string DocType)
         {
             RtObj rt = null;
             try
@@ -105,7 +107,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     var fileName = file.FileName;
                     var fileID = System.Guid.NewGuid().ToString();
                     var fileEx = new FileInfo(fileName).Extension;
-                    var paths = GetUploadFilePath(FileType, ID, fileID, fileName);
+                    var paths = GetUploadFilePath(FileType, ID, fileID, fileName, RepairType);
                     // 保存图片
                     file.SaveAs(paths.FullPath);
                     // 保存缩略图片
@@ -202,7 +204,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-        public ContentResult GetPictureUrls(string ID, string FileType, string DocType)
+        public ContentResult GetPictureUrls(string ID, string FileType, string DocType, string RepairType = null)
         {
             RtObj rt = null;
             try
@@ -216,7 +218,7 @@ namespace JXGIS.JXTopsystem.Controllers
                         var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == ID).Where(t => t.DocType == DocType).ToList();
                         foreach (var f in files)
                         {
-                            var p = GetUploadFilePath(FileType, ID, f.ID, f.Name);
+                            var p = GetUploadFilePath(FileType, ID, f.ID, f.Name, RepairType);
                             paths.Add(p);
                         }
                     }
@@ -225,7 +227,7 @@ namespace JXGIS.JXTopsystem.Controllers
                         var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == ID).ToList();
                         foreach (var f in files)
                         {
-                            var p = GetUploadFilePath(FileType, ID, f.ID, f.Name);
+                            var p = GetUploadFilePath(FileType, ID, f.ID, f.Name, RepairType);
                             paths.Add(p);
                         }
                     }
@@ -234,7 +236,7 @@ namespace JXGIS.JXTopsystem.Controllers
                         var files = dbContext.RPPepairUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPRepairID == ID).ToList();
                         foreach (var f in files)
                         {
-                            var p = GetUploadFilePath(FileType, ID, f.ID, f.Name);
+                            var p = GetUploadFilePath(FileType, ID, f.ID, f.Name, RepairType);
                             paths.Add(p);
                         }
                     }
