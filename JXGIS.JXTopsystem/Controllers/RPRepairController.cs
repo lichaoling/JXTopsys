@@ -62,12 +62,12 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        public ContentResult DeletehRPRepairByID(string RepairID)
+        public ContentResult DeleteRPRepairByID(string RepairID)
         {
             RtObj rt = null;
             try
             {
-                RPRepairUtils.DeletehRPRepairByID(RepairID);
+                RPRepairUtils.DeleteRPRepairByID(RepairID);
             }
             catch (Exception ex)
             {

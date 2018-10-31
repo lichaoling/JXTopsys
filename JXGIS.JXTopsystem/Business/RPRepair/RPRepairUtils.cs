@@ -71,7 +71,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 };
             }
         }
-        public static void DeletehRPRepairByID(string RepairID)
+        public static void DeleteRPRepairByID(string RepairID)
         {
             string RPID = null;
             using (var dbContext = SystemUtils.NewEFDbContext)
