@@ -28,7 +28,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        public ContentResult GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, int RepairMode, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, string FinishTimeStart, string FinishTimeEnd)
+        public ContentResult GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, string RepairMode, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, string FinishTimeStart, string FinishTimeEnd)
         {
             RtObj rt = null;
             try

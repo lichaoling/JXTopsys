@@ -61,7 +61,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string ApplicantPhone { get; set; }
         public string SBDW { get; set; }
         public DateTime? BZTime { get; set; }
-        public int? AddType { get; set; }//门牌新增方式 0批量 1零星
+        public string AddType { get; set; }//门牌新增方式
         public int? MPProduce { get; set; } //门牌制作 0不制作 1制作
         public int? MPProduceComplete { get; set; } //门牌制作完成情况 0未完成 1已完成
         public DateTime? MPProduceCompleteTime { get; set; }//门牌制作完成时间

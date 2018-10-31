@@ -31,8 +31,8 @@ namespace JXGIS.JXTopsystem.Models.Extends
         }
         public static class MPAddType
         {
-            public const int LX = 1;
-            public const int PL = 0;
+            public const string LX = "零星";
+            public const string PL = "批量";
         }
         public static class TypeStr
         {

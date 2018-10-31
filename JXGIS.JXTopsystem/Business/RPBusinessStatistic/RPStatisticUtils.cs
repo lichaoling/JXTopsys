@@ -121,12 +121,12 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
         /// <param name="FinishTimeStart"></param>
         /// <param name="FinishTimeEnd"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, int RepairMode, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, string FinishTimeStart, string FinishTimeEnd)
+        public static Dictionary<string, object> GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, string RepairMode, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, string FinishTimeStart, string FinishTimeEnd)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 IQueryable<Models.Entities.RPRepair> query = dbContext.RPRepair.Where(t => true);
-                if (RepairMode != Enums.RPRepairMode.All)
+                if (!string.IsNullOrEmpty(RepairMode))
                 {
                     query = query.Where(t => t.RepairMode == RepairMode);
                 }
