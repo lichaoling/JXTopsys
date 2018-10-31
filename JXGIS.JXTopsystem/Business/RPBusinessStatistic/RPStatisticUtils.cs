@@ -144,7 +144,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 }
                 if (isFinishRepair == Enums.Complete.Yes)//已修复,有修复的起止时间
                 {
-                    query = query.Where(t => t.IsFinish == Enums.Complete.Yes);
+                    query = query.Where(t => t.FinishRepaireTime != null);
                     if (!string.IsNullOrEmpty(FinishTimeStart))
                     {
                         query = query.Where(t => String.Compare(t.FinishRepaireTime.ToString(), FinishTimeStart, StringComparison.Ordinal) >= 0);
@@ -156,7 +156,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 }
                 else if (isFinishRepair == Enums.Complete.NO)//未修复
                 {
-                    query = query.Where(t => t.IsFinish == Enums.Complete.NO);
+                    query = query.Where(t => t.FinishRepaireTime == null);
                 }
                 var rpID = query.Select(t => t.RPID).Distinct().ToList();
                 var rps = dbContext.RP.Where(t => rpID.Contains(t.ID));
