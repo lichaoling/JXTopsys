@@ -67,6 +67,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
+                rt = new RtObj();
                 RPRepairUtils.DeleteRPRepairByID(RepairID);
             }
             catch (Exception ex)

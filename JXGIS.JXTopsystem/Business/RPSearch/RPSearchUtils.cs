@@ -184,8 +184,8 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 };
                 data.CountyName = data.CountyID.Split('.').Last();
                 data.NeighborhoodsName = data.NeighborhoodsID.Split('.').Last();
-                data.Lat = data.Position.Latitude;
-                data.Lng = data.Position.Longitude;
+                data.Lat = data.Position != null ? data.Position.Latitude : null;
+                data.Lng = data.Position != null ? data.Position.Longitude : null;
                 return data;
             }
         }

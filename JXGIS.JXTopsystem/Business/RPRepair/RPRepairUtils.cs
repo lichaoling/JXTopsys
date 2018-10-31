@@ -61,7 +61,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 var RepairInfo = dbContext.RPRepair.Where(t => t.ID == RepairID).FirstOrDefault();
                 if (RepairInfo == null)
                     throw new Exception("不存在该维修信息！");
-                var RP = dbContext.RP.Where(t => t.ID == RepairInfo.RPID).FirstOrDefault();
+                var RP = RPSearchUtils.SearchRPByID(RepairInfo.RPID);
                 if (RepairInfo == null)
                     throw new Exception("维修信息所属路牌不存在！");
                 return new Dictionary<string, object>()
@@ -79,6 +79,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 var RepairInfo = dbContext.RPRepair.Where(t => t.ID == RepairID).FirstOrDefault();
                 RPID = RepairInfo.RPID;
                 dbContext.RPRepair.Remove(RepairInfo);
+                dbContext.SaveChanges();
             }
             MOdifyRepairCountAndRepairFinish(RPID);//重新赋值
         }
