@@ -104,8 +104,8 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public static class RPRange
         {
             public const int YXF = 1;
-            public const int WXF = 2;
-            public const int All = 0;
+            public const int WXF = 0;
+            public const int All = 2;
         }
     }
 }
