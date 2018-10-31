@@ -97,8 +97,8 @@ namespace JXGIS.JXTopsystem.Models.Extends
         }
         public static class RPRepairMode
         {
-            public const int Repair = 1;
-            public const int Change = 2;
+            public const string Repair = "更换";
+            public const string Change = "维修";
             public const int All = 3;
         }
         public static class RPRange

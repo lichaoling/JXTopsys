@@ -36,7 +36,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string RepairParts { get; set; }
         public string RepairFactory { get; set; }
         public string RepairContent { get; set; }
-        public int RepairMode { get; set; }
+        public string RepairMode { get; set; }
         public DateTime? RepairTime { get; set; }
         public DateTime? FinishRepaireTime { get; set; }
 
