@@ -18,14 +18,19 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
             List<RPDetails> data = null;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
+
                 var q = dbContext.RP.Where(t => t.State == UseState);
+                IEnumerable<RP> query = q;
                 // 先删选出当前用户权限内的数据
-                var where = PredicateBuilder.False<RP>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
                 {
-                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    var where = PredicateBuilder.False<RP>();
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    query = query.Where(where.Compile());
                 }
-                var query = q.Where(where.Compile());
 
                 //行政区划筛选
                 if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))

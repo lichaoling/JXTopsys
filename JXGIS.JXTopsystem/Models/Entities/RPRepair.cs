@@ -18,6 +18,10 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string RepairFactory { get; set; }
         public string RepairContent { get; set; }
         public string RepairMode { get; set; }
+        public string Model { get; set; }
+        public string Size { get; set; }
+        public string Material { get; set; }
+        public string Manufacturers { get; set; }
         public DateTime? RepairTime { get; set; }
         public string RepairUser { get; set; }
         //public int IsFinish { get; set; }

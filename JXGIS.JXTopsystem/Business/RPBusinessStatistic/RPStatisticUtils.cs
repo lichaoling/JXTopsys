@@ -175,7 +175,9 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                                   Direction = t.Direction,
                                   BZTime = t.BZTime,
                                   CreateTime = t.CreateTime,
-                                  RepairedCount = t.RepairedCount
+                                  RepairedCount = t.RepairedCount,
+                                  Lat = t.Position != null ? t.Position.Latitude : null,
+                                  Lng = t.Position != null ? t.Position.Longitude : null,
                               }).ToList();
                 //关联路牌照片 重组url
                 List<RPDetails> rt = new List<RPDetails>();

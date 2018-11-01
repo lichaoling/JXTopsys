@@ -21,21 +21,25 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
+                IEnumerable<MPOfRoad> mpOfRoad = dbContext.MPOfRoad;
+                IEnumerable<MPOfCountry> mpOfCountry = dbContext.MPOfCountry;
                 // 先删选出当前用户权限内的数据
-                var where = PredicateBuilder.False<MPOfRoad>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
                 {
-                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                }
-                var mpOfRoad = dbContext.MPOfRoad.Where(where.Compile());
+                    var where = PredicateBuilder.False<MPOfRoad>();
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    mpOfRoad = mpOfRoad.Where(where.Compile());
 
-                // 先删选出当前用户权限内的数据
-                var where2 = PredicateBuilder.False<MPOfCountry>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
-                {
-                    where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    var where2 = PredicateBuilder.False<MPOfCountry>();
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    mpOfCountry = mpOfCountry.Where(where2.Compile());
                 }
-                var mpOfCountry = dbContext.MPOfCountry.Where(where2.Compile());
 
                 int count = 0;
 
@@ -86,9 +90,9 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                            {
                                MPID = a.ID,
                                CountyID = a.CountyID,
-                               CountyName = a.CountyID.Split('.').Last(),
+                               //CountyName = !string.IsNullOrEmpty(a.CountyID) ? a.CountyID.Split('.').Last() : null,
                                NeighborhoodsID = a.NeighborhoodsID,
-                               NeighborhoodsName = a.NeighborhoodsID.Split('.').Last(),
+                               //NeighborhoodsName = !string.IsNullOrEmpty(a.NeighborhoodsID) ? a.NeighborhoodsID.Split('.').Last() : null,
                                CommunityName = a.CommunityName,
                                MPType = Enums.TypeInt.Road,
                                MPTypeName = Enums.MPTypeCh.Road,
@@ -103,9 +107,9 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             {
                                 MPID = b.ID,
                                 CountyID = b.CountyID,
-                                CountyName = b.CountyID.Split('.').Last(),
+                                //CountyName = !string.IsNullOrEmpty(b.CountyID) ? b.CountyID.Split('.').Last() : null,
                                 NeighborhoodsID = b.NeighborhoodsID,
-                                NeighborhoodsName = b.NeighborhoodsID.Split('.').Last(),
+                                //NeighborhoodsName = !string.IsNullOrEmpty(b.NeighborhoodsID) ? b.NeighborhoodsID.Split('.').Last() : null,
                                 CommunityName = b.CommunityName,
                                 MPType = Enums.TypeInt.Country,
                                 MPTypeName = Enums.MPTypeCh.Country,
@@ -115,16 +119,38 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                 Postcode = b.Postcode,
                                 MPBZTime = b.BZTime
                             });
+
+                IEnumerable<NotProducedLXMPList> q = all;
                 // 先删选出当前用户权限内的数据
-                var where = PredicateBuilder.False<NotProducedLXMPList>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
                 {
-                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    var where = PredicateBuilder.False<NotProducedLXMPList>();
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    q = all.Where(where.Compile());
                 }
-                var q = all.Where(where.Compile());
 
                 count = q.Count();
                 var data = q.OrderByDescending(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                data = (from t in data
+                        select new NotProducedLXMPList
+                        {
+                            MPID = t.MPID,
+                            CountyID = t.CountyID,
+                            CountyName = !string.IsNullOrEmpty(t.CountyID) ? t.CountyID.Split('.').Last() : null,
+                            NeighborhoodsID = t.NeighborhoodsID,
+                            NeighborhoodsName = !string.IsNullOrEmpty(t.NeighborhoodsID) ? t.NeighborhoodsID.Split('.').Last() : null,
+                            CommunityName = t.CommunityName,
+                            MPType = Enums.TypeInt.Country,
+                            MPTypeName = Enums.MPTypeCh.Country,
+                            PlaceName = t.PlaceName,
+                            MPNumber = t.MPNumber,
+                            MPSize = t.MPSize,
+                            Postcode = t.Postcode,
+                            MPBZTime = t.MPBZTime
+                        }).ToList();
                 return new Dictionary<string, object> {
                    { "Data",data},
                    { "Count",count}
@@ -229,29 +255,36 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                // 先删选出当前用户权限内的数据
-                var where = PredicateBuilder.False<MPOfRoad>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
-                {
-                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                }
-                var mpOfRoad = dbContext.MPOfRoad.Where(where.Compile());
+                IEnumerable<MPOfRoad> mpOfRoad = dbContext.MPOfRoad;
+                IEnumerable<MPOfResidence> mpOfResidence = dbContext.MPOfResidence;
+                IEnumerable<MPOfCountry> mpOfCountry = dbContext.MPOfCountry;
 
-                // 先删选出当前用户权限内的数据
-                var where2 = PredicateBuilder.False<MPOfCountry>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
                 {
-                    where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                }
-                var mpOfCountry = dbContext.MPOfCountry.Where(where2.Compile());
+                    // 先删选出当前用户权限内的数据
+                    var where = PredicateBuilder.False<MPOfRoad>();
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    mpOfRoad = mpOfRoad.Where(where.Compile());
 
-                // 先删选出当前用户权限内的数据
-                var where3 = PredicateBuilder.False<MPOfResidence>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
-                {
-                    where3 = where3.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    // 先删选出当前用户权限内的数据
+                    var where2 = PredicateBuilder.False<MPOfCountry>();
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    mpOfCountry = mpOfCountry.Where(where2.Compile());
+
+                    // 先删选出当前用户权限内的数据
+                    var where3 = PredicateBuilder.False<MPOfResidence>();
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where3 = where3.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    mpOfResidence = mpOfResidence.Where(where3.Compile());
                 }
-                var mpOfResidence = dbContext.MPOfResidence.Where(where3.Compile());
 
                 int count = 0;
 
@@ -318,18 +351,31 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                               MPBZTime = g.Key.BZTime
                           };
 
-                var zz = from a in lzC
-                         join b in dyC on a.PLProduceID equals b.PLProduceID
-                         join c in hsC on a.PLProduceID equals c.PLProduceID
+                var xq = (from t in mpOfResidence
+                          where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
+                          select new
+                          {
+                              PLProduceID = t.PLProduceID,
+                              SBDW = t.SBDW,
+                              ResidenceName = t.ResidenceName,
+                              Applicant = t.Applicant,
+                              ApplicantPhone = t.ApplicantPhone,
+                              MPBZTime = t.BZTime
+                          }).Distinct();
+                var zz = from t in xq
+                         join a in lzC on t.PLProduceID equals a.PLProduceID
+                         join b in dyC on t.PLProduceID equals b.PLProduceID
+                         join c in hsC on t.PLProduceID equals c.PLProduceID
                          select new ProducedPLMPList
                          {
-                             PLProduceID = a.PLProduceID,
-                             SBDW = a.SBDW,
-                             ResidenceName = a.ResidenceName,
+                             PLProduceID = t.PLProduceID,
+                             MPType = Enums.MPTypeCh.Residence,
+                             SBDW = t.SBDW,
+                             ResidenceName = t.ResidenceName,
                              MPCount = a.MPCount + b.MPCount + c.MPCount,
-                             Applicant = a.Applicant,
-                             ApplicantPhone = a.ApplicantPhone,
-                             MPBZTime = a.MPBZTime
+                             Applicant = t.Applicant,
+                             ApplicantPhone = t.ApplicantPhone,
+                             MPBZTime = t.MPBZTime
                          };
 
                 var dl = from t in mpOfRoad
@@ -371,29 +417,36 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                // 先删选出当前用户权限内的数据
-                var where = PredicateBuilder.False<MPOfRoad>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
-                {
-                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                }
-                var mpOfRoad = dbContext.MPOfRoad.Where(where.Compile());
+                IEnumerable<MPOfRoad> mpOfRoad = dbContext.MPOfRoad;
+                IEnumerable<MPOfResidence> mpOfResidence = dbContext.MPOfResidence;
+                IEnumerable<MPOfCountry> mpOfCountry = dbContext.MPOfCountry;
 
-                // 先删选出当前用户权限内的数据
-                var where2 = PredicateBuilder.False<MPOfCountry>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
                 {
-                    where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                }
-                var mpOfCountry = dbContext.MPOfCountry.Where(where2.Compile());
+                    // 先删选出当前用户权限内的数据
+                    var where = PredicateBuilder.False<MPOfRoad>();
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    mpOfRoad = mpOfRoad.Where(where.Compile());
 
-                // 先删选出当前用户权限内的数据
-                var where3 = PredicateBuilder.False<MPOfResidence>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
-                {
-                    where3 = where3.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    // 先删选出当前用户权限内的数据
+                    var where2 = PredicateBuilder.False<MPOfCountry>();
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    mpOfCountry = mpOfCountry.Where(where2.Compile());
+
+                    // 先删选出当前用户权限内的数据
+                    var where3 = PredicateBuilder.False<MPOfResidence>();
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where3 = where3.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    mpOfResidence = mpOfResidence.Where(where3.Compile());
                 }
-                var mpOfResidence = dbContext.MPOfResidence.Where(where3.Compile());
 
                 int count = 0;
 
@@ -459,20 +512,31 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                               ApplicantPhone = g.Key.ApplicantPhone,
                               MPBZTime = g.Key.BZTime
                           };
-
-                var zz = from a in lzC
-                         join b in dyC on a.PLID equals b.PLID
-                         join c in hsC on a.PLID equals c.PLID
+                var xq = (from t in mpOfResidence
+                          where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && t.PLProduceID == null
+                          select new
+                          {
+                              PLID = t.PLID,
+                              SBDW = t.SBDW,
+                              ResidenceName = t.ResidenceName,
+                              Applicant = t.Applicant,
+                              ApplicantPhone = t.ApplicantPhone,
+                              MPBZTime = t.BZTime
+                          }).Distinct();
+                var zz = from t in xq
+                         join a in lzC on t.PLID equals a.PLID
+                         join b in dyC on t.PLID equals b.PLID
+                         join c in hsC on t.PLID equals c.PLID
                          select new NotProducedPLMPList
                          {
-                             PLID = a.PLID,
+                             PLID = t.PLID,
                              MPType = Enums.MPTypeCh.Residence,
-                             SBDW = a.SBDW,
-                             ResidenceName = a.ResidenceName,
+                             SBDW = t.SBDW,
+                             ResidenceName = t.ResidenceName,
                              MPCount = a.MPCount + b.MPCount + c.MPCount,
-                             Applicant = a.Applicant,
-                             ApplicantPhone = a.ApplicantPhone,
-                             MPBZTime = a.MPBZTime
+                             Applicant = t.Applicant,
+                             ApplicantPhone = t.ApplicantPhone,
+                             MPBZTime = t.MPBZTime
                          };
 
                 var dl = from t in mpOfRoad

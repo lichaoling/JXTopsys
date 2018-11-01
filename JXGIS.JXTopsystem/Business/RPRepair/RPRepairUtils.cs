@@ -148,6 +148,8 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                         targetRP.Material = sourceData.Material;
                         targetRP.Size = sourceData.Size;
                         targetRP.Manufacturers = sourceData.Manufacturers;
+
+
                     }
                     else if (sourceData.RepairMode == Enums.RPRepairMode.Repair)//维修
                     {
@@ -160,6 +162,10 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                     rpRepair.RepairFactory = sourceData.RepairFactory;
                     rpRepair.RepairContent = sourceData.RepairContent;
                     rpRepair.RepairMode = sourceData.RepairMode;
+                    rpRepair.Model = sourceData.Model;
+                    rpRepair.Material = sourceData.Material;
+                    rpRepair.Size = sourceData.Size;
+                    rpRepair.Manufacturers = sourceData.Manufacturers;
                     rpRepair.RepairTime = sourceData.RepairTime;
                     rpRepair.FinishRepaireTime = sourceData.FinishRepaireTime;
                     dbContext.RPRepair.Add(rpRepair);
