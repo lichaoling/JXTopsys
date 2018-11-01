@@ -153,12 +153,12 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 地名证明和门牌证打印
-        public JsonResult MPCertificatePrint(List<string> IDs, string MPType, string CertificateType)
+        public JsonResult MPCertificate(List<string> IDs, string MPType, string CertificateType)
         {
             RtObj rt = null;
             try
             {
-                MPPrintUtils.MPCertificatePrint(IDs, MPType, CertificateType);
+                MPPrintUtils.MPCertificate(IDs, MPType, CertificateType);
             }
             catch (Exception ex)
             {
@@ -172,6 +172,19 @@ namespace JXGIS.JXTopsystem.Controllers
             try
             {
                 MPPrintUtils.DZZMPrint(IDs, MPType);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
+        public JsonResult MPZPrint(string ID, string MPType)
+        {
+            RtObj rt = null;
+            try
+            {
+                MPPrintUtils.MPZPrint(ID, MPType);
             }
             catch (Exception ex)
             {

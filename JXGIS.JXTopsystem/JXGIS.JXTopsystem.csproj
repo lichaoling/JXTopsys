@@ -1039,14 +1039,13 @@
     <Content Include="Files\UploadFiles\道路门牌上传模板.xlsx" />
     <Content Include="Views\Common\Index.cshtml" />
     <Content Include="Files\DZZMandMPZTemplate\地址证明模板.docx" />
-    <Content Include="Files\DZZMandMPZTemplate\DZZM\Residence\0053952d-c31a-4b9b-9e2b-b0122aa0b31a\秀洲区嘉北街道阳光社区赞园6幢1单元1102室-地址证明.docx" />
-    <Content Include="Files\DZZMandMPZTemplate\DZZM\Residence\0053952d-c31a-4b9b-9e2b-b0122aa0b31a\秀洲区嘉北街道阳光社区赞园6幢1单元1102室-地址证明.pdf" />
     <Content Include="Files\DZZMandMPZTemplate\Temp\0053952d-c31a-4b9b-9e2b-b0122aa0b31a.pdf" />
     <Content Include="Files\DZZMandMPZTemplate\Temp\1.pdf" />
     <Content Include="Files\DZZMandMPZTemplate\Temp\2.pdf" />
     <Content Include="Files\DZZMandMPZTemplate\Temp\3.pdf" />
     <Content Include="Files\DZZMandMPZTemplate\Temp\4.pdf" />
     <Content Include="Files\DZZMandMPZTemplate\Temp\5.pdf" />
+    <Content Include="Files\DZZMandMPZTemplate\门牌证模板.docx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1061,12 +1060,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Files\DZZMandMPZTemplate\DZZM\County\" />
-    <Folder Include="Files\DZZMandMPZTemplate\DZZM\Road\" />
     <Folder Include="Files\DZZMandMPZTemplate\Merge\" />
-    <Folder Include="Files\DZZMandMPZTemplate\MPZM\County\" />
-    <Folder Include="Files\DZZMandMPZTemplate\MPZM\Residence\" />
-    <Folder Include="Files\DZZMandMPZTemplate\MPZM\Road\" />
     <Folder Include="Files\RP\QRCode\" />
     <Folder Include="Lib\" />
     <Folder Include="Views\ArchiveFile\" />

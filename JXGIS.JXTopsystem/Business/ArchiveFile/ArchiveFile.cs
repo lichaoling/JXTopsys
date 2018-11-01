@@ -31,9 +31,9 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
         // 农村门牌上传绝对路径
         public static readonly string countryMPPath = Path.Combine(FileController.uploadBasePath, FileController.countryMPRelativePath);
         // 地址证明文件
-        public static readonly string DZZMPath = Path.Combine(MPPrintUtils.MPPrintUtils.basePath, "DZZM");
+        public static readonly string DZZMPath = MPPrintUtils.MPPrintUtils.DZZMPath;
         //门牌证明文件
-        public static readonly string MPZMPath = Path.Combine(MPPrintUtils.MPPrintUtils.basePath, "MPZM");
+        public static readonly string MPZMPath = MPPrintUtils.MPPrintUtils.MPZPath;
 
 
 

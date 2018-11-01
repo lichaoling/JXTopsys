@@ -442,3 +442,97 @@
 参数名: source
 |StackTrace:   在 System.Linq.Enumerable.Last[TSource](IEnumerable`1 source)
    在 JXGIS.JXTopsystem.Controllers.MPBusinessStatisticController.GetMPBusinessNumTJ(Nullable`1 start, Nullable`1 end, String[] DistrictID, String CertificateType)
+=======2018/11/1 星期四 16:13:25
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:20:34
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:20:40
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:20:41
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:20:42
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:20:43
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:20:43
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:20:44
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:20:44
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:20:44
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:20:44
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:20:45
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:22:30
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:23:31
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:27:22
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 16:33:27
+|Message:ID为35717977-76a8-454c-a370-919219ec0e8e的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 274
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 187
+=======2018/11/1 星期四 18:03:23
+|Message:The method 'Skip' is only supported for sorted input in LINQ to Entities. The method 'OrderBy' must be called before the method 'Skip'.
+|StackTrace:   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.OrderByLifter.PassthroughOrderByLifter.Skip(DbExpression k)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.OrderByLifter.Skip(DbExpressionBinding input, DbExpression skipCount)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Skip(DbExpressionBinding input, DbExpression skipCount)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SkipTranslator.TranslatePagingOperator(ExpressionConverter parent, DbExpression operand, DbExpression count)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.PagingTranslator.TranslateUnary(ExpressionConverter parent, DbExpression operand, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.UnarySequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.UnarySequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.RPBusinessStatistic.RPStatisticUtils.GetRPNumTJ(Int32 PageSize, Int32 PageNum, Nullable`1 start, Nullable`1 end, String DistrictID, String CommunityName, String RoadName, String Model, String Material, String Size)
+   在 JXGIS.JXTopsystem.Controllers.RPBusinessStatisticController.GetRPNumTJ(Int32 PageSize, Int32 PageNum, Nullable`1 start, Nullable`1 end, String DistrictID, String CommunityName, String RoadName, String Model, String Material, String Size)

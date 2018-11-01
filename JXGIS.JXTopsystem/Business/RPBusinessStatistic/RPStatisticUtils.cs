@@ -71,7 +71,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                              Count = g.Count(),
                          };
                 var count = re.Count();
-                var result = re.Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                var result = re.OrderBy(t => t.NeighborhoodsID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 var data = from t in result
                            select new
                            {
@@ -150,7 +150,9 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 var rpID = query.Select(t => t.RPID).Distinct().ToList();
                 var rps = dbContext.RP.Where(t => rpID.Contains(t.ID));
 
-                rps = rps.Where(t => t.RepairedCount == RepairedCount);
+                if (RepairedCount != -1)
+                    rps = rps.Where(t => t.RepairedCount == RepairedCount);
+
                 if (!string.IsNullOrEmpty(DistrictID))
                     rps = rps.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0 || t.NeighborhoodsID == DistrictID);
                 if (!string.IsNullOrEmpty(CommunityName))

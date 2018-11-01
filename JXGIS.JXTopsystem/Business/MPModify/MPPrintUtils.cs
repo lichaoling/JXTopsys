@@ -17,7 +17,11 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
     public class MPPrintUtils
     {
         public static readonly string basePath = Path.Combine(FileController.uploadBasePath, "Files", "DZZMandMPZTemplate");
-        public static readonly string templateFile = Path.Combine(basePath, "地址证明模板.docx");
+        public static readonly string DZZMtemplateFile = Path.Combine(basePath, "地址证明模板.docx");
+        public static readonly string MPZtemplateFile = Path.Combine(basePath, "门牌证模板.docx");
+        public static readonly string DZZMPath = Path.Combine(basePath, "地址证明");
+        public static readonly string MPZPath = Path.Combine(basePath, "门牌证");
+
         public static readonly string TempPdf = Path.Combine(basePath, "Temp");
         public static readonly string mergePath = Path.Combine(basePath, "Merge");
         public static readonly string mergeFile = Path.Combine(mergePath, "merge.pdf");
@@ -28,7 +32,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
         /// <param name="ID"></param>
         /// <param name="MPType"></param>
         /// <param name="CertificateType"></param>
-        public static List<MPCertificate> MPCertificatePrint(List<string> IDs, string MPType, string CertificateType)
+        public static List<MPCertificate> MPCertificate(List<string> IDs, string MPType, string CertificateType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -184,14 +188,14 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("Y", DateTime.Now.Month.ToString());
                         bookmarks.Add("R", DateTime.Now.Day.ToString());
 
-                        string savePath = Path.Combine(basePath, "DZZM", "Residence", ID);
+                        string savePath = Path.Combine(DZZMPath, Enums.MPTypeCh.Residence, ID);
                         if (!Directory.Exists(savePath))
                         {
                             Directory.CreateDirectory(savePath);
                         }
                         string fileNameWord = Path.Combine(savePath, mpOfResidence.StandardAddress + "-地址证明.docx");
                         string fileNamePdf = Path.Combine(savePath, mpOfResidence.StandardAddress + "-地址证明.pdf");
-                        GenerateWord(templateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        GenerateWord(DZZMtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                     }
                     else if (MPType == Enums.MPTypeCh.Road)
                     {
@@ -209,14 +213,14 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("Y", DateTime.Now.Month.ToString());
                         bookmarks.Add("R", DateTime.Now.Day.ToString());
 
-                        string savePath = Path.Combine(basePath, "DZZM", "Road", ID);
+                        string savePath = Path.Combine(DZZMPath, Enums.MPTypeCh.Road, ID);
                         if (!Directory.Exists(savePath))
                         {
                             Directory.CreateDirectory(savePath);
                         }
                         string fileNameWord = Path.Combine(savePath, mpOfRoad.StandardAddress + "-地址证明.docx");
                         string fileNamePdf = Path.Combine(savePath, mpOfRoad.StandardAddress + "-地址证明.pdf");
-                        GenerateWord(templateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        GenerateWord(DZZMtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                     }
                     else if (MPType == Enums.MPTypeCh.Country)
                     {
@@ -232,14 +236,14 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("Y", DateTime.Now.Month.ToString());
                         bookmarks.Add("R", DateTime.Now.Day.ToString());
 
-                        string savePath = Path.Combine(basePath, "DZZM", "County", ID);
+                        string savePath = Path.Combine(DZZMPath, Enums.MPTypeCh.Country, ID);
                         if (!Directory.Exists(savePath))
                         {
                             Directory.CreateDirectory(savePath);
                         }
                         string fileNameWord = Path.Combine(savePath, mpOfCounty.StandardAddress + "-地址证明.docx");
                         string fileNamePdf = Path.Combine(savePath, mpOfCounty.StandardAddress + "-地址证明.pdf");
-                        GenerateWord(templateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        GenerateWord(DZZMtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                     }
                 }
                 dbContext.MPOfCertificate.AddRange(mpOfCertificates);
@@ -248,6 +252,106 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
             }
         }
 
+
+        public static void MPZPrint(string ID, string MPType)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                MPOfCertificate mpCertificate = new Models.Entities.MPOfCertificate();
+                mpCertificate.ID = Guid.NewGuid().ToString();
+                mpCertificate.MPID = ID;
+                mpCertificate.CreateTime = DateTime.Now.Date;
+                mpCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
+                mpCertificate.MPType = MPType;
+                mpCertificate.CertificateType = Enums.CertificateType.MPZ;
+                mpCertificate.Window = string.Join(",", LoginUtils.CurrentUser.Window);
+                dbContext.MPOfCertificate.Add(mpCertificate);
+
+                if (MPType == Enums.MPTypeCh.Residence)
+                {
+                    var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
+                    if (mpOfResidence == null)
+                        throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
+
+                    Dictionary<string, string> bookmarks = new Dictionary<string, string>();
+                    bookmarks.Add("AddressCoding", mpOfResidence.AddressCoding);
+                    bookmarks.Add("PropertyOwner", mpOfResidence.PropertyOwner);
+                    bookmarks.Add("CountyName", mpOfResidence.CountyID.Split('.').Last());
+                    bookmarks.Add("NeighborhoodsName", mpOfResidence.NeighborhoodsID.Split('.').Last());
+                    bookmarks.Add("Name", null);
+                    bookmarks.Add("MPNumber", null);
+                    bookmarks.Add("ResidenceName", mpOfResidence.ResidenceName);
+                    bookmarks.Add("OriginalMPAddress", null);
+                    bookmarks.Add("N", DateTime.Now.Year.ToString());
+                    bookmarks.Add("Y", DateTime.Now.Month.ToString());
+                    bookmarks.Add("R", DateTime.Now.Day.ToString());
+
+                    string savePath = Path.Combine(MPZPath, Enums.MPTypeCh.Residence, ID);
+                    if (!Directory.Exists(savePath))
+                    {
+                        Directory.CreateDirectory(savePath);
+                    }
+                    string fileNameWord = Path.Combine(savePath, mpOfResidence.StandardAddress + "-门牌证.docx");
+                    string fileNamePdf = Path.Combine(savePath, mpOfResidence.StandardAddress + "-门牌证.pdf");
+                    GenerateWord(MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                }
+                else if (MPType == Enums.MPTypeCh.Road)
+                {
+                    var mpOfRoad = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
+                    if (mpOfRoad == null)
+                        throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
+
+                    Dictionary<string, string> bookmarks = new Dictionary<string, string>();
+                    bookmarks.Add("AddressCoding", mpOfRoad.AddressCoding);
+                    bookmarks.Add("PropertyOwner", mpOfRoad.PropertyOwner);
+                    bookmarks.Add("CountyName", mpOfRoad.CountyID.Split('.').Last());
+                    bookmarks.Add("NeighborhoodsName", mpOfRoad.NeighborhoodsID.Split('.').Last());
+                    bookmarks.Add("Name", mpOfRoad.RoadName);
+                    bookmarks.Add("MPNumber", mpOfRoad.MPNumber);
+                    bookmarks.Add("ResidenceName", mpOfRoad.ResidenceName);
+                    bookmarks.Add("OriginalMPAddress", mpOfRoad.OriginalMPAddress);
+                    bookmarks.Add("N", DateTime.Now.Year.ToString());
+                    bookmarks.Add("Y", DateTime.Now.Month.ToString());
+                    bookmarks.Add("R", DateTime.Now.Day.ToString());
+
+                    string savePath = Path.Combine(MPZPath, Enums.MPTypeCh.Road, ID);
+                    if (!Directory.Exists(savePath))
+                    {
+                        Directory.CreateDirectory(savePath);
+                    }
+                    string fileNameWord = Path.Combine(savePath, mpOfRoad.StandardAddress + "-门牌证.docx");
+                    string fileNamePdf = Path.Combine(savePath, mpOfRoad.StandardAddress + "-门牌证.pdf");
+                    GenerateWord(MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                }
+                else if (MPType == Enums.MPTypeCh.Country)
+                {
+                    var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
+                    if (mpOfCounty == null)
+                        throw new Exception($"ID为{ID}的农村门牌已经注销，请重新查询！");
+                    Dictionary<string, string> bookmarks = new Dictionary<string, string>();
+                    bookmarks.Add("AddressCoding", mpOfCounty.AddressCoding);
+                    bookmarks.Add("PropertyOwner", mpOfCounty.PropertyOwner);
+                    bookmarks.Add("CountyName", mpOfCounty.CountyID.Split('.').Last());
+                    bookmarks.Add("NeighborhoodsName", mpOfCounty.NeighborhoodsID.Split('.').Last());
+                    bookmarks.Add("Name", mpOfCounty.ViligeName);
+                    bookmarks.Add("MPNumber", mpOfCounty.MPNumber);
+                    bookmarks.Add("ResidenceName", null);
+                    bookmarks.Add("OriginalMPAddress", mpOfCounty.OriginalMPAddress);
+                    bookmarks.Add("N", DateTime.Now.Year.ToString());
+                    bookmarks.Add("Y", DateTime.Now.Month.ToString());
+                    bookmarks.Add("R", DateTime.Now.Day.ToString());
+
+                    string savePath = Path.Combine(MPZPath, Enums.MPTypeCh.Country, ID);
+                    if (!Directory.Exists(savePath))
+                    {
+                        Directory.CreateDirectory(savePath);
+                    }
+                    string fileNameWord = Path.Combine(savePath, mpOfCounty.StandardAddress + "-门牌证.docx");
+                    string fileNamePdf = Path.Combine(savePath, mpOfCounty.StandardAddress + "-门牌证.pdf");
+                    GenerateWord(MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                }
+            }
+        }
 
 
         /// <summary>
