@@ -29,7 +29,7 @@ namespace JXGIS.JXTopsystem.Controllers
         //路牌二维码照片上传相对路径
         public static readonly string RPQRCodeRelativePath = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.QRCode);
         //路牌维修前后照片上传相对路径
-        public static readonly string RPPepairPhotoRelativePath = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.RepairPhoto);
+        public static readonly string RPRepairPhotoRelativePath = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.RepairPhoto);
 
         public class Paths
         {
@@ -66,7 +66,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     relativePath = RPBZPhotoRelativePath;
                     break;
                 case "RPREPAIRPHOTO":
-                    relativePath = RPPepairPhotoRelativePath;
+                    relativePath = RPRepairPhotoRelativePath;
                     break;
                 default:
                     throw new Exception("未知的文件目录");
@@ -74,7 +74,7 @@ namespace JXGIS.JXTopsystem.Controllers
             relativePath = Path.Combine(relativePath, ID);
             string savePath = Path.Combine(uploadBasePath, relativePath);
 
-            if (FileType.ToUpper() == "RPPEPAIRPHOTO")
+            if (FileType.ToUpper() == "RPREPAIRPHOTO")
             {
                 savePath = Path.Combine(savePath, RepairType);
                 relativePath = Path.Combine(relativePath, RepairType);
@@ -146,7 +146,7 @@ namespace JXGIS.JXTopsystem.Controllers
                             data.State = Enums.UseState.Enable;
                             dbContext.RPOfUploadFiles.Add(data);
                         }
-                        else if (FileType.ToUpper() == "RPPEPAIRPHOTO")
+                        else if (FileType.ToUpper() == "RPREPAIRPHOTO")
                         {
                             RPPepairUploadFiles data = new Models.Entities.RPPepairUploadFiles();
                             data.ID = fileID;
@@ -191,7 +191,7 @@ namespace JXGIS.JXTopsystem.Controllers
                             throw new Exception("该图片已经被删除！");
                         query.State = Enums.UseState.Delete;
                     }
-                    else if (FileType.ToUpper() == "RPPEPAIRPHOTO")
+                    else if (FileType.ToUpper() == "RPREPAIRPHOTO")
                     {
                         var query = dbContext.RPPepairUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (query == null)
@@ -236,7 +236,7 @@ namespace JXGIS.JXTopsystem.Controllers
                             paths.Add(p);
                         }
                     }
-                    else if (FileType.ToUpper() == "RPPEPAIRPHOTO")
+                    else if (FileType.ToUpper() == "RPREPAIRPHOTO")
                     {
                         var files = dbContext.RPPepairUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RepairType == RepairType).Where(t => t.RPRepairID == ID).ToList();
                         foreach (var f in files)
