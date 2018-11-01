@@ -316,7 +316,7 @@ namespace JXGIS.JXTopsystem.Business
                                  DMZM = g.Where(t => t.CertificateType == Enums.CertificateType.Placename).Count()
                              };
                 count = result.Count();
-                var query = result.OrderByDescending(t => t.CountyID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                var query = result.OrderBy(t => t.CountyID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 var data = (from t in query
                             select new
                             {

@@ -403,7 +403,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                                Postcode = g.Select(t => t.Postcode).ToList()
                            };
                 int count = data.Count();
-                var query = data.OrderByDescending(t => t.NeighborhoodsID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                var query = data.OrderBy(t => t.NeighborhoodsID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 var rt = (from t in query
                           select new
                           {

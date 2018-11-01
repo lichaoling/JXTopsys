@@ -300,18 +300,18 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                               ApplicantPhone = t.ApplicantPhone,
                               MPBZTime = t.BZTime
                           }).Distinct();
-                var lzC = from t in lz
-                          group t by new { t.PLProduceID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.MPBZTime } into g
-                          select new ProducedPLMPList
-                          {
-                              PLProduceID = g.Key.PLProduceID,
-                              SBDW = g.Key.SBDW,
-                              ResidenceName = g.Key.ResidenceName,
-                              MPCount = g.Count() * 2,
-                              Applicant = g.Key.Applicant,
-                              ApplicantPhone = g.Key.ApplicantPhone,
-                              MPBZTime = g.Key.MPBZTime
-                          };
+                var lzC = (from t in lz
+                           group t by new { t.PLProduceID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.MPBZTime } into g
+                           select new ProducedPLMPList
+                           {
+                               PLProduceID = g.Key.PLProduceID,
+                               SBDW = g.Key.SBDW,
+                               ResidenceName = g.Key.ResidenceName,
+                               MPCount = g.Count() * 2,
+                               Applicant = g.Key.Applicant,
+                               ApplicantPhone = g.Key.ApplicantPhone,
+                               MPBZTime = g.Key.MPBZTime
+                           }).ToList();
                 var dy = (from t in mpOfResidence
                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
                           select new
@@ -325,88 +325,85 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                               ApplicantPhone = t.ApplicantPhone,
                               MPBZTime = t.BZTime
                           }).Distinct();
-                var dyC = from t in dy
-                          group t by new { t.PLProduceID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.MPBZTime } into g
-                          select new ProducedPLMPList
-                          {
-                              PLProduceID = g.Key.PLProduceID,
-                              SBDW = g.Key.SBDW,
-                              ResidenceName = g.Key.ResidenceName,
-                              MPCount = g.Count(),
-                              Applicant = g.Key.Applicant,
-                              ApplicantPhone = g.Key.ApplicantPhone,
-                              MPBZTime = g.Key.MPBZTime
-                          };
-                var hsC = from t in mpOfResidence
+                var dyC = (from t in dy
+                           group t by new { t.PLProduceID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.MPBZTime } into g
+                           select new ProducedPLMPList
+                           {
+                               PLProduceID = g.Key.PLProduceID,
+                               SBDW = g.Key.SBDW,
+                               ResidenceName = g.Key.ResidenceName,
+                               MPCount = g.Count(),
+                               Applicant = g.Key.Applicant,
+                               ApplicantPhone = g.Key.ApplicantPhone,
+                               MPBZTime = g.Key.MPBZTime
+                           }).ToList();
+                var hsC = (from t in mpOfResidence
+                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
+                           group t by new { t.PLProduceID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
+                           select new ProducedPLMPList
+                           {
+                               PLProduceID = g.Key.PLProduceID,
+                               SBDW = g.Key.SBDW,
+                               ResidenceName = g.Key.ResidenceName,
+                               MPCount = g.Count(),
+                               Applicant = g.Key.Applicant,
+                               ApplicantPhone = g.Key.ApplicantPhone,
+                               MPBZTime = g.Key.BZTime
+                           }).ToList();
+
+                var xqs = (from t in mpOfResidence
+                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
+                           select new ProducedPLMPList
+                           {
+                               PLProduceID = t.PLProduceID,
+                               SBDW = t.SBDW,
+                               ResidenceName = t.ResidenceName,
+                               Applicant = t.Applicant,
+                               ApplicantPhone = t.ApplicantPhone,
+                               MPBZTime = t.BZTime
+                           }).Distinct().ToList();
+                List<ProducedPLMPList> data = new List<ProducedPLMPList>();
+                foreach (var xq in xqs)
+                {
+                    var a = lzC.Where(t => t.PLProduceID == xq.PLProduceID).Where(t => t.ResidenceName == xq.ResidenceName).Where(t => t.SBDW == xq.SBDW).Select(t => t.MPCount).FirstOrDefault();
+                    var b = dyC.Where(t => t.PLProduceID == xq.PLProduceID).Where(t => t.ResidenceName == xq.ResidenceName).Where(t => t.SBDW == xq.SBDW).Select(t => t.MPCount).FirstOrDefault();
+                    var c = hsC.Where(t => t.PLProduceID == xq.PLProduceID).Where(t => t.ResidenceName == xq.ResidenceName).Where(t => t.SBDW == xq.SBDW).Select(t => t.MPCount).FirstOrDefault();
+                    xq.MPCount = a + b + c;
+                    data.Add(xq);
+                }
+
+                var dl = (from t in mpOfRoad
                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
-                          group t by new { t.PLProduceID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
+                          group t by new { t.PLProduceID, t.SBDW, t.RoadName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
                           select new ProducedPLMPList
                           {
                               PLProduceID = g.Key.PLProduceID,
                               SBDW = g.Key.SBDW,
-                              ResidenceName = g.Key.ResidenceName,
+                              RoadName = g.Key.RoadName,
                               MPCount = g.Count(),
                               Applicant = g.Key.Applicant,
                               ApplicantPhone = g.Key.ApplicantPhone,
                               MPBZTime = g.Key.BZTime
-                          };
+                          }).ToList();
 
-                var xq = (from t in mpOfResidence
+                data.AddRange(dl);
+                var nc = (from t in mpOfCountry
                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
-                          select new
+                          group t by new { t.PLProduceID, t.SBDW, t.ViligeName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
+                          select new ProducedPLMPList
                           {
-                              PLProduceID = t.PLProduceID,
-                              SBDW = t.SBDW,
-                              ResidenceName = t.ResidenceName,
-                              Applicant = t.Applicant,
-                              ApplicantPhone = t.ApplicantPhone,
-                              MPBZTime = t.BZTime
-                          }).Distinct();
-                var zz = from t in xq
-                         join a in lzC on t.PLProduceID equals a.PLProduceID
-                         join b in dyC on t.PLProduceID equals b.PLProduceID
-                         join c in hsC on t.PLProduceID equals c.PLProduceID
-                         select new ProducedPLMPList
-                         {
-                             PLProduceID = t.PLProduceID,
-                             MPType = Enums.MPTypeCh.Residence,
-                             SBDW = t.SBDW,
-                             ResidenceName = t.ResidenceName,
-                             MPCount = a.MPCount + b.MPCount + c.MPCount,
-                             Applicant = t.Applicant,
-                             ApplicantPhone = t.ApplicantPhone,
-                             MPBZTime = t.MPBZTime
-                         };
+                              PLProduceID = g.Key.PLProduceID,
+                              SBDW = g.Key.SBDW,
+                              ViligeName = g.Key.ViligeName,
+                              MPCount = g.Count(),
+                              Applicant = g.Key.Applicant,
+                              ApplicantPhone = g.Key.ApplicantPhone,
+                              MPBZTime = g.Key.BZTime
+                          }).ToList();
+                data.AddRange(nc);
 
-                var dl = from t in mpOfRoad
-                         where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
-                         group t by new { t.PLProduceID, t.SBDW, t.RoadName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
-                         select new ProducedPLMPList
-                         {
-                             PLProduceID = g.Key.PLProduceID,
-                             SBDW = g.Key.SBDW,
-                             RoadName = g.Key.RoadName,
-                             MPCount = g.Count(),
-                             Applicant = g.Key.Applicant,
-                             ApplicantPhone = g.Key.ApplicantPhone,
-                             MPBZTime = g.Key.BZTime
-                         };
-                var nc = from t in mpOfCountry
-                         where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
-                         group t by new { t.PLProduceID, t.SBDW, t.ViligeName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
-                         select new ProducedPLMPList
-                         {
-                             PLProduceID = g.Key.PLProduceID,
-                             SBDW = g.Key.SBDW,
-                             ViligeName = g.Key.ViligeName,
-                             MPCount = g.Count(),
-                             Applicant = g.Key.Applicant,
-                             ApplicantPhone = g.Key.ApplicantPhone,
-                             MPBZTime = g.Key.BZTime
-                         };
-                var all = zz.Concat(dl).Concat(nc);
-                count = all.Count();
-                var result = all.OrderByDescending(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                count = data.Count();
+                var result = data.OrderByDescending(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 return new Dictionary<string, object> {
                    { "Data",result},
                    { "Count",count}
@@ -462,18 +459,18 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                               ApplicantPhone = t.ApplicantPhone,
                               MPBZTime = t.BZTime
                           }).Distinct();
-                var lzC = from t in lz
-                          group t by new { t.PLID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.MPBZTime } into g
-                          select new NotProducedPLMPList
-                          {
-                              PLID = g.Key.PLID,
-                              SBDW = g.Key.SBDW,
-                              ResidenceName = g.Key.ResidenceName,
-                              MPCount = g.Count() * 2,
-                              Applicant = g.Key.Applicant,
-                              ApplicantPhone = g.Key.ApplicantPhone,
-                              MPBZTime = g.Key.MPBZTime
-                          };
+                var lzC = (from t in lz
+                           group t by new { t.PLID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.MPBZTime } into g
+                           select new NotProducedPLMPList
+                           {
+                               PLID = g.Key.PLID,
+                               SBDW = g.Key.SBDW,
+                               ResidenceName = g.Key.ResidenceName,
+                               MPCount = g.Count() * 2,
+                               Applicant = g.Key.Applicant,
+                               ApplicantPhone = g.Key.ApplicantPhone,
+                               MPBZTime = g.Key.MPBZTime
+                           }).ToList();
                 var dy = (from t in mpOfResidence
                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && t.PLProduceID == null
                           select new
@@ -487,89 +484,86 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                               ApplicantPhone = t.ApplicantPhone,
                               MPBZTime = t.BZTime
                           }).Distinct();
-                var dyC = from t in dy
-                          group t by new { t.PLID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.MPBZTime } into g
-                          select new NotProducedPLMPList
-                          {
-                              PLID = g.Key.PLID,
-                              SBDW = g.Key.SBDW,
-                              ResidenceName = g.Key.ResidenceName,
-                              MPCount = g.Count(),
-                              Applicant = g.Key.Applicant,
-                              ApplicantPhone = g.Key.ApplicantPhone,
-                              MPBZTime = g.Key.MPBZTime
-                          };
-                var hsC = from t in mpOfResidence
+                var dyC = (from t in dy
+                           group t by new { t.PLID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.MPBZTime } into g
+                           select new NotProducedPLMPList
+                           {
+                               PLID = g.Key.PLID,
+                               SBDW = g.Key.SBDW,
+                               ResidenceName = g.Key.ResidenceName,
+                               MPCount = g.Count(),
+                               Applicant = g.Key.Applicant,
+                               ApplicantPhone = g.Key.ApplicantPhone,
+                               MPBZTime = g.Key.MPBZTime
+                           }).ToList();
+                var hsC = (from t in mpOfResidence
+                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && t.PLProduceID == null
+                           group t by new { t.PLID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
+                           select new NotProducedPLMPList
+                           {
+                               PLID = g.Key.PLID,
+                               SBDW = g.Key.SBDW,
+                               ResidenceName = g.Key.ResidenceName,
+                               MPCount = g.Count(),
+                               Applicant = g.Key.Applicant,
+                               ApplicantPhone = g.Key.ApplicantPhone,
+                               MPBZTime = g.Key.BZTime
+                           }).ToList();
+                var xqs = (from t in mpOfResidence
+                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && t.PLProduceID == null
+                           select new NotProducedPLMPList
+                           {
+                               PLID = t.PLID,
+                               SBDW = t.SBDW,
+                               ResidenceName = t.ResidenceName,
+                               Applicant = t.Applicant,
+                               ApplicantPhone = t.ApplicantPhone,
+                               MPBZTime = t.BZTime
+                           }).Distinct().ToList();
+
+                List<NotProducedPLMPList> data = new List<NotProducedPLMPList>();
+                foreach (var xq in xqs)
+                {
+                    var a = lzC.Where(t => t.PLID == xq.PLID).Where(t => t.ResidenceName == xq.ResidenceName).Where(t => t.SBDW == xq.SBDW).Select(t => t.MPCount).FirstOrDefault();
+                    var b = dyC.Where(t => t.PLID == xq.PLID).Where(t => t.ResidenceName == xq.ResidenceName).Where(t => t.SBDW == xq.SBDW).Select(t => t.MPCount).FirstOrDefault();
+                    var c = hsC.Where(t => t.PLID == xq.PLID).Where(t => t.ResidenceName == xq.ResidenceName).Where(t => t.SBDW == xq.SBDW).Select(t => t.MPCount).FirstOrDefault();
+                    xq.MPCount = a + b + c;
+                    data.Add(xq);
+                }
+
+                var dl = (from t in mpOfRoad
                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && t.PLProduceID == null
-                          group t by new { t.PLID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
+                          group t by new { t.PLID, t.SBDW, t.RoadName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
                           select new NotProducedPLMPList
                           {
                               PLID = g.Key.PLID,
+                              MPType = Enums.MPTypeCh.Road,
                               SBDW = g.Key.SBDW,
-                              ResidenceName = g.Key.ResidenceName,
+                              RoadName = g.Key.RoadName,
                               MPCount = g.Count(),
                               Applicant = g.Key.Applicant,
                               ApplicantPhone = g.Key.ApplicantPhone,
                               MPBZTime = g.Key.BZTime
-                          };
-                var xq = (from t in mpOfResidence
+                          }).ToList();
+                data.AddRange(dl);
+                var nc = (from t in mpOfCountry
                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && t.PLProduceID == null
-                          select new
+                          group t by new { t.PLID, t.SBDW, t.ViligeName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
+                          select new NotProducedPLMPList
                           {
-                              PLID = t.PLID,
-                              SBDW = t.SBDW,
-                              ResidenceName = t.ResidenceName,
-                              Applicant = t.Applicant,
-                              ApplicantPhone = t.ApplicantPhone,
-                              MPBZTime = t.BZTime
-                          }).Distinct();
-                var zz = from t in xq
-                         join a in lzC on t.PLID equals a.PLID
-                         join b in dyC on t.PLID equals b.PLID
-                         join c in hsC on t.PLID equals c.PLID
-                         select new NotProducedPLMPList
-                         {
-                             PLID = t.PLID,
-                             MPType = Enums.MPTypeCh.Residence,
-                             SBDW = t.SBDW,
-                             ResidenceName = t.ResidenceName,
-                             MPCount = a.MPCount + b.MPCount + c.MPCount,
-                             Applicant = t.Applicant,
-                             ApplicantPhone = t.ApplicantPhone,
-                             MPBZTime = t.MPBZTime
-                         };
+                              PLID = g.Key.PLID,
+                              MPType = Enums.MPTypeCh.Country,
+                              SBDW = g.Key.SBDW,
+                              ViligeName = g.Key.ViligeName,
+                              MPCount = g.Count(),
+                              Applicant = g.Key.Applicant,
+                              ApplicantPhone = g.Key.ApplicantPhone,
+                              MPBZTime = g.Key.BZTime
+                          }).ToList();
+                data.AddRange(nc);
 
-                var dl = from t in mpOfRoad
-                         where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && t.PLProduceID == null
-                         group t by new { t.PLID, t.SBDW, t.RoadName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
-                         select new NotProducedPLMPList
-                         {
-                             PLID = g.Key.PLID,
-                             MPType = Enums.MPTypeCh.Road,
-                             SBDW = g.Key.SBDW,
-                             RoadName = g.Key.RoadName,
-                             MPCount = g.Count(),
-                             Applicant = g.Key.Applicant,
-                             ApplicantPhone = g.Key.ApplicantPhone,
-                             MPBZTime = g.Key.BZTime
-                         };
-                var nc = from t in mpOfCountry
-                         where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && t.PLProduceID == null
-                         group t by new { t.PLID, t.SBDW, t.ViligeName, t.Applicant, t.ApplicantPhone, t.BZTime } into g
-                         select new NotProducedPLMPList
-                         {
-                             PLID = g.Key.PLID,
-                             MPType = Enums.MPTypeCh.Country,
-                             SBDW = g.Key.SBDW,
-                             ViligeName = g.Key.ViligeName,
-                             MPCount = g.Count(),
-                             Applicant = g.Key.Applicant,
-                             ApplicantPhone = g.Key.ApplicantPhone,
-                             MPBZTime = g.Key.BZTime
-                         };
-                var all = zz.Concat(dl).Concat(nc);
-                count = all.Count();
-                var result = all.OrderByDescending(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                count = data.Count();
+                var result = data.OrderByDescending(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 return new Dictionary<string, object> {
                    { "Data",result},
                    { "Count",count}

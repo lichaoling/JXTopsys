@@ -112,7 +112,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                     data1 = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
 
-                data = (from t in query
+                data = (from t in data1
                         select new RPDetails
                         {
                             ID = t.ID,
