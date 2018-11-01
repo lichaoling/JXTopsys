@@ -30,7 +30,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 }
                 var query = q.Where(where.Compile());
 
-                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "1"))
+                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))
                 {
                     query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID);
                 }
@@ -83,9 +83,11 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             HSNumber = t.HSNumber,
                             AddType = t.AddType,
                             MPProduce = t.MPProduce,
-                            MPProduceComplete = t.MPProduceComplete,
-                            MPProduceCompleteTime = t.MPProduceCompleteTime,
+                            MPProduceUser = t.MPProduceUser,
+                            MPProduceTime = t.MPProduceTime,
                             PLID = t.PLID,
+                            PLProduceID = t.PLProduceID,
+                            LXProduceID = t.LXProduceID,
                             MPMail = t.MPMail,
                             MailAddress = t.MailAddress,
                             Postcode = t.Postcode,
@@ -132,9 +134,11 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                  HSNumber = t.HSNumber,
                                  AddType = t.AddType,
                                  MPProduce = t.MPProduce,
-                                 MPProduceComplete = t.MPProduceComplete,
-                                 MPProduceCompleteTime = t.MPProduceCompleteTime,
-                                 PLID=t.PLID,
+                                 MPProduceUser = t.MPProduceUser,
+                                 MPProduceTime = t.MPProduceTime,
+                                 PLID = t.PLID,
+                                 PLProduceID = t.PLProduceID,
+                                 LXProduceID = t.LXProduceID,
                                  MPMail = t.MPMail,
                                  MailAddress = t.MailAddress,
                                  Postcode = t.Postcode,
@@ -202,7 +206,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             var Data = dict["Data"] as List<CountryMPDetails>;
             Workbook wb = new Workbook();
             Worksheet ws = wb.Worksheets[0];
-            ws.Name = "农村门牌";
+            ws.Name = Enums.MPTypeCh.Country;
             Aspose.Cells.Style styleHeader = wb.Styles[wb.Styles.Add()];
             styleHeader.Pattern = Aspose.Cells.BackgroundType.Solid;
             styleHeader.HorizontalAlignment = Aspose.Cells.TextAlignmentType.Center;

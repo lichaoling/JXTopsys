@@ -56,7 +56,7 @@ namespace JXGIS.JXTopsystem.Controllers
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public ContentResult getDistrictTreeFromData(int type = Enums.TypeInt.Residence)
+        public ContentResult getDistrictTreeFromData(int type = Enums.TypeInt.MP)
         {
             RtObj rt = null;
             try

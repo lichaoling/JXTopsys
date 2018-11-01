@@ -40,7 +40,12 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string RP = "RP";
             public const string RPRepair = "RPRepair";
         }
-
+        public static class MPTypeCh
+        {
+            public const string Residence = "住宅门牌";
+            public const string Road = "道路门牌";
+            public const string Country = "农村门牌";
+        }
         public static class TypeInt
         {
             public const int Residence = 1;
@@ -48,18 +53,18 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const int Country = 3;
             public const int Community = 4;
             public const int RP = 5;
+            public const int MP = 6;
             public const int All = 0;
         }
         public static class RPRepairType
         {
-            public const string Before ="维修前";
+            public const string Before = "维修前";
             public const string After = "维修后";
         }
         public static class CertificateType
         {
-            public const int Placename = 1;
-            public const int MPZ = 2;
-            public const int All = 0;
+            public const string Placename = "地名证明";
+            public const string MPZ = "门牌证";
         }
         public static class MPFileType
         {

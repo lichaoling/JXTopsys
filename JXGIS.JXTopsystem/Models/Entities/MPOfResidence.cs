@@ -63,8 +63,10 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DateTime? BZTime { get; set; }
         public string AddType { get; set; }//门牌新增方式
         public int? MPProduce { get; set; } //门牌制作 0不制作 1制作
-        public int? MPProduceComplete { get; set; } //门牌制作完成情况 0未完成 1已完成
-        public DateTime? MPProduceCompleteTime { get; set; }//门牌制作完成时间
+        public string MPProduceUser { get; set; } //门牌制作完成情况
+        public DateTime? MPProduceTime { get; set; }//门牌制作完成时间
+        public string LXProduceID { get; set; } //零星制作批次号
+        public string PLProduceID { get; set; } //批量制作批次号
         public string PLID { get; set; } //批量导入的一个批次GUID
         public int? MPZPrintComplete { get; set; }//门牌证是否已打印
         public int? DZZMPrintComplete { get; set; }//地址证明是否已打印

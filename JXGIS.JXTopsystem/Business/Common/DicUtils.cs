@@ -45,7 +45,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 else if (mpType == Enums.TypeInt.Road)
                     sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == "大门牌" || t.Type == "小门牌").Select(t => t.Size).ToList();
                 else if (mpType == Enums.TypeInt.Country)
-                    sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == "农村门牌").Select(t => t.Size).ToList();
+                    sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == Enums.MPTypeCh.Country).Select(t => t.Size).ToList();
                 else
                     sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Select(t => t.Size).ToList();
                 return sizes;
@@ -85,6 +85,10 @@ namespace JXGIS.JXTopsystem.Business.Common
                 else if (type == Enums.TypeInt.Country)
                 {
                     s = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
+                }
+                else if (type == Enums.TypeInt.MP)
+                {
+                    s = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Concat(dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName)).Concat(dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName)).Distinct().ToList();
                 }
                 else if (type == Enums.TypeInt.RP)
                 {

@@ -17,8 +17,6 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string CommunityName { get; set; }
         public string StandardAddress { get; set; }
         public List<string> Windows { get; set; }
-        public string MPTypeName { get; set; }
-        public string CertificateTypeName { get; set; }
         public DateTime? MPBZTime { get; set; }
     }
 }

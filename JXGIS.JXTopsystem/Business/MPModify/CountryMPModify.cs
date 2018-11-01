@@ -70,7 +70,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     targetData.MPPosition = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : null;
                     targetData.AddType = Enums.MPAddType.LX;
                     targetData.MPProduce = targetData.MPProduce == null ? Enums.MPProduce.NO : targetData.MPProduce;
-                    targetData.MPProduceComplete = Enums.Complete.NO;
+                    //targetData.MPProduceComplete = Enums.Complete.NO;
                     targetData.MPZPrintComplete = Enums.Complete.NO;
                     targetData.DZZMPrintComplete = Enums.Complete.NO;
                     targetData.State = Enums.UseState.Enable;

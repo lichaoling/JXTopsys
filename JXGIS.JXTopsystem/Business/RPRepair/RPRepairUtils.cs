@@ -1,5 +1,6 @@
 ﻿using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Business.RPSearch;
+using JXGIS.JXTopsystem.Controllers;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Web;
+using static JXGIS.JXTopsystem.Controllers.FileController;
 
 namespace JXGIS.JXTopsystem.Business.RPRepair
 {
@@ -62,12 +64,34 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 if (RepairInfo == null)
                     throw new Exception("不存在该维修信息！");
                 var RP = RPSearchUtils.SearchRPByID(RepairInfo.RPID);
-                if (RepairInfo == null)
+                if (RP == null)
                     throw new Exception("维修信息所属路牌不存在！");
+
+                List<Paths> RepairBeoforePic = new List<Paths>();
+                List<Paths> RepairAfterPic = new List<Paths>();
+                var files = dbContext.RPPepairUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPRepairID == RepairID);
+
+                var beforeFiles = files.Where(t => t.RepairType == Enums.RPRepairType.Before).ToList();
+                foreach (var f in beforeFiles)
+                {
+                    var p = FileController.GetUploadFilePath(Enums.RPFileType.RepairPhoto, RepairID, f.ID, f.Name, Enums.RPRepairType.Before);
+                    RepairBeoforePic.Add(p);
+                }
+
+
+                var afterFiles = files.Where(t => t.RepairType == Enums.RPRepairType.After).ToList();
+                foreach (var f in afterFiles)
+                {
+                    var p = FileController.GetUploadFilePath(Enums.RPFileType.RepairPhoto, RepairID, f.ID, f.Name, Enums.RPRepairType.After);
+                    RepairAfterPic.Add(p);
+                }
+
                 return new Dictionary<string, object>()
                 {
                     { "RP",RP},
-                    { "RepairInfo",RepairInfo}
+                    { "RepairInfo",RepairInfo},
+                    { "BeforePics",RepairBeoforePic},
+                    { "AfterPics",RepairAfterPic}
                 };
             }
         }

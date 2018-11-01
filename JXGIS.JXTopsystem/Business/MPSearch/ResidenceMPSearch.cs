@@ -347,7 +347,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
 
             Workbook wb = new Workbook();
             Worksheet ws = wb.Worksheets[0];
-            ws.Name = "住宅门牌";
+            ws.Name = Enums.MPTypeCh.Residence;
             Aspose.Cells.Style styleHeader = wb.Styles[wb.Styles.Add()];
             styleHeader.Pattern = Aspose.Cells.BackgroundType.Solid;
             styleHeader.HorizontalAlignment = Aspose.Cells.TextAlignmentType.Center;

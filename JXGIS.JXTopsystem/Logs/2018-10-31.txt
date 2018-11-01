@@ -49,3 +49,23 @@
    在 System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
    在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
    在 JXGIS.JXTopsystem.Controllers.RPSearchController.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Int32 UseState)
+=======2018/10/31 星期三 15:36:09
+|Message:An error occurred while reading from the store provider's data reader. See the inner exception for details.
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.HandleReaderException(Exception e)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.StoreRead()
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.GetLXMPProduce(Int32 PageSize, Int32 PageNum, Int32 LXMPProduceComplete) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPProduce\MPProduceUtils.cs:行号 25
+   在 JXGIS.JXTopsystem.Controllers.MPProduceController.GetLXMPProduce(Int32 PageSize, Int32 PageNum, Int32 LXMPProduceComplete) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPProduceController.cs:行号 20
+=======2018/10/31 星期三 15:38:19
+|Message:An error occurred while reading from the store provider's data reader. See the inner exception for details.
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.HandleReaderException(Exception e)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.StoreRead()
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.GetLXMPProduce(Int32 PageSize, Int32 PageNum, Int32 LXMPProduceComplete)
+   在 JXGIS.JXTopsystem.Controllers.MPProduceController.GetLXMPProduce(Int32 PageSize, Int32 PageNum, Int32 LXMPProduceComplete)

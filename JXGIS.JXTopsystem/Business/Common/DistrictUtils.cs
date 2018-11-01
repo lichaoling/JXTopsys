@@ -135,6 +135,23 @@ namespace JXGIS.JXTopsystem.Business.Common
                         neighborhoodsIDs.AddRange(s);
                     }
                 }
+                else if (type == Enums.TypeInt.MP)
+                {
+                    if (districtIDs != null && districtIDs.Count > 0 && !districtIDs.Contains("嘉兴市"))
+                    {
+                        foreach (var districtID in districtIDs)
+                        {
+                            var s = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(districtID + ".") == 0 || t.NeighborhoodsID == districtID).Select(t => t.NeighborhoodsID).Concat(dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(districtID + ".") == 0 || t.NeighborhoodsID == districtID).Select(t => t.NeighborhoodsID)).Concat(dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(districtID + ".") == 0 || t.NeighborhoodsID == districtID).Select(t => t.NeighborhoodsID)).Distinct().ToList();
+                            neighborhoodsIDs.AddRange(s);
+                        }
+                    }
+                    else
+                    {
+                        var s = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Select(t => t.NeighborhoodsID).Distinct().ToList();
+                        neighborhoodsIDs.AddRange(s);
+                    }
+                }
+
                 else if (type == Enums.TypeInt.RP)
                 {
                     if (districtIDs != null && districtIDs.Count > 0 && !districtIDs.Contains("嘉兴市"))

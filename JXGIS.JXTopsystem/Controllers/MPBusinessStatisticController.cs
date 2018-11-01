@@ -13,7 +13,7 @@ namespace JXGIS.JXTopsystem.Controllers
     public class MPBusinessStatisticController : Controller
     {
         // GET: MPBusinessStatistic
-        public ContentResult GetMPBusinessUserTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string Window, string CreateUser, int CertificateType = Enums.CertificateType.All)
+        public ContentResult GetMPBusinessUserTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string Window, string CreateUser, string CertificateType)
         {
             RtObj rt = null;
             try
@@ -31,12 +31,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
-        public ContentResult GetMPBusinessNumTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string DistrictID, int CertificateType = Enums.CertificateType.All)
+        public ContentResult GetMPBusinessNumTJ(/*int PageSize, int PageNum,*/ DateTime? start, DateTime? end, string[] DistrictID, string CertificateType)
         {
             RtObj rt = null;
             try
             {
-                var r = MPStatisticUtils.GetMPBusinessNumTJ(PageSize, PageNum, start, end, DistrictID, CertificateType);
+                var r = MPStatisticUtils.GetMPBusinessNumTJ(100, 1, start, end, DistrictID == null ? null : DistrictID.Last(), CertificateType);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -49,12 +49,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
-        public ContentResult GetMPProduceTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, DateTime? start, DateTime? end)
+        public ContentResult GetMPProduceTJ(/*int PageSize, int PageNum, */string DistrictID, string CommunityName, DateTime? start, DateTime? end)
         {
             RtObj rt = null;
             try
             {
-                var r = MPStatisticUtils.GetMPProduceTJ(PageSize, PageNum, DistrictID, CommunityName, start, end);
+                var r = MPStatisticUtils.GetMPProduceTJ(100, 1, DistrictID, CommunityName, start, end);
                 rt = new RtObj(r);
             }
             catch (Exception ex)

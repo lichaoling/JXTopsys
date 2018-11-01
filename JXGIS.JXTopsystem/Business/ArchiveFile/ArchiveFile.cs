@@ -893,7 +893,7 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
                                       join a in dbContext.MPOfResidence
                                       on s.MPID equals a.ID into aa
                                       from at in aa.DefaultIfEmpty()
-                                      where s.MPType == 1
+                                      where s.MPType == Enums.MPTypeCh.Residence
                                       select new Certificate
                                       {
                                           AddressCoding = at.AddressCoding,
@@ -915,7 +915,7 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
                              join b in dbContext.MPOfRoad
                              on s.MPID equals b.ID into bb
                              from bt in bb.DefaultIfEmpty()
-                             where s.MPType == 2
+                             where s.MPType == Enums.MPTypeCh.Road
                              select new Certificate
                              {
                                  AddressCoding = bt.AddressCoding,
@@ -937,7 +937,7 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
                              join c in dbContext.MPOfCountry
                              on s.MPID equals c.ID into cc
                              from ct in cc.DefaultIfEmpty()
-                             where s.MPType == 3
+                             where s.MPType == Enums.MPTypeCh.Country
                              select new Certificate
                              {
                                  AddressCoding = ct.AddressCoding,
@@ -1407,12 +1407,12 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
                 }
             }
         }
-        private static void CopyDMZMandMPZToDest(int CertificateType, int MPType, string MPID, string StandardAddress, string ZMCLPath)
+        private static void CopyDMZMandMPZToDest(string CertificateType, string MPType, string MPID, string StandardAddress, string ZMCLPath)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var a = CertificateType == Enums.CertificateType.Placename ? DZZMPath : MPZMPath;
-                var b = MPType == Enums.TypeInt.Residence ? "Residence" : (MPType == Enums.TypeInt.Road ? "Road" : "County");
+                var b = MPType == Enums.MPTypeCh.Residence ? Enums.MPTypeCh.Residence : (MPType == Enums.MPTypeCh.Road ? Enums.MPTypeCh.Road : Enums.MPTypeCh.Country);
                 var srcPath = Path.Combine(a, b, MPID, StandardAddress + "-地址证明.pdf");
                 var destPath = Path.Combine(ZMCLPath, StandardAddress + "-地址证明.pdf");
                 File.Copy(srcPath, destPath);

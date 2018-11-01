@@ -106,9 +106,11 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             MPSize = t.MPSize,
                             AddType = t.AddType,
                             MPProduce = t.MPProduce,
-                            MPProduceComplete = t.MPProduceComplete,
-                            MPProduceCompleteTime = t.MPProduceCompleteTime,
+                            MPProduceUser = t.MPProduceUser,
+                            MPProduceTime = t.MPProduceTime,
                             PLID = t.PLID,
+                            PLProduceID = t.PLProduceID,
+                            LXProduceID = t.LXProduceID,
                             MPMail = t.MPMail,
                             MailAddress = t.MailAddress,
                             Postcode = t.Postcode,
@@ -168,9 +170,11 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                  MPSize = t.MPSize,
                                  AddType = t.AddType,
                                  MPProduce = t.MPProduce,
-                                 MPProduceComplete = t.MPProduceComplete,
-                                 MPProduceCompleteTime = t.MPProduceCompleteTime,
+                                 MPProduceUser = t.MPProduceUser,
+                                 MPProduceTime = t.MPProduceTime,
                                  PLID = t.PLID,
+                                 PLProduceID = t.PLProduceID,
+                                 LXProduceID = t.LXProduceID,
                                  MPMail = t.MPMail,
                                  MailAddress = t.MailAddress,
                                  Postcode = t.Postcode,
@@ -259,7 +263,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             var Data = dict["Data"] as List<RoadMPDetails>;
             Workbook wb = new Workbook();
             Worksheet ws = wb.Worksheets[0];
-            ws.Name = "道路门牌";
+            ws.Name = Enums.MPTypeCh.Road;
             Aspose.Cells.Style styleHeader = wb.Styles[wb.Styles.Add()];
             styleHeader.Pattern = Aspose.Cells.BackgroundType.Solid;
             styleHeader.HorizontalAlignment = Aspose.Cells.TextAlignmentType.Center;

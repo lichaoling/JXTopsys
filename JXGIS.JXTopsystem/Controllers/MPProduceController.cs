@@ -12,12 +12,12 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class MPProduceController : Controller
     {
-        public ContentResult GetLXMPProduce(int PageSize, int PageNum, int LXMPProduceComplete)
+        public ContentResult GetProducedLXMP(int PageSize, int PageNum)
         {
             RtObj rt = null;
             try
             {
-                var r = MPProduceUtils.GetLXMPProduce(PageSize, PageNum, LXMPProduceComplete);
+                var r = MPProduceUtils.GetProducedLXMP(PageSize, PageNum);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -29,7 +29,24 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        public JsonResult ProduceLXMP(List<LXMPProduceList> mpLists)
+        public ContentResult GetNotProducedLXMP(int PageSize, int PageNum)
+        {
+            RtObj rt = null;
+            try
+            {
+                var r = MPProduceUtils.GetNotProducedLXMP(PageSize, PageNum);
+                rt = new RtObj(r);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
+            return Content(s);
+        }
+        public JsonResult ProduceLXMP(List<NotProducedLXMPList> mpLists)
         {
             RtObj rt = null;
             try
@@ -46,13 +63,12 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Json(s);
         }
-
-        public ContentResult GetPLMPProduce(int PageSize, int PageNum, int PLMPProduceComplete)
+        public ContentResult GetProducedLXMPDetails(ProducedLXMPList producedLXMPList)
         {
             RtObj rt = null;
             try
             {
-                var r = MPProduceUtils.GetPLMPProduce(PageSize, PageNum, PLMPProduceComplete);
+                var r = MPProduceUtils.GetProducedLXMPDetails(producedLXMPList);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -64,13 +80,47 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        public JsonResult ProducePLMP(List<PLMPProduceList> mpLists)
+        public ContentResult GetProducedPLMP(int PageSize, int PageNum)
         {
             RtObj rt = null;
             try
             {
-                MPProduceUtils.ProducePLMP(mpLists);
-                rt = new RtObj();
+                var r = MPProduceUtils.GetProducedPLMP(PageSize, PageNum);
+                rt = new RtObj(r);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
+            return Content(s);
+        }
+        public ContentResult GetNotProducedPLMP(int PageSize, int PageNum)
+        {
+            RtObj rt = null;
+            try
+            {
+                var r = MPProduceUtils.GetNotProducedPLMP(PageSize, PageNum);
+                rt = new RtObj(r);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
+            return Content(s);
+        }
+        public JsonResult ProducePLMP(List<NotProducedPLMPList> mpLists)
+        {
+            RtObj rt = null;
+            try
+            {
+                var r = MPProduceUtils.ProducePLMP(mpLists);
+                rt = new RtObj(r);
             }
             catch (Exception ex)
             {
@@ -81,5 +131,23 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Json(s);
         }
+        public JsonResult GetProducedPLMPDetails(ProducedPLMPList producedPLMPList)
+        {
+            RtObj rt = null;
+            try
+            {
+                var r = MPProduceUtils.GetProducedPLMPDetails(producedPLMPList);
+                rt = new RtObj(r);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
+            return Json(s);
+        }
+
     }
 }

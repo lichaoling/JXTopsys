@@ -31,17 +31,6 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
             {
                 var query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable);
 
-                //if (!string.IsNullOrEmpty(start) || !string.IsNullOrEmpty(end))
-                //{
-                //    if (!string.IsNullOrEmpty(start))
-                //    {
-                //        query = query.Where(t => String.Compare(t.BZTime.ToString(), start, StringComparison.Ordinal) >= 0);
-                //    }
-                //    if (!string.IsNullOrEmpty(end))
-                //    {
-                //        query = query.Where(t => String.Compare(t.BZTime.ToString(), end, StringComparison.Ordinal) <= 0);
-                //    }
-                //}
                 if (start != null || end != null)
                 {
                     if (start != null)
@@ -51,7 +40,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 }
 
                 if (!string.IsNullOrEmpty(DistrictID))
-                    query = query.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + '.') == 0 || t.NeighborhoodsID == DistrictID);
+                    query = query.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0 || t.NeighborhoodsID == DistrictID);
 
                 if (!string.IsNullOrEmpty(CommunityName))
                     query = query.Where(t => t.CommunityName == CommunityName);
@@ -87,9 +76,9 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                            select new
                            {
                                CountyID = t.CountyID,
-                               CountyName = t.CountyID.Split('.').Last(),
+                               CountyName = !string.IsNullOrEmpty(t.CountyID) ? t.CountyID.Split('.').Last() : null,
                                NeighborhoodsID = t.NeighborhoodsID,
-                               NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
+                               NeighborhoodsName = !string.IsNullOrEmpty(t.NeighborhoodsID) ? t.NeighborhoodsID.Split('.').Last() : null,
                                CommunityName = t.CommunityName,
                                RoadName = t.RoadName,
                                Model = t.Model,
@@ -163,7 +152,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
 
                 rps = rps.Where(t => t.RepairedCount == RepairedCount);
                 if (!string.IsNullOrEmpty(DistrictID))
-                    rps = rps.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + '.') == 0 || t.NeighborhoodsID == DistrictID);
+                    rps = rps.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0 || t.NeighborhoodsID == DistrictID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     rps = rps.Where(t => t.CommunityName == CommunityName);
 

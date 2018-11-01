@@ -7,17 +7,23 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Extends
 {
-    public class PLMPProduceList
+    public class NotProducedPLMPList
     {
         public string PLID { get; set; }
-        public string CountyID { get; set; }
-        public string CountyName { get; set; }
-        public string NeighborhoodsID { get; set; }
-        public string NeighborhoodsName { get; set; }
-        public int MPType { get; set; }
-        public string MPTypeName { get; set; }
-        public int? PLMPProduceComplete { get; set; } //门牌制作完成情况 0未完成 1已完成
-        public string PLMPProduceCompleteName { get; set; } //门牌制作完成情况 0未完成 1已完成
+        public string MPType { get; set; }
+        public string ResidenceName { get; set; }
+        public string RoadName { get; set; }
+        public string ViligeName { get; set; }
+        public int MPCount { get; set; }
+        public string SBDW { get; set; }
+        public string Applicant { get; set; }
+        public string ApplicantPhone { get; set; }
+        public DateTime? MPBZTime { get; set; }
+    }
+    public class ProducedPLMPList
+    {
+        public string PLProduceID { get; set; }
+        public string MPType { get; set; }
         public string ResidenceName { get; set; }
         public string RoadName { get; set; }
         public string ViligeName { get; set; }
@@ -26,6 +32,6 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public string Postcode { get; set; }
         public string Applicant { get; set; }
         public string ApplicantPhone { get; set; }
-        public string MPBZTime { get; set; }
+        public DateTime? MPBZTime { get; set; }
     }
 }

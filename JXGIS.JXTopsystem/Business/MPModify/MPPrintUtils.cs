@@ -28,7 +28,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
         /// <param name="ID"></param>
         /// <param name="MPType"></param>
         /// <param name="CertificateType"></param>
-        public static List<MPCertificate> MPCertificatePrint(List<string> IDs, int MPType, int CertificateType)
+        public static List<MPCertificate> MPCertificatePrint(List<string> IDs, string MPType, string CertificateType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -51,7 +51,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
 
                     MPCertificate certificate = new Models.Extends.MPCertificate();
                     certificate.ID = ID;
-                    if (MPType == Enums.TypeInt.Residence)
+                    if (MPType == Enums.MPTypeCh.Residence)
                     {
                         var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfResidence == null)
@@ -84,7 +84,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
 
                         BaseUtils.UpdateAddressCode(mpOfResidence, null, null, null, Enums.TypeInt.Residence);
                     }
-                    else if (MPType == Enums.TypeInt.Road)
+                    else if (MPType == Enums.MPTypeCh.Road)
                     {
                         var mpOfRoad = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfRoad == null)
@@ -114,7 +114,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
 
                         BaseUtils.UpdateAddressCode(null, mpOfRoad, null, null, Enums.TypeInt.Road);
                     }
-                    else if (MPType == Enums.TypeInt.Country)
+                    else if (MPType == Enums.MPTypeCh.Country)
                     {
                         var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfCounty == null)
@@ -151,7 +151,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
         }
 
 
-        public static void DZZMPrint(List<string> IDs, int MPType)
+        public static void DZZMPrint(List<string> IDs, string MPType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -168,7 +168,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     mpCertificate.Window = string.Join(",", LoginUtils.CurrentUser.Window);
                     mpOfCertificates.Add(mpCertificate);
 
-                    if (MPType == Enums.TypeInt.Residence)
+                    if (MPType == Enums.MPTypeCh.Residence)
                     {
                         var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfResidence == null)
@@ -193,7 +193,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         string fileNamePdf = Path.Combine(savePath, mpOfResidence.StandardAddress + "-地址证明.pdf");
                         GenerateWord(templateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                     }
-                    else if (MPType == Enums.TypeInt.Road)
+                    else if (MPType == Enums.MPTypeCh.Road)
                     {
                         var mpOfRoad = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfRoad == null)
@@ -218,7 +218,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         string fileNamePdf = Path.Combine(savePath, mpOfRoad.StandardAddress + "-地址证明.pdf");
                         GenerateWord(templateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                     }
-                    else if (MPType == Enums.TypeInt.Country)
+                    else if (MPType == Enums.MPTypeCh.Country)
                     {
                         var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfCounty == null)
@@ -247,6 +247,8 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                 MergePDF(TempPdf);
             }
         }
+
+
 
         /// <summary>
         /// 读取合并的pdf文件名称

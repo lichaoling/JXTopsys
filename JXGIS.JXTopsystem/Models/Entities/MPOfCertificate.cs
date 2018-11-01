@@ -16,11 +16,11 @@ namespace JXGIS.JXTopsystem.Models.Entities
         [Key]
         public string ID { get; set; }
         public string MPID { get; set; }
-        public int MPType { get; set; }
+        public string MPType { get; set; }
         public DateTime CreateTime { get; set; }
         public string CreateUser { get; set; }
         public string Window { get; set; }
-        public int CertificateType { get; set; }
+        public string CertificateType { get; set; }
         public string ArchiveFileStatus { get; set; }
     }
 }

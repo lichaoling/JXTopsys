@@ -21,117 +21,100 @@ namespace JXGIS.JXTopsystem.Business
         /// <param name="CreateUser"></param>
         /// <param name="CertificateType"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetMPBusinessUserTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string Window, string CreateUser, int CertificateType)
+        public static Dictionary<string, object> GetMPBusinessUserTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string Window, string CreateUser, string CertificateType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 int count = 0;
                 List<MPBusiness> query = new List<Models.Extends.MPBusiness>();
 
-                //var MPResidence = dbContext.MPOfResidence as IEnumerable<MPOfResidence>;
-                //var MPRoad = dbContext.MPOfRoad as IEnumerable<MPOfRoad>;
-                //var MPCountry = dbContext.MPOfCountry as IEnumerable<MPOfCountry>;
+                var MPResidence = dbContext.MPOfResidence as IEnumerable<MPOfResidence>;
+                var MPRoad = dbContext.MPOfRoad as IEnumerable<MPOfRoad>;
+                var MPCountry = dbContext.MPOfCountry as IEnumerable<MPOfCountry>;
 
-                ////if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
-                ////{
-                //    // 先删选出当前用户权限内的数据
-                //    var where1 = PredicateBuilder.False<MPOfResidence>();
-                //    var where2 = PredicateBuilder.False<MPOfRoad>();
-                //    var where3 = PredicateBuilder.False<MPOfCountry>();
+                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
+                {
+                    // 先删选出当前用户权限内的数据
+                    var where1 = PredicateBuilder.False<MPOfResidence>();
+                    var where2 = PredicateBuilder.False<MPOfRoad>();
+                    var where3 = PredicateBuilder.False<MPOfCountry>();
 
-                //    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
-                //    {
-                //        where1 = where1.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                //        where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                //        where3 = where3.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                //    }
-                //    MPResidence = MPResidence.Where(where1.Compile()).Distinct();
-                //    MPRoad = MPRoad.Where(where2.Compile()).Distinct();
-                //    MPCountry = MPCountry.Where(where3.Compile()).Distinct();
-                ////}
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where1 = where1.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                        where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                        where3 = where3.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    MPResidence = MPResidence.Where(where1.Compile()).Distinct();
+                    MPRoad = MPRoad.Where(where2.Compile()).Distinct();
+                    MPCountry = MPCountry.Where(where3.Compile()).Distinct();
+                }
 
                 #region 住宅类
                 var queryResidence = from t in dbContext.MPOfCertificate
-
-                                     join r in dbContext.MPOfResidence
-                                     on t.MPID equals r.ID into rr
-                                     from rt in rr.DefaultIfEmpty()
-
-                                     where t.MPType == Enums.TypeInt.Residence
+                                     join r in MPResidence
+                                     on t.MPID equals r.ID
+                                     where t.MPType == Enums.MPTypeCh.Residence
                                      select new MPBusiness
                                      {
                                          ID = t.ID,
                                          MPID = t.MPID,
                                          MPType = t.MPType,
-                                         MPTypeName = "住宅门牌",
-                                         //CertificateTypeName = t.CertificateType == Enums.CertificateType.Placename ? "地址证明开具" : "门牌证打印",
                                          CreateTime = t.CreateTime,
                                          CreateUser = t.CreateUser,
                                          Window = t.Window,
-                                         //Windows = t.Window.Split(',').ToList(),
                                          CertificateType = t.CertificateType,
-                                         CountyID = rt.CountyID,
-                                         NeighborhoodsID = rt.NeighborhoodsID,
-                                         CommunityName = rt.CommunityName,
-                                         StandardAddress = rt.StandardAddress,
-                                         MPBZTime = rt.BZTime
+                                         CountyID = r.CountyID,
+                                         NeighborhoodsID = r.NeighborhoodsID,
+                                         CommunityName = r.CommunityName,
+                                         StandardAddress = r.StandardAddress,
+                                         MPBZTime = r.BZTime
                                      };
                 #endregion
                 #region 道路类
                 var queryRoad = from t in dbContext.MPOfCertificate
-
-                                join r in dbContext.MPOfRoad
-                                on t.MPID equals r.ID into rr
-                                from rt in rr.DefaultIfEmpty()
-
-                                where t.MPType == Enums.TypeInt.Road
+                                join r in MPRoad
+                                on t.MPID equals r.ID
+                                where t.MPType == Enums.MPTypeCh.Road
                                 select new MPBusiness
                                 {
                                     ID = t.ID,
                                     MPID = t.MPID,
                                     MPType = t.MPType,
-                                    MPTypeName = "道路门牌",
-                                    //CertificateTypeName = t.CertificateType == Enums.CertificateType.Placename ? "地址证明开具" : "门牌证打印",
                                     CreateTime = t.CreateTime,
                                     CreateUser = t.CreateUser,
                                     Window = t.Window,
-                                    //Windows = t.Window.Split(',').ToList(),
                                     CertificateType = t.CertificateType,
-                                    CountyID = rt.CountyID,
-                                    NeighborhoodsID = rt.NeighborhoodsID,
-                                    CommunityName = rt.CommunityName,
-                                    StandardAddress = rt.StandardAddress,
-                                    MPBZTime = rt.BZTime
+                                    CountyID = r.CountyID,
+                                    NeighborhoodsID = r.NeighborhoodsID,
+                                    CommunityName = r.CommunityName,
+                                    StandardAddress = r.StandardAddress,
+                                    MPBZTime = r.BZTime
                                 };
                 #endregion
                 #region 农村类
                 var queryCountry = from t in dbContext.MPOfCertificate
-
-                                   join r in dbContext.MPOfCountry
-                                   on t.MPID equals r.ID into rr
-                                   from rt in rr.DefaultIfEmpty()
-
-                                   where t.MPType == Enums.TypeInt.Country
+                                   join r in MPCountry
+                                   on t.MPID equals r.ID
+                                   where t.MPType == Enums.MPTypeCh.Country
                                    select new MPBusiness
                                    {
                                        ID = t.ID,
                                        MPID = t.MPID,
                                        MPType = t.MPType,
-                                       MPTypeName = "农村门牌",
-                                       //CertificateTypeName = t.CertificateType == Enums.CertificateType.Placename ? "地址证明开具" : "门牌证打印",
                                        CreateTime = t.CreateTime,
                                        CreateUser = t.CreateUser,
                                        Window = t.Window,
-                                       //Windows = t.Window.Split(',').ToList(),
                                        CertificateType = t.CertificateType,
-                                       CountyID = rt.CountyID,
-                                       NeighborhoodsID = rt.NeighborhoodsID,
-                                       CommunityName = rt.CommunityName,
-                                       StandardAddress = rt.StandardAddress,
-                                       MPBZTime = rt.BZTime
+                                       CountyID = r.CountyID,
+                                       NeighborhoodsID = r.NeighborhoodsID,
+                                       CommunityName = r.CommunityName,
+                                       StandardAddress = r.StandardAddress,
+                                       MPBZTime = r.BZTime
                                    };
                 #endregion
                 var All = queryResidence.Concat(queryRoad).Concat(queryCountry);
+
 
                 if (start != null || end != null)
                 {
@@ -143,13 +126,14 @@ namespace JXGIS.JXTopsystem.Business
 
                 if (!string.IsNullOrEmpty(Window))
                 {
-                    All = All.Where(t => t.Windows.Contains(Window));
+
+                    All = All.Where(t => t.Window.Contains(Window));
                 }
                 if (!string.IsNullOrEmpty(CreateUser))
                 {
                     All = All.Where(t => t.CreateUser == CreateUser);
                 }
-                if (CertificateType != Enums.CertificateType.All)
+                if (!string.IsNullOrEmpty(CertificateType))
                     All = All.Where(t => t.CertificateType == CertificateType);
 
                 count = All.Count();
@@ -161,13 +145,11 @@ namespace JXGIS.JXTopsystem.Business
                                 ID = t.ID,
                                 MPID = t.MPID,
                                 MPType = t.MPType,
-                                MPTypeName = t.MPTypeName,
                                 CreateTime = t.CreateTime,
                                 CreateUser = t.CreateUser,
                                 Window = t.Window,
                                 Windows = !string.IsNullOrEmpty(t.Window) ? t.Window.Split(',').ToList() : null,
                                 CertificateType = t.CertificateType,
-                                CertificateTypeName = t.CertificateType == Enums.CertificateType.Placename ? "地址证明开具" : "门牌证打印",
                                 CountyID = t.CountyID,
                                 NeighborhoodsID = t.NeighborhoodsID,
                                 CommunityName = t.CommunityName,
@@ -205,100 +187,109 @@ namespace JXGIS.JXTopsystem.Business
         /// <param name="DistrictID"></param>
         /// <param name="CertificateType"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetMPBusinessNumTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string DistrictID, int CertificateType)
+        public static Dictionary<string, object> GetMPBusinessNumTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string DistrictID, string CertificateType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 int count = 0;
+                //var MPResidence = dbContext.MPOfResidence as IEnumerable<MPOfResidence>;
+                //var MPRoad = dbContext.MPOfRoad as IEnumerable<MPOfRoad>;
+                //var MPCountry = dbContext.MPOfCountry as IEnumerable<MPOfCountry>;
+
+                //if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
+                //{
+                //    // 先删选出当前用户权限内的数据
+                //    var where1 = PredicateBuilder.False<MPOfResidence>();
+                //    var where2 = PredicateBuilder.False<MPOfRoad>();
+                //    var where3 = PredicateBuilder.False<MPOfCountry>();
+
+                //    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                //    {
+                //        where1 = where1.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                //        where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                //        where3 = where3.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                //    }
+                //    MPResidence = MPResidence.Where(where1.Compile()).Distinct();
+                //    MPRoad = MPRoad.Where(where2.Compile()).Distinct();
+                //    MPCountry = MPCountry.Where(where3.Compile()).Distinct();
+                //}
                 #region 住宅类
                 var queryResidence = from t in dbContext.MPOfCertificate
-
                                      join r in dbContext.MPOfResidence
-                                     on t.MPID equals r.ID into rr
-                                     from rt in rr.DefaultIfEmpty()
-
-                                     where t.MPType == Enums.TypeInt.Residence
+                                     on t.MPID equals r.ID
+                                     where t.MPType == Enums.MPTypeCh.Residence
                                      select new MPBusiness
                                      {
                                          ID = t.ID,
                                          MPID = t.MPID,
                                          MPType = t.MPType,
-                                         MPTypeName = "住宅门牌",
-                                         //CertificateTypeName = t.CertificateType == Enums.CertificateType.Placename ? "地址证明开具" : "门牌证打印",
                                          CreateTime = t.CreateTime,
                                          CreateUser = t.CreateUser,
                                          Window = t.Window,
-                                         //Windows = t.Window.Split(',').ToList(),
                                          CertificateType = t.CertificateType,
-                                         CountyID = rt.CountyID,
-                                         NeighborhoodsID = rt.NeighborhoodsID,
-                                         CommunityName = rt.CommunityName,
-                                         StandardAddress = rt.StandardAddress,
-                                         MPBZTime = rt.BZTime
+                                         CountyID = r.CountyID,
+                                         NeighborhoodsID = r.NeighborhoodsID,
+                                         CommunityName = r.CommunityName,
+                                         StandardAddress = r.StandardAddress,
+                                         MPBZTime = r.BZTime
                                      };
                 #endregion
                 #region 道路类
                 var queryRoad = from t in dbContext.MPOfCertificate
-
                                 join r in dbContext.MPOfRoad
-                                on t.MPID equals r.ID into rr
-                                from rt in rr.DefaultIfEmpty()
-
-                                where t.MPType == Enums.TypeInt.Road
+                                on t.MPID equals r.ID
+                                where t.MPType == Enums.MPTypeCh.Road
                                 select new MPBusiness
                                 {
                                     ID = t.ID,
                                     MPID = t.MPID,
                                     MPType = t.MPType,
-                                    MPTypeName = "道路门牌",
-                                    // CertificateTypeName = t.CertificateType == Enums.CertificateType.Placename ? "地址证明开具" : "门牌证打印",
                                     CreateTime = t.CreateTime,
                                     CreateUser = t.CreateUser,
                                     Window = t.Window,
-                                    //Windows = t.Window.Split(',').ToList(),
                                     CertificateType = t.CertificateType,
-                                    CountyID = rt.CountyID,
-                                    NeighborhoodsID = rt.NeighborhoodsID,
-                                    CommunityName = rt.CommunityName,
-                                    StandardAddress = rt.StandardAddress,
-                                    MPBZTime = rt.BZTime
+                                    CountyID = r.CountyID,
+                                    NeighborhoodsID = r.NeighborhoodsID,
+                                    CommunityName = r.CommunityName,
+                                    StandardAddress = r.StandardAddress,
+                                    MPBZTime = r.BZTime
                                 };
                 #endregion
                 #region 农村类
                 var queryCountry = from t in dbContext.MPOfCertificate
-
                                    join r in dbContext.MPOfCountry
-                                   on t.MPID equals r.ID into rr
-                                   from rt in rr.DefaultIfEmpty()
-
-                                   where t.MPType == Enums.TypeInt.Country
+                                   on t.MPID equals r.ID
+                                   where t.MPType == Enums.MPTypeCh.Country
                                    select new MPBusiness
                                    {
                                        ID = t.ID,
                                        MPID = t.MPID,
                                        MPType = t.MPType,
-                                       MPTypeName = "农村门牌",
-                                       //CertificateTypeName = t.CertificateType == Enums.CertificateType.Placename ? "地址证明开具" : "门牌证打印",
                                        CreateTime = t.CreateTime,
                                        CreateUser = t.CreateUser,
                                        Window = t.Window,
-                                       //Windows = t.Window.Split(',').ToList(),
                                        CertificateType = t.CertificateType,
-                                       CountyID = rt.CountyID,
-                                       NeighborhoodsID = rt.NeighborhoodsID,
-                                       CommunityName = rt.CommunityName,
-                                       StandardAddress = rt.StandardAddress,
-                                       MPBZTime = rt.BZTime
+                                       CountyID = r.CountyID,
+                                       NeighborhoodsID = r.NeighborhoodsID,
+                                       CommunityName = r.CommunityName,
+                                       StandardAddress = r.StandardAddress,
+                                       MPBZTime = r.BZTime
                                    };
                 #endregion
-                var All = queryResidence.Concat(queryRoad).Concat(queryCountry);
-                //// 先删选出当前用户权限内的数据
-                //var where = PredicateBuilder.False<MPBusiness>();
-                //foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
-                //{
-                //    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                //}
-                //var queryAll = All.Where(where.Compile());
+
+                var concat = queryResidence.Concat(queryRoad).Concat(queryCountry);
+                IEnumerable<MPBusiness> All = concat;
+                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
+                {
+                    // 先删选出当前用户权限内的数据
+                    var where = PredicateBuilder.False<MPBusiness>();
+
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    All = concat.Where(where.Compile()).Distinct();
+                }
 
                 if (start != null || end != null)
                 {
@@ -309,9 +300,9 @@ namespace JXGIS.JXTopsystem.Business
                 }
 
                 if (!string.IsNullOrEmpty(DistrictID))
-                    All = All.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + '.') == 0 || t.NeighborhoodsID == DistrictID);
+                    All = All.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0 || t.NeighborhoodsID == DistrictID);
 
-                if (CertificateType != Enums.CertificateType.All)
+                if (!string.IsNullOrEmpty(CertificateType))
                     All = All.Where(t => t.CertificateType == CertificateType);
 
                 var result = from t in All
@@ -351,7 +342,7 @@ namespace JXGIS.JXTopsystem.Business
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetMPProduceTJ(int PageSize, int PageNum, string DistrictID,string CommunityName,DateTime? start,DateTime? end)
+        public static Dictionary<string, object> GetMPProduceTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, DateTime? start, DateTime? end)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -360,25 +351,16 @@ namespace JXGIS.JXTopsystem.Business
                 var smallMPsize = dbContext.DMBZDic.Where(t => t.Type == "小门牌").Select(t => t.Size).ToList();
 
                 #region 住宅
-                var residenceMP = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPProduceComplete == Enums.Complete.Yes);
-
-                // 先删选出当前用户权限内的数据
-                var where = PredicateBuilder.False<MPOfResidence>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
-                {
-                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                }
-                var zz = residenceMP.Where(where.Compile());
-
+                var residenceMP = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.PLProduceID != null || t.LXProduceID != null);
                 if (start != null || end != null)
                 {
                     if (start != null)
-                        zz = zz.Where(t => t.BZTime >= start);
+                        residenceMP = residenceMP.Where(t => t.BZTime >= start);
                     if (end != null)
-                        zz = zz.Where(t => t.BZTime <= end);
+                        residenceMP = residenceMP.Where(t => t.BZTime <= end);
                 }
 
-                var lzdis = (from t in zz
+                var lzdis = (from t in residenceMP
                              select new
                              {
                                  CountyID = t.CountyID,
@@ -397,7 +379,7 @@ namespace JXGIS.JXTopsystem.Business
                              type = "楼幢牌",
                              Count = g.Count() * 2
                          };
-                var dydis = (from t in zz
+                var dydis = (from t in residenceMP
                              select new
                              {
                                  CountyID = t.CountyID,
@@ -417,7 +399,7 @@ namespace JXGIS.JXTopsystem.Business
                              type = "单元牌",
                              Count = g.Count()
                          };
-                var hs = from t in zz
+                var hs = from t in residenceMP
                          group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
                          select new Statistic
                          {
@@ -429,25 +411,17 @@ namespace JXGIS.JXTopsystem.Business
                          };
                 #endregion
                 #region 道路
-                var roadMP = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPProduceComplete == Enums.Complete.Yes);
-
-                // 先删选出当前用户权限内的数据
-                var whereRoad = PredicateBuilder.False<MPOfRoad>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
-                {
-                    whereRoad = whereRoad.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                }
-                var dl = roadMP.Where(whereRoad.Compile());
+                var roadMP = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.PLProduceID != null || t.LXProduceID != null);
 
                 if (start != null || end != null)
                 {
                     if (start != null)
-                        dl = dl.Where(t => t.BZTime >= start);
+                        roadMP = roadMP.Where(t => t.BZTime >= start);
                     if (end != null)
-                        dl = dl.Where(t => t.BZTime <= end);
+                        roadMP = roadMP.Where(t => t.BZTime <= end);
                 }
 
-                var dmp = from t in dl
+                var dmp = from t in roadMP
                           where bigMPsize.Contains(t.MPSize)
                           group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
                           select new Statistic
@@ -458,7 +432,7 @@ namespace JXGIS.JXTopsystem.Business
                               type = "大门牌",
                               Count = g.Count()
                           };
-                var xmp = from t in dl
+                var xmp = from t in roadMP
                           where smallMPsize.Contains(t.MPSize)
                           group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
                           select new Statistic
@@ -471,39 +445,44 @@ namespace JXGIS.JXTopsystem.Business
                           };
                 #endregion
                 #region 农村
-                var countryMP = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPProduceComplete == Enums.Complete.Yes);
+                var countryMP = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.PLProduceID != null || t.LXProduceID != null);
 
-                // 先删选出当前用户权限内的数据
-                var whereCountry = PredicateBuilder.False<MPOfCountry>();
-                foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
-                {
-                    whereCountry = whereCountry.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                }
-                var nc = countryMP.Where(whereCountry.Compile());
 
                 if (start != null || end != null)
                 {
                     if (start != null)
-                        nc = nc.Where(t => t.BZTime >= start);
+                        countryMP = countryMP.Where(t => t.BZTime >= start);
                     if (end != null)
-                        nc = nc.Where(t => t.BZTime <= end);
+                        countryMP = countryMP.Where(t => t.BZTime <= end);
                 }
 
-                var ncmp = from t in nc
+                var ncmp = from t in countryMP
                            group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
                            select new Statistic
                            {
                                CountyID = g.Key.CountyID,
                                NeighborhoodsID = g.Key.NeighborhoodsID,
                                CommunityName = g.Key.CommunityName,
-                               type = "农村门牌",
+                               type = Enums.MPTypeCh.Country,
                                Count = g.Count()
                            };
                 #endregion
 
                 var all = lz.Concat(dy).Concat(hs).Concat(dmp).Concat(xmp).Concat(hs);
+                IEnumerable<Statistic> rt = all;
+                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
+                {
+                    // 先删选出当前用户权限内的数据
+                    var where = PredicateBuilder.False<Statistic>();
 
-                var result = from t in all
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    {
+                        where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                    }
+                    rt = all.Where(where.Compile()).Distinct();
+                }
+
+                var result = from t in rt
                              group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
                              select new StatisticAll
                              {
@@ -515,10 +494,10 @@ namespace JXGIS.JXTopsystem.Business
                                  LZP = g.Where(t => t.type == "楼幢牌").Select(t => t.Count).FirstOrDefault(),
                                  DYP = g.Where(t => t.type == "单元牌").Select(t => t.Count).FirstOrDefault(),
                                  HSP = g.Where(t => t.type == "户室牌").Select(t => t.Count).FirstOrDefault(),
-                                 NCP = g.Where(t => t.type == "农村门牌").Select(t => t.Count).FirstOrDefault(),
+                                 NCP = g.Where(t => t.type == Enums.MPTypeCh.Country).Select(t => t.Count).FirstOrDefault(),
                              };
                 if (!string.IsNullOrEmpty(DistrictID))
-                    result = result.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + '.') == 0 || t.NeighborhoodsID == DistrictID);
+                    result = result.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0 || t.NeighborhoodsID == DistrictID);
 
                 if (!string.IsNullOrEmpty(CommunityName))
                     result = result.Where(t => t.CommunityName == CommunityName);
@@ -528,8 +507,10 @@ namespace JXGIS.JXTopsystem.Business
                 var data = (from t in query
                             select new StatisticAll
                             {
-                                CountyName = !string.IsNullOrEmpty(t.CountyID)? t.CountyID.Split('.').Last():null,
-                                NeighborhoodsID = !string.IsNullOrEmpty(t.NeighborhoodsID) ? t.NeighborhoodsID.Split('.').Last():null,
+                                CountyID=t.CountyID,
+                                NeighborhoodsID=t.NeighborhoodsID,
+                                CountyName = !string.IsNullOrEmpty(t.CountyID) ? t.CountyID.Split('.').Last() : null,
+                                NeighborhoodsName = !string.IsNullOrEmpty(t.NeighborhoodsID) ? t.NeighborhoodsID.Split('.').Last() : null,
                                 CommunityName = t.CommunityName,
                                 DMP = t.DMP,
                                 XMP = t.XMP,
