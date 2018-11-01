@@ -216,7 +216,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     var NeighborhoodsCode = zz.AddressCoding.Substring(2, 3);
                     var county = dis.Where(t => t.ID == zz.CountyID).FirstOrDefault();
                     var neighbor = dis.Where(t => t.ID == zz.NeighborhoodsID).FirstOrDefault();
-                    if (county == null || neighbor == null || county.ID != nc.CountyID || neighbor.ID != nc.NeighborhoodsID)
+                    if (county == null || neighbor == null || county.ID != zz.CountyID || neighbor.ID != zz.NeighborhoodsID)
                     {
                         var othercode = zz.AddressCoding.Substring(zz.AddressCoding.Length - 9);
                         CountyCode = dis.Where(t => t.ID == zz.CountyID).Select(t => t.Code).FirstOrDefault();
@@ -230,7 +230,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     var NeighborhoodsCode = dl.AddressCoding.Substring(2, 3);
                     var county = dis.Where(t => t.Code == CountyCode).FirstOrDefault();
                     var neighbor = dis.Where(t => t.Code == NeighborhoodsCode).FirstOrDefault();
-                    if (county == null || neighbor == null || county.ID != nc.CountyID || neighbor.ID != nc.NeighborhoodsID)
+                    if (county == null || neighbor == null || county.ID != dl.CountyID || neighbor.ID != dl.NeighborhoodsID)
                     {
                         var othercode = dl.AddressCoding.Substring(dl.AddressCoding.Length - 9);
                         CountyCode = dis.Where(t => t.ID == dl.CountyID).Select(t => t.Code).FirstOrDefault();

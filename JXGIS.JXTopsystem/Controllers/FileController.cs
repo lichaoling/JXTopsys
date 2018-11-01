@@ -65,7 +65,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 case "RPBZPHOTO":
                     relativePath = RPBZPhotoRelativePath;
                     break;
-                case "RPPEPAIRPHOTO":
+                case "RPREPAIRPHOTO":
                     relativePath = RPPepairPhotoRelativePath;
                     break;
                 default:

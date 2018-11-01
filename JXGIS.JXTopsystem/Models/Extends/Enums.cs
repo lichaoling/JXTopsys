@@ -86,7 +86,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         {
             public const string BZPhoto = "BZPhoto";
             public const string QRCode = "QRCode";
-            public const string RepairPhoto = "RepairPhoto";
+            public const string RepairPhoto = "RPRepairPhoto";
 
         }
         public static class RPRepairFinish

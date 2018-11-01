@@ -30,9 +30,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             List<RoadMPDetails> data = null;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var q = dbContext.MPOfRoad.Where(t => t.State == UseState);
+                var query = dbContext.MPOfRoad.Where(t => t.State == UseState);
 
-                IEnumerable<MPOfRoad> query = q;
                 // 先删选出当前用户权限内的数据
                 if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
                 {
@@ -41,7 +40,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                     {
                         where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
-                    query = query.Where(where.Compile());
+                    query = query.Where(where);
                 }
 
                 if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))
@@ -77,17 +76,18 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                     query = query.Where(t => t.StandardAddress.Contains(StandardAddress));
                 }
                 count = query.Count();
+                List<MPOfRoad> data1;
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    query = query.OrderByDescending(t => t.BZTime).ToList();
+                    data1 = query.OrderByDescending(t => t.BZTime).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                    data1 = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
-                data = (from t in query
+                data = (from t in data1
                         select new RoadMPDetails
                         {
                             ID = t.ID,

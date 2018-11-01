@@ -292,7 +292,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var windows = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable);
-                var query = windows as IEnumerable<SysRole>;
+
                 if (districtIDs != null && districtIDs.Count > 0 && !districtIDs.Contains("嘉兴市"))
                 {
                     // 先删选出当前用户权限内的数据
@@ -301,9 +301,9 @@ namespace JXGIS.JXTopsystem.Business.Common
                     {
                         where = where.Or(t => t.DistrictID.IndexOf(ID + ".") == 0 || t.DistrictID == ID);
                     }
-                    query = windows.Where(where.Compile());
+                    windows = windows.Where(where);
                 }
-                var data = query.Select(t => t.Window).Distinct().ToList();
+                var data = windows.Select(t => t.Window).Distinct().ToList();
                 return data;
             }
         }
@@ -326,16 +326,15 @@ namespace JXGIS.JXTopsystem.Business.Common
                     {
                         where = where.Or(t => t.DistrictID.IndexOf(ID + ".") == 0 || t.DistrictID == ID);
                     }
-                    var query = roles.Where(where.Compile()).Distinct();
-
-                    if (!string.IsNullOrEmpty(window))
-                    {
-                        query = query.Where(t => t.Window == window);
-                    }
-                    var roleIDS = query.Select(t => t.RoleID).Distinct().ToList();
-                    var userIDS = dbContext.UserRole.Where(t => roleIDS.Contains(t.RoleID)).Select(t => t.UserID).Distinct().ToList();
-                    users = users.Where(t => userIDS.Contains(t.UserID));
+                    roles = roles.Where(where).Distinct();
                 }
+                if (!string.IsNullOrEmpty(window))
+                {
+                    roles = roles.Where(t => t.Window == window);
+                }
+                var roleIDS = roles.Select(t => t.RoleID).Distinct().ToList();
+                var userIDS = dbContext.UserRole.Where(t => roleIDS.Contains(t.RoleID)).Select(t => t.UserID).Distinct().ToList();
+                users = users.Where(t => userIDS.Contains(t.UserID));
                 var createUsers = users.Select(t => t.UserName).Distinct().ToList();
                 return createUsers;
             }

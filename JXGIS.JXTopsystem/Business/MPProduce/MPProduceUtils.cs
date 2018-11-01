@@ -21,8 +21,8 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                IEnumerable<MPOfRoad> mpOfRoad = dbContext.MPOfRoad;
-                IEnumerable<MPOfCountry> mpOfCountry = dbContext.MPOfCountry;
+                var mpOfRoad = dbContext.MPOfRoad.Where(t => true);
+                var mpOfCountry = dbContext.MPOfCountry.Where(t => true);
                 // 先删选出当前用户权限内的数据
                 if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
                 {
@@ -31,14 +31,14 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
-                    mpOfRoad = mpOfRoad.Where(where.Compile());
+                    mpOfRoad = mpOfRoad.Where(where);
 
                     var where2 = PredicateBuilder.False<MPOfCountry>();
                     foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
                     {
                         where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
-                    mpOfCountry = mpOfCountry.Where(where2.Compile());
+                    mpOfCountry = mpOfCountry.Where(where2);
                 }
 
                 int count = 0;
@@ -120,7 +120,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                 MPBZTime = b.BZTime
                             });
 
-                IEnumerable<NotProducedLXMPList> q = all;
+
                 // 先删选出当前用户权限内的数据
                 if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
                 {
@@ -129,11 +129,11 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
-                    q = all.Where(where.Compile());
+                    all = all.Where(where);
                 }
 
-                count = q.Count();
-                var data = q.OrderByDescending(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                count = all.Count();
+                var data = all.OrderByDescending(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 data = (from t in data
                         select new NotProducedLXMPList
                         {
@@ -255,9 +255,9 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                IEnumerable<MPOfRoad> mpOfRoad = dbContext.MPOfRoad;
-                IEnumerable<MPOfResidence> mpOfResidence = dbContext.MPOfResidence;
-                IEnumerable<MPOfCountry> mpOfCountry = dbContext.MPOfCountry;
+                var mpOfRoad = dbContext.MPOfRoad.Where(t => true);
+                var mpOfResidence = dbContext.MPOfResidence.Where(t => true);
+                var mpOfCountry = dbContext.MPOfCountry.Where(t => true);
 
                 if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
                 {
@@ -267,7 +267,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
-                    mpOfRoad = mpOfRoad.Where(where.Compile());
+                    mpOfRoad = mpOfRoad.Where(where);
 
                     // 先删选出当前用户权限内的数据
                     var where2 = PredicateBuilder.False<MPOfCountry>();
@@ -275,7 +275,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
-                    mpOfCountry = mpOfCountry.Where(where2.Compile());
+                    mpOfCountry = mpOfCountry.Where(where2);
 
                     // 先删选出当前用户权限内的数据
                     var where3 = PredicateBuilder.False<MPOfResidence>();
@@ -283,7 +283,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         where3 = where3.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
-                    mpOfResidence = mpOfResidence.Where(where3.Compile());
+                    mpOfResidence = mpOfResidence.Where(where3);
                 }
 
                 int count = 0;
@@ -417,9 +417,9 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                IEnumerable<MPOfRoad> mpOfRoad = dbContext.MPOfRoad;
-                IEnumerable<MPOfResidence> mpOfResidence = dbContext.MPOfResidence;
-                IEnumerable<MPOfCountry> mpOfCountry = dbContext.MPOfCountry;
+                var mpOfRoad = dbContext.MPOfRoad.Where(t => true);
+                var mpOfResidence = dbContext.MPOfResidence.Where(t => true);
+                var mpOfCountry = dbContext.MPOfCountry.Where(t => true);
 
                 if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
                 {
@@ -429,7 +429,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
-                    mpOfRoad = mpOfRoad.Where(where.Compile());
+                    mpOfRoad = mpOfRoad.Where(where);
 
                     // 先删选出当前用户权限内的数据
                     var where2 = PredicateBuilder.False<MPOfCountry>();
@@ -437,7 +437,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
-                    mpOfCountry = mpOfCountry.Where(where2.Compile());
+                    mpOfCountry = mpOfCountry.Where(where2);
 
                     // 先删选出当前用户权限内的数据
                     var where3 = PredicateBuilder.False<MPOfResidence>();
@@ -445,7 +445,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         where3 = where3.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
-                    mpOfResidence = mpOfResidence.Where(where3.Compile());
+                    mpOfResidence = mpOfResidence.Where(where3);
                 }
 
                 int count = 0;

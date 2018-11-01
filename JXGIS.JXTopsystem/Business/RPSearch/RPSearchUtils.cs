@@ -19,8 +19,8 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
 
-                var q = dbContext.RP.Where(t => t.State == UseState);
-                IEnumerable<RP> query = q;
+                var query = dbContext.RP.Where(t => t.State == UseState);
+
                 // 先删选出当前用户权限内的数据
                 if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
                 {
@@ -29,7 +29,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                     {
                         where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
-                    query = query.Where(where.Compile());
+                    query = query.Where(where);
                 }
 
                 //行政区划筛选
@@ -99,15 +99,17 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                     query = query.Where(t => t.RoadName == RoadName);
                 }
                 count = query.Count();
+
+                List<RP> data1;
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    query = query.OrderByDescending(t => t.BZTime).ToList();
+                    data1 = query.OrderByDescending(t => t.BZTime).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    query = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                    data1 = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
 
                 data = (from t in query
