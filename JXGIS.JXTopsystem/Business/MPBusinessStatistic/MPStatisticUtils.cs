@@ -119,9 +119,9 @@ namespace JXGIS.JXTopsystem.Business
                 if (start != null || end != null)
                 {
                     if (start != null)
-                        All = All.Where(t => t.MPBZTime >= start);
+                        All = All.Where(t => t.CreateTime >= start);
                     if (end != null)
-                        All = All.Where(t => t.MPBZTime <= end);
+                        All = All.Where(t => t.CreateTime <= end);
                 }
 
                 if (!string.IsNullOrEmpty(Window))
@@ -294,9 +294,9 @@ namespace JXGIS.JXTopsystem.Business
                 if (start != null || end != null)
                 {
                     if (start != null)
-                        concat = concat.Where(t => t.MPBZTime >= start);
+                        concat = concat.Where(t => t.CreateTime >= start);
                     if (end != null)
-                        concat = concat.Where(t => t.MPBZTime <= end);
+                        concat = concat.Where(t => t.CreateTime <= end);
                 }
 
                 if (!string.IsNullOrEmpty(DistrictID))
