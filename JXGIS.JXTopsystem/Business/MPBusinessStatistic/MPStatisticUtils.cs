@@ -32,14 +32,14 @@ namespace JXGIS.JXTopsystem.Business
                 var MPRoad = dbContext.MPOfRoad.Where(t => true);
                 var MPCountry = dbContext.MPOfCountry.Where(t => true);
 
-                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
+                if (LoginUtils.CurrentUser.DistrictIDList != null && LoginUtils.CurrentUser.DistrictIDList.Count > 0 && !LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
                 {
                     // 先删选出当前用户权限内的数据
                     var where1 = PredicateBuilder.False<MPOfResidence>();
                     var where2 = PredicateBuilder.False<MPOfRoad>();
                     var where3 = PredicateBuilder.False<MPOfCountry>();
 
-                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
                     {
                         where1 = where1.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                         where2 = where2.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
@@ -279,12 +279,12 @@ namespace JXGIS.JXTopsystem.Business
 
                 var concat = queryResidence.Concat(queryRoad).Concat(queryCountry);
 
-                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
+                if (LoginUtils.CurrentUser.DistrictIDList != null && LoginUtils.CurrentUser.DistrictIDList.Count > 0 && !LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
                 {
                     // 先删选出当前用户权限内的数据
                     var where = PredicateBuilder.False<MPBusiness>();
 
-                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
                     {
                         where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
@@ -470,12 +470,12 @@ namespace JXGIS.JXTopsystem.Business
 
                 var rt = lz.Concat(dy).Concat(hs).Concat(dmp).Concat(xmp).Concat(hs);
 
-                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
+                if (LoginUtils.CurrentUser.DistrictIDList != null && LoginUtils.CurrentUser.DistrictIDList.Count > 0 && !LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
                 {
                     // 先删选出当前用户权限内的数据
                     var where = PredicateBuilder.False<Statistic>();
 
-                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
                     {
                         where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }

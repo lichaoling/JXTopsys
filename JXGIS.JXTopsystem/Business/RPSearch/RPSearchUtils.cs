@@ -12,7 +12,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
 {
     public class RPSearchUtils
     {
-        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int UseState)
+        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState)
         {
             int count = 0;
             List<RPDetails> data = null;
@@ -22,10 +22,10 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 var query = dbContext.RP.Where(t => t.State == UseState);
 
                 // 先删选出当前用户权限内的数据
-                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
+                if (LoginUtils.CurrentUser.DistrictIDList != null && LoginUtils.CurrentUser.DistrictIDList.Count > 0 && !LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
                 {
                     var where = PredicateBuilder.False<RP>();
-                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
                     {
                         where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }
@@ -98,6 +98,16 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 {
                     query = query.Where(t => t.RoadName == RoadName);
                 }
+
+                //起止二维码编码删选
+                if (startCode != null || endCode != null)
+                {
+                    if (startCode != null)
+                        query = query.Where(t => t.Code >= startCode);
+                    if (endCode != null)
+                        query = query.Where(t => t.Code <= endCode);
+                }
+
                 count = query.Count();
 
                 List<RP> data1;
@@ -116,6 +126,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                         select new RPDetails
                         {
                             ID = t.ID,
+                            Code = t.Code,
                             CountyID = t.CountyID,
                             NeighborhoodsID = t.NeighborhoodsID,
                             CountyName = string.IsNullOrEmpty(t.CountyID) ? null : t.CountyID.Split('.').Last(),

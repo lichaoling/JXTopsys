@@ -1,0 +1,132 @@
+=======2018/11/6 星期二 9:43:56
+|Message:ID为{'00475a1e-dd51-4a3b-88d6-c204d7e45950','0053952d-c31a-4b9b-9e2b-b0122aa0b31a','00679b4c-15e8-4db9-b01d-9ce23aa24aa9'}的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 180
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 9:44:17
+|Message:ID为{'00475a1e-dd51-4a3b-88d6-c204d7e45950','0053952d-c31a-4b9b-9e2b-b0122aa0b31a','00679b4c-15e8-4db9-b01d-9ce23aa24aa9'}的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 180
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 9:44:19
+|Message:ID为{'00475a1e-dd51-4a3b-88d6-c204d7e45950','0053952d-c31a-4b9b-9e2b-b0122aa0b31a','00679b4c-15e8-4db9-b01d-9ce23aa24aa9'}的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 180
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 9:44:48
+|Message:ID为{'00475a1e-dd51-4a3b-88d6-c204d7e45950','0053952d-c31a-4b9b-9e2b-b0122aa0b31a','00679b4c-15e8-4db9-b01d-9ce23aa24aa9'}的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 180
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 9:45:12
+|Message:ID为['00475a1e-dd51-4a3b-88d6-c204d7e45950','0053952d-c31a-4b9b-9e2b-b0122aa0b31a','00679b4c-15e8-4db9-b01d-9ce23aa24aa9']的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 180
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 9:46:36
+|Message:ID为{00475a1e-dd51-4a3b-88d6-c204d7e45950,0053952d-c31a-4b9b-9e2b-b0122aa0b31a,00679b4c-15e8-4db9-b01d-9ce23aa24aa9}的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 180
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 9:46:47
+|Message:ID为{00475a1e-dd51-4a3b-88d6-c204d7e45950,0053952d-c31a-4b9b-9e2b-b0122aa0b31a,00679b4c-15e8-4db9-b01d-9ce23aa24aa9}的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 180
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 9:49:56
+|Message:ID为[00475a1e-dd51-4a3b-88d6-c204d7e45950,0053952d-c31a-4b9b-9e2b-b0122aa0b31a,00679b4c-15e8-4db9-b01d-9ce23aa24aa9]的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 180
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 9:56:40
+|Message:ID为00475a1e-dd51-4a3b-88d6-c204d7e45950的道路门牌已经注销，请重新查询！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 171
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 10:07:34
+|Message:文件“E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Files\DZZMandMPZTemplate\地址证明\住宅门牌\012ce95a-e560-4d3b-b905-58a727ded550\秀洲区嘉北街道阳光社区赞园7幢2单元1604室-地址证明.docx”正由另一进程使用，因此该进程无法访问此文件。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   在 System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 409
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 190
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 10:08:28
+|Message:文件“E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Files\DZZMandMPZTemplate\地址证明\住宅门牌\012ce95a-e560-4d3b-b905-58a727ded550\秀洲区嘉北街道阳光社区赞园7幢2单元1604室-地址证明.docx”正由另一进程使用，因此该进程无法访问此文件。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   在 System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 409
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 190
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 10:08:34
+|Message:很抱歉，找不到您的文件。该项目是否已移动、重命名或删除? (秀洲区嘉北街道阳光社区赞园7幢2单元1604室-地址证明.docx)
+|StackTrace:   在 Microsoft.Office.Interop.Word.DocumentClass.Merge(String FileName, Object& MergeTarget, Object& DetectFormatChanges, Object& UseFormattingFrom, Object& AddToRecentFiles)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MergeWord(List`1 docNames) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 392
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 262
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 10:12:39
+|Message:文件“E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Files\DZZMandMPZTemplate\地址证明\住宅门牌\012ce95a-e560-4d3b-b905-58a727ded550\秀洲区嘉北街道阳光社区赞园7幢2单元1604室-地址证明.docx”正由另一进程使用，因此该进程无法访问此文件。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   在 System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 409
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 190
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 10:30:34
+|Message:文件“E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Files\DZZMandMPZTemplate\地址证明\住宅门牌\012ce95a-e560-4d3b-b905-58a727ded550\秀洲区嘉北街道阳光社区赞园7幢2单元1604室-地址证明.docx”正由另一进程使用，因此该进程无法访问此文件。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   在 System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 418
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 190
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:02:58
+|Message:不支持给定路径的格式。
+|StackTrace:   在 System.Security.Permissions.FileIOPermission.EmulateFileIOPermissionChecks(String fullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   在 System.IO.FileStream..ctor(String path, FileMode mode)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MergePDF(List`1 docNames) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 384
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 263
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:03:26
+|Message:不支持给定路径的格式。
+|StackTrace:   在 System.Security.Permissions.FileIOPermission.EmulateFileIOPermissionChecks(String fullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   在 System.IO.FileStream..ctor(String path, FileMode mode)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MergePDF(List`1 docNames) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 384
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 263
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:04:14
+|Message:不支持给定路径的格式。
+|StackTrace:   在 System.Security.Permissions.FileIOPermission.EmulateFileIOPermissionChecks(String fullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   在 System.IO.FileStream..ctor(String path, FileMode mode)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MergePDF(List`1 docNames) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 384
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 263
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:35:07
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 165
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:35:12
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 165
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:36:04
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 165
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:36:43
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 165
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:42:24
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:42:28
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:42:34
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:42:37
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174
+=======2018/11/6 星期二 11:43:12
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint(String ID, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 174

@@ -135,10 +135,10 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 var query = dbContext.MPOfResidence.Where(t => t.State == UseState);
                 
                 // 先删选出当前用户权限内的数据
-                if (LoginUtils.CurrentUser.DistrictID != null && LoginUtils.CurrentUser.DistrictID.Count > 0 && !LoginUtils.CurrentUser.DistrictID.Contains("嘉兴市"))
+                if (LoginUtils.CurrentUser.DistrictIDList != null && LoginUtils.CurrentUser.DistrictIDList.Count > 0 && !LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
                 {
                     var where = PredicateBuilder.False<MPOfResidence>();
-                    foreach (var userDID in LoginUtils.CurrentUser.DistrictID)
+                    foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
                     {
                         where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
                     }

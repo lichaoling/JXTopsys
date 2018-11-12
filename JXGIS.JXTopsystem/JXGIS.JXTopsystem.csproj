@@ -58,6 +58,9 @@
       <HintPath>..\packages\GeoJSON4EntityFramework.2.2.0\lib\net45\GeoJSON4EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
       <Private>True</Private>
@@ -929,6 +932,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\LoggerFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Business\ArchiveFileUtils.cs" />
@@ -989,12 +993,13 @@
     <Compile Include="Models\Entities\MPOfUploadFiles.cs" />
     <Compile Include="Models\Entities\RPPeparUploadFiles.cs" />
     <Compile Include="Models\Entities\RPOfUploadFiles.cs" />
-    <Compile Include="Models\Entities\RPRepairContent.cs" />
+    <Compile Include="Models\Entities\SystemLog.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ArchiveConfigTab.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ArchivePacketDirectory.cs" />
     <Compile Include="Models\Extends\ArchiveFile\BaseInfoDescription.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ProcessInfoDescription.cs" />
     <Compile Include="Models\Extends\Certificate.cs" />
+    <Compile Include="Models\Extends\DistrictDetails.cs" />
     <Compile Include="Models\Extends\PLMPProduceList.cs" />
     <Compile Include="Models\Extends\MPProduce.cs" />
     <Compile Include="Models\Entities\RP.cs" />
@@ -1013,6 +1018,7 @@
     <Compile Include="Models\Extends\MPCertificate.cs" />
     <Compile Include="Models\Extends\MPErrors.cs" />
     <Compile Include="Models\Extends\LXMPProduceList.cs" />
+    <Compile Include="Models\Extends\PostcodeDetails.cs" />
     <Compile Include="Models\Extends\ResidenceMPErrors.cs" />
     <Compile Include="Models\Extends\ResidenceMP.cs" />
     <Compile Include="Models\Extends\ResidenceMPDetails.cs" />
@@ -1025,6 +1031,7 @@
     <Compile Include="Models\Extends\RtObj\RtObj.cs" />
     <Compile Include="Models\Extends\SummarySheet.cs" />
     <Compile Include="Models\Entities\RoadDic.cs" />
+    <Compile Include="Models\Extends\SysUserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

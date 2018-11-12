@@ -21,13 +21,16 @@
     //    debugger
     //    console.log(rt);
     //}, 'json')
-    var data = {
-        "ID": "1",
-        "ResidenceName": "紫金意境"
-    };
-    $.post('../MPModify/ModifyResidenceMP', { oldDataJson: JSON.stringify(data) }, function (rt) {
-        console.log(rt)
-    }, 'json')
+    //var data = {
+    //    "ID": "1",
+    //    "ResidenceName": "紫金意境"
+    //};
+    //$.post('../MPModify/ModifyResidenceMP', { oldDataJson: JSON.stringify(data) }, function (rt) {
+    //    console.log(rt)
+    //}, 'json')
+    //', '01430ba9-bd78-4ac7-a3a2-7d6805ab635f', '014e82c2-ed8c-478f-a765-e3fc3f2c1ff9']
+    var a = ['012ce95a-e560-4d3b-b905-58a727ded550', '01430ba9-bd78-4ac7-a3a2-7d6805ab635f', '014e82c2-ed8c-478f-a765-e3fc3f2c1ff9']
+    window.open("../mpmodify/DZZMPrint?id=" + a + "&MPType=住宅门牌")
 
 </script>
 </html>

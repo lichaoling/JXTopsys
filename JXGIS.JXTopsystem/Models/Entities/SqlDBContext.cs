@@ -39,8 +39,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DbSet<ViligeDic> ViligeDic { get; set; }
         public DbSet<CommunityDic> CommunityDic { get; set; }
         public DbSet<RPPepairUploadFiles> RPPepairUploadFiles { get; set; }
-        public DbSet<RPRepairContent> RPRepairContent { get; set; }
         public DbSet<DirectionDic> DirectionDic { get; set; }
         public DbSet<ARCHIVEFILE> ArchiveFile { get; set; }
+        public DbSet<SystemLog> SystemLog { get; set; }
     }
 }

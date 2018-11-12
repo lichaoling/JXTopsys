@@ -1,0 +1,27 @@
+=======2018/11/8 星期四 9:59:42
+|Message:The specified cast from a materialized 'System.Int32' type to the 'System.String' type is not valid.
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.DicUtils.GetDMBZFromDic() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\Common\DicUtils.cs:行号 34
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetDMBZFromDic() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 170
+=======2018/11/8 星期四 10:38:21
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.DicUtils.ModifyDMBZ(String oldDataJson)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.ModifyDMBZ(String oldDataJson)
+=======2018/11/8 星期四 10:42:14
+|Message:该邮编已经被删除！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.DicUtils.DeleteDMBZ(DMBZDic dmbz)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.DeleteDMBZ(DMBZDic dmbz)
+=======2018/11/8 星期四 10:42:19
+|Message:该邮编已经被删除！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.DicUtils.DeleteDMBZ(DMBZDic dmbz)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.DeleteDMBZ(DMBZDic dmbz)
+=======2018/11/8 星期四 10:43:29
+|Message:该邮编已经被删除！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.DicUtils.DeleteDMBZ(DMBZDic dmbz)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.DeleteDMBZ(DMBZDic dmbz)

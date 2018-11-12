@@ -105,7 +105,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 dbContext.RPRepair.Remove(RepairInfo);
                 dbContext.SaveChanges();
             }
-            MOdifyRepairCountAndRepairFinish(RPID);//重新赋值
+            ModifyRepairCountAndRepairFinish(RPID);//重新赋值
         }
         public static void ModifyRPRepair(string oldDataJson)
         {
@@ -121,7 +121,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 dbContext.SaveChanges();
                 RPID = targetData.RPID;
             }
-            MOdifyRepairCountAndRepairFinish(RPID);//重新赋值
+            ModifyRepairCountAndRepairFinish(RPID);//重新赋值
         }
 
         /// <summary>
@@ -178,30 +178,14 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 RPID = sourceData.RPID;
                 dbContext.SaveChanges();
             }
-            MOdifyRepairCountAndRepairFinish(RPID);//重新赋值
-        }
-
-        public static void AddRPRepairContent(string content)
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                var data = dbContext.RPRepairContent.Where(t => t.RepairContent == content);
-                if (data.Count() == 0)
-                {
-                    RPRepairContent d = new Models.Entities.RPRepairContent();
-                    d.ID = Guid.NewGuid().ToString(); ;
-                    d.RepairContent = content;
-                    dbContext.RPRepairContent.Add(d);
-                    dbContext.SaveChanges();
-                }
-            }
+            ModifyRepairCountAndRepairFinish(RPID);//重新赋值
         }
 
         /// <summary>
         /// 根据路牌ID对该条路牌的维修次数和是否所有维修都修复的值进行重新赋值
         /// </summary>
         /// <param name="RPID"></param>
-        public static void MOdifyRepairCountAndRepairFinish(string RPID)
+        public static void ModifyRepairCountAndRepairFinish(string RPID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {

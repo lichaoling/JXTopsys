@@ -11,7 +11,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
     public class DMBZDic
     {
         [Key]
-        public string ID { get; set; }
+        public int IndetityID { get; set; }
         public string Type { get; set; }
         public string Size { get; set; }
         public string Material { get; set; }

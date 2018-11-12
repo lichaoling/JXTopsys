@@ -1,4 +1,5 @@
-﻿using JXGIS.JXTopsystem.Business;
+﻿using JXGIS.JXTopsystem.App_Start;
+using JXGIS.JXTopsystem.Business;
 using JXGIS.JXTopsystem.Models.Extends;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
@@ -13,6 +14,7 @@ namespace JXGIS.JXTopsystem.Controllers
     public class MPBusinessStatisticController : Controller
     {
         // GET: MPBusinessStatistic
+        [LoggerFilter(Description = "获取门牌业务用户统计")]
         public ContentResult GetMPBusinessUserTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string Window, string CreateUser, string CertificateType)
         {
             RtObj rt = null;
@@ -30,7 +32,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-
+        [LoggerFilter(Description = "获取门牌业务数量统计")]
         public ContentResult GetMPBusinessNumTJ(/*int PageSize, int PageNum,*/ DateTime? start, DateTime? end, string[] DistrictID, string CertificateType)
         {
             RtObj rt = null;
@@ -48,7 +50,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-
+        [LoggerFilter(Description = "获取门牌制作情况统计")]
         public ContentResult GetMPProduceTJ(/*int PageSize, int PageNum, */string DistrictID, string CommunityName, DateTime? start, DateTime? end)
         {
             RtObj rt = null;

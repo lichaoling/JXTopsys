@@ -1,4 +1,5 @@
-﻿using JXGIS.JXTopsystem.Business.RPBusinessStatistic;
+﻿using JXGIS.JXTopsystem.App_Start;
+using JXGIS.JXTopsystem.Business.RPBusinessStatistic;
 using JXGIS.JXTopsystem.Models.Extends;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
@@ -12,6 +13,7 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class RPBusinessStatisticController : Controller
     {
+        [LoggerFilter(Description = "获取路牌数量统计")]
         public ContentResult GetRPNumTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string DistrictID, string CommunityName, string RoadName, string Model, string Material, string Size)
         {
             RtObj rt = null;
@@ -29,6 +31,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
+        [LoggerFilter(Description = "获取路牌维修统计")]
         public ContentResult GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, string RepairMode, string RepairParts, string RepairContent, string RepairFactory, string FinishTimeStart, string FinishTimeEnd, int RepairedCount = -1, int isFinishRepair = Enums.Complete.All)
         {
             RtObj rt = null;

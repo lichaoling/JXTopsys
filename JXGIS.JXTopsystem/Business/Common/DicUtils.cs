@@ -10,64 +10,6 @@ namespace JXGIS.JXTopsystem.Business.Common
 {
     public class DicUtils
     {
-        #region 地名标志
-        public static List<DMBZDic> GetDMBZ()
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                var data = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).ToList();
-                return data;
-            }
-        }
-        public static List<string> GetMPType()
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                var types = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Select(t => t.Type).Distinct().ToList();
-                return types;
-            }
-        }
-        public static List<string> GetMPSizeByTypeName(string type)
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                var sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == type).Select(t => t.Size).ToList();
-                return sizes;
-            }
-        }
-        public static List<string> GetMPSizeByMPType(int? mpType)
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                List<string> sizes = new List<string>();
-                if (mpType == Enums.TypeInt.Residence)
-                    sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == "户室牌").Select(t => t.Size).ToList();
-                else if (mpType == Enums.TypeInt.Road)
-                    sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == "大门牌" || t.Type == "小门牌").Select(t => t.Size).ToList();
-                else if (mpType == Enums.TypeInt.Country)
-                    sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == Enums.MPTypeCh.Country).Select(t => t.Size).ToList();
-                else
-                    sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Select(t => t.Size).ToList();
-                return sizes;
-            }
-        }
-        public static void AddMPSize(string type, string size)
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                var count = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == type).Where(t => t.Size == size).Count();
-                if (count > 0)
-                    throw new Exception("门牌规格已经存在");
-                DMBZDic dmbz = new Models.Entities.DMBZDic();
-                dmbz.ID = Guid.NewGuid().ToString();
-                dmbz.Type = type;
-                dmbz.Size = size;
-                dbContext.DMBZDic.Add(dmbz);
-                dbContext.SaveChanges();
-            }
-        }
-        #endregion 地名标志
-
         #region 从当前表中获取社区名、小区名、道路名和自然村名
         public static List<string> getCommunityNamesFromData(int type, string NeighborhoodsID)
         {
@@ -243,7 +185,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         }
         #endregion
 
-        #region 字典添加
+        #region 社区名、道路名、小区名、自然村名是动态在字典中添加
         public static void AddCommunityDic(CommunityDic communityDic)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -339,9 +281,165 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return ID;
             }
         }
-        #endregion
+        #endregion 社区名、道路名、小区名、自然村名是自动添加
 
-        #region 邮编
+        #region 地名标志
+        public static Object GetDMBZ()
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var data = (from t in dbContext.DMBZDic
+                            where t.State == Enums.UseState.Enable
+                            group t by t.Type into g
+                            select new
+                            {
+                                Type = g.Key,
+                                data = (from f in g
+                                        select new { ID = f.IndetityID, Size = f.Size, Material = f.Material }).ToList(),
+                            }).ToList();
+                return data;
+            }
+        }
+        public static List<DMBZDic> GetDMBZFromDic()
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var data = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).OrderBy(t => t.Type).ToList();
+                return data;
+            }
+        }
+        public static List<string> GetMPType()
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var types = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Select(t => t.Type).Distinct().ToList();
+                return types;
+            }
+        }
+        public static List<string> GetMPSizeByTypeName(string type)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == type).Select(t => t.Size).ToList();
+                return sizes;
+            }
+        }
+        public static List<string> GetMPSizeByMPType(int? mpType)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                List<string> sizes = new List<string>();
+                if (mpType == Enums.TypeInt.Residence)
+                    sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == "户室牌").Select(t => t.Size).ToList();
+                else if (mpType == Enums.TypeInt.Road)
+                    sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == "大门牌" || t.Type == "小门牌").Select(t => t.Size).ToList();
+                else if (mpType == Enums.TypeInt.Country)
+                    sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Type == Enums.MPTypeCh.Country).Select(t => t.Size).ToList();
+                else
+                    sizes = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Select(t => t.Size).ToList();
+                return sizes;
+            }
+        }
+        public static void ModifyDMBZ(string oldDataJson)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<DMBZDic>(oldDataJson);
+                if (sourceData.IndetityID == 0) //新增
+                {
+                    var targetData = new DMBZDic();
+                    targetData.Type = sourceData.Type;
+                    targetData.Size = sourceData.Size;
+                    targetData.Material = sourceData.Material;
+                    targetData.State = Enums.UseState.Enable;
+                    dbContext.DMBZDic.Add(targetData);
+                }
+                else //修改
+                {
+                    var targetData = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.IndetityID == sourceData.IndetityID).FirstOrDefault();
+                    if (targetData == null)
+                        throw new Exception("该门牌标志已经被删除");
+                    targetData.Type = sourceData.Type;
+                    targetData.Size = sourceData.Size;
+                    targetData.Material = sourceData.Material;
+                }
+                dbContext.SaveChanges();
+            }
+        }
+        public static void DeleteDMBZ(DMBZDic dmbz)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var p = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.IndetityID == dmbz.IndetityID).FirstOrDefault();
+                if (p == null)
+                    throw new Exception("该邮编已经被删除！");
+                p.State = Enums.UseState.Cancel;
+                dbContext.SaveChanges();
+            }
+        }
+        #endregion 地名标志
+
+        #region 邮编   字典管理
+        public static List<DistrictNode> getDistrictTreeFromPostcodeData()
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var neighborhoodsIDs = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Select(t => t.ID).Distinct().ToList();
+                neighborhoodsIDs = neighborhoodsIDs.Where(t => t.Split('.').Count() > 2).ToList();
+                var nIDs = neighborhoodsIDs.Select(t => t.Split('.')).ToList();
+                List<DistrictNode> tree = new List<Common.DistrictNode>();
+                foreach (var nID in nIDs)
+                {
+                    var DistrictNode1 = new DistrictNode();
+                    var DistrictNode2 = new DistrictNode();
+                    var DistrictNode3 = new DistrictNode();
+
+                    DistrictNode1.ID = nID[0];
+                    DistrictNode1.PID = null;
+                    DistrictNode1.Name = nID[0];
+
+                    DistrictNode2.ID = DistrictNode1.ID + "." + nID[1];
+                    DistrictNode2.PID = DistrictNode1.ID;
+                    DistrictNode2.Name = nID[1];
+
+                    DistrictNode3.ID = DistrictNode2.ID + "." + nID[2];
+                    DistrictNode3.PID = DistrictNode2.ID;
+                    DistrictNode3.Name = nID[2];
+
+                    tree.Add(DistrictNode1);
+                    tree.Add(DistrictNode2);
+                    tree.Add(DistrictNode3);
+                }
+                tree = (from t in tree
+                        group t by new
+                        {
+                            t.PID,
+                            t.ID,
+                            t.Name
+                        } into g
+                        select new DistrictNode()
+                        {
+                            ID = g.Key.ID,
+                            PID = g.Key.PID,
+                            Name = g.Key.Name
+                        }).ToList();
+
+                var parent = tree.Where(t => t.PID == null).ToList();
+                DistrictUtils.GetLeaf(parent, tree);
+                return parent;
+            }
+        }
+        public static List<string> getCommunityNames(string NeighborhoodsID)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var codes = dbContext.PostcodeDic.Where(t => t.State == Enums.UseState.Enable);
+                if (!string.IsNullOrEmpty(NeighborhoodsID))
+                    codes = codes.Where(t => t.NeighborhoodsID == NeighborhoodsID);
+                var data = codes.Select(t => t.CommunityName).ToList();
+                return data;
+            }
+        }
         public static List<string> GetPostcodeByDID(string CountyID, string NeighborhoodsID, string CommunityName)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -353,69 +451,72 @@ namespace JXGIS.JXTopsystem.Business.Common
                     codes = codes.Where(t => t.NeighborhoodsID == NeighborhoodsID);
                 if (!string.IsNullOrEmpty(CommunityName))
                     codes = codes.Where(t => t.CommunityName == CommunityName);
-                var query = codes.Select(t => t.Postcode).ToList();
+                var data = codes.Select(t => t.Postcode).FirstOrDefault();
+                var query = new List<string>();
+                if (data != null)
+                    query = data.Split(',').ToList();
                 return query;
             }
         }
-        public static void AddPostcode(PostcodeDic postDic)
+        public static List<PostcodeDetails> GetPostcodes(string CountyID, string NeighborhoodsID, string CommunityName)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var count = dbContext.PostcodeDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.CountyID == postDic.CountyID).Where(t => t.NeighborhoodsID == postDic.NeighborhoodsID).Where(t => t.CommunityName == postDic.CommunityName).Where(t => t.Postcode == postDic.Postcode).Count();
-                if (count > 0)
-                    throw new Exception($"该{postDic.Postcode}已经存在");
-                PostcodeDic pDic = new PostcodeDic();
-                pDic.ID = Guid.NewGuid().ToString();
-                pDic.CountyID = postDic.CountyID;
-                pDic.NeighborhoodsID = postDic.NeighborhoodsID;
-                pDic.CommunityName = postDic.CommunityName;
-                pDic.Postcode = postDic.Postcode;
-                dbContext.PostcodeDic.Add(pDic);
-                dbContext.SaveChanges();
-            }
-        }
-        public static void ModifyPostcode(PostcodeDic postDic)
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                var query = dbContext.PostcodeDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == postDic.ID).FirstOrDefault();
-                if (query == null)
-                    throw new Exception($"该邮编已经被删除");
-                query.CountyID = postDic.CountyID;
-                query.NeighborhoodsID = postDic.NeighborhoodsID;
-                query.CommunityName = postDic.CommunityName;
-                query.Postcode = postDic.Postcode;
-                dbContext.SaveChanges();
-            }
-        }
-        public static Dictionary<string, object> GetPostcodes(int PageSize, int PageNum)
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                var data = from t in dbContext.PostcodeDic
-                           where t.State == Enums.UseState.Enable
-                           group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
-                           select new
-                           {
-                               g.Key.CountyID,
-                               g.Key.NeighborhoodsID,
-                               g.Key.CommunityName,
-                               Postcode = g.Select(t => t.Postcode).ToList()
-                           };
-                int count = data.Count();
-                var query = data.OrderBy(t => t.NeighborhoodsID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
-                var rt = (from t in query
-                          select new
+                var codes = dbContext.PostcodeDic.Where(t => t.State == Enums.UseState.Enable);
+                if (!string.IsNullOrEmpty(CountyID))
+                    codes = codes.Where(t => t.CountyID == CountyID);
+                if (!string.IsNullOrEmpty(NeighborhoodsID))
+                    codes = codes.Where(t => t.NeighborhoodsID == NeighborhoodsID);
+                if (!string.IsNullOrEmpty(CommunityName))
+                    codes = codes.Where(t => t.CommunityName == CommunityName);
+                var data = codes.ToList();
+                var rt = (from t in data
+                          select new PostcodeDetails
                           {
+                              IndetityID = t.IndetityID,
+                              CountyID = t.CountyID,
                               CountyName = t.CountyID.Split('.').Last(),
+                              NeighborhoodsID = t.NeighborhoodsID,
                               NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
                               CommunityName = t.CommunityName,
                               Postcode = t.Postcode,
-                          }).ToList();
-                return new Dictionary<string, object> {
-                   { "Data",rt},
-                   { "Count",count}
-                };
+                          }).OrderBy(t=>t.CountyID).ToList();
+                return rt;
+            }
+        }
+        public static void ModifyPostcode(string oldDataJson)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<PostcodeDetails>(oldDataJson);
+                var data = dbContext.PostcodeDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == sourceData.NeighborhoodsID).Where(t => t.CommunityName == sourceData.CommunityName).FirstOrDefault();
+
+                if (data == null) //新增
+                {
+                    var targetData = new PostcodeDic();
+                    targetData.CountyID = sourceData.CountyID;
+                    targetData.NeighborhoodsID = sourceData.NeighborhoodsID;
+                    targetData.CommunityName = sourceData.CommunityName;
+                    targetData.Postcode = !string.IsNullOrEmpty(sourceData.Postcode) ? sourceData.Postcode : "";
+                    targetData.State = Enums.UseState.Enable;
+                    dbContext.PostcodeDic.Add(targetData);
+                }
+                else //修改
+                {
+                    data.Postcode = !string.IsNullOrEmpty(sourceData.Postcode) ? sourceData.Postcode : data.Postcode;
+                }
+                dbContext.SaveChanges();
+            }
+        }
+        public static void DeletePostcode(PostcodeDic post)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var p = dbContext.PostcodeDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.IndetityID == post.IndetityID).FirstOrDefault();
+                if (p == null)
+                    throw new Exception("该邮政编码已经被删除！");
+                p.State = Enums.UseState.Cancel;
+                dbContext.SaveChanges();
             }
         }
         #endregion 邮编
@@ -433,16 +534,16 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var rt = dbContext.RPRepairContent.Where(t => !string.IsNullOrEmpty(t.RepairContent)).Select(t => t.RepairContent).ToList();
+                var rt = dbContext.RPBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Category == "维修内容").Select(t => t.Data).Distinct().ToList();
                 return rt;
             }
         }
-
         public static object GetRPBZDataFromDic(string Category)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var data = (from t in dbContext.RPBZDic
+                            where t.State == Enums.UseState.Enable
                             group t by t.Category into g
                             select new
                             {
@@ -452,6 +553,22 @@ namespace JXGIS.JXTopsystem.Business.Common
                 if (!string.IsNullOrEmpty(Category))
                     data = data.Where(t => t.Category == Category).ToList();
                 return data;
+            }
+        }
+        public static List<RPBZDic> GetRPBZFromDic()
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var data = dbContext.RPBZDic.Where(t => t.State == Enums.UseState.Enable).OrderBy(t => t.Category).ToList();
+                return data;
+            }
+        }
+        public static List<string> GetRPCategory()
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var types = dbContext.RPBZDic.Where(t => t.State == Enums.UseState.Enable).Select(t => t.Category).Distinct().ToList();
+                return types;
             }
         }
         public static Dictionary<string, object> GetRPBZDataFromData()
@@ -485,21 +602,40 @@ namespace JXGIS.JXTopsystem.Business.Common
                 };
             }
         }
-        public static void AddRPBZData(string Category, string Data)
+        public static void ModifyRPBZ(string oldDataJson)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var count = dbContext.RPBZDic.Where(t => t.Category == Category).Where(t => t.Data == Data).Count();
-                if (count > 0)
-                    throw new Exception($"该{Category}已经存在");
-                RPBZDic rpbz = new Models.Entities.RPBZDic();
-                rpbz.ID = Guid.NewGuid().ToString();
-                rpbz.Category = Category;
-                rpbz.Data = Data;
-                dbContext.RPBZDic.Add(rpbz);
+                var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<RPBZDic>(oldDataJson);
+                var targetData = dbContext.RPBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.IndetityID == sourceData.IndetityID).FirstOrDefault();
+                var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
+                if (targetData == null) //新增
+                {
+                    targetData = new RPBZDic();
+                    ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
+                    targetData.State = Enums.UseState.Enable;
+                    dbContext.RPBZDic.Add(targetData);
+                }
+                else //修改
+                {
+                    ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
+
+                }
                 dbContext.SaveChanges();
             }
         }
+        public static void DeleteRPBZ(RPBZDic rpbz)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var RPBZ = dbContext.RPBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.IndetityID == rpbz.IndetityID).FirstOrDefault();
+                if (RPBZ == null)
+                    throw new Exception("该路牌编制数据已经被删除！");
+                RPBZ.State = Enums.UseState.Cancel;
+                dbContext.SaveChanges();
+            }
+        }
+
         #endregion 路牌标志
 
     }

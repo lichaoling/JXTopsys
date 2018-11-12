@@ -1,4 +1,5 @@
-﻿using JXGIS.JXTopsystem.Business.RPRepair;
+﻿using JXGIS.JXTopsystem.App_Start;
+using JXGIS.JXTopsystem.Business.RPRepair;
 using JXGIS.JXTopsystem.Models.Extends;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
@@ -12,6 +13,7 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class RPRepairController : Controller
     {
+        [LoggerFilter(Description = "查询一条路牌的所有维修记录")]
         public ContentResult SearchRPRepairByID(string ID, int RPRange = Enums.RPRange.All)
         {
             RtObj rt = null;
@@ -44,7 +46,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-
+        [LoggerFilter(Description = "查询一条维修记录详情")]
         public ContentResult SearchRPRepairDetailByID(string RepairID)
         {
             RtObj rt = null;
@@ -62,6 +64,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
+        [LoggerFilter(Description = "删除一条维修记录")]
         public ContentResult DeleteRPRepairByID(string RepairID)
         {
             RtObj rt = null;
@@ -77,6 +80,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        [LoggerFilter(Description = "修改一条维修记录")]
         public ContentResult ModifyRPRepair(string oldDataJson)
         {
             RtObj rt = null;
@@ -91,7 +95,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-
+        [LoggerFilter(Description = "路牌报修")]
         public JsonResult RepairOrChangeRP(string oldDataJson)
         {
             RtObj rt = null;
@@ -99,21 +103,6 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 rt = new RtObj();
                 RPRepairUtils.RepairOrChangeRP(oldDataJson);
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            return Json(rt);
-        }
-
-        public JsonResult AddRPRepairContent(string content)
-        {
-            RtObj rt = null;
-            try
-            {
-                rt = new RtObj();
-                RPRepairUtils.AddRPRepairContent(content);
             }
             catch (Exception ex)
             {

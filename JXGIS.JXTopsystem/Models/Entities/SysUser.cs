@@ -31,9 +31,9 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DateTime? DelTime { get; set; }
         public string DelUser { get; set; }
         [NotMapped]
-        public virtual List<string> DistrictID { get; set; }
+        public virtual List<string> DistrictIDList { get; set; }
         [NotMapped]
-        public virtual List<string> Window { get; set; }
+        public virtual List<string> WindowList { get; set; }
 
     }
 }

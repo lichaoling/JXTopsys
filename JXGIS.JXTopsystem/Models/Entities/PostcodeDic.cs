@@ -11,7 +11,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
     public class PostcodeDic
     {
         [Key]
-        public string ID { get; set; }
+        public int IndetityID { get; set; }
         public string Postcode { get; set; }
         public string CountyID { get; set; }  //*
         public string NeighborhoodsID { get; set; }  //*

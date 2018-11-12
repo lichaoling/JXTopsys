@@ -1,4 +1,5 @@
-﻿using JXGIS.JXTopsystem.Business;
+﻿using JXGIS.JXTopsystem.App_Start;
+using JXGIS.JXTopsystem.Business;
 using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
@@ -98,7 +99,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 Name = fileName,
             };
         }
-
+        [LoggerFilter(Description = "根据ID、文件类型、证件类型上传附件")]
         public ActionResult UploadPicture(string ID, string FileType, string DocType, string RepairType = null)
         {
             RtObj rt = null;
@@ -168,7 +169,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-
+        [LoggerFilter(Description = "根据ID、文件类型删除附件")]
         public ActionResult RemovePicture(string ID, string FileType)
         {
             RtObj rt = null;
@@ -209,6 +210,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        [LoggerFilter(Description = "根据ID获取所有附件地址")]
         public ContentResult GetPictureUrls(string ID, string FileType, string DocType, string RepairType = null)
         {
             RtObj rt = null;

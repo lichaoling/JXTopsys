@@ -9,12 +9,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.SessionState;
+using JXGIS.JXTopsystem.App_Start;
 
 namespace JXGIS.JXTopsystem.Controllers
 {
     public class MPModifyController : Controller
     {
         #region 住宅门牌
+        [LoggerFilter(Description = "修改住宅门牌")]
         public JsonResult ModifyResidenceMP(string oldDataJson)
         {
             RtObj rt = null;
@@ -33,6 +35,7 @@ namespace JXGIS.JXTopsystem.Controllers
         /// 上传数据
         /// </summary>
         /// <returns></returns>
+        [LoggerFilter(Description = "验证住宅门牌是否可用")]
         public JsonResult CheckResidenceMPIsAvailable(string ID, string CountyID, string NeighborhoodsID, string CommunityName, string ResidenceName, string MPNumber, string Dormitory, string HSNumber, string LZNumber, string DYNumber)
         {
             RtObj rt = null;
@@ -47,6 +50,7 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+        [LoggerFilter(Description = "注销一个住宅门牌")]
         public JsonResult CancelResidenceMP(List<string> ID)
         {
             RtObj rt = null;
@@ -64,6 +68,7 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 道路门牌
+        [LoggerFilter(Description = "修改道路门牌")]
         public JsonResult ModifyRoadMP(string oldDataJson)
         {
             RtObj rt = null;
@@ -78,6 +83,7 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+        [LoggerFilter(Description = "验证道路门牌是否可用")]
         public JsonResult CheckRoadMPIsAvailable(string ID, string CountyID, string NeighborhoodsID, string CommunityName, string RoadName, string MPNumber)
         {
             RtObj rt = null;
@@ -92,6 +98,7 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+        [LoggerFilter(Description = "注销一个道路门牌")]
         public JsonResult CancelRoadMP(List<string> ID)
         {
             RtObj rt = null;
@@ -109,6 +116,7 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 农村门牌
+        [LoggerFilter(Description = "修改农村门牌")]
         public JsonResult ModifyCountryMP(string oldDataJson)
         {
             RtObj rt = null;
@@ -123,6 +131,7 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+        [LoggerFilter(Description = "验证农村门牌是否可用")]
         public JsonResult CheckCountryMPIsAvailable(string ID, string CountyID, string NeighborhoodsID, string CommunityName, string ViligeName, string MPNumber, string HSNumber)
         {
             RtObj rt = null;
@@ -137,11 +146,13 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+        [LoggerFilter(Description = "注销一个农村门牌")]
         public JsonResult CancelCountryMP(List<string> ID)
         {
             RtObj rt = null;
             try
             {
+                rt = new RtObj();
                 CountryMPModify.CancelCountryMP(ID);
             }
             catch (Exception ex)
@@ -153,11 +164,13 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 地名证明和门牌证打印
+        [LoggerFilter(Description = "门牌证或地名证明")]
         public JsonResult MPCertificate(List<string> IDs, string MPType, string CertificateType)
         {
             RtObj rt = null;
             try
             {
+                rt = new RtObj();
                 MPPrintUtils.MPCertificate(IDs, MPType, CertificateType);
             }
             catch (Exception ex)
@@ -166,25 +179,37 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
-        public JsonResult DZZMPrint(List<string> IDs, string MPType)
+        [LoggerFilter(Description = "地址证明打印")]
+        public ActionResult DZZMPrint(string ID, string MPType)
         {
             RtObj rt = null;
             try
             {
-                MPPrintUtils.DZZMPrint(IDs, MPType);
+                rt = new RtObj();
+                List<string> IDs = ID.Split(',').ToList();
+                var ms = MPPrintUtils.DZZMPrint(IDs, MPType);
+                string fileName = $"地址证明_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.pdf";
+                return File(ms, "application/pdf", fileName);
             }
             catch (Exception ex)
             {
                 rt = new RtObj(ex);
+                return Json(rt, JsonRequestBehavior.AllowGet);
             }
-            return Json(rt);
+
         }
-        public JsonResult MPZPrint(string ID, string MPType)
+        [LoggerFilter(Description = "门牌证打印")]
+        public ActionResult MPZPrint(string ID, string MPType)
         {
             RtObj rt = null;
             try
             {
-                MPPrintUtils.MPZPrint(ID, MPType);
+                rt = new RtObj();
+                List<string> IDs = ID.Split(',').ToList();
+                var ms = MPPrintUtils.MPZPrint(IDs, MPType);
+                string fileName = $"门牌证_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.pdf";
+                return File(ms, "application/pdf", fileName);
+
             }
             catch (Exception ex)
             {

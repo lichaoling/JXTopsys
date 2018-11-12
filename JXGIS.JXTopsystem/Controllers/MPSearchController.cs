@@ -1,4 +1,5 @@
-﻿using JXGIS.JXTopsystem.Business.MPSearch;
+﻿using JXGIS.JXTopsystem.App_Start;
+using JXGIS.JXTopsystem.Business.MPSearch;
 using JXGIS.JXTopsystem.Models.Extends;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
@@ -26,6 +27,7 @@ namespace JXGIS.JXTopsystem.Controllers
         /// <param name="StandardAddress">输入标准地址</param>
         /// <param name="UseState"></param>
         /// <returns></returns>
+        [LoggerFilter(Description = "住宅门牌查询")]
         public ContentResult SearchResidenceMP(int PageSize, int PageNum, string DistrictID, string CommunityName, string ResidenceName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
@@ -43,6 +45,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
+        [LoggerFilter(Description = "编辑一条住宅门牌")]
         public ContentResult SearchResidenceMPByID(string ID)
         {
             RtObj rt = null;
@@ -80,6 +83,7 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+        [LoggerFilter(Description = "导出住宅门牌")]
         public ActionResult ExportResidenceMP()
         {
             RtObj rt = null;
@@ -114,6 +118,7 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 道路门牌
+        [LoggerFilter(Description = "道路门牌查询")]
         public ContentResult SearchRoadMP(int PageSize, int PageNum, string DistrictID, string CommunityName, string RoadName, string ShopName, string AddressCoding, string PropertyOwner, string StandardAddress, int MPNumberType = 0, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
@@ -132,6 +137,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
+        [LoggerFilter(Description = "编辑一条道路门牌")]
         public ContentResult SearchRoadMPByID(string ID)
         {
             RtObj rt = null;
@@ -171,6 +177,7 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+        [LoggerFilter(Description = "导出道路门牌")]
         public ActionResult ExportRoadMP()
         {
             RtObj rt = null;
@@ -208,6 +215,7 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion
 
         #region 农村门牌
+        [LoggerFilter(Description = "农村门牌查询")]
         public ContentResult SearchCountryMP(int PageSize, int PageNum, string DistrictID, string CommunityName, string ViligeName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
@@ -226,6 +234,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
+        [LoggerFilter(Description = "编辑一条农训门牌")]
         public ContentResult SearchCountryMPID(string ID)
         {
             RtObj rt = null;
@@ -263,6 +272,7 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+        [LoggerFilter(Description = "导出农村门牌")]
         public ActionResult ExportCountryMP()
         {
             RtObj rt = null;

@@ -11,8 +11,9 @@ namespace JXGIS.JXTopsystem.Models.Entities
     public class RPBZDic
     {
         [Key]
-        public string ID { get; set; }
+        public int IndetityID { get; set; }
         public string Category { get; set; }
         public string Data { get; set; }
+        public int State { get; set; }  //使用状态 1 使用 0 删除
     }
 }

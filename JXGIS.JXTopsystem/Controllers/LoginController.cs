@@ -95,7 +95,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     {
                         Name = user.Name,
                         UserName = user.UserName,
-                        DistrictID = user.DistrictID
+                        DistrictID = user.DistrictIDList
                     };
                 }
             }
