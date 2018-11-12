@@ -723,6 +723,7 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
+        #region 角色管理
         [LoggerFilter(Description = "获取权限表中的行政区划")]
         public ContentResult GetDistrictTreeFromRole()
         {
@@ -827,6 +828,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        #endregion
 
         [LoggerFilter(Description = "修改用户")]
         public ContentResult ModifyUser(string oldDataJson)
@@ -846,7 +848,7 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
         [LoggerFilter(Description = "删除用户")]
-        public ContentResult DeleteUser(SysUserDetails user)
+        public ContentResult DeleteUser(SysUser user)
         {
             RtObj rt = null;
             try
@@ -863,12 +865,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
         [LoggerFilter(Description = "根据行政区划查询用户")]
-        public ContentResult SearchUser(string DistrictID)
+        public ContentResult SearchUser()
         {
             RtObj rt = null;
             try
             {
-                var data = DistrictUtils.SearchUser(DistrictID);
+                var data = DistrictUtils.SearchUser();
                 rt = new RtObj(data);
 
             }

@@ -384,19 +384,20 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var windows = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable);
+                var userDistrict = dbContext.UserDistrict.Where(t => true);
 
                 if (districtIDs != null && districtIDs.Count > 0 && !districtIDs.Contains("嘉兴市"))
                 {
                     // 先删选出当前用户权限内的数据
-                    var where = PredicateBuilder.False<SysRole>();
+                    var where = PredicateBuilder.False<SysUser_District>();
                     foreach (var ID in districtIDs)
                     {
                         where = where.Or(t => t.DistrictID.IndexOf(ID + ".") == 0 || t.DistrictID == ID);
                     }
-                    windows = windows.Where(where);
+                    userDistrict = userDistrict.Where(where);
                 }
-                var data = windows.Select(t => t.Window).Distinct().ToList();
+                var uids = userDistrict.Select(t => t.UserID).Distinct().ToList();
+                var data = dbContext.SysUser.Where(t => uids.Contains(t.UserID)).Select(t => t.Window).Distinct().ToList();
                 return data;
             }
         }
@@ -409,36 +410,39 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var users = dbContext.SysUser.Where(t => t.State == Enums.UseState.Enable);
-                var roles = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable);
+                var userDistrict = dbContext.UserDistrict.Where(t => true);
                 if (districtIDs != null && districtIDs.Count > 0 && !districtIDs.Contains("嘉兴市"))
                 {
                     // 先删选出当前用户权限内的数据
-                    var where = PredicateBuilder.False<SysRole>();
+                    var where = PredicateBuilder.False<SysUser_District>();
                     foreach (var ID in districtIDs)
                     {
                         where = where.Or(t => t.DistrictID.IndexOf(ID + ".") == 0 || t.DistrictID == ID);
                     }
-                    roles = roles.Where(where).Distinct();
+                    userDistrict = userDistrict.Where(where).Distinct();
                 }
+                var uids = userDistrict.Select(t => t.UserID).Distinct().ToList();
+                var users = dbContext.SysUser.Where(t => uids.Contains(t.UserID));
                 if (!string.IsNullOrEmpty(window))
                 {
-                    roles = roles.Where(t => t.Window == window);
+                    users = users.Where(t => t.Window == window);
                 }
-                var roleIDS = roles.Select(t => t.RoleID).Distinct().ToList();
-                var userIDS = dbContext.UserRole.Where(t => roleIDS.Contains(t.RoleID)).Select(t => t.UserID).Distinct().ToList();
-                users = users.Where(t => userIDS.Contains(t.UserID));
-                var createUsers = users.Select(t => t.UserName).Distinct().ToList();
-                return createUsers;
+                var names = users.Select(t => t.UserName).Distinct().ToList();
+                return names;
             }
         }
 
+
         #region 权限管理
+
+        #endregion
+
+        #region 角色管理
         public static List<DistrictNode> GetDistrictTreeFromRole()
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var neighborhoodsIDs = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable).Select(t => t.DistrictID).Distinct().ToList();
+                var neighborhoodsIDs = dbContext.UserDistrict.Select(t => t.DistrictID).Distinct().ToList();
                 var nIDs = neighborhoodsIDs.Where(t => t.Split('.').Length > 2).Select(t => t.Split('.')).ToList();
                 List<DistrictNode> tree = new List<Common.DistrictNode>();
                 foreach (var nID in nIDs)
@@ -491,23 +495,22 @@ namespace JXGIS.JXTopsystem.Business.Common
                 if (sourceData.RoleID == null) //新增
                 {
                     var targetData = new SysRole();
-                    targetData.RoleID = Guid.NewGuid().ToString();
-                    targetData.Role = sourceData.Role;
-                    targetData.Window = sourceData.Window;
-                    targetData.DistrictID = sourceData.DistrictID;
-                    targetData.CreateTime = DateTime.Now.Date;
-                    targetData.CreateUser = LoginUtils.CurrentUser.UserName;
-                    targetData.State = Enums.UseState.Enable;
-                    dbContext.SysRole.Add(targetData);
+                    //targetData.RoleID = Guid.NewGuid().ToString();
+                    //targetData.Role = sourceData.Role;
+                    //targetData.Window = sourceData.Window;
+                    //targetData.DistrictID = sourceData.DistrictID;
+                    //targetData.CreateTime = DateTime.Now.Date;
+                    //targetData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    //dbContext.SysRole.Add(targetData);
                 }
                 else //修改
                 {
-                    var targetData = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RoleID == sourceData.RoleID).FirstOrDefault();
-                    targetData.Role = sourceData.Role;
-                    targetData.Window = sourceData.Window;
-                    targetData.DistrictID = sourceData.DistrictID;
-                    targetData.LastModifyTime = DateTime.Now.Date;
-                    targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    var targetData = dbContext.SysRole.Where(t => t.RoleID == sourceData.RoleID).FirstOrDefault();
+                    //targetData.Role = sourceData.Role;
+                    //targetData.Window = sourceData.Window;
+                    //targetData.DistrictID = sourceData.DistrictID;
+                    //targetData.LastModifyTime = DateTime.Now.Date;
+                    //targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                 }
                 dbContext.SaveChanges();
             }
@@ -516,14 +519,12 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var r = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RoleID == role.RoleID).FirstOrDefault();
+                var r = dbContext.SysRole.Where(t => t.RoleID == role.RoleID).FirstOrDefault();
                 if (r == null)
                     throw new Exception("该角色已经被删除！");
-                r.CancelTime = DateTime.Now.Date;
-                r.CancelUser = LoginUtils.CurrentUser.UserName;
-                r.State = Enums.UseState.Cancel;
                 var rs = dbContext.UserRole.Where(t => t.RoleID == role.RoleID).ToList();
                 dbContext.UserRole.RemoveRange(rs);
+                dbContext.SysRole.Remove(r);
                 dbContext.SaveChanges();
             }
         }
@@ -531,20 +532,21 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable);
-                if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))
-                {
-                    query = query.Where(t => t.DistrictID == DistrictID || t.DistrictID.IndexOf(DistrictID + ".") == 0);
-                }
-                var data = query.OrderBy(t => t.DistrictID).ToList();
-                return data;
+                //var query = dbContext.SysRole.Where(t => true);
+                //if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))
+                //{
+                //    query = query.Where(t => t.DistrictID == DistrictID || t.DistrictID.IndexOf(DistrictID + ".") == 0);
+                //}
+                //var data = query.OrderBy(t => t.DistrictID).ToList();
+                //return data;
+                return null;
             }
         }
         public static List<string> GetWindows()
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var data = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable).Select(t => t.Window).Distinct().ToList();
+                var data = dbContext.SysUser.Select(t => t.Window).Distinct().ToList();
                 return data;
             }
         }
@@ -552,7 +554,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var data = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable).Select(t => t.Role).Distinct().ToList();
+                var data = dbContext.SysRole.Select(t => t.RoleName).Distinct().ToList();
                 return data;
             }
         }
@@ -563,7 +565,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<SysUserDetails>(oldDataJson);
+                var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<SysUser>(oldDataJson);
                 if (sourceData.UserID == null) //新增
                 {
                     var targetData = new SysUser();
@@ -577,22 +579,31 @@ namespace JXGIS.JXTopsystem.Business.Common
                     targetData.Telephone = sourceData.Telephone;
                     targetData.CreateTime = DateTime.Now.Date;
                     targetData.CreateUser = LoginUtils.CurrentUser.UserName;
-                    targetData.State = Enums.UseState.Enable;
                     dbContext.SysUser.Add(targetData);
 
                     List<SysUser_SysRole> userroles = new List<SysUser_SysRole>();
-                    foreach (var role in sourceData.Roles)
+                    List<SysUser_District> userdistricts = new List<SysUser_District>();
+                    foreach (var role in sourceData.RoleList)
                     {
                         SysUser_SysRole userrole = new SysUser_SysRole();
                         userrole.UserID = targetData.UserID;
                         userrole.RoleID = role.RoleID;
                         userroles.Add(userrole);
                     }
+                    foreach (var did in sourceData.DistrictIDList)
+                    {
+                        SysUser_District userDistrict = new SysUser_District();
+                        userDistrict.UserID = targetData.UserID;
+                        userDistrict.DistrictID = did;
+                        userdistricts.Add(userDistrict);
+                    }
+
                     dbContext.UserRole.AddRange(userroles);
+                    dbContext.UserDistrict.AddRange(userdistricts);
                 }
                 else //修改
                 {
-                    var targetData = dbContext.SysUser.Where(t => t.State == Enums.UseState.Enable).Where(t => t.UserID == sourceData.UserID).FirstOrDefault();
+                    var targetData = dbContext.SysUser.Where(t => t.UserID == sourceData.UserID).FirstOrDefault();
                     targetData.UserID = Guid.NewGuid().ToString();
                     targetData.UserName = sourceData.UserName;
                     targetData.Password = sourceData.Password;
@@ -607,56 +618,68 @@ namespace JXGIS.JXTopsystem.Business.Common
                     var userrolesRe = dbContext.UserRole.Where(t => t.UserID == targetData.UserID).ToList();
                     dbContext.UserRole.RemoveRange(userrolesRe);
 
+                    var userdistrictRe = dbContext.UserDistrict.Where(t => t.UserID == targetData.UserID).ToList();
+                    dbContext.UserDistrict.RemoveRange(userdistrictRe);
+
                     List<SysUser_SysRole> userroles = new List<SysUser_SysRole>();
-                    foreach (var role in sourceData.Roles)
+                    List<SysUser_District> userdistricts = new List<SysUser_District>();
+                    foreach (var role in sourceData.RoleList)
                     {
                         SysUser_SysRole userrole = new SysUser_SysRole();
                         userrole.UserID = targetData.UserID;
                         userrole.RoleID = role.RoleID;
                         userroles.Add(userrole);
                     }
+                    foreach (var did in sourceData.DistrictIDList)
+                    {
+                        SysUser_District userDistrict = new SysUser_District();
+                        userDistrict.UserID = targetData.UserID;
+                        userDistrict.DistrictID = did;
+                        userdistricts.Add(userDistrict);
+                    }
+
                     dbContext.UserRole.AddRange(userroles);
+                    dbContext.UserDistrict.AddRange(userdistricts);
 
                 }
                 dbContext.SaveChanges();
             }
         }
-        public static void DeleteUser(SysUserDetails user)
+        public static void DeleteUser(SysUser user)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var u = dbContext.SysUser.Where(t => t.State == Enums.UseState.Enable).Where(t => t.UserID == user.UserID).FirstOrDefault();
+                var u = dbContext.SysUser.Where(t => t.UserID == user.UserID).FirstOrDefault();
                 if (u == null)
                     throw new Exception("该用户已经被删除！");
-                u.State = Enums.UseState.Cancel;
-                u.CancelTime = DateTime.Now.Date;
-                u.CancelUser = LoginUtils.CurrentUser.UserName;
+
                 var rs = dbContext.UserRole.Where(t => t.UserID == user.UserID).ToList();
                 dbContext.UserRole.RemoveRange(rs);
+                dbContext.SysUser.Remove(u);
                 dbContext.SaveChanges();
             }
         }
-        public static List<SysUserDetails> SearchUser(string DistrictID)
+        public static List<SysUser> SearchUser()
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContext.SysUser.Where(t => t.State == Enums.UseState.Enable);
-                if (!string.IsNullOrEmpty(DistrictID))
-                {
-                    var roleids = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable).Where(t => t.DistrictID == DistrictID || t.DistrictID.IndexOf(DistrictID + ".") == 0).Select(t => t.RoleID).ToList();
-                    var uids = dbContext.UserRole.Where(t => roleids.Contains(t.RoleID)).Select(t => t.UserID).ToList();
-                    query = query.Where(t => uids.Contains(t.UserID));
-                }
-                var users = query.ToList();
-                List<SysUserDetails> sysUserDetails = new List<SysUserDetails>();
+                var users = dbContext.SysUser.ToList();
+
+                List<SysUser> sysUserDetails = new List<SysUser>();
                 foreach (var user in users)
                 {
                     var roleids = dbContext.UserRole.Where(t => t.UserID == user.UserID).Select(t => t.RoleID).ToList();
-                    var roles = dbContext.SysRole.Where(t => roleids.Contains(t.RoleID)).ToList();
-                    var Window = roles.Select(t => t.Window).ToList();
-                    var districtID = roles.Select(t => t.DistrictID).ToList();
-                    var districtName = roles.Select(t => t.DistrictID.Replace('.', '/')).ToList();
-                    SysUserDetails sysUsers = new Models.Extends.SysUserDetails()
+                    var rolesList = dbContext.SysRole.Where(t => roleids.Contains(t.RoleID)).ToList();
+                    var districtIDList = dbContext.UserDistrict.Where(t => t.UserID == user.UserID).Select(t => t.DistrictID).Distinct().ToList();
+                    var districtName = districtIDList.Select(t => t.Replace('.', '/')).ToList();
+
+                    List<SysRole_SysPrivilige> rolePriviliges = new List<Models.Entities.SysRole_SysPrivilige>();
+                    foreach (var role in rolesList)
+                    {
+                        rolePriviliges.AddRange(dbContext.RolePrivilige.Where(t => t.RoleID == role.RoleID).ToList());
+                    }
+
+                    SysUser sysUsers = new SysUser()
                     {
                         UserID = user.UserID,
                         UserName = user.UserName,
@@ -666,10 +689,12 @@ namespace JXGIS.JXTopsystem.Business.Common
                         Email = user.Email,
                         Birthday = user.Birthday,
                         Telephone = user.Telephone,
-                        Window = string.Join(",", Window),
-                        DistrictID = string.Join(",", districtID),
-                        DistrictName = string.Join(",", districtName),
-                        Roles = roles,
+                        Window = user.Window,
+                        DistrictName = string.Join("；", districtName),
+                        RoleList = rolesList,
+                        RoleName = string.Join("；", rolesList.Select(t => t.RoleName).ToList()),
+                        DistrictIDList = districtIDList,
+                        PriviligeList = rolePriviliges.Distinct().ToList(),
                     };
                     sysUserDetails.Add(sysUsers);
                 }
@@ -680,8 +705,9 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var data = dbContext.SysRole.Where(t => t.State == Enums.UseState.Enable).Where(t => t.DistrictID == DistrictID).ToList();
-                return data;
+                //var data = dbContext.SysRole.Where(t => t.DistrictID == DistrictID).ToList();
+                //return data;
+                return null;
             }
         }
         #endregion

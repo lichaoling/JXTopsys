@@ -16,6 +16,8 @@ namespace JXGIS.JXTopsystem.Models.Extends
         //public string CommunityName { get; set; }
         public List<Pictures> TDZ { get; set; }
         public List<Pictures> QQZ { get; set; }
+        public List<Pictures> SQB { get; set; }
+
 
         private static PropertyInfo[] props = typeof(RoadMPDetails).GetProperties();
         public object this[string key]

@@ -7,19 +7,16 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Entities
 {
-    [Table("SYSROLE")]
-    public class SysRole
+    [Table("SYSPRIVILIGE")]
+    public class SysPrivilige
     {
         [Key]
-        public string RoleID { get; set; }
-        public string RoleName { get; set; }
-        public string RoleDescription { get; set; }
+        public string PriviligeID { get; set; }
+        public string PriviligeName { get; set; }
+        public string PriviligeModule { get; set; }
         public DateTime? CreateTime { get; set; }
         public string CreateUser { get; set; }
         public DateTime? LastModifyTime { get; set; }
         public string LastModifyUser { get; set; }
-
-        [NotMapped]
-        public virtual List<SysPrivilige> PriviligeList { get; set; }
     }
 }

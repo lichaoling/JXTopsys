@@ -116,10 +116,14 @@ namespace JXGIS.JXTopsystem.Controllers
                     var paths = GetUploadFilePath(FileType, ID, fileID, fileName, RepairType);
                     // 保存图片
                     file.SaveAs(paths.FullPath);
-                    // 保存缩略图片
-                    Image image = Image.FromStream(file.InputStream);
-                    image = PictureUtils.GetHvtThumbnail(image, 200);
-                    image.Save(paths.TFullPath);
+
+                    if (IsPicture(fileName))//如果是图片，就保存缩略图
+                    {
+                        // 保存缩略图片
+                        Image image = Image.FromStream(file.InputStream);
+                        image = PictureUtils.GetHvtThumbnail(image, 200);
+                        image.Save(paths.TFullPath);
+                    }
 
                     // 保存到数据库中
                     // 文件ID，门牌记录的ID，图片相对路径，缩略图相对路径，文件名称等
@@ -258,6 +262,25 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
+        }
+
+
+        // 判断文件是否是图片
+        public bool IsPicture(string fileName)
+        {
+            string strFilter = ".jpeg|.gif|.jpg|.png|.bmp|.pic|.tiff|.ico|.iff|.lbm|.mag|.mac|.mpt|.opt|";
+            char[] separtor = { '|' };
+            string[] tempFileds = StringSplit(strFilter, separtor);
+            foreach (string str in tempFileds)
+            {
+                if (str.ToUpper() == fileName.Substring(fileName.LastIndexOf("."), fileName.Length - fileName.LastIndexOf(".")).ToUpper()) { return true; }
+            }
+            return false;
+        }
+        // 通过字符串，分隔符返回string[]数组 
+        public string[] StringSplit(string s, char[] separtor)
+        {
+            string[] tempFileds = s.Trim().Split(separtor); return tempFileds;
         }
     }
 }

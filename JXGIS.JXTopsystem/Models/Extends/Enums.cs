@@ -80,7 +80,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string HJ = "HJ";
             public const string YYZZ = "YYZZ";
             public const string QQZ = "QQZ";
-
+            public const string SQB = "SQB";
         }
         public static class RPFileType
         {

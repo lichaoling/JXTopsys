@@ -993,7 +993,10 @@
     <Compile Include="Models\Entities\MPOfUploadFiles.cs" />
     <Compile Include="Models\Entities\RPPeparUploadFiles.cs" />
     <Compile Include="Models\Entities\RPOfUploadFiles.cs" />
+    <Compile Include="Models\Entities\SysPrivilige.cs" />
+    <Compile Include="Models\Entities\SysRole_SysPrivilige.cs" />
     <Compile Include="Models\Entities\SystemLog.cs" />
+    <Compile Include="Models\Entities\SysUser_District.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ArchiveConfigTab.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ArchivePacketDirectory.cs" />
     <Compile Include="Models\Extends\ArchiveFile\BaseInfoDescription.cs" />
@@ -1031,7 +1034,6 @@
     <Compile Include="Models\Extends\RtObj\RtObj.cs" />
     <Compile Include="Models\Extends\SummarySheet.cs" />
     <Compile Include="Models\Entities\RoadDic.cs" />
-    <Compile Include="Models\Extends\SysUserDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

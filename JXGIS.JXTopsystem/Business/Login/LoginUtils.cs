@@ -36,7 +36,7 @@ namespace JXGIS.JXTopsystem.Business
                 user.DistrictIDList = new List<string>() { "嘉兴市.秀洲区.新塍镇", "嘉兴市.南湖区.新兴街道", "嘉兴市" };
                 //user.DistrictID = new List<string>() { "嘉兴市.南湖区.新兴街道", "嘉兴市.秀洲区.塘汇街道" };
                 //user.DistrictID = new List<string>() { "嘉兴市.南湖区.建设街道"};
-                user.WindowList = new List<string>() { "地名办公室", "便民窗口" };
+                user.Window = "地名办公室";
                 HttpContext.Current.Session[_user] = user;
                 return HttpContext.Current != null ? (HttpContext.Current.Session[_user] as IUser) : null;
 #endif
@@ -58,7 +58,7 @@ namespace JXGIS.JXTopsystem.Business
         /// <returns></returns>
         public static bool HasUser(string userName)
         {
-            return SystemUtils.NewEFDbContext.SysUser.Where(t => t.State == Enums.UseState.Enable).Where(s => s.UserName == userName).Count() > 0;
+            return SystemUtils.NewEFDbContext.SysUser.Where(s => s.UserName == userName).Count() > 0;
         }
 
         /// <summary>
@@ -72,17 +72,27 @@ namespace JXGIS.JXTopsystem.Business
         {
             var bSuccess = false;
             if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password)) return false;
-            var us = SystemUtils.NewEFDbContext.SysUser.Where(t => t.State == Enums.UseState.Enable).Where(u => u.UserName == userName && u.Password == password).FirstOrDefault();
+            var us = SystemUtils.NewEFDbContext.SysUser.Where(u => u.UserName == userName && u.Password == password).FirstOrDefault();
             if (us != null)
             {
                 bSuccess = true;
-                var roleID = SystemUtils.NewEFDbContext.UserRole.Where(t => t.UserID == us.UserID).Select(t => t.RoleID).ToList();
-                var districtID = SystemUtils.NewEFDbContext.SysRole.Where(t => t.State == Enums.UseState.Enable).Where(t => roleID.Contains(t.RoleID)).Select(t => t.DistrictID).ToList();
+                var roleIds = SystemUtils.NewEFDbContext.UserRole.Where(t => t.UserID == us.UserID).Select(t => t.RoleID).Distinct().ToList();
+                var roleList = SystemUtils.NewEFDbContext.SysRole.Where(t => roleIds.Contains(t.RoleID)).ToList();
+
+                var districtID = SystemUtils.NewEFDbContext.UserDistrict.Where(t => t.UserID == us.UserID).Select(t => t.DistrictID).Distinct().ToList();
                 if (districtID.Count == 0)
-                    throw new Exception("对不起，您目前没有任何权限，请联系管理员！");
+                    throw new Exception("对不起，您目前没有数据权限，请联系管理员！");
+                if (roleList.Count == 0)
+                    throw new Exception("对不起，您目前没有功能权限，请联系管理员！");
+
+                List<SysRole_SysPrivilige> rolePriviliges = new List<Models.Entities.SysRole_SysPrivilige>();
+                foreach (var role in roleList)
+                {
+                    rolePriviliges.AddRange(SystemUtils.NewEFDbContext.RolePrivilige.Where(t => t.RoleID == role.RoleID).ToList());
+                }
+                us.PriviligeList = rolePriviliges.Distinct().ToList();
                 us.DistrictIDList = districtID;
-                var Window = SystemUtils.NewEFDbContext.SysRole.Where(t => t.State == Enums.UseState.Enable).Where(t => roleID.Contains(t.RoleID)).Select(t => t.Window).Distinct().ToList();
-                us.WindowList = Window;
+                us.RoleList = roleList;
             }
             user = us;
             return bSuccess;

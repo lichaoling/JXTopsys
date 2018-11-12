@@ -212,6 +212,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                     var FCZ = files.Where(t => t.DocType == Enums.DocType.FCZ);
                     var TDZ = files.Where(t => t.DocType == Enums.DocType.TDZ);
                     var YYZZ = files.Where(t => t.DocType == Enums.DocType.YYZZ);
+                    var SQB = files.Where(t => t.DocType == Enums.DocType.SQB);
+
                     var baseUrl = Path.Combine("Files", Enums.TypeStr.MP, Enums.MPFileType.RoadMP, MPID);
 
                     if (FCZ.Count() > 0)
@@ -246,6 +248,16 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                           RelativePath = baseUrl + "/" + t.ID + t.FileEx,
                                           TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
                                       }).ToList();
+                    }
+                    if (SQB.Count() > 0)
+                    {
+                        query.SQB = (from t in SQB
+                                     select new Pictures
+                                     {
+                                         FileID = t.ID,
+                                         Name = t.Name,
+                                         RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                     }).ToList();
                     }
                 }
                 return query;

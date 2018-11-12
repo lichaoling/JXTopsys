@@ -16,6 +16,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string UserID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string Window { get; set; }
         public string Name { get; set; }
         public string Gender { get; set; }
         public string Email { get; set; }
@@ -25,15 +26,15 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CreateUser { get; set; }
         public DateTime? LastModifyTime { get; set; }
         public string LastModifyUser { get; set; }
-        public int? State { get; set; }
-        public DateTime? CancelTime { get; set; }
-        public string CancelUser { get; set; }
-        public DateTime? DelTime { get; set; }
-        public string DelUser { get; set; }
         [NotMapped]
         public virtual List<string> DistrictIDList { get; set; }
         [NotMapped]
-        public virtual List<string> WindowList { get; set; }
-
+        public virtual string DistrictName { get; set; }
+        [NotMapped]
+        public virtual List<SysRole> RoleList { get; set; }
+        [NotMapped]
+        public virtual string RoleName { get; set; }
+        [NotMapped]
+        public virtual List<SysRole_SysPrivilige> PriviligeList { get; set; }
     }
 }

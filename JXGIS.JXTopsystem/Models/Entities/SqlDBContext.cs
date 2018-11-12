@@ -24,7 +24,10 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DbSet<MPOfCountry> MPOfCountry { get; set; }
         public DbSet<SysUser> SysUser { get; set; }
         public DbSet<SysRole> SysRole { get; set; }
+        public DbSet<SysPrivilige> SysPrivilige { get; set; }
         public DbSet<SysUser_SysRole> UserRole { get; set; }
+        public DbSet<SysUser_District> UserDistrict { get; set; }
+        public DbSet<SysRole_SysPrivilige> RolePrivilige { get; set; }
         public DbSet<MPOfCertificate> MPOfCertificate { get; set; }
         public DbSet<MPProduceTJ> MPProduce { get; set; }
         public DbSet<MPOfUploadFiles> MPOfUploadFiles { get; set; }

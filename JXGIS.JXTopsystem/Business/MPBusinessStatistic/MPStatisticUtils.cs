@@ -148,7 +148,6 @@ namespace JXGIS.JXTopsystem.Business
                                 CreateTime = t.CreateTime,
                                 CreateUser = t.CreateUser,
                                 Window = t.Window,
-                                Windows = !string.IsNullOrEmpty(t.Window) ? t.Window.Split(',').ToList() : null,
                                 CertificateType = t.CertificateType,
                                 CountyID = t.CountyID,
                                 NeighborhoodsID = t.NeighborhoodsID,

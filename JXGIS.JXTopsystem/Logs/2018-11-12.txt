@@ -1,0 +1,81 @@
+=======2018/11/12 星期一 14:43:34
+|Message:One or more validation errors were detected during model generation:
+
+JXGIS.JXTopsystem.Models.Entities.SysRole_SysPrivilige: : EntityType 'SysRole_SysPrivilige' has no key defined. Define the key for this EntityType.
+JXGIS.JXTopsystem.Models.Entities.SysUser_District: : EntityType 'SysUser_District' has no key defined. Define the key for this EntityType.
+JXGIS.JXTopsystem.Models.Entities.SysUser_SysRole: : EntityType 'SysUser_SysRole' has no key defined. Define the key for this EntityType.
+RolePrivilige: EntityType: EntitySet 'RolePrivilige' is based on type 'SysRole_SysPrivilige' that has no keys defined.
+UserDistrict: EntityType: EntitySet 'UserDistrict' is based on type 'SysUser_District' that has no keys defined.
+UserRole: EntityType: EntitySet 'UserRole' is based on type 'SysUser_SysRole' that has no keys defined.
+
+|StackTrace:   在 System.Data.Entity.Core.Metadata.Edm.EdmModel.Validate()
+   在 System.Data.Entity.DbModelBuilder.Build(DbProviderManifest providerManifest, DbProviderInfo providerInfo)
+   在 System.Data.Entity.DbModelBuilder.Build(DbConnection providerConnection)
+   在 System.Data.Entity.Internal.LazyInternalContext.CreateModel(LazyInternalContext internalContext)
+   在 System.Data.Entity.Internal.RetryLazy`2.GetValue(TInput input)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   在 System.Data.Entity.Internal.InternalContext.Initialize()
+   在 System.Data.Entity.Database.Initialize(Boolean force)
+   在 JXGIS.JXTopsystem.Models.Entities.SqlDBContext..ctor() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Models\Entities\SqlDBContext.cs:行号 15
+   在 JXGIS.JXTopsystem.Business.SystemUtils.get_NewEFDbContext() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\SystemUtils.cs:行号 30
+   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.SearchRole(String DistrictID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 533
+   在 JXGIS.JXTopsystem.Controllers.CommonController.SearchRole(String DistrictID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 783
+=======2018/11/12 星期一 14:44:00
+|Message:One or more validation errors were detected during model generation:
+
+JXGIS.JXTopsystem.Models.Entities.SysRole_SysPrivilige: : EntityType 'SysRole_SysPrivilige' has no key defined. Define the key for this EntityType.
+JXGIS.JXTopsystem.Models.Entities.SysUser_District: : EntityType 'SysUser_District' has no key defined. Define the key for this EntityType.
+JXGIS.JXTopsystem.Models.Entities.SysUser_SysRole: : EntityType 'SysUser_SysRole' has no key defined. Define the key for this EntityType.
+RolePrivilige: EntityType: EntitySet 'RolePrivilige' is based on type 'SysRole_SysPrivilige' that has no keys defined.
+UserDistrict: EntityType: EntitySet 'UserDistrict' is based on type 'SysUser_District' that has no keys defined.
+UserRole: EntityType: EntitySet 'UserRole' is based on type 'SysUser_SysRole' that has no keys defined.
+
+|StackTrace:   在 System.Data.Entity.Core.Metadata.Edm.EdmModel.Validate()
+   在 System.Data.Entity.DbModelBuilder.Build(DbProviderManifest providerManifest, DbProviderInfo providerInfo)
+   在 System.Data.Entity.DbModelBuilder.Build(DbConnection providerConnection)
+   在 System.Data.Entity.Internal.LazyInternalContext.CreateModel(LazyInternalContext internalContext)
+   在 System.Data.Entity.Internal.RetryLazy`2.GetValue(TInput input)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   在 System.Data.Entity.Internal.InternalContext.Initialize()
+   在 System.Data.Entity.Database.Initialize(Boolean force)
+   在 JXGIS.JXTopsystem.Models.Entities.SqlDBContext..ctor() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Models\Entities\SqlDBContext.cs:行号 15
+   在 JXGIS.JXTopsystem.Business.SystemUtils.get_NewEFDbContext() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\SystemUtils.cs:行号 30
+   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.getDistrictTree() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 21
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetDistrictTree() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 32
+=======2018/11/12 星期一 14:56:47
+|Message:One or more validation errors were detected during model generation:
+
+JXGIS.JXTopsystem.Models.Entities.SysRole_SysPrivilige: : EntityType 'SysRole_SysPrivilige' has no key defined. Define the key for this EntityType.
+JXGIS.JXTopsystem.Models.Entities.SysUser_District: : EntityType 'SysUser_District' has no key defined. Define the key for this EntityType.
+JXGIS.JXTopsystem.Models.Entities.SysUser_SysRole: : EntityType 'SysUser_SysRole' has no key defined. Define the key for this EntityType.
+RolePrivilige: EntityType: EntitySet 'RolePrivilige' is based on type 'SysRole_SysPrivilige' that has no keys defined.
+UserDistrict: EntityType: EntitySet 'UserDistrict' is based on type 'SysUser_District' that has no keys defined.
+UserRole: EntityType: EntitySet 'UserRole' is based on type 'SysUser_SysRole' that has no keys defined.
+
+|StackTrace:   在 System.Data.Entity.Core.Metadata.Edm.EdmModel.Validate()
+   在 System.Data.Entity.DbModelBuilder.Build(DbProviderManifest providerManifest, DbProviderInfo providerInfo)
+   在 System.Data.Entity.DbModelBuilder.Build(DbConnection providerConnection)
+   在 System.Data.Entity.Internal.LazyInternalContext.CreateModel(LazyInternalContext internalContext)
+   在 System.Data.Entity.Internal.RetryLazy`2.GetValue(TInput input)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   在 System.Data.Entity.Internal.InternalContext.Initialize()
+   在 System.Data.Entity.Database.Initialize(Boolean force)
+   在 JXGIS.JXTopsystem.Models.Entities.SqlDBContext..ctor() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Models\Entities\SqlDBContext.cs:行号 15
+   在 JXGIS.JXTopsystem.Business.SystemUtils.get_NewEFDbContext() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\SystemUtils.cs:行号 30
+   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.SearchRole(String DistrictID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 533
+   在 JXGIS.JXTopsystem.Controllers.CommonController.SearchRole(String DistrictID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 783
+=======2018/11/12 星期一 16:28:24
+|Message:An error occurred while executing the command definition. See the inner exception for details.
+|StackTrace:   在 System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   在 System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.SearchUser()
+   在 JXGIS.JXTopsystem.Controllers.CommonController.SearchUser()

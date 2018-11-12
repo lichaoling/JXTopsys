@@ -17,7 +17,7 @@ namespace JXGIS.JXTopsystem.Controllers
             return View();
         }
 
-        public JsonResult Login(string userName, string password, string securityCode)
+        public ContentResult Login(string userName, string password, string securityCode)
         {
             RtObj rt = null;
             try
@@ -53,13 +53,14 @@ namespace JXGIS.JXTopsystem.Controllers
                 }
                 // 成功之后刷新验证码
                 LoginUtils.CurrentValidateGraphicCode.Refresh();
-                rt = new RtObj();
+                rt = new RtObj(user);
             }
             catch (Exception ex)
             {
                 rt = new RtObj(ex);
             }
-            return Json(rt);
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
         }
 
         /// <summary>

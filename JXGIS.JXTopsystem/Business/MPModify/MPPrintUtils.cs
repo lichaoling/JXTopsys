@@ -126,7 +126,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         mpCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
                         mpCertificate.MPType = MPType;
                         mpCertificate.CertificateType = Enums.CertificateType.Placename;
-                        mpCertificate.Window = string.Join(",", LoginUtils.CurrentUser.WindowList);
+                        mpCertificate.Window = LoginUtils.CurrentUser.Window;
                         mpOfCertificates.Add(mpCertificate);
                     }
                 }
@@ -243,7 +243,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         mpCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
                         mpCertificate.MPType = MPType;
                         mpCertificate.CertificateType = Enums.CertificateType.MPZ;
-                        mpCertificate.Window = string.Join(",", LoginUtils.CurrentUser.WindowList);
+                        mpCertificate.Window = LoginUtils.CurrentUser.Window;
                         mpCertificates.Add(mpCertificate);
                     }
                 }
@@ -458,7 +458,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     mpCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
                     mpCertificate.MPType = MPType;
                     mpCertificate.CertificateType = CertificateType;
-                    mpCertificate.Window = string.Join(",", LoginUtils.CurrentUser.WindowList);
+                    mpCertificate.Window = LoginUtils.CurrentUser.Window;
                     mpOfCertificates.Add(mpCertificate);
 
                     MPCertificate certificate = new Models.Extends.MPCertificate();

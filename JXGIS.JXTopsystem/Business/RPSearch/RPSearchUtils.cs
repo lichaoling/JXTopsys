@@ -142,6 +142,8 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                             Lng = t.Position != null ? t.Position.Longitude : null
                         }).ToList();
 
+
+                var baseUrl_QRCode = FileController.RPQRCodeRelativePath;
                 //关联路牌照片 重组url
                 List<RPDetails> rt = new List<RPDetails>();
                 foreach (var d in data)
@@ -160,6 +162,12 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                                        }).ToList();
                         d.RPBZPhoto = filelst;
                     }
+                    d.CodeFile = new Pictures()
+                    {
+                        RelativePath = baseUrl_QRCode + "/" + d.Code + ".jpg",
+                        TRelativePath = baseUrl_QRCode + "/t-" + d.Code + ".jpg",
+                    };
+
                     rt.Add(d);
                 }
 

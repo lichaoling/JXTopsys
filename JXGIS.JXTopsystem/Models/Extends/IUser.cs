@@ -8,10 +8,9 @@ namespace JXGIS.JXTopsystem.Models.Extends
     public interface IUser
     {
         string UserID { get; }
-
+        string Window { get; }
         string UserName { get; }
         string Password { get; }
         List<string> DistrictIDList { get; }
-        List<string> WindowList { get; }
     }
 }
