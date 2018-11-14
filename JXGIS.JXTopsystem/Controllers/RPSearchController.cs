@@ -176,7 +176,7 @@ namespace JXGIS.JXTopsystem.Controllers
 
 
         [LoggerFilter(Description = "根据起止二维码编号下载二维码图片")]
-        public ActionResult DownloadQRCodeJpgs(int startCode, int endCode)
+        public ActionResult DownloadQRCodeJpgsByCode(int startCode, int endCode)
         {
             RtObj rt = null;
             try
