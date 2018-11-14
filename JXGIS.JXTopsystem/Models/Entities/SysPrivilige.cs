@@ -13,7 +13,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         [Key]
         public string PriviligeID { get; set; }
         public string PriviligeName { get; set; }
-        public string PriviligeModule { get; set; }
+        public string PriviligeCID { get; set; }
         public DateTime? CreateTime { get; set; }
         public string CreateUser { get; set; }
         public DateTime? LastModifyTime { get; set; }

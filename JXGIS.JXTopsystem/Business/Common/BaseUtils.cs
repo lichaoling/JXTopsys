@@ -204,7 +204,6 @@ namespace JXGIS.JXTopsystem.Business.Common
             return Guid.NewGuid().ToString();
         }
 
-
         public static void UpdateAddressCode(MPOfResidence zz, MPOfRoad dl, MPOfCountry nc, RP rp, int type)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -269,5 +268,37 @@ namespace JXGIS.JXTopsystem.Business.Common
                 dbContext.SaveChanges();
             }
         }
+
+        public static IQueryable<T> DataFilterWithTown<T>(IQueryable<T> entity) where T : IBaseEntityWithNeighborhoodsID
+        {
+            // 先删选出当前用户权限内的数据
+            if (LoginUtils.CurrentUser.DistrictIDList != null && LoginUtils.CurrentUser.DistrictIDList.Count > 0 && !LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
+            {
+                var where = PredicateBuilder.False<T>();
+                foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
+                {
+                    where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
+                }
+                entity = entity.Where(where);
+            }
+            return entity;
+        }
+
+
+        public static IQueryable<T> DataFilterWithDist<T>(IQueryable<T> entity) where T : IBaseEntityWitDistrictID
+        {
+            // 先删选出当前用户权限内的数据
+            if (LoginUtils.CurrentUser.DistrictIDList != null && LoginUtils.CurrentUser.DistrictIDList.Count > 0 && !LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
+            {
+                var where = PredicateBuilder.False<T>();
+                foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
+                {
+                    where = where.Or(t => t.DistrictID.IndexOf(userDID + ".") == 0 || t.DistrictID == userDID);
+                }
+                entity = entity.Where(where);
+            }
+            return entity;
+        }
+
     }
 }

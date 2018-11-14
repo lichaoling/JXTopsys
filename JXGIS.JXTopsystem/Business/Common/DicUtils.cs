@@ -308,6 +308,14 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return data;
             }
         }
+        public static DMBZDic GetDMBZFromDicByID(int id)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var data = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.IndetityID == id).FirstOrDefault();
+                return data;
+            }
+        }
         public static List<string> GetMPType()
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -480,8 +488,28 @@ namespace JXGIS.JXTopsystem.Business.Common
                               NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
                               CommunityName = t.CommunityName,
                               Postcode = t.Postcode,
-                          }).OrderBy(t=>t.CountyID).ToList();
+                          }).OrderBy(t => t.CountyID).ToList();
                 return rt;
+            }
+        }
+        public static PostcodeDetails GetPostcodeByID(int id)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var t = dbContext.PostcodeDic.Where(s => s.State == Enums.UseState.Enable).Where(s => s.IndetityID == id).FirstOrDefault();
+                var data = new PostcodeDetails();
+                if (t != null)
+                    data = new PostcodeDetails
+                    {
+                        IndetityID = t.IndetityID,
+                        CountyID = t.CountyID,
+                        CountyName = t.CountyID.Split('.').Last(),
+                        NeighborhoodsID = t.NeighborhoodsID,
+                        NeighborhoodsName = t.NeighborhoodsID.Split('.').Last(),
+                        CommunityName = t.CommunityName,
+                        Postcode = t.Postcode,
+                    };
+                return data;
             }
         }
         public static void ModifyPostcode(string oldDataJson)
@@ -560,6 +588,14 @@ namespace JXGIS.JXTopsystem.Business.Common
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var data = dbContext.RPBZDic.Where(t => t.State == Enums.UseState.Enable).OrderBy(t => t.Category).ToList();
+                return data;
+            }
+        }
+        public static RPBZDic GetRPBZFromDicByID(int id)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var data = dbContext.RPBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.IndetityID == id).FirstOrDefault();
                 return data;
             }
         }

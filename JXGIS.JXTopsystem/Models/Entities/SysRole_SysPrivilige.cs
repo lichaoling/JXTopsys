@@ -12,7 +12,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public int IndetityID { get; set; }
         public string RoleID { get; set; }
         public string PriviligeID { get; set; }
-        public string PriviligeModule { get; set; }
+        public string PriviligeName { get; set; }
+        public string PriviligeCID { get; set; }
         public string Describe { get; set; }
     }
 }

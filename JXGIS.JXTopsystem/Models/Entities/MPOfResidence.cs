@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JXGIS.JXTopsystem.Models.Extends;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,7 +15,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
     /// </summary>
     [Table("MPOFRESIDENCE")]
     [Serializable]
-    public class MPOfResidence
+    public class MPOfResidence: IBaseEntityWithNeighborhoodsID
     {
         [Key]
         public string ID { get; set; }

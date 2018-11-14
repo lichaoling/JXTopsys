@@ -1,7 +1,9 @@
-﻿using JXGIS.JXTopsystem.Business.Common;
+﻿using Aspose.Cells;
+using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Controllers;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,16 +23,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
 
                 var query = dbContext.RP.Where(t => t.State == UseState);
 
-                // 先删选出当前用户权限内的数据
-                if (LoginUtils.CurrentUser.DistrictIDList != null && LoginUtils.CurrentUser.DistrictIDList.Count > 0 && !LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
-                {
-                    var where = PredicateBuilder.False<RP>();
-                    foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
-                    {
-                        where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                    }
-                    query = query.Where(where);
-                }
+                query = BaseUtils.DataFilterWithTown<RP>(query);
 
                 //行政区划筛选
                 if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))
@@ -127,6 +120,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                         {
                             ID = t.ID,
                             Code = t.Code,
+                            AddressCoding = t.AddressCoding,
                             CountyID = t.CountyID,
                             NeighborhoodsID = t.NeighborhoodsID,
                             CountyName = string.IsNullOrEmpty(t.CountyID) ? null : t.CountyID.Split('.').Last(),
@@ -135,6 +129,15 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                             RoadName = t.RoadName,
                             Intersection = t.Intersection,
                             Direction = t.Direction,
+                            BZRules = t.BZRules,
+                            StartEndNum = t.StartEndNum,
+                            Model = t.Model,
+                            Size = t.Size,
+                            Material = t.Material,
+                            Manufacturers = t.Manufacturers,
+                            FrontTagline = t.FrontTagline,
+                            BackTagline = t.BackTagline,
+                            Management = t.Management,
                             BZTime = t.BZTime,
                             CreateTime = t.CreateTime,
                             RepairedCount = t.RepairedCount,
@@ -214,6 +217,90 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 data.Lng = data.Position != null ? data.Position.Longitude : null;
                 return data;
             }
+        }
+
+        public static MemoryStream ExportRP(string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState)
+        {
+            Dictionary<string, object> dict = SearchRP(-1, -1, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, UseState);
+
+            int RowCount = int.Parse(dict["Count"].ToString());
+            if (RowCount >= 65000)
+                throw new Exception("数据量过大，请缩小查询范围后再导出！");
+            var Data = dict["Data"] as List<RPDetails>;
+
+            Workbook wb = new Workbook();
+            Worksheet ws = wb.Worksheets[0];
+            ws.Name = Enums.MPTypeCh.Residence;
+            Aspose.Cells.Style styleHeader = wb.Styles[wb.Styles.Add()];
+            styleHeader.Pattern = Aspose.Cells.BackgroundType.Solid;
+            styleHeader.HorizontalAlignment = Aspose.Cells.TextAlignmentType.Center;
+            styleHeader.ForegroundColor = System.Drawing.Color.FromArgb(240, 240, 240);
+            styleHeader.Font.IsBold = true;
+            styleHeader.Borders[BorderType.LeftBorder].LineStyle = CellBorderType.Thin;
+            styleHeader.Borders[BorderType.RightBorder].LineStyle = CellBorderType.Thin;
+            styleHeader.Borders[BorderType.TopBorder].LineStyle = CellBorderType.Thin;
+            styleHeader.Borders[BorderType.BottomBorder].LineStyle = CellBorderType.Thin;
+
+            Aspose.Cells.Style styleData = wb.Styles[wb.Styles.Add()];
+            styleData.Borders[BorderType.LeftBorder].LineStyle = CellBorderType.Thin;
+            styleData.Borders[BorderType.RightBorder].LineStyle = CellBorderType.Thin;
+            styleData.Borders[BorderType.TopBorder].LineStyle = CellBorderType.Thin;
+            styleData.Borders[BorderType.BottomBorder].LineStyle = CellBorderType.Thin;
+
+            List<ExcelFields> Fields = new List<ExcelFields> {
+                new ExcelFields() { Field="二维码编号",Alias="Code"},
+                new ExcelFields() { Field="地址编码",Alias="AddressCoding"},
+                new ExcelFields() { Field="市辖区",Alias="CountyName"},
+                new ExcelFields() { Field="镇街道",Alias="NeighborhoodsName"},
+                new ExcelFields() { Field="村社区",Alias="CommunityName"},
+                new ExcelFields() { Field="道路名称",Alias="RoadName"},
+                new ExcelFields() { Field="交叉口",Alias="Intersection"},
+                new ExcelFields() { Field="方位",Alias="Direction"},
+               new ExcelFields() { Field="编制规则",Alias="BZRules"},
+                new ExcelFields() { Field="起止号码",Alias="StartEndNum"},
+                 new ExcelFields() { Field="样式",Alias="Model"},
+                  new ExcelFields() { Field="规格",Alias="Size"},
+                   new ExcelFields() { Field="材质",Alias="Material"},
+                    new ExcelFields() { Field="生产厂家",Alias="Manufacturers"},
+                     new ExcelFields() { Field="正面宣传语",Alias="FrontTagline"},
+                      new ExcelFields() { Field="反面宣传语",Alias="BackTagline"},
+                       new ExcelFields() { Field="管理单位",Alias="Management"},
+                new ExcelFields() { Field="维修次数",Alias="RepairedCount"},
+                new ExcelFields() { Field="编制时间",Alias="BZTime"},
+                new ExcelFields() { Field="纬度",Alias="Lat"},
+                new ExcelFields() { Field="经度",Alias="Lng"},
+            };
+            //写入表头
+            for (int i = 0, l = Fields.Count; i < l; i++)
+            {
+                var field = Fields[i];
+                ws.Cells[0, i].PutValue(field.Field);
+                ws.Cells[0, i].SetStyle(styleHeader);
+            }
+            //写入数据
+            for (int i = 0; i < RowCount; i++)
+            {
+                var row = Data[i];
+                for (int j = 0, l = Fields.Count; j < l; j++)
+                {
+                    var field = Fields[j];
+                    var value = row[field.Alias];
+                    if (field.Field == "编制时间")
+                    {
+                        IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+                        timeConverter.DateTimeFormat = "yyyy-MM-dd";
+                        string rt = Newtonsoft.Json.JsonConvert.SerializeObject(value, timeConverter);
+                        value = rt.Replace("\"", "");
+                    }
+                    ws.Cells[i + 1, j].PutValue(value);
+                    ws.Cells[i + 1, j].SetStyle(styleData);
+                }
+            }
+            ws.AutoFitColumns();
+            MemoryStream ms = new MemoryStream();
+            wb.Save(ms, SaveFormat.Excel97To2003);
+            ms.Seek(0, SeekOrigin.Begin);
+            return ms;
         }
     }
 }

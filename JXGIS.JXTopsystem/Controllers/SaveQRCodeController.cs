@@ -65,42 +65,7 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
 
         }
-        //[LoggerFilter(Description = "二维码图片下载")]
-        public ActionResult DownloadQRCode(int StartCode, int EndCode)
-        {
-            RtObj rt = null;
-            try
-            {
-                rt = new RtObj();
-                string QRFilePath = Path.Combine(FileController.uploadBasePath, FileController.RPQRCodeRelativePath);
-                MemoryStream ms = new MemoryStream();
-                byte[] buffer = null;
-                using (ZipFile file = ZipFile.Create(ms))
-                {
-                    file.BeginUpdate();
-                    file.NameTransform = new MyNameTransfom();//通过这个名称格式化器，可以将里面的文件名进行一些处理。默认情况下，会自动根据文件的路径在zip中创建有关的文件夹。
-                    for (var i = StartCode; i <= EndCode; i++)
-                    {
-                        string fileName = i + ".jpg";
-                        string sourceFile = Path.Combine(QRFilePath, fileName);
-                        file.Add(sourceFile);
-                    }
-                    file.CommitUpdate();
-                    buffer = new byte[ms.Length];
-                    ms.Position = 0;
-                    ms.Read(buffer, 0, buffer.Length);
-                }
-                Response.AddHeader("content-disposition", "attachment;filename=二维码" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".zip");
-                Response.BinaryWrite(buffer);
-                Response.Flush();
-                Response.End();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            return Json(rt, JsonRequestBehavior.AllowGet);
-        }
+       
     }
 
 

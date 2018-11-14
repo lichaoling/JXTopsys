@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JXGIS.JXTopsystem.Models.Extends;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +11,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
 {
     [Table("RP")]
     [Serializable]
-    public class RP
+    public class RP : IBaseEntityWithNeighborhoodsID
     {
         [Key]
         public string ID { get; set; }

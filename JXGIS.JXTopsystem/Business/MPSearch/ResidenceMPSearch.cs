@@ -133,18 +133,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var query = dbContext.MPOfResidence.Where(t => t.State == UseState);
-                
-                // 先删选出当前用户权限内的数据
-                if (LoginUtils.CurrentUser.DistrictIDList != null && LoginUtils.CurrentUser.DistrictIDList.Count > 0 && !LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
-                {
-                    var where = PredicateBuilder.False<MPOfResidence>();
-                    foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
-                    {
-                        where = where.Or(t => t.NeighborhoodsID.IndexOf(userDID + ".") == 0 || t.NeighborhoodsID == userDID);
-                    }
-                    query = query.Where(where);
-                }
-
+                query = BaseUtils.DataFilterWithTown<MPOfResidence>(query);
                 if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))
                 {
                     query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID);

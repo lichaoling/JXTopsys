@@ -1003,6 +1003,7 @@
     <Compile Include="Models\Extends\ArchiveFile\ProcessInfoDescription.cs" />
     <Compile Include="Models\Extends\Certificate.cs" />
     <Compile Include="Models\Extends\DistrictDetails.cs" />
+    <Compile Include="Models\Extends\IBaseEntity.cs" />
     <Compile Include="Models\Extends\PLMPProduceList.cs" />
     <Compile Include="Models\Extends\MPProduce.cs" />
     <Compile Include="Models\Entities\RP.cs" />

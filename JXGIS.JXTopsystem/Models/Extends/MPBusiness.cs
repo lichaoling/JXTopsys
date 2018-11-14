@@ -8,7 +8,7 @@ using System.Web;
 namespace JXGIS.JXTopsystem.Models.Extends
 {
     [NotMapped]
-    public class MPBusiness : MPOfCertificate
+    public class MPBusiness : MPOfCertificate, IBaseEntityWithNeighborhoodsID
     {
         public string CountyID { get; set; }
         public string CountyName { get; set; }

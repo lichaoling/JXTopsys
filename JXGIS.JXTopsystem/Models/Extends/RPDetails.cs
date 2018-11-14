@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Extends
@@ -28,6 +29,15 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public List<Pictures> RPBZPhoto { get; set; }
         public List<RPRepair> RepairInfos { get; set; }
 
+        private static PropertyInfo[] props = typeof(RPDetails).GetProperties();
+        public object this[string key]
+        {
+            get
+            {
+                var prop = props.Where(p => p.Name == key).FirstOrDefault();
+                return prop != null ? prop.GetValue(this) : null;
+            }
+        }
     }
     [NotMapped]
     public class RPRepareInfos : RP

@@ -137,6 +137,21 @@ namespace JXGIS.JXTopsystem.Controllers
             }
             return Json(rt);
         }
+        [LoggerFilter(Description = "查看一个行政区划详情")]
+        public JsonResult SearchDistByID(string id)
+        {
+            RtObj rt = null;
+            try
+            {
+                var r = DistrictUtils.SearchDistByID(id);
+                rt = new RtObj(r);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
         [LoggerFilter(Description = "获取所有区县")]
         public JsonResult GetCountys()
         {
@@ -187,6 +202,23 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        [LoggerFilter(Description = "查看地名标志详情")]
+        public ContentResult GetDMBZFromDicByID(int id)
+        {
+            RtObj rt = null;
+            try
+            {
+                var data = DicUtils.GetDMBZFromDicByID(id);
+                rt = new RtObj(data);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        
         [LoggerFilter(Description = "获取地名标志字典表中的门牌类型")]
         public ContentResult GetMPType()
         {
@@ -345,6 +377,22 @@ namespace JXGIS.JXTopsystem.Controllers
             try
             {
                 var result = DicUtils.GetPostcodes(CountyID, NeighborhoodsID, CommunityName);
+                rt = new RtObj(result);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+        [LoggerFilter(Description = "查看邮政编码详情")]
+        public ContentResult GetPostcodeByID(int id)
+        {
+            RtObj rt = null;
+            try
+            {
+                var result = DicUtils.GetPostcodeByID(id);
                 rt = new RtObj(result);
             }
             catch (Exception ex)
@@ -620,6 +668,21 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+        [LoggerFilter(Description = "查看路牌标志详情")]
+        public ContentResult GetRPBZFromDicByID(int id) {
+            RtObj rt = null;
+            try
+            {
+                var datas = DicUtils.GetRPBZFromDicByID(id);
+                rt = new RtObj(datas);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
         [LoggerFilter(Description = "从路牌标志表中获取所有路牌标志中的类型")]
         public ContentResult GetRPCategory()
         {
@@ -864,7 +927,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-        [LoggerFilter(Description = "根据行政区划查询用户")]
+        [LoggerFilter(Description = "获取所有用户列表")]
         public ContentResult SearchUser()
         {
             RtObj rt = null;
@@ -878,16 +941,38 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 rt = new RtObj(ex);
             }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        [LoggerFilter(Description = "根据行政区划获取所有角色")]
-        public ContentResult GetRoles(string DistrictID)
+        [LoggerFilter(Description = "查看用户详情")]
+        public ContentResult SearchUserByID(string id)
         {
             RtObj rt = null;
             try
             {
-                var data = DistrictUtils.GetRoles(DistrictID);
+                var data = DistrictUtils.SearchUserByID(id);
+                rt = new RtObj(data);
+
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
+            return Content(s);
+        }
+
+        [LoggerFilter(Description = "获取所有角色")]
+        public ContentResult GetRoleList()
+        {
+            RtObj rt = null;
+            try
+            {
+                var data = DistrictUtils.GetRoleList();
                 rt = new RtObj(data);
 
             }
@@ -898,6 +983,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+
 
         /// <summary>
         /// 获取GUID

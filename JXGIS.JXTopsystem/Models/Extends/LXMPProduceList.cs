@@ -7,7 +7,7 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Extends
 {
-    public class NotProducedLXMPList
+    public class NotProducedLXMPList: IBaseEntityWithNeighborhoodsID
     {
         public string MPID { get; set; }
         public string CountyID { get; set; }

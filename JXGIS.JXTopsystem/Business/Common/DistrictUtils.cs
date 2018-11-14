@@ -315,6 +315,23 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return data;
             }
         }
+        public static object SearchDistByID(string id)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var rt = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == id).FirstOrDefault();
+                var data = new object();
+                if (rt != null)
+                    data = new
+                    {
+                        ID = rt.ID,
+                        CountyName = !string.IsNullOrEmpty(rt.ID) ? rt.ID.Split('.')[1] : null,
+                        NeighborhoodsName = (rt.ID.Split('.')).Count() > 2 ? rt.ID.Split('.')[2] : null,
+                        Code = rt.Code,
+                    };
+                return data;
+            }
+        }
         public static List<string> GetCountys()
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -384,18 +401,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var userDistrict = dbContext.UserDistrict.Where(t => true);
-
-                if (districtIDs != null && districtIDs.Count > 0 && !districtIDs.Contains("嘉兴市"))
-                {
-                    // 先删选出当前用户权限内的数据
-                    var where = PredicateBuilder.False<SysUser_District>();
-                    foreach (var ID in districtIDs)
-                    {
-                        where = where.Or(t => t.DistrictID.IndexOf(ID + ".") == 0 || t.DistrictID == ID);
-                    }
-                    userDistrict = userDistrict.Where(where);
-                }
+                var userDistrict = BaseUtils.DataFilterWithDist<SysUser_District>(dbContext.UserDistrict);
                 var uids = userDistrict.Select(t => t.UserID).Distinct().ToList();
                 var data = dbContext.SysUser.Where(t => uids.Contains(t.UserID)).Select(t => t.Window).Distinct().ToList();
                 return data;
@@ -410,17 +416,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var userDistrict = dbContext.UserDistrict.Where(t => true);
-                if (districtIDs != null && districtIDs.Count > 0 && !districtIDs.Contains("嘉兴市"))
-                {
-                    // 先删选出当前用户权限内的数据
-                    var where = PredicateBuilder.False<SysUser_District>();
-                    foreach (var ID in districtIDs)
-                    {
-                        where = where.Or(t => t.DistrictID.IndexOf(ID + ".") == 0 || t.DistrictID == ID);
-                    }
-                    userDistrict = userDistrict.Where(where).Distinct();
-                }
+                var userDistrict = BaseUtils.DataFilterWithDist<SysUser_District>(dbContext.UserDistrict);
                 var uids = userDistrict.Select(t => t.UserID).Distinct().ToList();
                 var users = dbContext.SysUser.Where(t => uids.Contains(t.UserID));
                 if (!string.IsNullOrEmpty(window))
@@ -604,7 +600,6 @@ namespace JXGIS.JXTopsystem.Business.Common
                 else //修改
                 {
                     var targetData = dbContext.SysUser.Where(t => t.UserID == sourceData.UserID).FirstOrDefault();
-                    targetData.UserID = Guid.NewGuid().ToString();
                     targetData.UserName = sourceData.UserName;
                     targetData.Password = sourceData.Password;
                     targetData.Name = sourceData.Name;
@@ -655,6 +650,10 @@ namespace JXGIS.JXTopsystem.Business.Common
 
                 var rs = dbContext.UserRole.Where(t => t.UserID == user.UserID).ToList();
                 dbContext.UserRole.RemoveRange(rs);
+                var ds = dbContext.UserDistrict.Where(t => t.UserID == user.UserID).ToList();
+                dbContext.UserDistrict.RemoveRange(ds);
+
+
                 dbContext.SysUser.Remove(u);
                 dbContext.SaveChanges();
             }
@@ -701,15 +700,52 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return sysUserDetails.OrderBy(t => t.DistrictName).ToList();
             }
         }
-        public static List<SysRole> GetRoles(string DistrictID)
+        public static SysUser SearchUserByID(string id)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                //var data = dbContext.SysRole.Where(t => t.DistrictID == DistrictID).ToList();
-                //return data;
-                return null;
+                var user = dbContext.SysUser.Where(t => t.UserID == id).FirstOrDefault();
+
+                var roleids = dbContext.UserRole.Where(t => t.UserID == user.UserID).Select(t => t.RoleID).ToList();
+                var rolesList = dbContext.SysRole.Where(t => roleids.Contains(t.RoleID)).ToList();
+                var districtIDList = dbContext.UserDistrict.Where(t => t.UserID == user.UserID).Select(t => t.DistrictID).Distinct().ToList();
+                var districtName = districtIDList.Select(t => t.Replace('.', '/')).ToList();
+
+                List<SysRole_SysPrivilige> rolePriviliges = new List<Models.Entities.SysRole_SysPrivilige>();
+                foreach (var role in rolesList)
+                {
+                    rolePriviliges.AddRange(dbContext.RolePrivilige.Where(t => t.RoleID == role.RoleID).ToList());
+                }
+
+                SysUser sysUsers = new SysUser()
+                {
+                    UserID = user.UserID,
+                    UserName = user.UserName,
+                    Password = user.Password,
+                    Name = user.Name,
+                    Gender = user.Gender,
+                    Email = user.Email,
+                    Birthday = user.Birthday,
+                    Telephone = user.Telephone,
+                    Window = user.Window,
+                    DistrictName = string.Join("；", districtName),
+                    RoleList = rolesList,
+                    RoleName = string.Join("；", rolesList.Select(t => t.RoleName).ToList()),
+                    DistrictIDList = districtIDList,
+                    PriviligeList = rolePriviliges.Distinct().ToList(),
+                };
+                return sysUsers;
             }
         }
+        public static List<SysRole> GetRoleList()
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var data = dbContext.SysRole.ToList();
+                return data;
+            }
+        }
+
         #endregion
 
 

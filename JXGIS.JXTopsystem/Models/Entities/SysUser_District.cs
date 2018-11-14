@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JXGIS.JXTopsystem.Models.Extends;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Web;
 namespace JXGIS.JXTopsystem.Models.Entities
 {
     [Table("SYSUSER_DISTRICT")]
-    public class SysUser_District
+    public class SysUser_District: IBaseEntityWitDistrictID
     {
         [Key]
         public int IndetityID { get; set; }
