@@ -136,7 +136,7 @@ namespace JXGIS.JXTopsystem.Controllers
             try
             {
                 rt = new RtObj();
-                var RPids = Session["_RPids"] != null ? (List<string>)Session["_RPstartCode"] : new List<string>();
+                var RPids = Session["_RPids"] != null ? (List<string>)Session["_RPids"] : new List<string>();
 
                 string QRFilePath = Path.Combine(FileController.uploadBasePath, FileController.RPQRCodeRelativePath);
                 MemoryStream ms = new MemoryStream();
