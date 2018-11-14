@@ -160,6 +160,8 @@ namespace JXGIS.JXTopsystem.Controllers
                     ms.Position = 0;
                     ms.Read(buffer, 0, buffer.Length);
                 }
+                Session["_RPids"] = null;
+
                 Response.AddHeader("content-disposition", "attachment;filename=二维码" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".zip");
                 Response.BinaryWrite(buffer);
                 Response.Flush();
