@@ -31,6 +31,14 @@ namespace JXGIS.JXTopsystem.Business
             }
         }
 
+        public static OracleDBContext NewOrclEFDbContext
+        {
+            get
+            {
+                return new OracleDBContext();
+            }
+        }
+
         /// <summary>
         /// 调试配置文件地址
         /// </summary>

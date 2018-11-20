@@ -429,10 +429,6 @@ namespace JXGIS.JXTopsystem.Business.Common
         }
 
 
-        #region 权限管理
-
-        #endregion
-
         #region 角色管理
         public static List<DistrictNode> GetDistrictTreeFromRole()
         {
@@ -524,36 +520,66 @@ namespace JXGIS.JXTopsystem.Business.Common
                 dbContext.SaveChanges();
             }
         }
-        public static List<SysRole> SearchRole(string DistrictID)
+        public static List<SysRole> SearchRole()
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                //var query = dbContext.SysRole.Where(t => true);
-                //if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))
-                //{
-                //    query = query.Where(t => t.DistrictID == DistrictID || t.DistrictID.IndexOf(DistrictID + ".") == 0);
-                //}
-                //var data = query.OrderBy(t => t.DistrictID).ToList();
-                //return data;
-                return null;
+                var roles = dbContext.SysRole.ToList();
+                List<SysRole> roleList = new List<SysRole>();
+                foreach (var r in roles)
+                {
+                    SysRole role = new SysRole();
+                    role.RoleID = r.RoleID;
+                    role.RoleName = r.RoleName;
+                    role.RoleDescription = r.RoleDescription;
+
+                    var rolePs = dbContext.RolePrivilige.Where(t => t.RoleID == r.RoleID).ToList();
+                    role.PriviligeNames = string.Join(",", rolePs.Select(t => t.PriviligeName).ToList());
+                    role.PriviligeList = rolePs;
+                    roleList.Add(role);
+                };
+                return roleList;
             }
         }
-        public static List<string> GetWindows()
+        public static SysRole SearchRoleByID(string RoleID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var data = dbContext.SysUser.Select(t => t.Window).Distinct().ToList();
+                var role = dbContext.SysRole.Where(t => t.RoleID == RoleID).FirstOrDefault();
+                if (role != null)
+                {
+                    var rolePs = dbContext.RolePrivilige.Where(t => t.RoleID == role.RoleID).ToList();
+                    role.PriviligeNames = string.Join(",", rolePs.Select(t => t.PriviligeName).ToList());
+                    role.PriviligeList = rolePs;
+                }
+                return role;
+            }
+        }
+        public static List<SysPrivilige> SearchPrivilige()
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var data = dbContext.SysPrivilige.ToList();
                 return data;
             }
         }
-        public static List<string> GetRoleNames()
-        {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                var data = dbContext.SysRole.Select(t => t.RoleName).Distinct().ToList();
-                return data;
-            }
-        }
+
+        //public static List<string> GetWindows()
+        //{
+        //    using (var dbContext = SystemUtils.NewEFDbContext)
+        //    {
+        //        var data = dbContext.SysUser.Select(t => t.Window).Distinct().ToList();
+        //        return data;
+        //    }
+        //}
+        //public static List<string> GetRoleNames()
+        //{
+        //    using (var dbContext = SystemUtils.NewEFDbContext)
+        //    {
+        //        var data = dbContext.SysRole.Select(t => t.RoleName).Distinct().ToList();
+        //        return data;
+        //    }
+        //}
         #endregion
 
         #region 用户管理
@@ -573,7 +599,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     targetData.Email = sourceData.Email;
                     targetData.Birthday = sourceData.Birthday;
                     targetData.Telephone = sourceData.Telephone;
-                    targetData.CreateTime = DateTime.Now.Date;
+                    targetData.CreateTime = DateTime.Now;
                     targetData.CreateUser = LoginUtils.CurrentUser.UserName;
                     dbContext.SysUser.Add(targetData);
 
@@ -607,7 +633,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     targetData.Email = sourceData.Email;
                     targetData.Birthday = sourceData.Birthday;
                     targetData.Telephone = sourceData.Telephone;
-                    targetData.LastModifyTime = DateTime.Now.Date;
+                    targetData.LastModifyTime = DateTime.Now;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
 
                     var userrolesRe = dbContext.UserRole.Where(t => t.UserID == targetData.UserID).ToList();

@@ -139,7 +139,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<LXMPHZ> lxmphzs = new List<LXMPHZ>();
-                var LXProduceID = DateTime.Now.Date.ToString("yyyyMMddhhmmss");
+                var LXProduceID = DateTime.Now.ToString("yyyyMMddhhmmss");
                 foreach (var mp in mpLists)
                 {
                     LXMPHZ lxmphz = new LXMPHZ();
@@ -150,7 +150,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             throw new Exception($"ID为{mp.MPID}门牌已被注销");
                         query.LXProduceID = LXProduceID;
                         query.MPProduceUser = LoginUtils.CurrentUser.UserName;
-                        query.MPProduceTime = DateTime.Now.Date;
+                        query.MPProduceTime = DateTime.Now;
 
                         lxmphz.PlaceName = query.RoadName;
                         lxmphz.MPType = Enums.MPTypeCh.Road;
@@ -165,7 +165,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             throw new Exception($"ID为{mp.MPID}门牌已被注销");
                         query.LXProduceID = LXProduceID;
                         query.MPProduceUser = LoginUtils.CurrentUser.UserName;
-                        query.MPProduceTime = DateTime.Now.Date;
+                        query.MPProduceTime = DateTime.Now;
 
                         lxmphz.PlaceName = query.ViligeName;
                         lxmphz.MPType = Enums.MPTypeCh.Country;
@@ -544,8 +544,8 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<PLMPHZ> plmphzs = new List<PLMPHZ>();
-                var PLProduceID = DateTime.Now.Date.ToString("yyyyMMddhhmmss");
-                var MPProduceTime = DateTime.Now.Date;
+                var PLProduceID = DateTime.Now.ToString("yyyyMMddhhmmss");
+                var MPProduceTime = DateTime.Now;
                 foreach (var mp in mpLists)
                 {
                     if (mp.MPType == Enums.MPTypeCh.Residence)

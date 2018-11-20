@@ -75,7 +75,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     targetData.DZZMPrintComplete = Enums.Complete.NO;
                     targetData.State = Enums.UseState.Enable;
                     targetData.MPMail = targetData.MPMail == null ? Enums.MPMail.No : targetData.MPMail;
-                    targetData.CreateTime = DateTime.Now.Date;
+                    targetData.CreateTime = DateTime.Now;
                     targetData.CreateUser = LoginUtils.CurrentUser.UserName;
                     dbContext.MPOfCountry.Add(targetData);
                 }
@@ -114,7 +114,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     targetData.StandardAddress = StandardAddress;
                     #endregion
                     targetData.MPPosition = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.MPPosition;
-                    targetData.LastModifyTime = DateTime.Now.Date;
+                    targetData.LastModifyTime = DateTime.Now;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     BaseUtils.UpdateAddressCode(null, null, targetData, null, Enums.TypeInt.Country);
                 }
@@ -132,7 +132,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                 foreach (var q in query)
                 {
                     q.State = Enums.UseState.Cancel;
-                    q.CancelTime = DateTime.Now.Date;
+                    q.CancelTime = DateTime.Now;
                     q.CancelUser = LoginUtils.CurrentUser.UserName;
                 }
                 dbContext.SaveChanges();

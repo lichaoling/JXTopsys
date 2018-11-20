@@ -838,13 +838,13 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-        [LoggerFilter(Description = "根据行政区划查询所有权限")]
-        public ContentResult SearchRole(string DistrictID)
+        [LoggerFilter(Description = "查询所有角色")]
+        public ContentResult SearchRole()
         {
             RtObj rt = null;
             try
             {
-                var data = DistrictUtils.SearchRole(DistrictID);
+                var data = DistrictUtils.SearchRole();
                 rt = new RtObj(data);
 
             }
@@ -857,13 +857,13 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        [LoggerFilter(Description = "获取权限表中的所有窗口类型")]
-        public ContentResult GetWindows()
+        [LoggerFilter(Description = "查看某个角色详情")]
+        public ContentResult SearchRoleByID(string RoleID)
         {
             RtObj rt = null;
             try
             {
-                var data = DistrictUtils.GetWindows();
+                var data = DistrictUtils.SearchRoleByID(RoleID);
                 rt = new RtObj(data);
 
             }
@@ -871,16 +871,18 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 rt = new RtObj(ex);
             }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        [LoggerFilter(Description = "获取权限表中的所有角色名称")]
-        public ContentResult GetRoleNames()
+        [LoggerFilter(Description = "查询所有权限")]
+        public ContentResult SearchPrivilige()
         {
             RtObj rt = null;
             try
             {
-                var data = DistrictUtils.GetRoleNames();
+                var data = DistrictUtils.SearchPrivilige();
                 rt = new RtObj(data);
 
             }
@@ -888,9 +890,45 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 rt = new RtObj(ex);
             }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
+        //[LoggerFilter(Description = "获取权限表中的所有窗口类型")]
+        //public ContentResult GetWindows()
+        //{
+        //    RtObj rt = null;
+        //    try
+        //    {
+        //        var data = DistrictUtils.GetWindows();
+        //        rt = new RtObj(data);
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        rt = new RtObj(ex);
+        //    }
+        //    var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+        //    return Content(s);
+        //}
+        //[LoggerFilter(Description = "获取权限表中的所有角色名称")]
+        //public ContentResult GetRoleNames()
+        //{
+        //    RtObj rt = null;
+        //    try
+        //    {
+        //        var data = DistrictUtils.GetRoleNames();
+        //        rt = new RtObj(data);
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        rt = new RtObj(ex);
+        //    }
+        //    var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+        //    return Content(s);
+        //}
         #endregion
 
         [LoggerFilter(Description = "修改用户")]

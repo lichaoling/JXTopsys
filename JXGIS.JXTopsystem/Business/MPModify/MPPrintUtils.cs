@@ -122,7 +122,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         MPOfCertificate mpCertificate = new Models.Entities.MPOfCertificate();
                         mpCertificate.ID = Guid.NewGuid().ToString();
                         mpCertificate.MPID = ID;
-                        mpCertificate.CreateTime = DateTime.Now.Date;
+                        mpCertificate.CreateTime = DateTime.Now;
                         mpCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
                         mpCertificate.MPType = MPType;
                         mpCertificate.CertificateType = Enums.CertificateType.Placename;
@@ -239,7 +239,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         MPOfCertificate mpCertificate = new Models.Entities.MPOfCertificate();
                         mpCertificate.ID = Guid.NewGuid().ToString();
                         mpCertificate.MPID = ID;
-                        mpCertificate.CreateTime = DateTime.Now.Date;
+                        mpCertificate.CreateTime = DateTime.Now;
                         mpCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
                         mpCertificate.MPType = MPType;
                         mpCertificate.CertificateType = Enums.CertificateType.MPZ;
@@ -451,7 +451,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                 {
                     MPOfCertificate mpCertificate = new Models.Entities.MPOfCertificate();
                     var GUID = Guid.NewGuid().ToString();
-                    var CreateTime = DateTime.Now.Date;
+                    var CreateTime = DateTime.Now;
                     mpCertificate.ID = GUID;
                     mpCertificate.MPID = ID;
                     mpCertificate.CreateTime = CreateTime;

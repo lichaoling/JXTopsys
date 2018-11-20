@@ -20,6 +20,9 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string LastModifyUser { get; set; }
 
         [NotMapped]
-        public virtual List<SysPrivilige> PriviligeList { get; set; }
+        public virtual List<SysRole_SysPrivilige> PriviligeList { get; set; }
+        [NotMapped]
+        public virtual string PriviligeNames { get; set; }
+
     }
 }

@@ -26,7 +26,7 @@ namespace JXGIS.JXTopsystem.App_Start
             ///获取你将要执行的Action的域名
             var actionName = HttpContext.Current.Request.RequestContext.RouteData.Values["Action"].ToString();
             var cResult = filterContext.Result as ContentResult;
-            RtObj rt = new Models.Extends.RtObj.RtObj();
+            RtObj rt = null;
             if (cResult != null)
             {
                 var result = cResult.Content;
@@ -39,9 +39,12 @@ namespace JXGIS.JXTopsystem.App_Start
                 systemLog.UserName = LoginUtils.CurrentUser.UserName;
                 systemLog.ActionName = controllerName + "/" + actionName;
                 systemLog.Description = Description;
-                systemLog.OperateResult = rt.ErrorMessage == null ? 1 : 0;
-                systemLog.ErrorMessage = rt.ErrorMessage;
-                systemLog.OperateTime = DateTime.Now.Date;
+                if (rt != null)
+                {
+                    systemLog.OperateResult = rt.ErrorMessage == null ? 1 : 0;
+                    systemLog.ErrorMessage = rt.ErrorMessage;
+                }
+                systemLog.OperateTime = DateTime.Now;
                 dbContext.SystemLog.Add(systemLog);
                 dbContext.SaveChanges();
             }

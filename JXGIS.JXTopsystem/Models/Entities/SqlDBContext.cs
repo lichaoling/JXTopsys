@@ -12,6 +12,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public static string conStr = System.Configuration.ConfigurationManager.ConnectionStrings["TopSystemEntities"].ToString();
         public SqlDBContext() : base(conStr)
         {
+            Database.DefaultConnectionFactory = new System.Data.Entity.Infrastructure.SqlConnectionFactory();
             this.Database.Initialize(false);
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
