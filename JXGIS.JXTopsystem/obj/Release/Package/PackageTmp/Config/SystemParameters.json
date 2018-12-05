@@ -1,0 +1,53 @@
+﻿{
+  "Security": {
+    "PublicKey": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDRGAb3PAMQDYP0pWbdlXiWDDDFeoZ+dRxoJ0+ZwtoqQbE85nH7m7OYejxkyOB3Mj1TH5b+OPmvwX/h9wtsnXtC/PgJBwL71eqCxRkuqh5JEcjU08py7bG/nh2a9T0Udp5fQ38v1m4JSdNo+8pbyr8gsMz+n0ITOMpJdKNgvxEOfwIDAQAB",
+    "PrivateKey": "MIICXAIBAAKBgQDRGAb3PAMQDYP0pWbdlXiWDDDFeoZ+dRxoJ0+ZwtoqQbE85nH7m7OYejxkyOB3Mj1TH5b+OPmvwX/h9wtsnXtC/PgJBwL71eqCxRkuqh5JEcjU08py7bG/nh2a9T0Udp5fQ38v1m4JSdNo+8pbyr8gsMz+n0ITOMpJdKNgvxEOfwIDAQABAoGARAOy0F0/Ccu7rqrW6SEj1nskqjgO47eog+C1reiKGtC/nHXBgfzF0MWCO650BZHcDNvru8pAvgENXi2EE9KuMycs8KYTMGqlW+JCX+holZ73WcEsycwG23AiA5Oabmpz8dsEh/ISlwCvss7rz2mqzRIajkwKNlWEbibygmsm4SECQQD5xYpw4rxASaFPH7fXOZhWVc7LdhgXIOvHSemdZUnzD9bCEx6nsLLsBFsSDkWXt5jF7tTsx9Ck7ez0qEXaVGYJAkEA1k7QHOOG3qTD4Eu4pU16McVMTP0EMrZNBLTbqojGJ/mAncgpaKOHqJcTgGleBGjKvyMKIZ+UEkdKRz6BTqMyRwJAfc1qYltBOBwd3E18ejHvMaT8iGwNzDBvsSvgN7+ZlIwovg2FRi7wn4G+IQUBNl5p21/k7PHje/6+d6f9ru8NiQJAJ88wHY2uagFVWX73Z82Cm2g5Cjwd4YW3vN4TyBPsK1TPrX+XIZbvBkQ6HSp1ioAk2Wia4zAPg222wJE91+u81QJBAKpfnsEseGn7Q7Kuu7y7RWPewteXnHuS/qZtW8qWCUWYU9rIZQhpcHmWgqsIscmz9Hyo4e3KV2mUdLqPZvJmC6c="
+  },
+  "MPCategory": {
+    "Residence": 1,
+    "Road": 2,
+    "Country": 3
+  },
+  "ArchiveFilesPara": {
+    "servicecode": {
+      "dmhz": "1828b0c3-58ff-42db-b44e-36794077a247",
+      "cjyj": "7f61a031-4396-4860-ae3c-7b5699c53813",
+      "mpzm": "c4eafb90-07d7-4f44-b27d-b009ee0e22dd",
+      "dmzm": "93D71973169B44C81D3949B0415C7F93"
+    },
+    "servicename": {
+      "dmhz": "地名核准（地名预命名、命名、更名、销名）",
+      "cjyj": "对具有地名意义的专业设施名称出具意见",
+      "mpzm": "编制、变更、撤销门（楼）牌号码，核发门牌证（门牌证明）",
+      "dmzm": "地名证明"
+    },
+    "deptname": {
+      "smzj": "市民政局（市委社工办）",
+      "nhqmzj": "南湖区民政局",
+      "xzqmzj": "秀洲区民政局",
+      "hnsmzj": "海宁市民政局",
+      "phsmzj": "平湖市民政局",
+      "txsmzj": "桐乡市民政局",
+      "jsxmzj": "嘉善县民政局",
+      "hyxmzj": "海盐县民政局",
+      "sdmb": "地名委员会办公室"
+    },
+    "deptid": {
+      "nhqmzj": "001008004001009",
+      "xzqmzj": "001008004002010",
+      "hnsmzj": "001008004003009",
+      "phsmzj": "001008004004007",
+      "txsmzj": "001008004005008",
+      "jsxmzj": "001008004006008",
+      "hyxmzj": "001008004007008",
+      "smzj": "001008004008008",
+      "sdmb": "001008004008008005"
+    },
+     "servicetype": {
+      "bj": "办件",
+      "cnj": "承诺件",
+      "qt": "其他"
+    },
+  }
+
+}

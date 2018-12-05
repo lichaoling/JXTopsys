@@ -1060,13 +1060,8 @@
     <Content Include="Files\UploadFiles\道路门牌上传模板.xlsx" />
     <Content Include="Views\Common\Index.cshtml" />
     <Content Include="Files\DZZMandMPZTemplate\地址证明模板.docx" />
-    <Content Include="Files\DZZMandMPZTemplate\Temp\0053952d-c31a-4b9b-9e2b-b0122aa0b31a.pdf" />
-    <Content Include="Files\DZZMandMPZTemplate\Temp\1.pdf" />
-    <Content Include="Files\DZZMandMPZTemplate\Temp\2.pdf" />
-    <Content Include="Files\DZZMandMPZTemplate\Temp\3.pdf" />
-    <Content Include="Files\DZZMandMPZTemplate\Temp\4.pdf" />
-    <Content Include="Files\DZZMandMPZTemplate\Temp\5.pdf" />
     <Content Include="Files\DZZMandMPZTemplate\门牌证模板.docx" />
+    <None Include="Properties\PublishProfiles\JXToposys.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1082,6 +1077,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\DZZMandMPZTemplate\Merge\" />
+    <Folder Include="Files\DZZMandMPZTemplate\Temp\" />
     <Folder Include="Files\RP\QRCode\" />
     <Folder Include="Lib\" />
   </ItemGroup>
