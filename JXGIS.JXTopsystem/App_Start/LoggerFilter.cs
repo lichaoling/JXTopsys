@@ -35,8 +35,13 @@ namespace JXGIS.JXTopsystem.App_Start
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 SystemLog systemLog = new SystemLog();
-                systemLog.UserID = LoginUtils.CurrentUser.UserID;
-                systemLog.UserName = LoginUtils.CurrentUser.UserName;
+                var user = LoginUtils.CurrentUser;
+                if (user != null)
+                {
+                    systemLog.UserID = user.UserID;
+                    systemLog.UserName = user.UserName;
+                }
+
                 systemLog.ActionName = controllerName + "/" + actionName;
                 systemLog.Description = Description;
                 if (rt != null)

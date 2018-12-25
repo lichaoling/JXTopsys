@@ -77,10 +77,11 @@ namespace JXGIS.JXTopsystem.Business
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static string MD5Encrypt(string text)
+        public static string MD5Encrypt(string text, bool upper = false)
         {
+            var x = upper ? "X" : "x";
             byte[] bytes = SecurityUtils.MD5.ComputeHash(Encoding.UTF8.GetBytes(text));
-            return Convert.ToBase64String(bytes);
+            return string.Join(string.Empty, (from b in bytes select b.ToString(x)).ToList());
         }
 
         /// <summary>

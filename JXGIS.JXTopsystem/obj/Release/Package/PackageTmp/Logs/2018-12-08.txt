@@ -1,0 +1,893 @@
+=======2018/12/8 星期六 14:35:21
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:22
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:23
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:24
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:24
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:24
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:25
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:30
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:35:32
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:33
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:35:33
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:35
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:37
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:40
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:44
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:44
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:45
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:49
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:51
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:35:53
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:35:54
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:35:56
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:57
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:57
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:57
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:58
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:35:59
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:36:00
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:00
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:36:01
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:02
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:05
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:07
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:10
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:11
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:14
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:14
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:16
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:20
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:22
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:25
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:26
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:26
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:27
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:27
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:29
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:30
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:30
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:31
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:31
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:32
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:32
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:33
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:35
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:37
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:38
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:38
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:39
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:39
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:40
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:41
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:45
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:46
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:36:46
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:48
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:48
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:49
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:53
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:55
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:56
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:56
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:57
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:57
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:58
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:58
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:36:59
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:01
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:02
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:04
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:04
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:10
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:37:12
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:14
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:37:15
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:15
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:16
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:16
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:37:19
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:21
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:23
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:23
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:37:26
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:27
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:28
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:37:30
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:30
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:32
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:37:34
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:34
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:34
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:37
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:37
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:38
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:39
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:40
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:40
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:42
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:43
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:44
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:46
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:47
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:48
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:48
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:49
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:50
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:50
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:50
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:51
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:51
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:52
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:57
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:58
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:58
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:37:59
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:38:01
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:03
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:38:07
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:07
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:38:09
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:16
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:16
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 58
+=======2018/12/8 星期六 14:38:17
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:18
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:19
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:20
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:20
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:21
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:22
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:25
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:25
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:26
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:26
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:28
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:28
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:28
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:29
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:29
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 14:38:32
+|Message:GDI+ 中发生一般性错误。
+|StackTrace:   在 System.Drawing.Image.Save(String filename, ImageCodecInfo encoder, EncoderParameters encoderParams)
+   在 System.Drawing.Image.Save(String filename, ImageFormat format)
+   在 System.Drawing.Image.Save(String filename)
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 56
+=======2018/12/8 星期六 15:39:15
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.BaseUtils.DataFilterWithTown[T](IQueryable`1 entity) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\Common\BaseUtils.cs:行号 275
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Nullable`1 startCode, Nullable`1 endCode, Int32 UseState) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\RPSearch\RPSearchUtils.cs:行号 26
+   在 JXGIS.JXTopsystem.Controllers.RPSearchController.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String RoadName, String Intersection, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Nullable`1 startCode, Nullable`1 endCode, Int32 UseState) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\RPSearchController.cs:行号 25

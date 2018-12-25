@@ -11,11 +11,70 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
-        public ActionResult Index()
+
+        public static string userName = System.Configuration.ConfigurationManager.AppSettings["username"];
+        public static string password = System.Configuration.ConfigurationManager.AppSettings["password"];
+
+        public ActionResult Test()
         {
-            return View();
+            var s = SecurityUtils.MD5Encrypt("@123456");
+            var key = "12abcdef";
+            var x = SecurityUtils.DESEncryt("哈哈哈哈", key);
+            x = SecurityUtils.DESDecrypt(x, key);
+
+            x = SecurityUtils.RSAEncrypt(x);
+            x = SecurityUtils.RSADecrypt(x);
+
+            return null;
         }
+
+        public ContentResult LoginTmp(string userName, string password)
+        {
+            Dictionary<string, object> rt = new Dictionary<string, object>();
+            try
+            {
+                if (!(userName == LoginController.userName && password == LoginController.password))
+                {
+                    throw new Error("输入的用户名或密码有误");
+                }
+                SysUser user = new SysUser()
+                {
+                    UserName = "测试用户",
+                    UserID = userName,
+                    DistrictIDList = new List<string>() { "嘉兴市" },
+                    Window = "地名办公室"
+                };
+                LoginUtils.CurrentUser = user;
+                rt.Add("Data", user);
+            }
+            catch (Exception ex)
+            {
+                rt.Add("ErrorMessage", ex.Message);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+
+        public ContentResult GetCurrentUserTmp()
+        {
+            RtObj rt = null;
+            try
+            {
+                var user = LoginUtils.CurrentUser as SysUser;
+                rt = new RtObj();
+                if (user != null)
+                {
+                    rt.Data = user;
+                }
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+
 
         public ContentResult Login(string userName, string password, string securityCode)
         {

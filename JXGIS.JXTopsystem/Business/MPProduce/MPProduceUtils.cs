@@ -3,6 +3,7 @@ using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -228,10 +229,10 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var mpOfRoad =BaseUtils.DataFilterWithTown<MPOfRoad>( dbContext.MPOfRoad);
-                var mpOfResidence = BaseUtils.DataFilterWithTown<MPOfResidence>(dbContext.MPOfResidence); 
-                var mpOfCountry = BaseUtils.DataFilterWithTown<MPOfCountry>(dbContext.MPOfCountry); 
-                               
+                var mpOfRoad = BaseUtils.DataFilterWithTown<MPOfRoad>(dbContext.MPOfRoad);
+                var mpOfResidence = BaseUtils.DataFilterWithTown<MPOfResidence>(dbContext.MPOfResidence);
+                var mpOfCountry = BaseUtils.DataFilterWithTown<MPOfCountry>(dbContext.MPOfCountry);
+
                 int count = 0;
                 var all = (from t in mpOfRoad
                            where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
@@ -562,7 +563,11 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         foreach (var PlaceName in PlaceNames)
                         {
                             var plmphz = new PLMPHZ();
+                            plmphz.type = Enums.MPTypeCh.Residence;
                             plmphz.PlaceName = PlaceName;
+                            plmphz.SBDW = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.SBDW).FirstOrDefault();
+                            plmphz.Postcode = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.Postcode).FirstOrDefault();
+                            plmphz.CountryName = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.Postcode).FirstOrDefault().Split('.').Last();
 
                             plmphz.LZP = (from t in query
                                           where t.ResidenceName == PlaceName
@@ -596,6 +601,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                           }).ToList();
                             plmphzs.Add(plmphz);
                         }
+                      
                     }
                     else if (mp.MPType == Enums.MPTypeCh.Road)
                     {
@@ -610,8 +616,8 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         foreach (var PlaceName in PlaceNames)
                         {
                             var plmphz = new PLMPHZ();
+                            plmphz.type = Enums.MPTypeCh.Road;
                             plmphz.PlaceName = PlaceName;
-
                             plmphz.DLP = (from t in query
                                           where t.RoadName == PlaceName
                                           group t by t.MPNumber into g
@@ -638,8 +644,8 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         foreach (var PlaceName in PlaceNames)
                         {
                             var plmphz = new PLMPHZ();
+                            plmphz.type = Enums.MPTypeCh.Country;
                             plmphz.PlaceName = PlaceName;
-
                             plmphz.NCP = (from t in query
                                           where t.ViligeName == PlaceName
                                           group t by t.MPNumber into g
@@ -653,6 +659,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     }
                     dbContext.SaveChanges();
                 }
+                CreateTabToWord(plmphzs);
                 return plmphzs;
             }
         }
@@ -669,6 +676,9 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         var plmphz = new PLMPHZ();
                         plmphz.PlaceName = PlaceName;
+                        plmphz.SBDW = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.SBDW).FirstOrDefault();
+                        plmphz.Postcode = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.Postcode).FirstOrDefault();
+                        plmphz.CountryName = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.Postcode).FirstOrDefault().Split('.').Last();
 
                         plmphz.LZP = (from t in query
                                       where t.ResidenceName == PlaceName
@@ -748,11 +758,379 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 return plmphzs;
             }
         }
+
+
+        public static void CreateTabToWord(List<PLMPHZ> plMPHZ)
+        {
+            Microsoft.Office.Interop.Word.Application app = null;
+            Microsoft.Office.Interop.Word.Document doc = null;
+            try
+            {
+                var dataCount = 0;
+                foreach (var plmp in plMPHZ)
+                {
+                    if (plmp.type == Enums.MPTypeCh.Residence)
+                    {
+                        var max = Math.Max(plmp.LZP.Count(), plmp.DYP.Count());
+                        max = Math.Max(max, plmp.HSP.Count());
+                        dataCount += max;
+                    }
+                    else if (plmp.type == Enums.MPTypeCh.Road)
+                    {
+                        dataCount += plmp.DLP.Count();
+                    }
+                    else if (plmp.type == Enums.MPTypeCh.Country)
+                    {
+                        dataCount += plmp.NCP.Count();
+                    }
+                }
+
+                int rows = dataCount + 2;
+                int cols = 12;//表格列数
+                object oMissing = System.Reflection.Missing.Value;
+                app = new Microsoft.Office.Interop.Word.Application();//创建word应用程序
+                doc = app.Documents.Add();//添加一个word文档
+
+                //输出大标题加粗加大字号水平居中
+                app.Selection.Font.Bold = 700;
+                app.Selection.Font.Size = 16;
+                app.Selection.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                app.Selection.Text = $"嘉兴市{string.Join("、", plMPHZ.Select(t => t.CountryName).ToList())}批量门牌汇总表";
+                object line = Microsoft.Office.Interop.Word.WdUnits.wdLine;
+                app.Selection.MoveDown(ref line, oMissing, oMissing);
+                app.Selection.TypeParagraph();//换行
+                app.Selection.Font.Size = 12;
+                app.Selection.Text = $"申报单位：{string.Join("、", plMPHZ.Select(t => t.SBDW).ToList())}    邮政编码：{string.Join("、", plMPHZ.Select(t => t.Postcode).ToList())}";
+
+
+                //换行添加表格
+                app.Selection.MoveDown(ref line, oMissing, oMissing);
+                app.Selection.TypeParagraph();//换行
+                Microsoft.Office.Interop.Word.Range range = app.Selection.Range;
+                Microsoft.Office.Interop.Word.Table table = app.Selection.Tables.Add(range, rows, cols, ref oMissing, ref oMissing)
+
+                //设置表格的字体大小粗细
+                table.Range.Font.Size = 10;
+                table.Range.Font.Bold = 0;
+                table.Borders.Enable = 1;
+
+                //设置表格标题
+                int rowIndex = 1;
+                table.Cell(rowIndex, 1).Merge(table.Cell(rowIndex + 1, 1));
+                table.Cell(rowIndex, 1).Range.Text = "标准名称";
+                table.Cell(rowIndex, 1).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 2).Merge(table.Cell(rowIndex, 2 + 1));
+                table.Cell(rowIndex, 2).Range.Text = "幢牌";
+                table.Cell(rowIndex, 2).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 3).Merge(table.Cell(rowIndex, 3 + 1));
+                table.Cell(rowIndex, 3).Range.Text = "单元牌";
+                table.Cell(rowIndex, 3).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 4).Merge(table.Cell(rowIndex, 4 + 1));
+                table.Cell(rowIndex, 4).Range.Text = "户室牌";
+                table.Cell(rowIndex, 4).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 5).Merge(table.Cell(rowIndex, 5 + 2));
+                table.Cell(rowIndex, 5).Range.Text = "道路门牌";
+                table.Cell(rowIndex, 5).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 6).Merge(table.Cell(rowIndex, 6 + 1));
+                table.Cell(rowIndex, 6).Range.Text = "农村门牌";
+                table.Cell(rowIndex, 6).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+
+                rowIndex++;
+                table.Cell(rowIndex, 2).Range.Text = "幢号";
+                table.Cell(rowIndex, 3).Range.Text = "数量";
+                table.Cell(rowIndex, 4).Range.Text = "单元号";
+                table.Cell(rowIndex, 5).Range.Text = "数量";
+                table.Cell(rowIndex, 6).Range.Text = "户室号";
+                table.Cell(rowIndex, 7).Range.Text = "数量";
+                table.Cell(rowIndex, 8).Range.Text = "门牌号";
+                table.Cell(rowIndex, 9).Range.Text = "规格（CM）";
+                table.Cell(rowIndex, 10).Range.Text = "数量";
+                table.Cell(rowIndex, 11).Range.Text = "门牌号";
+                table.Cell(rowIndex, 12).Range.Text = "数量";
+
+
+                rowIndex++;
+                foreach (var plmp in plMPHZ)
+                {
+                    if (plmp.type == Enums.MPTypeCh.Residence)
+                    {
+                        var max = Math.Max(plmp.LZP.Count(), plmp.DYP.Count());
+                        max = Math.Max(max, plmp.HSP.Count());
+                        table.Cell(rowIndex, 1).Merge(table.Cell(rowIndex + max, 1));
+                        table.Cell(rowIndex, 1).Range.Text = plmp.PlaceName;
+                        table.Cell(rowIndex, 1).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                        var lzRow = 0;
+                        foreach (var lz in plmp.LZP)
+                        {
+                            table.Cell(rowIndex + lzRow, 2).Range.Text = lz.Number;
+                            table.Cell(rowIndex + lzRow, 3).Range.Text = lz.Count.ToString();
+                            lzRow++;
+                        }
+
+                        var dyRow = 0;
+                        foreach (var dy in plmp.DYP)
+                        {
+                            table.Cell(rowIndex + dyRow, 4).Range.Text = dy.Number;
+                            table.Cell(rowIndex + dyRow, 5).Range.Text = dy.Count.ToString();
+                            dyRow++;
+                        }
+
+                        var hsRow = 0;
+                        foreach (var hs in plmp.DYP)
+                        {
+                            table.Cell(rowIndex + hsRow, 6).Range.Text = hs.Number;
+                            table.Cell(rowIndex + hsRow, 7).Range.Text = hs.Count.ToString();
+                            hsRow++;
+                        }
+                    }
+
+                    else if (plmp.type == Enums.MPTypeCh.Road)
+                    {
+                        var max = plmp.DLP.Count();
+                        table.Cell(rowIndex, 1).Merge(table.Cell(rowIndex + max, 1));
+                        table.Cell(rowIndex, 1).Range.Text = plmp.PlaceName;
+                        table.Cell(rowIndex, 1).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                        var dlRow = 0;
+                        foreach (var dl in plmp.DLP)
+                        {
+                            table.Cell(rowIndex + dlRow, 8).Range.Text = dl.Number;
+                            table.Cell(rowIndex + dlRow, 9).Range.Text = dl.MPSize;
+                            table.Cell(rowIndex + dlRow, 10).Range.Text = dl.Count.ToString();
+                            dlRow++;
+                        }
+                    }
+                    else if (plmp.type == Enums.MPTypeCh.Country)
+                    {
+                        var max = plmp.NCP.Count();
+                        table.Cell(rowIndex, 1).Merge(table.Cell(rowIndex + max, 1));
+                        table.Cell(rowIndex, 1).Range.Text = plmp.PlaceName;
+                        table.Cell(rowIndex, 1).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                        var dlRow = 0;
+                        foreach (var nc in plmp.NCP)
+                        {
+                            table.Cell(rowIndex + dlRow, 11).Range.Text = nc.Number;
+                            table.Cell(rowIndex + dlRow, 12).Range.Text = nc.Count.ToString();
+                            dlRow++;
+                        }
+                    }
+                }
+                //导出到文件
+                string newFile = DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc";
+                string physicNewFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files", "MPProduce");
+                doc.SaveAs(physicNewFile,
+                oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing,
+                oMissing, oMissing, oMissing, oMissing, oMissing, oMissing);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (doc != null)
+                {
+                    doc.Close();//关闭文档
+                }
+                if (app != null)
+                {
+                    app.Quit();//退出应用程序
+                }
+            }
+        }
+        public static void CreateTabToWord2()
+        {
+            Microsoft.Office.Interop.Word.Application app = null;
+            Microsoft.Office.Interop.Word.Document doc = null;
+            try
+            {
+                int rows = 10 + 2;
+                int cols = 12;//表格列数
+                object oMissing = System.Reflection.Missing.Value;
+                app = new Microsoft.Office.Interop.Word.Application();//创建word应用程序
+                doc = app.Documents.Add();//添加一个word文档
+
+                //输出大标题加粗加大字号水平居中
+                app.Selection.Font.Bold = 700;
+                app.Selection.Font.Size = 16;
+                app.Selection.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                app.Selection.Text = $"嘉兴市批量门牌汇总表";
+                object line = Microsoft.Office.Interop.Word.WdUnits.wdLine;
+                app.Selection.MoveDown(ref line, oMissing, oMissing);
+                app.Selection.TypeParagraph();//换行
+                app.Selection.Font.Size = 12;
+                app.Selection.Text = $"申报单位：                         邮政编码：";
+
+                //换行添加表格
+                app.Selection.MoveDown(ref line, oMissing, oMissing);
+                app.Selection.TypeParagraph();//换行
+                app.Selection.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Microsoft.Office.Interop.Word.Range range = app.Selection.Range;
+                Microsoft.Office.Interop.Word.Table table = app.Selection.Tables.Add(range, rows, cols, ref oMissing, ref oMissing);
+
+                //设置表格的字体大小粗细
+                table.Range.Font.Size = 10;
+                table.Range.Font.Bold = 0;
+                table.Borders.Enable = 1;
+
+
+                //设置表格标题
+                int rowIndex = 1;
+                table.Cell(rowIndex, 1).Merge(table.Cell(rowIndex + 1, 1));//合并班级
+                table.Cell(rowIndex, 1).Range.Text = "标准名称";
+                table.Cell(rowIndex, 1).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 2).Merge(table.Cell(rowIndex, 2 + 1));//合并班级
+                table.Cell(rowIndex, 2).Range.Text = "幢牌";
+                table.Cell(rowIndex, 2).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 3).Merge(table.Cell(rowIndex, 3 + 1));//合并班级
+                table.Cell(rowIndex, 3).Range.Text = "单元牌";
+                table.Cell(rowIndex, 3).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 4).Merge(table.Cell(rowIndex, 4 + 1));//合并班级
+                table.Cell(rowIndex, 4).Range.Text = "户室牌";
+                table.Cell(rowIndex, 4).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 5).Merge(table.Cell(rowIndex, 5 + 2));//合并班级
+                table.Cell(rowIndex, 5).Range.Text = "道路门牌";
+                table.Cell(rowIndex, 5).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 6).Merge(table.Cell(rowIndex, 6 + 1));//合并班级
+                table.Cell(rowIndex, 6).Range.Text = "农村门牌";
+                table.Cell(rowIndex, 6).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                rowIndex++;
+                table.Cell(rowIndex, 2).Range.Text = "幢号";
+                table.Cell(rowIndex, 3).Range.Text = "数量";
+                table.Cell(rowIndex, 4).Range.Text = "单元号";
+                table.Cell(rowIndex, 5).Range.Text = "数量";
+                table.Cell(rowIndex, 6).Range.Text = "户室号";
+                table.Cell(rowIndex, 7).Range.Text = "数量";
+                table.Cell(rowIndex, 8).Range.Text = "门牌号";
+                table.Cell(rowIndex, 9).Range.Text = "规格（CM）";
+                table.Cell(rowIndex, 10).Range.Text = "数量";
+                table.Cell(rowIndex, 11).Range.Text = "门牌号";
+                table.Cell(rowIndex, 12).Range.Text = "数量";
+
+                //导出到文件
+                string newFile = DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc";
+                var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files", "MPProduce");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                string physicNewFile = Path.Combine(path, newFile);
+                doc.SaveAs(physicNewFile,
+                oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing,
+                oMissing, oMissing, oMissing, oMissing, oMissing, oMissing);
+
+                ////构造数据
+                //List<Student> datas = new List<Student>();
+                //datas.Add(new Student { Leader = "小李", Name = "张三", Score = 498, StuClass = "一班" });
+                //datas.Add(new Student { Leader = "陈飞", Name = "李四", Score = 354, StuClass = "二班" });
+                //datas.Add(new Student { Leader = "陈飞", Name = "小红", Score = 502, StuClass = "二班" });
+                //datas.Add(new Student { Leader = "王林", Name = "丁爽", Score = 566, StuClass = "三班" });
+                //var cate = datas.GroupBy(s => s.StuClass);
+
+                //int rows = datas.Count + 1;
+                //int cols = 5;//表格列数
+                //object oMissing = System.Reflection.Missing.Value;
+                //app = new Microsoft.Office.Interop.Word.Application();//创建word应用程序
+                //doc = app.Documents.Add();//添加一个word文档
+
+                ////输出大标题加粗加大字号水平居中
+                //app.Selection.Font.Bold = 700;
+                //app.Selection.Font.Size = 16;
+                //app.Selection.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                //app.Selection.Text = "班级成绩统计单";
+
+                ////换行添加表格
+                //object line = Microsoft.Office.Interop.Word.WdUnits.wdLine;
+                //app.Selection.MoveDown(ref line, oMissing, oMissing);
+                //app.Selection.TypeParagraph();//换行
+                //Microsoft.Office.Interop.Word.Range range = app.Selection.Range;
+                //Microsoft.Office.Interop.Word.Table table = app.Selection.Tables.Add(range, rows, cols, ref oMissing, ref oMissing);
+
+                ////设置表格的字体大小粗细
+                //table.Range.Font.Size = 10;
+                //table.Range.Font.Bold = 0;
+
+                ////设置表格标题
+                //int rowIndex = 1;
+                //table.Cell(rowIndex, 1).Range.Text = "班级";
+                //table.Cell(rowIndex, 2).Range.Text = "姓名";
+                //table.Cell(rowIndex, 3).Range.Text = "成绩";
+                //table.Cell(rowIndex, 4).Range.Text = "人数";
+                //table.Cell(rowIndex, 5).Range.Text = "班主任";
+
+                ////循环数据创建数据行
+                //rowIndex++;
+                //foreach (var i in cate)
+                //{
+                //    int moveCount = i.Count() - 1;//纵向合并行数
+                //    if (moveCount.ToString() != "0")
+                //    {
+                //        table.Cell(rowIndex, 1).Merge(table.Cell(rowIndex + moveCount, 1));//合并班级
+                //        table.Cell(rowIndex, 4).Merge(table.Cell(rowIndex + moveCount, 4));//合并人数
+                //        table.Cell(rowIndex, 5).Merge(table.Cell(rowIndex + moveCount, 5));//合并班主任
+                //    }
+                //    //写入合并的数据并垂直居中
+                //    table.Cell(rowIndex, 1).Range.Text = i.Key;
+                //    table.Cell(rowIndex, 4).Range.Text = i.Count().ToString();
+                //    table.Cell(rowIndex, 5).Range.Text = i.First().Leader;
+                //    table.Cell(rowIndex, 1).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                //    table.Cell(rowIndex, 4).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                //    table.Cell(rowIndex, 5).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                //    //构建姓名，成绩数据
+                //    foreach (var x in i)
+                //    {
+                //        table.Cell(rowIndex, 2).Range.Text = x.Name;
+                //        table.Cell(rowIndex, 3).Range.Text = x.Score.ToString();
+                //        rowIndex++;
+                //    }
+                //}
+                ////导出到文件
+                //string newFile = DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc";
+                //string physicNewFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files", "MPProduce");
+                //doc.SaveAs(physicNewFile,
+                //oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing,
+                //oMissing, oMissing, oMissing, oMissing, oMissing, oMissing);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (doc != null)
+                {
+                    doc.Close();//关闭文档
+                }
+                if (app != null)
+                {
+                    app.Quit();//退出应用程序
+                }
+            }
+        }
     }
 }
+
 public class PLMPHZ
 {
+    public string type { get; set; }
+    public string CountryName { get; set; }
     public string PlaceName { get; set; }
+    public string SBDW { get; set; }
+    public string Postcode { get; set; }
     public List<PLMPSL> LZP { get; set; }
     public List<PLMPSL> DYP { get; set; }
     public List<PLMPSL> HSP { get; set; }
@@ -773,4 +1151,12 @@ public class LXMPHZ
     public string MPNumber { get; set; }
     public string Postcode { get; set; }
     public int Count { get; set; }
+}
+
+public class Student
+{
+    public string Name;//姓名
+    public int Score;//成绩
+    public string StuClass;//班级
+    public string Leader;//班主任
 }

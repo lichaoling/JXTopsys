@@ -34,7 +34,7 @@
       <publishTime>01/22/2018 18:40:38</publishTime>
     </File>
     <File Include="bin/JXGIS.JXTopsystem.dll">
-      <publishTime>11/21/2018 10:08:19</publishTime>
+      <publishTime>12/17/2018 12:36:09</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>12/07/2015 19:04:38</publishTime>
@@ -59,6 +59,9 @@
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>06/15/2015 02:06:24</publishTime>
+    </File>
+    <File Include="bin/Microsoft.SqlServer.Types.dll">
+      <publishTime>10/20/2011 12:34:00</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>04/23/2012 15:23:58</publishTime>
@@ -110,6 +113,18 @@
     </File>
     <File Include="bin/roslyn/VBCSCompiler.exe.config">
       <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/SqlServerTypes/x64/msvcr120.dll">
+      <publishTime>12/08/2018 15:53:49</publishTime>
+    </File>
+    <File Include="bin/SqlServerTypes/x64/SqlServerSpatial140.dll">
+      <publishTime>12/08/2018 15:53:49</publishTime>
+    </File>
+    <File Include="bin/SqlServerTypes/x86/msvcr120.dll">
+      <publishTime>12/08/2018 15:53:49</publishTime>
+    </File>
+    <File Include="bin/SqlServerTypes/x86/SqlServerSpatial140.dll">
+      <publishTime>12/08/2018 15:53:49</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>01/28/2015 04:02:42</publishTime>
@@ -170,6 +185,102 @@
     </File>
     <File Include="Files/DZZMandMPZTemplate/门牌证模板.png">
       <publishTime>10/13/2018 08:46:18</publishTime>
+    </File>
+    <File Include="Files/MP/Residence/9103a757-d22a-4108-8f3c-56af5c1acdac/10387e0d-9062-48a0-b661-f16830c04d01.png">
+      <publishTime>11/01/2018 20:25:47</publishTime>
+    </File>
+    <File Include="Files/MP/Residence/9103a757-d22a-4108-8f3c-56af5c1acdac/8a9f3a31-f69e-4c42-a0b2-9859304f3907.png">
+      <publishTime>11/01/2018 20:25:53</publishTime>
+    </File>
+    <File Include="Files/MP/Residence/9103a757-d22a-4108-8f3c-56af5c1acdac/a1ed8213-6308-4a00-8758-672eac471384.png">
+      <publishTime>11/01/2018 20:25:33</publishTime>
+    </File>
+    <File Include="Files/MP/Residence/9103a757-d22a-4108-8f3c-56af5c1acdac/t-10387e0d-9062-48a0-b661-f16830c04d01.png">
+      <publishTime>11/01/2018 20:25:47</publishTime>
+    </File>
+    <File Include="Files/MP/Residence/9103a757-d22a-4108-8f3c-56af5c1acdac/t-8a9f3a31-f69e-4c42-a0b2-9859304f3907.png">
+      <publishTime>11/01/2018 20:25:53</publishTime>
+    </File>
+    <File Include="Files/MP/Residence/9103a757-d22a-4108-8f3c-56af5c1acdac/t-a1ed8213-6308-4a00-8758-672eac471384.png">
+      <publishTime>11/01/2018 20:25:33</publishTime>
+    </File>
+    <File Include="Files/RP/BZPhoto/aa1bc4e2-43a4-4d3d-88fb-147a6ddd90ba/4b81054c-bd57-4440-997c-3d947b8d09fe.png">
+      <publishTime>11/01/2018 23:59:17</publishTime>
+    </File>
+    <File Include="Files/RP/BZPhoto/aa1bc4e2-43a4-4d3d-88fb-147a6ddd90ba/t-4b81054c-bd57-4440-997c-3d947b8d09fe.png">
+      <publishTime>11/01/2018 23:59:17</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/160004d9-c009-4f7d-b57a-1d4021be0029/维修前/acb2973a-f77b-4173-9a8c-1240d1de0d6a.png">
+      <publishTime>11/01/2018 19:55:22</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/160004d9-c009-4f7d-b57a-1d4021be0029/维修前/t-acb2973a-f77b-4173-9a8c-1240d1de0d6a.png">
+      <publishTime>11/01/2018 19:55:25</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/160004d9-c009-4f7d-b57a-1d4021be0029/维修后/8f693284-7fba-4629-b39f-9ac5bbd418f7.png">
+      <publishTime>11/01/2018 19:56:58</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/160004d9-c009-4f7d-b57a-1d4021be0029/维修后/t-8f693284-7fba-4629-b39f-9ac5bbd418f7.png">
+      <publishTime>11/01/2018 19:56:58</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/552a2b17-f548-49b5-b2ad-106ee9cb6ec9/维修前/1f541dbb-740d-42cd-b704-9eb0469bd215.png">
+      <publishTime>10/31/2018 15:25:10</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/552a2b17-f548-49b5-b2ad-106ee9cb6ec9/维修前/b834b246-10e1-438d-8de7-ee036dc1caa6.png">
+      <publishTime>10/31/2018 15:25:29</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/552a2b17-f548-49b5-b2ad-106ee9cb6ec9/维修前/t-1f541dbb-740d-42cd-b704-9eb0469bd215.png">
+      <publishTime>10/31/2018 15:25:10</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/552a2b17-f548-49b5-b2ad-106ee9cb6ec9/维修前/t-b834b246-10e1-438d-8de7-ee036dc1caa6.png">
+      <publishTime>10/31/2018 15:25:29</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/552a2b17-f548-49b5-b2ad-106ee9cb6ec9/维修后/0a68bc92-1d05-4712-9f4c-84fe05f557a7.png">
+      <publishTime>10/31/2018 15:25:34</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/552a2b17-f548-49b5-b2ad-106ee9cb6ec9/维修后/1650bb02-8ed1-4f00-acc9-ad7e84555c3d.png">
+      <publishTime>10/31/2018 15:25:22</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/552a2b17-f548-49b5-b2ad-106ee9cb6ec9/维修后/t-0a68bc92-1d05-4712-9f4c-84fe05f557a7.png">
+      <publishTime>10/31/2018 15:25:34</publishTime>
+    </File>
+    <File Include="Files/RP/RepairPhoto/552a2b17-f548-49b5-b2ad-106ee9cb6ec9/维修后/t-1650bb02-8ed1-4f00-acc9-ad7e84555c3d.png">
+      <publishTime>10/31/2018 15:25:22</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/747cf332-7cc3-4b96-a0f1-b931e1811df8/维修前/030a97fa-f881-42bc-9a0f-0eeb2b47f638.png">
+      <publishTime>11/01/2018 23:50:44</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/747cf332-7cc3-4b96-a0f1-b931e1811df8/维修前/0721ec9a-34a7-42f1-825f-1fa116a4f470.png">
+      <publishTime>11/01/2018 23:49:08</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/747cf332-7cc3-4b96-a0f1-b931e1811df8/维修前/b07fc314-c588-4623-b355-abe08b2ec652.png">
+      <publishTime>11/01/2018 23:54:39</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/747cf332-7cc3-4b96-a0f1-b931e1811df8/维修前/t-030a97fa-f881-42bc-9a0f-0eeb2b47f638.png">
+      <publishTime>11/01/2018 23:50:44</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/747cf332-7cc3-4b96-a0f1-b931e1811df8/维修前/t-0721ec9a-34a7-42f1-825f-1fa116a4f470.png">
+      <publishTime>11/01/2018 23:49:09</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/747cf332-7cc3-4b96-a0f1-b931e1811df8/维修前/t-b07fc314-c588-4623-b355-abe08b2ec652.png">
+      <publishTime>11/01/2018 23:54:39</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/747cf332-7cc3-4b96-a0f1-b931e1811df8/维修后/e3a0c432-7a87-444d-9d5e-9a6708046a11.png">
+      <publishTime>11/01/2018 23:49:14</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/747cf332-7cc3-4b96-a0f1-b931e1811df8/维修后/t-e3a0c432-7a87-444d-9d5e-9a6708046a11.png">
+      <publishTime>11/01/2018 23:49:14</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/90dc82b0-f5f3-4257-8c42-fc5a87678590/维修前/5abe81d7-bc0b-4b63-a634-60f7f8e0da81.png">
+      <publishTime>11/01/2018 23:57:41</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/90dc82b0-f5f3-4257-8c42-fc5a87678590/维修前/t-5abe81d7-bc0b-4b63-a634-60f7f8e0da81.png">
+      <publishTime>11/01/2018 23:57:41</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/90dc82b0-f5f3-4257-8c42-fc5a87678590/维修后/ca7ebdea-a037-4fdb-b28b-7a8f6249da52.png">
+      <publishTime>11/01/2018 23:57:44</publishTime>
+    </File>
+    <File Include="Files/RP/RPRepairPhoto/90dc82b0-f5f3-4257-8c42-fc5a87678590/维修后/t-ca7ebdea-a037-4fdb-b28b-7a8f6249da52.png">
+      <publishTime>11/01/2018 23:57:44</publishTime>
     </File>
     <File Include="Files/RP/二维码图片备份/1.jpg">
       <publishTime>08/08/2018 15:32:18</publishTime>
@@ -2436,14 +2547,89 @@
     <File Include="Global.asax">
       <publishTime>07/12/2018 11:22:39</publishTime>
     </File>
+    <File Include="Logs/2018-08-24.txt">
+      <publishTime>08/24/2018 10:02:15</publishTime>
+    </File>
+    <File Include="Logs/2018-08-28.txt">
+      <publishTime>08/28/2018 19:09:58</publishTime>
+    </File>
+    <File Include="Logs/2018-09-13.txt">
+      <publishTime>09/13/2018 11:00:19</publishTime>
+    </File>
+    <File Include="Logs/2018-09-18.txt">
+      <publishTime>09/18/2018 16:00:39</publishTime>
+    </File>
+    <File Include="Logs/2018-09-20.txt">
+      <publishTime>09/20/2018 15:36:45</publishTime>
+    </File>
+    <File Include="Logs/2018-10-12.txt">
+      <publishTime>10/12/2018 16:56:32</publishTime>
+    </File>
+    <File Include="Logs/2018-10-13.txt">
+      <publishTime>10/13/2018 08:28:53</publishTime>
+    </File>
+    <File Include="Logs/2018-10-26.txt">
+      <publishTime>10/26/2018 15:50:26</publishTime>
+    </File>
+    <File Include="Logs/2018-10-28.txt">
+      <publishTime>10/28/2018 16:18:34</publishTime>
+    </File>
+    <File Include="Logs/2018-10-30.txt">
+      <publishTime>10/30/2018 20:47:09</publishTime>
+    </File>
+    <File Include="Logs/2018-10-31.txt">
+      <publishTime>10/31/2018 15:38:19</publishTime>
+    </File>
+    <File Include="Logs/2018-11-01.txt">
+      <publishTime>11/01/2018 23:36:44</publishTime>
+    </File>
+    <File Include="Logs/2018-11-06.txt">
+      <publishTime>11/06/2018 11:43:12</publishTime>
+    </File>
+    <File Include="Logs/2018-11-07.txt">
+      <publishTime>11/07/2018 19:13:38</publishTime>
+    </File>
+    <File Include="Logs/2018-11-08.txt">
+      <publishTime>11/08/2018 10:43:29</publishTime>
+    </File>
+    <File Include="Logs/2018-11-09.txt">
+      <publishTime>11/09/2018 16:17:58</publishTime>
+    </File>
+    <File Include="Logs/2018-11-12.txt">
+      <publishTime>11/12/2018 16:28:24</publishTime>
+    </File>
+    <File Include="Logs/2018-11-13.txt">
+      <publishTime>11/13/2018 16:10:42</publishTime>
+    </File>
+    <File Include="Logs/2018-11-20.txt">
+      <publishTime>11/20/2018 20:50:32</publishTime>
+    </File>
+    <File Include="Logs/2018-12-08.txt">
+      <publishTime>12/08/2018 15:39:15</publishTime>
+    </File>
     <File Include="packages.config">
-      <publishTime>11/20/2018 20:12:47</publishTime>
+      <publishTime>12/08/2018 16:07:59</publishTime>
     </File>
     <File Include="scripts/ai.0.22.9-build00167.js">
       <publishTime>07/12/2018 11:22:50</publishTime>
     </File>
     <File Include="scripts/ai.0.22.9-build00167.min.js">
       <publishTime>07/12/2018 11:22:50</publishTime>
+    </File>
+    <File Include="SqlServerTypes/readme.htm">
+      <publishTime>12/08/2018 15:53:45</publishTime>
+    </File>
+    <File Include="SqlServerTypes/x64/msvcr120.dll">
+      <publishTime>12/08/2018 15:53:49</publishTime>
+    </File>
+    <File Include="SqlServerTypes/x64/SqlServerSpatial140.dll">
+      <publishTime>12/08/2018 15:53:49</publishTime>
+    </File>
+    <File Include="SqlServerTypes/x86/msvcr120.dll">
+      <publishTime>12/08/2018 15:53:49</publishTime>
+    </File>
+    <File Include="SqlServerTypes/x86/SqlServerSpatial140.dll">
+      <publishTime>12/08/2018 15:53:49</publishTime>
     </File>
     <File Include="Views/Common/Index.cshtml">
       <publishTime>11/06/2018 11:43:10</publishTime>
@@ -2452,7 +2638,7 @@
       <publishTime>07/12/2018 11:22:40</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/21/2018 10:05:46</publishTime>
+      <publishTime>12/08/2018 16:08:34</publishTime>
     </File>
     <File Include="任务.txt">
       <publishTime>10/17/2018 15:19:21</publishTime>

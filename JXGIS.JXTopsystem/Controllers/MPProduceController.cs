@@ -158,5 +158,24 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(s);
         }
 
+
+        public JsonResult CreateTabToWord()
+        {
+            RtObj rt = null;
+            try
+            {
+                MPProduceUtils.CreateTabToWord2();
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+            timeConverter.DateTimeFormat = "yyyy-MM-dd";
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
+            return Json(s);
+
+        }
     }
 }

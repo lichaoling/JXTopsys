@@ -64,9 +64,11 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     targetData.CreateTime = DateTime.Now;
                     targetData.CreateUser = LoginUtils.CurrentUser.UserName;
 
+
+
                     //生成二维码图和缩略图并保存
-                    var tt = dbContext.RP.Max(t => t.Code);
-                    targetData.Code = tt == null ? 1 : tt + 1;
+                    //var tt = dbContext.RP.Max(t => t.Code);
+                    targetData.Code = (int)dbContext.Database.SqlQuery<Int64>("select next value for sqc_rp_qrcode").FirstOrDefault();
                     SaveQRCodeController saveQRCodeController = new SaveQRCodeController();
                     saveQRCodeController.SaveQRCodeImgs(targetData.Code);
 
