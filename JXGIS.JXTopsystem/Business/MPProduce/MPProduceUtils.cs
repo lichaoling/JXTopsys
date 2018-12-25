@@ -808,7 +808,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 app.Selection.MoveDown(ref line, oMissing, oMissing);
                 app.Selection.TypeParagraph();//换行
                 Microsoft.Office.Interop.Word.Range range = app.Selection.Range;
-                Microsoft.Office.Interop.Word.Table table = app.Selection.Tables.Add(range, rows, cols, ref oMissing, ref oMissing)
+                Microsoft.Office.Interop.Word.Table table = app.Selection.Tables.Add(range, rows, cols, ref oMissing, ref oMissing);
 
                 //设置表格的字体大小粗细
                 table.Range.Font.Size = 10;
