@@ -601,7 +601,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                           }).ToList();
                             plmphzs.Add(plmphz);
                         }
-                      
+
                     }
                     else if (mp.MPType == Enums.MPTypeCh.Road)
                     {
@@ -755,6 +755,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         plmphzs.Add(plmphz);
                     }
                 }
+                CreateTabToWord(plmphzs);
                 return plmphzs;
             }
         }
