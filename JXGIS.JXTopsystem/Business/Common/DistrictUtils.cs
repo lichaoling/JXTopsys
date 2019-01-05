@@ -76,6 +76,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     return getDistrictTree();
             }
         }
+
         /// <summary>
         /// 根据用户当前的行政区划ids找出三类门牌中的行政区划组织成树的形式
         /// </summary>
@@ -684,48 +685,29 @@ namespace JXGIS.JXTopsystem.Business.Common
                 dbContext.SaveChanges();
             }
         }
-        public static List<SysUser> SearchUser()
+        public static List<SysUserEx> SearchUser()
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var users = dbContext.SysUser.ToList();
+                var sql = @"with x as  
+(select userid,id croleid,name crolename from SYSUSER_CROLE t1 left join crole t2 on t1.croleid=t2.Id),
+rs as (select userid,stuff((select '|'+crolename from x x1 where x1.userid=x2.userid
+for xml path('')),1,1,'') croles from x x2
+group by userid), 
+d as (
+select userid,REPLACE(districtid,'.','/') district from SYSUSER_DISTRICT t),
+ds as (select userid,stuff((select '|'+district from d d1 where d1.userid=d2.userid
+for xml path('')),1,1,'') districts from d d2
+group by userid)
 
-                List<SysUser> sysUserDetails = new List<SysUser>();
-                foreach (var user in users)
-                {
-                    var roleids = dbContext.UserRole.Where(t => t.UserID == user.UserID).Select(t => t.RoleID).ToList();
-                    var rolesList = dbContext.SysRole.Where(t => roleids.Contains(t.RoleID)).ToList();
-                    var districtIDList = dbContext.UserDistrict.Where(t => t.UserID == user.UserID).Select(t => t.DistrictID).Distinct().ToList();
-                    var districtName = districtIDList.Select(t => t.Replace('.', '/')).ToList();
-
-                    List<SysRole_SysPrivilige> rolePriviliges = new List<Models.Entities.SysRole_SysPrivilige>();
-                    foreach (var role in rolesList)
-                    {
-                        rolePriviliges.AddRange(dbContext.RolePrivilige.Where(t => t.RoleID == role.RoleID).ToList());
-                    }
-
-                    SysUser sysUsers = new SysUser()
-                    {
-                        UserID = user.UserID,
-                        UserName = user.UserName,
-                        Password = user.Password,
-                        Name = user.Name,
-                        Gender = user.Gender,
-                        Email = user.Email,
-                        Birthday = user.Birthday,
-                        Telephone = user.Telephone,
-                        Window = user.Window,
-                        DistrictName = string.Join("；", districtName),
-                        RoleList = rolesList,
-                        RoleName = string.Join("；", rolesList.Select(t => t.RoleName).ToList()),
-                        DistrictIDList = districtIDList,
-                        PriviligeList = rolePriviliges.Distinct().ToList(),
-                    };
-                    sysUserDetails.Add(sysUsers);
-                }
+select t.*,rs.croles RoleName,ds.districts DistrictName from SYSUSER t 
+left join rs on rs.UserID=t.userid
+left join ds on ds.userid=t.UserID";
+                List<SysUserEx> sysUserDetails = dbContext.Database.SqlQuery<SysUserEx>(sql).ToList();
                 return sysUserDetails.OrderBy(t => t.DistrictName).ToList();
             }
         }
+
         public static SysUser SearchUserByID(string id)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -784,6 +766,24 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             var districtIDs = LoginUtils.CurrentUser.DistrictIDList;
             return districtIDs.Where(t => NeighborhoodsID.IndexOf(t + ".") == 0 || NeighborhoodsID == t).Count() > 0;
+        }
+
+
+        public static List<Item> GetDistrictTree()
+        {
+            using (var db = SystemUtils.NewEFDbContext)
+            {
+                var districts = db.District.ToList();
+                var items = (from d in districts
+                             select new Item
+                             {
+                                 Id = d.ID,
+                                 PId = d.ParentID,
+                                 Name = d.Name,
+                             }).ToList();
+                var nItems = Item.GetTree(items);
+                return nItems;
+            }
         }
     }
 

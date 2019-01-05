@@ -1,19 +1,13 @@
-﻿using JXGIS.JXTopsystem.Models.Entities;
-using JXGIS.JXTopsystem.Models.Extends;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace JXGIS.JXTopsystem.Models
 {
-    [Table("SYSUSER")]
-    [Serializable]
-    public partial class SysUser : IUser
+    public class SysUserEx
     {
-        [Key]
         public string UserID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -27,17 +21,9 @@ namespace JXGIS.JXTopsystem.Models
         public string CreateUser { get; set; }
         public DateTime? LastModifyTime { get; set; }
         public string LastModifyUser { get; set; }
-        [NotMapped]
-        public virtual List<string> DistrictIDList { get; set; }
-        [NotMapped]
-        public virtual string DistrictName { get; set; }
-        [NotMapped]
-        public virtual List<SysRole> RoleList { get; set; }
-        [NotMapped]
-        public virtual string RoleName { get; set; }
-        [NotMapped]
-        public virtual List<SysRole_SysPrivilige> PriviligeList { get; set; }
+        public string DistrictName { get; set; }
+        public string RoleName { get; set; }
 
-
+        public List<CRole> CRoles { get; set; }
     }
 }

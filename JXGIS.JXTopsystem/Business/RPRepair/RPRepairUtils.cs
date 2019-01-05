@@ -74,7 +74,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 var beforeFiles = files.Where(t => t.RepairType == Enums.RPRepairType.Before).ToList();
                 foreach (var f in beforeFiles)
                 {
-                    var p = FileController.GetUploadFilePath(Enums.RPFileType.RepairPhoto, RepairID, f.ID, f.Name, Enums.RPRepairType.Before);
+                    var p = FileController.GetUploadFilePath(Enums.FileType.RepairPhoto, RepairID, f.ID, f.Name, Enums.RPRepairType.Before);
                     RepairBeoforePic.Add(p);
                 }
 
@@ -82,7 +82,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 var afterFiles = files.Where(t => t.RepairType == Enums.RPRepairType.After).ToList();
                 foreach (var f in afterFiles)
                 {
-                    var p = FileController.GetUploadFilePath(Enums.RPFileType.RepairPhoto, RepairID, f.ID, f.Name, Enums.RPRepairType.After);
+                    var p = FileController.GetUploadFilePath(Enums.FileType.RepairPhoto, RepairID, f.ID, f.Name, Enums.RPRepairType.After);
                     RepairAfterPic.Add(p);
                 }
 

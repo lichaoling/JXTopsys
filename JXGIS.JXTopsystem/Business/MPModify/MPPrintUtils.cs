@@ -17,17 +17,6 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
 {
     public class MPPrintUtils
     {
-        public static readonly string basePath = Path.Combine(FileController.uploadBasePath, "Files", "DZZMandMPZTemplate");
-        public static readonly string DZZMtemplateFile = Path.Combine(basePath, "地址证明模板.docx");
-        public static readonly string MPZtemplateFile = Path.Combine(basePath, "门牌证模板.docx");
-        public static readonly string DZZMPath = Path.Combine(basePath, "地址证明");
-        public static readonly string MPZPath = Path.Combine(basePath, "门牌证");
-
-        public static readonly string TempPdf = Path.Combine(basePath, "Temp");
-        public static readonly string mergePath = Path.Combine(basePath, "Merge");
-        public static readonly string mergeFile = Path.Combine(mergePath, "merge.pdf");
-
-
         public static MemoryStream DZZMPrint(List<string> IDs, string MPType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -53,14 +42,14 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("Y", DateTime.Now.Month.ToString());
                         bookmarks.Add("R", DateTime.Now.Day.ToString());
 
-                        string savePath = Path.Combine(DZZMPath, Enums.MPTypeCh.Residence, ID);
+                        string savePath = Path.Combine(StaticVariable.DZZMPrintPath, Enums.MPTypeCh.Residence, ID);
                         if (!Directory.Exists(savePath))
                         {
                             Directory.CreateDirectory(savePath);
                         }
                         string fileNameWord = Path.Combine(savePath, mpOfResidence.StandardAddress + "-地址证明.docx");
                         string fileNamePdf = Path.Combine(savePath, mpOfResidence.StandardAddress + "-地址证明.pdf");
-                        GenerateWord(DZZMtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        GenerateWord(StaticVariable.DZZMtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                         docNames.Add(fileNamePdf);
                         isEnable = true;
                     }
@@ -80,14 +69,14 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("Y", DateTime.Now.Month.ToString());
                         bookmarks.Add("R", DateTime.Now.Day.ToString());
 
-                        string savePath = Path.Combine(DZZMPath, Enums.MPTypeCh.Road, ID);
+                        string savePath = Path.Combine(StaticVariable.DZZMPrintPath, Enums.MPTypeCh.Road, ID);
                         if (!Directory.Exists(savePath))
                         {
                             Directory.CreateDirectory(savePath);
                         }
                         string fileNameWord = Path.Combine(savePath, mpOfRoad.StandardAddress + "-地址证明.docx");
                         string fileNamePdf = Path.Combine(savePath, mpOfRoad.StandardAddress + "-地址证明.pdf");
-                        GenerateWord(DZZMtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        GenerateWord(StaticVariable.DZZMtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                         docNames.Add(fileNamePdf);
                         isEnable = true;
                     }
@@ -105,14 +94,14 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("Y", DateTime.Now.Month.ToString());
                         bookmarks.Add("R", DateTime.Now.Day.ToString());
 
-                        string savePath = Path.Combine(DZZMPath, Enums.MPTypeCh.Country, ID);
+                        string savePath = Path.Combine(StaticVariable.DZZMPrintPath, Enums.MPTypeCh.Country, ID);
                         if (!Directory.Exists(savePath))
                         {
                             Directory.CreateDirectory(savePath);
                         }
                         string fileNameWord = Path.Combine(savePath, mpOfCounty.StandardAddress + "-地址证明.docx");
                         string fileNamePdf = Path.Combine(savePath, mpOfCounty.StandardAddress + "-地址证明.pdf");
-                        GenerateWord(DZZMtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        GenerateWord(StaticVariable.DZZMtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                         docNames.Add(fileNamePdf);
                         isEnable = true;
                     }
@@ -164,14 +153,14 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("Y", DateTime.Now.Month.ToString());
                         bookmarks.Add("R", DateTime.Now.Day.ToString());
 
-                        string savePath = Path.Combine(MPZPath, Enums.MPTypeCh.Residence, ID);
+                        string savePath = Path.Combine(StaticVariable.MPZPrintPath, Enums.MPTypeCh.Residence, ID);
                         if (!Directory.Exists(savePath))
                         {
                             Directory.CreateDirectory(savePath);
                         }
                         string fileNameWord = Path.Combine(savePath, mpOfResidence.StandardAddress + "-门牌证.docx");
                         string fileNamePdf = Path.Combine(savePath, mpOfResidence.StandardAddress + "-门牌证.pdf");
-                        GenerateWord(MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                         docNames.Add(fileNamePdf);
                         isEnable = true;
                     }
@@ -194,14 +183,14 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("Y", DateTime.Now.Month.ToString());
                         bookmarks.Add("R", DateTime.Now.Day.ToString());
 
-                        string savePath = Path.Combine(MPZPath, Enums.MPTypeCh.Road, ID);
+                        string savePath = Path.Combine(StaticVariable.MPZPrintPath, Enums.MPTypeCh.Road, ID);
                         if (!Directory.Exists(savePath))
                         {
                             Directory.CreateDirectory(savePath);
                         }
                         string fileNameWord = Path.Combine(savePath, mpOfRoad.StandardAddress + "-门牌证.docx");
                         string fileNamePdf = Path.Combine(savePath, mpOfRoad.StandardAddress + "-门牌证.pdf");
-                        GenerateWord(MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                         docNames.Add(fileNamePdf);
                         isEnable = true;
                     }
@@ -223,14 +212,14 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("Y", DateTime.Now.Month.ToString());
                         bookmarks.Add("R", DateTime.Now.Day.ToString());
 
-                        string savePath = Path.Combine(MPZPath, Enums.MPTypeCh.Country, ID);
+                        string savePath = Path.Combine(StaticVariable.MPZPrintPath, Enums.MPTypeCh.Country, ID);
                         if (!Directory.Exists(savePath))
                         {
                             Directory.CreateDirectory(savePath);
                         }
                         string fileNameWord = Path.Combine(savePath, mpOfCounty.StandardAddress + "-门牌证.docx");
                         string fileNamePdf = Path.Combine(savePath, mpOfCounty.StandardAddress + "-门牌证.pdf");
-                        GenerateWord(MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                         docNames.Add(fileNamePdf);
                         isEnable = true;
                     }
@@ -253,11 +242,10 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                 return ms;
             }
         }
-
         public static MemoryStream MergePDF(List<string> docNames)
         {
             iTextSharp.text.Document document = new iTextSharp.text.Document();
-            var targetPDF = Path.Combine(mergePath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
+            var targetPDF = Path.Combine(StaticVariable.MergeFilePath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
             PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(targetPDF, FileMode.Create));
             document.Open();
             PdfContentByte cb = writer.DirectContent;
@@ -287,7 +275,6 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
             File.Delete(FilePath);
             return ms;
         }
-
 
         /// <summary>
         /// 根据word模板文件导出word/pdf文件
@@ -347,7 +334,6 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                 doc.Close(ref IsSave, ref missing, ref missing);
             }
         }
-
         /// <summary>
         /// 在word 中查找一个字符串直接替换所需要的文本
         /// </summary>
@@ -372,68 +358,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                 ref MissingValue, ref MissingValue,
                 ref MissingValue, ref MissingValue);
         }
-
-
-
-
-        /// <summary>
-        /// 读取合并的pdf文件名称
-        /// </summary>
-        /// <param name="Directorypath">目录</param>
-        /// <param name="outpath">导出的路径</param>
-        public static void MergePDF(string Directorypath)
-        {
-            List<string> filelist2 = new List<string>();
-            System.IO.DirectoryInfo di2 = new System.IO.DirectoryInfo(Directorypath);
-            FileInfo[] ff2 = di2.GetFiles("*.pdf");
-            foreach (FileInfo temp in ff2)
-            {
-                filelist2.Add(Directorypath + "\\" + temp.Name);
-            }
-            mergePDFFiles(filelist2);
-            //DeleteAllPdf(Directorypath);
-        }
-        /// <summary>
-        /// 合成pdf文件
-        /// </summary>
-        /// <param name="fileList">文件名list</param>
-        /// <param name="outMergeFile">输出路径</param>
-        public static void mergePDFFiles(List<string> fileList)
-        {
-            DeleteAllPdf(mergePath);
-            PdfReader reader;
-            //iTextSharp.text.Rectangle rec = new iTextSharp.text.Rectangle(144, 720);
-            iTextSharp.text.Document document = new iTextSharp.text.Document();
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(mergeFile, FileMode.Create));
-            document.Open();
-            PdfContentByte cb = writer.DirectContent;
-            PdfImportedPage newPage;
-            for (int i = 0; i < fileList.Count; i++)
-            {
-                reader = new PdfReader(fileList[i]);
-                int iPageNum = reader.NumberOfPages;
-                for (int j = 1; j <= iPageNum; j++)
-                {
-                    document.NewPage();
-                    newPage = writer.GetImportedPage(reader, j);
-                    cb.AddTemplate(newPage, 0, 0);
-                }
-            }
-            document.Close();
-        }
-        public static void DeleteAllPdf(string Directorypath)
-        {
-            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(Directorypath);
-            if (di.Exists)
-            {
-                FileInfo[] ff = di.GetFiles("*.pdf");
-                foreach (FileInfo temp in ff)
-                {
-                    File.Delete(Directorypath + "\\" + temp.Name);
-                }
-            }
-        }
-
+        
         /// <summary>
         /// 地名证明打印或门牌证打印
         /// </summary>
@@ -449,17 +374,17 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
 
                 foreach (var ID in IDs)
                 {
-                    MPOfCertificate mpCertificate = new Models.Entities.MPOfCertificate();
+                    MPOfCertificate mpOfCertificate = new Models.Entities.MPOfCertificate();
                     var GUID = Guid.NewGuid().ToString();
                     var CreateTime = DateTime.Now;
-                    mpCertificate.ID = GUID;
-                    mpCertificate.MPID = ID;
-                    mpCertificate.CreateTime = CreateTime;
-                    mpCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
-                    mpCertificate.MPType = MPType;
-                    mpCertificate.CertificateType = CertificateType;
-                    mpCertificate.Window = LoginUtils.CurrentUser.Window;
-                    mpOfCertificates.Add(mpCertificate);
+                    mpOfCertificate.ID = GUID;
+                    mpOfCertificate.MPID = ID;
+                    mpOfCertificate.CreateTime = CreateTime;
+                    mpOfCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
+                    mpOfCertificate.MPType = MPType;
+                    mpOfCertificate.CertificateType = CertificateType;
+                    mpOfCertificate.Window = LoginUtils.CurrentUser.Window;
+                    mpOfCertificates.Add(mpOfCertificate);
 
                     MPCertificate certificate = new Models.Extends.MPCertificate();
                     certificate.ID = ID;
@@ -562,5 +487,64 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
             }
         }
 
+
+        //************************************不使用*****************************************
+        /// <summary>
+        /// 读取合并的pdf文件名称
+        /// </summary>
+        /// <param name="Directorypath">目录</param>
+        /// <param name="outpath">导出的路径</param>
+        public static void MergePDF(string Directorypath)
+        {
+            List<string> filelist2 = new List<string>();
+            System.IO.DirectoryInfo di2 = new System.IO.DirectoryInfo(Directorypath);
+            FileInfo[] ff2 = di2.GetFiles("*.pdf");
+            foreach (FileInfo temp in ff2)
+            {
+                filelist2.Add(Directorypath + "\\" + temp.Name);
+            }
+            mergePDFFiles(filelist2);
+            //DeleteAllPdf(Directorypath);
+        }
+        /// <summary>
+        /// 合成pdf文件
+        /// </summary>
+        /// <param name="fileList">文件名list</param>
+        /// <param name="outMergeFile">输出路径</param>
+        public static void mergePDFFiles(List<string> fileList)
+        {
+            DeleteAllPdf(StaticVariable.MergeFilePath);
+            PdfReader reader;
+            //iTextSharp.text.Rectangle rec = new iTextSharp.text.Rectangle(144, 720);
+            iTextSharp.text.Document document = new iTextSharp.text.Document();
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(StaticVariable.MergeFile, FileMode.Create));
+            document.Open();
+            PdfContentByte cb = writer.DirectContent;
+            PdfImportedPage newPage;
+            for (int i = 0; i < fileList.Count; i++)
+            {
+                reader = new PdfReader(fileList[i]);
+                int iPageNum = reader.NumberOfPages;
+                for (int j = 1; j <= iPageNum; j++)
+                {
+                    document.NewPage();
+                    newPage = writer.GetImportedPage(reader, j);
+                    cb.AddTemplate(newPage, 0, 0);
+                }
+            }
+            document.Close();
+        }
+        public static void DeleteAllPdf(string Directorypath)
+        {
+            System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(Directorypath);
+            if (di.Exists)
+            {
+                FileInfo[] ff = di.GetFiles("*.pdf");
+                foreach (FileInfo temp in ff)
+                {
+                    File.Delete(Directorypath + "\\" + temp.Name);
+                }
+            }
+        }
     }
 }

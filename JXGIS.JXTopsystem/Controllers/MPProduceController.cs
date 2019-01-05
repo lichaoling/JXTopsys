@@ -68,12 +68,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(s);
         }
         [LoggerFilter(Description = "获取批量制作完的零星门牌")]
-        public ContentResult GetProducedLXMPDetails(ProducedLXMPList producedLXMPList)
+        public ContentResult GetProducedLXMPDetails(string LXProduceID /*ProducedLXMPList producedLXMPList*/)
         {
             RtObj rt = null;
             try
             {
-                var r = MPProduceUtils.GetProducedLXMPDetails(producedLXMPList);
+                var r = MPProduceUtils.GetProducedLXMPDetails(LXProduceID);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -85,6 +85,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
+
         [LoggerFilter(Description = "获取已制作的批量门牌")]
         public ContentResult GetProducedPLMP(int PageSize, int PageNum)
         {
@@ -140,12 +141,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(s);
         }
         [LoggerFilter(Description = "获取批量制作完的批量导入门牌")]
-        public JsonResult GetProducedPLMPDetails(ProducedPLMPList producedPLMPList)
+        public JsonResult GetProducedPLMPDetails(string PLProduceID/* ProducedPLMPList producedPLMPList*/)
         {
             RtObj rt = null;
             try
             {
-                var r = MPProduceUtils.GetProducedPLMPDetails(producedPLMPList);
+                var r = MPProduceUtils.GetProducedPLMPDetails(PLProduceID);
                 rt = new RtObj(r);
             }
             catch (Exception ex)

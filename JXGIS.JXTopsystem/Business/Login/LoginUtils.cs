@@ -7,6 +7,7 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Business
 {
+    
     public class LoginUtils
     {
         public static IUser Login(string userName, string password)
@@ -134,5 +135,6 @@ namespace JXGIS.JXTopsystem.Business
                 }
             }
         }
+
     }
 }

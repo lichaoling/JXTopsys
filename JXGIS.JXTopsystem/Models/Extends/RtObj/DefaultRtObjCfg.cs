@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JXGIS.JXTopsystem.Business;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.RtObj
         /// <param name="ex"></param>
         public void Log(Exception ex)
         {
-            var logPath = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Logs");
+            var logPath = StaticVariable.basePathLogMessage;
             if (!Directory.Exists(logPath))
             {
                 Directory.CreateDirectory(logPath);

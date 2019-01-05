@@ -146,12 +146,12 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                         }).ToList();
 
 
-                var baseUrl_QRCode = FileController.RPQRCodeRelativePath;
+                var baseUrl_QRCode = StaticVariable.RPQRCodeRelativePath;
                 //关联路牌照片 重组url
                 List<RPDetails> rt = new List<RPDetails>();
                 foreach (var d in data)
                 {
-                    var baseUrl = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.BZPhoto, d.ID);
+                    var baseUrl = Path.Combine(StaticVariable.RPBZPhotoRelativePath, d.ID);
                     var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == d.ID);
                     if (files.Count() > 0)
                     {
@@ -191,10 +191,10 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 var data = new RPDetails(rp);
 
                 var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == RPID);
-                var baseUrl_QRCode = FileController.RPQRCodeRelativePath;
+                var baseUrl_QRCode = StaticVariable.RPQRCodeRelativePath;
                 if (files.Count() > 0)
                 {
-                    var baseUrl_BZ = Path.Combine(FileController.RPBZPhotoRelativePath, RPID);
+                    var baseUrl_BZ = Path.Combine(StaticVariable.RPBZPhotoRelativePath, RPID);
 
                     var filelst = (from t in files
                                    select new Pictures

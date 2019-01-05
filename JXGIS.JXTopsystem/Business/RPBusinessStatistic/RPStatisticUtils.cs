@@ -183,7 +183,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 List<RPDetails> rt = new List<RPDetails>();
                 foreach (var r in result)
                 {
-                    var baseUrl = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.BZPhoto, r.ID);
+                    var baseUrl = Path.Combine(StaticVariable.RPBZPhotoRelativePath, r.ID);
                     var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == r.ID);
                     if (files.Count() > 0)
                     {

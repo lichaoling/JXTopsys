@@ -133,6 +133,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -186,7 +187,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Files\DZZMandMPZTemplate\门牌证模板.png" />
+    <Content Include="Files\MPPrint\门牌证模板.png" />
     <Content Include="Files\MP\Residence\9103a757-d22a-4108-8f3c-56af5c1acdac\10387e0d-9062-48a0-b661-f16830c04d01.png" />
     <Content Include="Files\MP\Residence\9103a757-d22a-4108-8f3c-56af5c1acdac\8a9f3a31-f69e-4c42-a0b2-9859304f3907.png" />
     <Content Include="Files\MP\Residence\9103a757-d22a-4108-8f3c-56af5c1acdac\a1ed8213-6308-4a00-8758-672eac471384.png" />
@@ -288,6 +289,7 @@
     <Compile Include="Business\RPModify\RPModifyUtils.cs" />
     <Compile Include="Business\RPRepair\RPRepairUtils.cs" />
     <Compile Include="Business\RPSearch\RPSearchUtils.cs" />
+    <Compile Include="Business\StaticVariable.cs" />
     <Compile Include="Business\SystemUtils.cs" />
     <Compile Include="Business\Login\ValidateGraphic.cs" />
     <Compile Include="Controllers\ArchiveFileController.cs" />
@@ -309,6 +311,9 @@
     </Compile>
     <Compile Include="Models\Entities\ARCHIVEFILE.cs" />
     <Compile Include="Models\Entities\CommunityDic.cs" />
+    <Compile Include="Models\Entities\CPrivilege.cs" />
+    <Compile Include="Models\Entities\CRole.cs" />
+    <Compile Include="Models\Entities\CRole_CPrivilege.cs" />
     <Compile Include="Models\Entities\DirectionDic.cs" />
     <Compile Include="Models\Entities\District.cs" />
     <Compile Include="Models\Entities\DMBZDic.cs" />
@@ -334,6 +339,8 @@
     <Compile Include="Models\Extends\ArchiveFile\ProcessInfoDescription.cs" />
     <Compile Include="Models\Extends\Certificate.cs" />
     <Compile Include="Models\Extends\DistrictDetails.cs" />
+    <Compile Include="Models\Extends\Group.cs" />
+    <Compile Include="Models\Extends\GroupX.cs" />
     <Compile Include="Models\Extends\IBaseEntity.cs" />
     <Compile Include="Models\Extends\PLMPProduceList.cs" />
     <Compile Include="Models\Extends\MPProduce.cs" />
@@ -366,6 +373,9 @@
     <Compile Include="Models\Extends\RtObj\RtObj.cs" />
     <Compile Include="Models\Extends\SummarySheet.cs" />
     <Compile Include="Models\Entities\RoadDic.cs" />
+    <Compile Include="Models\Extends\SysUser.cs" />
+    <Compile Include="Models\Extends\SysUserEx.cs" />
+    <Compile Include="Models\Extends\TPrivilege.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
   </ItemGroup>
@@ -380,8 +390,16 @@
     <Content Include="Files\UploadFiles\农村门牌上传模板.xlsx" />
     <Content Include="Files\UploadFiles\道路门牌上传模板.xlsx" />
     <Content Include="Views\Common\Index.cshtml" />
-    <Content Include="Files\DZZMandMPZTemplate\地址证明模板.docx" />
-    <Content Include="Files\DZZMandMPZTemplate\门牌证模板.docx" />
+    <Content Include="Files\MPPrint\地址证明模板.docx" />
+    <Content Include="Files\MPPrint\门牌证模板.docx" />
+    <Content Include="Files\MPPrint\地址证明\住宅门牌\012ce95a-e560-4d3b-b905-58a727ded550\秀洲区嘉北街道阳光社区赞园7幢2单元1604室-地址证明.docx" />
+    <Content Include="Files\MPPrint\地址证明\住宅门牌\012ce95a-e560-4d3b-b905-58a727ded550\秀洲区嘉北街道阳光社区赞园7幢2单元1604室-地址证明.pdf" />
+    <Content Include="Files\MPPrint\地址证明\住宅门牌\01430ba9-bd78-4ac7-a3a2-7d6805ab635f\秀洲区嘉北街道阳光社区赞园5幢1单元1202室-地址证明.docx" />
+    <Content Include="Files\MPPrint\地址证明\住宅门牌\01430ba9-bd78-4ac7-a3a2-7d6805ab635f\秀洲区嘉北街道阳光社区赞园5幢1单元1202室-地址证明.pdf" />
+    <Content Include="Files\MPPrint\地址证明\住宅门牌\014e82c2-ed8c-478f-a765-e3fc3f2c1ff9\秀洲区嘉北街道阳光社区赞园4幢1单元804室-地址证明.docx" />
+    <Content Include="Files\MPPrint\地址证明\住宅门牌\014e82c2-ed8c-478f-a765-e3fc3f2c1ff9\秀洲区嘉北街道阳光社区赞园4幢1单元804室-地址证明.pdf" />
+    <Content Include="Files\MPPrint\门牌证\住宅门牌\01189a38-a496-401d-b56c-d80d3907c630\秀洲区嘉北街道阳光社区赞园9幢1单元1801室-门牌证.docx" />
+    <Content Include="Files\MPPrint\门牌证\住宅门牌\01189a38-a496-401d-b56c-d80d3907c630\秀洲区嘉北街道阳光社区赞园9幢1单元1801室-门牌证.pdf" />
     <None Include="Properties\PublishProfiles\JXToposys.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -398,8 +416,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\ArchiveFiles\" />
-    <Folder Include="Files\DZZMandMPZTemplate\Merge\" />
-    <Folder Include="Files\DZZMandMPZTemplate\Temp\" />
+    <Folder Include="Files\MPPrint\Merge\" />
+    <Folder Include="Files\MPPrint\Temp\" />
+    <Folder Include="Files\MPProduce\" />
     <Folder Include="Files\RP\QRCode\" />
     <Folder Include="Files\RP\RPRepairPhoto\95f4df21-25ef-4b62-96fb-6665006216fe\维修前\" />
     <Folder Include="Files\RP\RPRepairPhoto\95f4df21-25ef-4b62-96fb-6665006216fe\维修后\" />

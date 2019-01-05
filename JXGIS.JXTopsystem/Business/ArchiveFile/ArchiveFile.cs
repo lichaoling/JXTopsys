@@ -15,27 +15,12 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
 {
     public class ArchiveFile
     {
-        public static readonly string ArchiveFileBasePath = Path.Combine(FileController.uploadBasePath, "Files", "ArchiveFiles");
-
         public static readonly string auxiliaryone_FBY = "非必要";
         public static readonly string auxiliaryone_BY = "必要";
         public static readonly string retentionperio = "30年";
         public static readonly string departmentNum = "33040113";
         public static readonly string gd_dz = "电子归档";
         public static readonly string gd_zz = "纸质归档";
-
-        // 住宅门牌上传绝对路径
-        public static readonly string residenceMPPath = Path.Combine(FileController.uploadBasePath, FileController.residenceMPRelativePath);
-        // 道路门牌上传绝对路径
-        public static readonly string roadMPPath = Path.Combine(FileController.uploadBasePath, FileController.roadMPRelativePath);
-        // 农村门牌上传绝对路径
-        public static readonly string countryMPPath = Path.Combine(FileController.uploadBasePath, FileController.countryMPRelativePath);
-        // 地址证明文件
-        public static readonly string DZZMPath = MPPrintUtils.MPPrintUtils.DZZMPath;
-        //门牌证明文件
-        public static readonly string MPZMPath = MPPrintUtils.MPPrintUtils.MPZPath;
-
-
 
         public static void ArchiveMPFile(DateTime? start, DateTime? end)
         {
@@ -60,7 +45,7 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
                     var docTypes = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == data.ID).Select(t => t.DocType).Distinct().ToList();
                     var deptname = GetDeptname(data.CountyID);
                     var FileName = GetDocumentNumber(ArchiveFileUtils.eventtypeid.mpzm, ArchiveFileUtils.eventtypebigid.mpzm, ArchiveFileUtils.eventtypesmallid, data.ID, data.BZTime);
-                    var FilePath = Path.Combine(ArchiveFileBasePath, FileName);
+                    var FilePath = Path.Combine(StaticVariable.basePathArchiveFile, FileName);
                     var projid = "33040113" + DateTime.Now.Year.ToString().Substring(2) + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + "0" + FileName.Split('-').Last();
                     var pwd = GenerateRandomCode(6);
                     if (!Directory.Exists(FilePath))
@@ -340,7 +325,7 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
                     var docTypes = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == data.ID).Select(t => t.DocType).Distinct().ToList();
                     var deptname = GetDeptname(data.CountyID);
                     var FileName = GetDocumentNumber(ArchiveFileUtils.eventtypeid.mpzm, ArchiveFileUtils.eventtypebigid.mpzm, ArchiveFileUtils.eventtypesmallid, data.ID, data.BZTime);
-                    var FilePath = Path.Combine(ArchiveFileBasePath, FileName);
+                    var FilePath = Path.Combine(StaticVariable.basePathArchiveFile, FileName);
                     var projid = "33040113" + DateTime.Now.Year.ToString().Substring(2) + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + "0" + FileName.Split('-').Last();
                     var pwd = GenerateRandomCode(6);
                     if (!Directory.Exists(FilePath))
@@ -620,7 +605,7 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
                     var docTypes = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == data.ID).Select(t => t.DocType).Distinct().ToList();
                     var deptname = GetDeptname(data.CountyID);
                     var FileName = GetDocumentNumber(ArchiveFileUtils.eventtypeid.mpzm, ArchiveFileUtils.eventtypebigid.mpzm, ArchiveFileUtils.eventtypesmallid, data.ID, data.BZTime);
-                    var FilePath = Path.Combine(ArchiveFileBasePath, FileName);
+                    var FilePath = Path.Combine(StaticVariable.basePathArchiveFile, FileName);
                     var projid = "33040113" + DateTime.Now.Year.ToString().Substring(2) + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + "0" + FileName.Split('-').Last();
                     var pwd = GenerateRandomCode(6);
                     if (!Directory.Exists(FilePath))
@@ -968,7 +953,7 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
                     var eventtypeid = data.CertificateType == Enums.CertificateType.Placename ? ArchiveFileUtils.eventtypeid.dmzm : ArchiveFileUtils.eventtypeid.mpzm;
                     var eventtypebigid = data.CertificateType == Enums.CertificateType.Placename ? ArchiveFileUtils.eventtypebigid.dmzm : ArchiveFileUtils.eventtypebigid.mpzm;
                     var FileName = GetDocumentNumber(eventtypeid, eventtypebigid, ArchiveFileUtils.eventtypesmallid, data.ID, data.CreateTime);
-                    var FilePath = Path.Combine(ArchiveFileBasePath, FileName);
+                    var FilePath = Path.Combine(StaticVariable.basePathArchiveFile, FileName);
                     var projid = "33040113" + DateTime.Now.Year.ToString().Substring(2) + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + "0" + FileName.Split('-').Last();
                     var pwd = GenerateRandomCode(6);
                     if (!Directory.Exists(FilePath))
@@ -1230,7 +1215,7 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
                 #region 存档信息包目录规范
                 XmlTextWriter xmlWriterDirectory;
                 var name = $"存档信息包目录清单-（{departmentNum}）-（{DateTime.Now.ToString("yyyyMMdd")}";
-                var strFileNameDirectory = Path.Combine(ArchiveFileBasePath, name + ".XML"); //DateTime.Now.ToShortDateString()只显示日期 xxxx-xx-xx 一个是短日期
+                var strFileNameDirectory = Path.Combine(StaticVariable.basePathArchiveFile, name + ".XML"); //DateTime.Now.ToShortDateString()只显示日期 xxxx-xx-xx 一个是短日期
                 xmlWriterDirectory = new XmlTextWriter(strFileNameDirectory, Encoding.UTF8);//创建一个xml文档
                 xmlWriterDirectory.Formatting = Formatting.Indented;
                 xmlWriterDirectory.WriteStartDocument();
@@ -1394,7 +1379,7 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var MPRelativePath = MPType == Enums.TypeInt.Residence ? residenceMPPath : (MPType == Enums.TypeInt.Road ? roadMPPath : countryMPPath);
+                var MPRelativePath = MPType == Enums.TypeInt.Residence ? StaticVariable.residenceMPPath : (MPType == Enums.TypeInt.Road ? StaticVariable.roadMPPath : StaticVariable.countryMPPath);
                 var pictures = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == MPID).Where(t => t.DocType == docType).ToList();
                 var picturename = GetFilename(docType);
                 foreach (var picture in pictures)
@@ -1411,7 +1396,7 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var a = CertificateType == Enums.CertificateType.Placename ? DZZMPath : MPZMPath;
+                var a = CertificateType == Enums.CertificateType.Placename ? StaticVariable.DZZMPrintPath : StaticVariable.MPZPrintPath;
                 var b = MPType == Enums.MPTypeCh.Residence ? Enums.MPTypeCh.Residence : (MPType == Enums.MPTypeCh.Road ? Enums.MPTypeCh.Road : Enums.MPTypeCh.Country);
                 var srcPath = Path.Combine(a, b, MPID, StandardAddress + "-地址证明.pdf");
                 var destPath = Path.Combine(ZMCLPath, StandardAddress + "-地址证明.pdf");

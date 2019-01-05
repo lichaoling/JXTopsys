@@ -34,12 +34,6 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string LX = "零星";
             public const string PL = "批量";
         }
-        public static class TypeStr
-        {
-            public const string MP = "MP";
-            public const string RP = "RP";
-            public const string RPRepair = "RPRepair";
-        }
         public static class MPTypeCh
         {
             public const string Residence = "住宅门牌";
@@ -66,12 +60,6 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string Placename = "地名证明";
             public const string MPZ = "门牌证";
         }
-        public static class MPFileType
-        {
-            public const string ResidenceMP = "Residence";
-            public const string RoadMP = "Road";
-            public const string CountryMP = "Country";
-        }
         public static class DocType
         {
             public const string FCZ = "FCZ";
@@ -82,8 +70,11 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string QQZ = "QQZ";
             public const string SQB = "SQB";
         }
-        public static class RPFileType
+        public static class FileType
         {
+            public const string Residence = "Residence";
+            public const string Road = "Road";
+            public const string Country = "Country";
             public const string BZPhoto = "BZPhoto";
             public const string QRCode = "QRCode";
             public const string RepairPhoto = "RPRepairPhoto";

@@ -11,6 +11,7 @@ using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using JXGIS.JXTopsystem.App_Start;
 using System.Net;
 using ICSharpCode.SharpZipLib.Zip;
+using JXGIS.JXTopsystem.Business;
 
 namespace JXGIS.JXTopsystem.Controllers
 {
@@ -21,7 +22,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                string QRFilePath = Path.Combine(FileController.uploadBasePath, FileController.RPQRCodeRelativePath);
+                string QRFilePath = Path.Combine(StaticVariable.basePath, StaticVariable.RPQRCodeRelativePath);
 
                 string strCode = $"http://www.cristbin.com/DMQuery_wx/LPYH/BaseInfo?Id={Code}";
                 QRCodeGenerator qrGenerator = new QRCoder.QRCodeGenerator();

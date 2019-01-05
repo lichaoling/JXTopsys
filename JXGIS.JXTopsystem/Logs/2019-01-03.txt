@@ -1,0 +1,12 @@
+=======2019/1/3 12:11:06
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\Projects\09 嘉兴地名\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/3 12:11:50
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\Projects\09 嘉兴地名\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/3 12:14:35
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\Projects\09 嘉兴地名\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/3 12:43:32
+|Message:原始密码验证有误！
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.LoginController.ModifyPassword(String OPassword, String NPassword) 位置 E:\Projects\09 嘉兴地名\JXTopsys\JXGIS.JXTopsystem\Controllers\LoginController.cs:行号 542

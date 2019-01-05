@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 
 namespace JXGIS.JXTopsystem.Business.MPProduce
@@ -37,16 +38,16 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                MPProduceUser = g.Key.MPProduceUser,
                                MPProduceTime = g.Key.MPProduceTime
                            }).Concat(
-                    from t in mpOfCountry
-                    where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.LX && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.LXProduceID)
-                    group t by new { t.LXProduceID, t.MPProduceUser, t.MPProduceTime } into g
-                    select new ProducedLXMPList
-                    {
-                        MPType = Enums.MPTypeCh.Country,
-                        LXProduceID = g.Key.LXProduceID,
-                        MPProduceUser = g.Key.MPProduceUser,
-                        MPProduceTime = g.Key.MPProduceTime
-                    });
+                            from t in mpOfCountry
+                            where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.LX && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.LXProduceID)
+                            group t by new { t.LXProduceID, t.MPProduceUser, t.MPProduceTime } into g
+                            select new ProducedLXMPList
+                            {
+                                MPType = Enums.MPTypeCh.Country,
+                                LXProduceID = g.Key.LXProduceID,
+                                MPProduceUser = g.Key.MPProduceUser,
+                                MPProduceTime = g.Key.MPProduceTime
+                            });
 
                 count = all.Count();
                 var data = all.OrderBy(t => t.MPProduceTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
@@ -154,7 +155,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         query.MPProduceTime = DateTime.Now;
 
                         lxmphz.PlaceName = query.RoadName;
-                        lxmphz.MPType = Enums.MPTypeCh.Road;
+                        lxmphz.Type = Enums.MPTypeCh.Road;
                         lxmphz.MPNumber = query.MPNumber;
                         lxmphz.MPSize = query.MPSize;
                         lxmphz.Count = 1;
@@ -169,7 +170,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         query.MPProduceTime = DateTime.Now;
 
                         lxmphz.PlaceName = query.ViligeName;
-                        lxmphz.MPType = Enums.MPTypeCh.Country;
+                        lxmphz.Type = Enums.MPTypeCh.Country;
                         lxmphz.MPNumber = query.MPNumber;
                         lxmphz.MPSize = query.MPSize;
                         lxmphz.Count = 1;
@@ -177,43 +178,149 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     lxmphzs.Add(lxmphz);
                     dbContext.SaveChanges();
                 }
+                CreateTabToWord_LX(lxmphzs, LXProduceID);
                 return lxmphzs;
             }
         }
-        public static List<LXMPHZ> GetProducedLXMPDetails(ProducedLXMPList producedLXMPList)
+        public static MemoryStream GetProducedLXMPDetails(string LXProduceID/*ProducedLXMPList producedLXMPList*/)
         {
-            using (var dbContext = SystemUtils.NewEFDbContext)
+            WebClient client = new WebClient();
+            string strUrlFilePath = Path.Combine(StaticVariable.LXMPProducePath_Full, LXProduceID + ".doc");
+            var bytes = client.DownloadData(strUrlFilePath);
+            MemoryStream ms = new MemoryStream(bytes);
+            return ms;
+            //using (var dbContext = SystemUtils.NewEFDbContext)
+            //{
+            //    List<LXMPHZ> data = new List<LXMPHZ>();
+            //    if (producedLXMPList.MPType == Enums.MPTypeCh.Road)
+            //    {
+            //        data = (from t in dbContext.MPOfRoad
+            //                where t.LXProduceID == producedLXMPList.LXProduceID
+            //                group t by new { t.RoadName, t.MPNumber, t.MPSize } into g
+            //                select new LXMPHZ
+            //                {
+            //                    CountryName = string.Join(",", g.Select(t => t.CountyID).ToList().Select(t => t.Split('.').Last()).ToList()),
+            //                    PlaceName = g.Key.RoadName,
+            //                    MPNumber = g.Key.MPNumber,
+            //                    MPSize = g.Key.MPSize,
+            //                    Type = producedLXMPList.MPType,
+            //                    Count = g.Count(),
+            //                }).ToList();
+            //    }
+            //    else if (producedLXMPList.MPType == Enums.MPTypeCh.Country)
+            //    {
+            //        data = (from t in dbContext.MPOfCountry
+            //                where t.LXProduceID == producedLXMPList.LXProduceID
+            //                group t by new { t.ViligeName, t.MPNumber, t.MPSize } into g
+            //                select new LXMPHZ
+            //                {
+            //                    CountryName = string.Join(",", g.Select(t => t.CountyID).ToList().Select(t => t.Split('.').Last()).ToList()),
+            //                    PlaceName = g.Key.ViligeName,
+            //                    MPNumber = g.Key.MPNumber,
+            //                    MPSize = g.Key.MPSize,
+            //                    Type = producedLXMPList.MPType,
+            //                    Count = g.Count(),
+            //                }).ToList();
+            //    }
+            //    CreateTabToWord_LX(data);
+            //    return data;
+            //}
+        }
+        public static void CreateTabToWord_LX(List<LXMPHZ> lxMPHZ, string LXProduceID)
+        {
+            Microsoft.Office.Interop.Word.Application app = null;
+            Microsoft.Office.Interop.Word.Document doc = null;
+            try
             {
-                List<LXMPHZ> data = new List<LXMPHZ>();
-                if (producedLXMPList.MPType == Enums.MPTypeCh.Road)
+                var dataCount = lxMPHZ.Count();
+
+                int rows = dataCount + 1;
+                int cols = 7;//表格列数
+                object oMissing = System.Reflection.Missing.Value;
+                app = new Microsoft.Office.Interop.Word.Application();//创建word应用程序
+                doc = app.Documents.Add();//添加一个word文档
+
+                //输出大标题加粗加大字号水平居中
+                app.Selection.Font.Bold = 700;
+                app.Selection.Font.Size = 16;
+                app.Selection.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                app.Selection.Text = $"嘉兴市{string.Join("、", lxMPHZ.Select(t => t.CountryName).ToList())}零星门牌汇总表";
+                object line = Microsoft.Office.Interop.Word.WdUnits.wdLine;
+
+                //换行添加表格
+                app.Selection.MoveDown(ref line, oMissing, oMissing);
+                app.Selection.TypeParagraph();//换行
+                Microsoft.Office.Interop.Word.Range range = app.Selection.Range;
+                Microsoft.Office.Interop.Word.Table table = app.Selection.Tables.Add(range, rows, cols, ref oMissing, ref oMissing);
+
+                //设置表格的字体大小粗细
+                table.Range.Font.Size = 10;
+                table.Range.Font.Bold = 0;
+                table.Borders.Enable = 1;
+
+                //设置表格标题
+                int rowIndex = 1;
+                table.Cell(rowIndex, 1).Merge(table.Cell(rowIndex, 1));
+                table.Cell(rowIndex, 1).Range.Text = "标准名称";
+                table.Cell(rowIndex, 1).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 2).Merge(table.Cell(rowIndex, 2));
+                table.Cell(rowIndex, 2).Range.Text = "门牌类别";
+                table.Cell(rowIndex, 2).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 3).Merge(table.Cell(rowIndex, 3));
+                table.Cell(rowIndex, 3).Range.Text = "门牌号";
+                table.Cell(rowIndex, 3).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 4).Merge(table.Cell(rowIndex, 4));
+                table.Cell(rowIndex, 4).Range.Text = "规格（CM）";
+                table.Cell(rowIndex, 4).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 5).Merge(table.Cell(rowIndex, 5));
+                table.Cell(rowIndex, 5).Range.Text = "邮政编码";
+                table.Cell(rowIndex, 5).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                table.Cell(rowIndex, 6).Merge(table.Cell(rowIndex, 6));
+                table.Cell(rowIndex, 6).Range.Text = "数量";
+                table.Cell(rowIndex, 6).VerticalAlignment = Microsoft.Office.Interop.Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                rowIndex++;
+                foreach (var lxmp in lxMPHZ)
                 {
-                    data = (from t in dbContext.MPOfRoad
-                            where t.LXProduceID == producedLXMPList.LXProduceID
-                            group t by new { t.RoadName, t.MPNumber, t.MPSize } into g
-                            select new LXMPHZ
-                            {
-                                PlaceName = g.Key.RoadName,
-                                MPNumber = g.Key.MPNumber,
-                                MPSize = g.Key.MPSize,
-                                MPType = producedLXMPList.MPType,
-                                Count = 1
-                            }).ToList();
+                    table.Cell(rowIndex, 1).Range.Text = lxmp.PlaceName;
+                    table.Cell(rowIndex, 2).Range.Text = lxmp.Type;
+                    table.Cell(rowIndex, 3).Range.Text = lxmp.MPNumber;
+                    table.Cell(rowIndex, 4).Range.Text = lxmp.MPSize;
+                    table.Cell(rowIndex, 5).Range.Text = lxmp.Postcode;
+                    table.Cell(rowIndex, 6).Range.Text = lxmp.Count.ToString();
+                    rowIndex++;
                 }
-                else if (producedLXMPList.MPType == Enums.MPTypeCh.Country)
+                //导出文件
+                string newFile = LXProduceID + ".doc";
+                var path = StaticVariable.LXMPProducePath_Full;
+                if (!Directory.Exists(path))
                 {
-                    data = (from t in dbContext.MPOfCountry
-                            where t.LXProduceID == producedLXMPList.LXProduceID
-                            group t by new { t.ViligeName, t.MPNumber, t.MPSize } into g
-                            select new LXMPHZ
-                            {
-                                PlaceName = g.Key.ViligeName,
-                                MPNumber = g.Key.MPNumber,
-                                MPSize = g.Key.MPSize,
-                                MPType = producedLXMPList.MPType,
-                                Count = 1
-                            }).ToList();
+                    Directory.CreateDirectory(path);
                 }
-                return data;
+                string physicNewFile = Path.Combine(path, newFile);
+                doc.SaveAs(physicNewFile,
+                oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing,
+                oMissing, oMissing, oMissing, oMissing, oMissing, oMissing);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (doc != null)
+                {
+                    doc.Close();//关闭文档
+                }
+                if (app != null)
+                {
+                    app.Quit();//退出应用程序
+                }
             }
         }
 
@@ -232,7 +339,6 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 var mpOfRoad = BaseUtils.DataFilterWithTown<MPOfRoad>(dbContext.MPOfRoad);
                 var mpOfResidence = BaseUtils.DataFilterWithTown<MPOfResidence>(dbContext.MPOfResidence);
                 var mpOfCountry = BaseUtils.DataFilterWithTown<MPOfCountry>(dbContext.MPOfCountry);
-
                 int count = 0;
                 var all = (from t in mpOfRoad
                            where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
@@ -245,7 +351,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                MPProduceTime = g.Key.MPProduceTime
                            }).Concat(
                     from t in mpOfCountry
-                    where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.LX && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
+                    where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
                     group t by new { t.PLProduceID, t.MPProduceUser, t.MPProduceTime } into g
                     select new ProducedPLMPList
                     {
@@ -255,7 +361,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         MPProduceTime = g.Key.MPProduceTime
                     }).Concat(
                     from t in mpOfResidence
-                    where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.LX && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
+                    where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
                     group t by new { t.PLProduceID, t.MPProduceUser, t.MPProduceTime } into g
                     select new ProducedPLMPList
                     {
@@ -563,11 +669,11 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         foreach (var PlaceName in PlaceNames)
                         {
                             var plmphz = new PLMPHZ();
-                            plmphz.type = Enums.MPTypeCh.Residence;
+                            plmphz.Type = Enums.MPTypeCh.Residence;
                             plmphz.PlaceName = PlaceName;
-                            plmphz.SBDW = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.SBDW).FirstOrDefault();
-                            plmphz.Postcode = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.Postcode).FirstOrDefault();
-                            plmphz.CountryName = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.Postcode).FirstOrDefault().Split('.').Last();
+                            plmphz.SBDW = string.Join(",", query.Where(t => t.ResidenceName == PlaceName).Select(t => t.SBDW).ToList());
+                            plmphz.Postcode = string.Join(",", query.Where(t => t.ResidenceName == PlaceName).Select(t => t.Postcode).ToList());
+                            plmphz.CountryName = string.Join(",", query.Where(t => t.ResidenceName == PlaceName).Select(t => t.CountyID).ToList().Select(t => t.Split('.').Last()).ToList());
 
                             plmphz.LZP = (from t in query
                                           where t.ResidenceName == PlaceName
@@ -616,18 +722,21 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         foreach (var PlaceName in PlaceNames)
                         {
                             var plmphz = new PLMPHZ();
-                            plmphz.type = Enums.MPTypeCh.Road;
+                            plmphz.Type = Enums.MPTypeCh.Road;
                             plmphz.PlaceName = PlaceName;
+                            plmphz.SBDW = query.Where(t => t.RoadName == PlaceName).Select(t => t.SBDW).FirstOrDefault();
+                            plmphz.Postcode = query.Where(t => t.RoadName == PlaceName).Select(t => t.Postcode).FirstOrDefault();
+                            plmphz.CountryName = string.Join(",", query.Where(t => t.RoadName == PlaceName).Select(t => t.CountyID).ToList().Select(t => t.Split('.').Last()).ToList());
+
                             plmphz.DLP = (from t in query
                                           where t.RoadName == PlaceName
                                           group t by t.MPNumber into g
                                           select new PLMPSL
                                           {
                                               Number = g.Key,
-                                              MPSize = g.Select(t => t.MPSize).First(),
+                                              MPSize = string.Join(",", g.Select(t => t.MPSize).ToList()),
                                               Count = g.Count()
                                           }).ToList();
-
                             plmphzs.Add(plmphz);
                         }
                     }
@@ -641,11 +750,16 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             q.MPProduceTime = MPProduceTime;
                         }
                         var PlaceNames = query.Select(t => t.ViligeName).Distinct().ToList();
+
                         foreach (var PlaceName in PlaceNames)
                         {
                             var plmphz = new PLMPHZ();
-                            plmphz.type = Enums.MPTypeCh.Country;
+                            plmphz.Type = Enums.MPTypeCh.Country;
                             plmphz.PlaceName = PlaceName;
+                            plmphz.SBDW = query.Where(t => t.ViligeName == PlaceName).Select(t => t.SBDW).FirstOrDefault();
+                            plmphz.Postcode = query.Where(t => t.ViligeName == PlaceName).Select(t => t.Postcode).FirstOrDefault();
+                            plmphz.CountryName = string.Join(",", query.Where(t => t.ViligeName == PlaceName).Select(t => t.CountyID).ToList().Select(t => t.Split('.').Last()).ToList());
+
                             plmphz.NCP = (from t in query
                                           where t.ViligeName == PlaceName
                                           group t by t.MPNumber into g
@@ -659,108 +773,121 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     }
                     dbContext.SaveChanges();
                 }
-                CreateTabToWord(plmphzs);
+                CreateTabToWord_PL(plmphzs, PLProduceID);
                 return plmphzs;
             }
         }
-        public static List<PLMPHZ> GetProducedPLMPDetails(ProducedPLMPList producedPLMPList)
+        public static MemoryStream GetProducedPLMPDetails(string PLProduceID/*ProducedPLMPList producedPLMPList*/)
         {
-            using (var dbContext = SystemUtils.NewEFDbContext)
-            {
-                List<PLMPHZ> plmphzs = new List<PLMPHZ>();
-                if (producedPLMPList.MPType == Enums.MPTypeCh.Residence)
-                {
-                    var query = dbContext.MPOfResidence.Where(t => t.PLProduceID == producedPLMPList.PLProduceID);
-                    var PlaceNames = query.Select(t => t.ResidenceName).Distinct().ToList();
-                    foreach (var PlaceName in PlaceNames)
-                    {
-                        var plmphz = new PLMPHZ();
-                        plmphz.PlaceName = PlaceName;
-                        plmphz.SBDW = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.SBDW).FirstOrDefault();
-                        plmphz.Postcode = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.Postcode).FirstOrDefault();
-                        plmphz.CountryName = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.Postcode).FirstOrDefault().Split('.').Last();
+            WebClient client = new WebClient();
+            string strUrlFilePath = Path.Combine(StaticVariable.PLMPProducePath_Full, PLProduceID + ".doc");
+            var bytes = client.DownloadData(strUrlFilePath);
+            MemoryStream ms = new MemoryStream(bytes);
+            return ms;
 
-                        plmphz.LZP = (from t in query
-                                      where t.ResidenceName == PlaceName
-                                      group t by t.LZNumber into g
-                                      select new PLMPSL
-                                      {
-                                          Number = g.Key,
-                                          Count = 2
-                                      }).ToList();
-                        var dy = (from t in query
-                                  where t.ResidenceName == PlaceName
-                                  select new
-                                  {
-                                      LZNumber = t.LZNumber,
-                                      DYNumner = t.DYNumber
-                                  }).Distinct();
-                        plmphz.DYP = (from t in dy
-                                      group t by t.DYNumner into g
-                                      select new PLMPSL
-                                      {
-                                          Number = g.Key,
-                                          Count = g.Count()
-                                      }).ToList();
-                        plmphz.HSP = (from t in query
-                                      where t.ResidenceName == PlaceName
-                                      group t by t.HSNumber into g
-                                      select new PLMPSL
-                                      {
-                                          Number = g.Key,
-                                          Count = g.Count()
-                                      }).ToList();
-                        plmphzs.Add(plmphz);
-                    }
-                }
-                else if (producedPLMPList.MPType == Enums.MPTypeCh.Road)
-                {
-                    var query = dbContext.MPOfRoad.Where(t => t.PLProduceID == producedPLMPList.PLProduceID);
-                    var PlaceNames = query.Select(t => t.RoadName).Distinct().ToList();
-                    foreach (var PlaceName in PlaceNames)
-                    {
-                        var plmphz = new PLMPHZ();
-                        plmphz.PlaceName = PlaceName;
+            //using (var dbContext = SystemUtils.NewEFDbContext)
+            //{
+            //    List<PLMPHZ> plmphzs = new List<PLMPHZ>();
+            //    if (producedPLMPList.MPType == Enums.MPTypeCh.Residence)
+            //    {
 
-                        plmphz.DLP = (from t in query
-                                      where t.RoadName == PlaceName
-                                      group t by new { t.MPNumber, t.MPSize } into g
-                                      select new PLMPSL
-                                      {
-                                          Number = g.Key.MPNumber,
-                                          MPSize = g.Key.MPSize,
-                                          Count = g.Count()
-                                      }).ToList();
+            //        var query = dbContext.MPOfResidence.Where(t => t.PLProduceID == producedPLMPList.PLProduceID);
+            //        var PlaceNames = query.Select(t => t.ResidenceName).Distinct().ToList();
 
-                        plmphzs.Add(plmphz);
-                    }
-                }
-                else if (producedPLMPList.MPType == Enums.MPTypeCh.Country)
-                {
-                    var query = dbContext.MPOfCountry.Where(t => t.PLProduceID == producedPLMPList.PLProduceID);
-                    var PlaceNames = query.Select(t => t.ViligeName).Distinct().ToList();
-                    foreach (var PlaceName in PlaceNames)
-                    {
-                        var plmphz = new PLMPHZ();
-                        plmphz.PlaceName = PlaceName;
+            //        foreach (var PlaceName in PlaceNames)
+            //        {
+            //            var plmphz = new PLMPHZ();
+            //            plmphz.PlaceName = PlaceName;
+            //            plmphz.SBDW = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.SBDW).FirstOrDefault();
+            //            plmphz.Postcode = query.Where(t => t.ResidenceName == PlaceName).Select(t => t.Postcode).FirstOrDefault();
+            //            plmphz.CountryName = string.Join(",", query.Where(t => t.ResidenceName == PlaceName).Select(t => t.CountyID).ToList().Select(t => t.Split('.').Last()).ToList());
 
-                        plmphz.NCP = (from t in query
-                                      where t.ViligeName == PlaceName
-                                      group t by t.MPNumber into g
-                                      select new PLMPSL
-                                      {
-                                          Number = g.Key,
-                                          Count = g.Count()
-                                      }).ToList();
-                        plmphzs.Add(plmphz);
-                    }
-                }
-                CreateTabToWord(plmphzs);
-                return plmphzs;
-            }
+            //            plmphz.LZP = (from t in query
+            //                          where t.ResidenceName == PlaceName
+            //                          group t by t.LZNumber into g
+            //                          select new PLMPSL
+            //                          {
+            //                              Number = g.Key,
+            //                              Count = 2
+            //                          }).ToList();
+            //            var dy = (from t in query
+            //                      where t.ResidenceName == PlaceName
+            //                      select new
+            //                      {
+            //                          LZNumber = t.LZNumber,
+            //                          DYNumner = t.DYNumber
+            //                      }).Distinct();
+            //            plmphz.DYP = (from t in dy
+            //                          group t by t.DYNumner into g
+            //                          select new PLMPSL
+            //                          {
+            //                              Number = g.Key,
+            //                              Count = g.Count()
+            //                          }).ToList();
+            //            plmphz.HSP = (from t in query
+            //                          where t.ResidenceName == PlaceName
+            //                          group t by t.HSNumber into g
+            //                          select new PLMPSL
+            //                          {
+            //                              Number = g.Key,
+            //                              Count = g.Count()
+            //                          }).ToList();
+            //            plmphzs.Add(plmphz);
+            //        }
+            //    }
+            //    else if (producedPLMPList.MPType == Enums.MPTypeCh.Road)
+            //    {
+            //        var query = dbContext.MPOfRoad.Where(t => t.PLProduceID == producedPLMPList.PLProduceID);
+            //        var PlaceNames = query.Select(t => t.RoadName).Distinct().ToList();
+            //        foreach (var PlaceName in PlaceNames)
+            //        {
+            //            var plmphz = new PLMPHZ();
+            //            plmphz.PlaceName = PlaceName;
+            //            plmphz.SBDW = query.Where(t => t.RoadName == PlaceName).Select(t => t.SBDW).FirstOrDefault();
+            //            plmphz.Postcode = query.Where(t => t.RoadName == PlaceName).Select(t => t.Postcode).FirstOrDefault();
+            //            plmphz.CountryName = string.Join(",", query.Where(t => t.RoadName == PlaceName).Select(t => t.CountyID).ToList().Select(t => t.Split('.').Last()).ToList()); //query.Where(t => t.RoadName == PlaceName).Select(t => t.CountyID).FirstOrDefault().Split('.').Last();
+
+            //            plmphz.DLP = (from t in query
+            //                          where t.RoadName == PlaceName
+            //                          group t by new { t.MPNumber, t.MPSize } into g
+            //                          select new PLMPSL
+            //                          {
+            //                              Number = g.Key.MPNumber,
+            //                              MPSize = g.Key.MPSize,
+            //                              Count = g.Count()
+            //                          }).ToList();
+
+            //            plmphzs.Add(plmphz);
+            //        }
+            //    }
+            //    else if (producedPLMPList.MPType == Enums.MPTypeCh.Country)
+            //    {
+            //        var query = dbContext.MPOfCountry.Where(t => t.PLProduceID == producedPLMPList.PLProduceID);
+            //        var PlaceNames = query.Select(t => t.ViligeName).Distinct().ToList();
+            //        foreach (var PlaceName in PlaceNames)
+            //        {
+            //            var plmphz = new PLMPHZ();
+            //            plmphz.PlaceName = PlaceName;
+            //            plmphz.SBDW = query.Where(t => t.ViligeName == PlaceName).Select(t => t.SBDW).FirstOrDefault();
+            //            plmphz.Postcode = query.Where(t => t.ViligeName == PlaceName).Select(t => t.Postcode).FirstOrDefault();
+            //            plmphz.CountryName = string.Join(",", query.Where(t => t.ViligeName == PlaceName).Select(t => t.CountyID).ToList().Select(t => t.Split('.').Last()).ToList());// query.Where(t => t.ViligeName == PlaceName).Select(t => t.CountyID).FirstOrDefault().Split('.').Last();
+            //            plmphz.NCP = (from t in query
+            //                          where t.ViligeName == PlaceName
+            //                          group t by t.MPNumber into g
+            //                          select new PLMPSL
+            //                          {
+            //                              Number = g.Key,
+            //                              Count = g.Count()
+            //                          }).ToList();
+            //            plmphzs.Add(plmphz);
+            //        }
+            //    }
+            //    CreateTabToWord_PL(plmphzs);
+            //    return plmphzs;
+            //}
         }
 
-        public static void CreateTabToWord(List<PLMPHZ> plMPHZ)
+        public static void CreateTabToWord_PL(List<PLMPHZ> plMPHZ, string PLProduceID)
         {
             Microsoft.Office.Interop.Word.Application app = null;
             Microsoft.Office.Interop.Word.Document doc = null;
@@ -769,17 +896,17 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 var dataCount = 0;
                 foreach (var plmp in plMPHZ)
                 {
-                    if (plmp.type == Enums.MPTypeCh.Residence)
+                    if (plmp.Type == Enums.MPTypeCh.Residence)
                     {
                         var max = Math.Max(plmp.LZP.Count(), plmp.DYP.Count());
                         max = Math.Max(max, plmp.HSP.Count());
                         dataCount += max;
                     }
-                    else if (plmp.type == Enums.MPTypeCh.Road)
+                    else if (plmp.Type == Enums.MPTypeCh.Road)
                     {
                         dataCount += plmp.DLP.Count();
                     }
-                    else if (plmp.type == Enums.MPTypeCh.Country)
+                    else if (plmp.Type == Enums.MPTypeCh.Country)
                     {
                         dataCount += plmp.NCP.Count();
                     }
@@ -858,7 +985,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 rowIndex++;
                 foreach (var plmp in plMPHZ)
                 {
-                    if (plmp.type == Enums.MPTypeCh.Residence)
+                    if (plmp.Type == Enums.MPTypeCh.Residence)
                     {
                         var max = Math.Max(plmp.LZP.Count(), plmp.DYP.Count());
                         max = Math.Max(max, plmp.HSP.Count());
@@ -891,7 +1018,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         }
                     }
 
-                    else if (plmp.type == Enums.MPTypeCh.Road)
+                    else if (plmp.Type == Enums.MPTypeCh.Road)
                     {
                         var max = plmp.DLP.Count();
                         table.Cell(rowIndex, 1).Merge(table.Cell(rowIndex + max, 1));
@@ -907,7 +1034,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             dlRow++;
                         }
                     }
-                    else if (plmp.type == Enums.MPTypeCh.Country)
+                    else if (plmp.Type == Enums.MPTypeCh.Country)
                     {
                         var max = plmp.NCP.Count();
                         table.Cell(rowIndex, 1).Merge(table.Cell(rowIndex + max, 1));
@@ -923,9 +1050,14 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         }
                     }
                 }
-                //导出到文件
-                string newFile = DateTime.Now.ToString("yyyyMMddHHmmss") + ".doc";
-                string physicNewFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files", "MPProduce");
+                //导出文件
+                string newFile = PLProduceID + ".doc";
+                var path = StaticVariable.PLMPProducePath_Full;
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                string physicNewFile = Path.Combine(path, newFile);
                 doc.SaveAs(physicNewFile,
                 oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing,
                 oMissing, oMissing, oMissing, oMissing, oMissing, oMissing);
@@ -1126,7 +1258,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
 
 public class PLMPHZ
 {
-    public string type { get; set; }
+    public string Type { get; set; }
     public string CountryName { get; set; }
     public string PlaceName { get; set; }
     public string SBDW { get; set; }
@@ -1145,9 +1277,10 @@ public class PLMPSL
 }
 public class LXMPHZ
 {
+    public string Type { get; set; }
+    public string CountryName { get; set; }
     public string PlaceName { get; set; }
     public string MPSize { get; set; }
-    public string MPType { get; set; }
     public string MPNumber { get; set; }
     public string Postcode { get; set; }
     public int Count { get; set; }

@@ -16,22 +16,7 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class FileController : Controller
     {
-        public static readonly string uploadBasePath = AppDomain.CurrentDomain.BaseDirectory;
-
-        // 住宅门牌上传相对路径
-        public static readonly string residenceMPRelativePath = Path.Combine("Files", Enums.TypeStr.MP, Enums.MPFileType.ResidenceMP);
-        // 道路门牌上传相对路径
-        public static readonly string roadMPRelativePath = Path.Combine("Files", Enums.TypeStr.MP, Enums.MPFileType.RoadMP);
-        // 农村门牌上传相对路径
-        public static readonly string countryMPRelativePath = Path.Combine("Files", Enums.TypeStr.MP, Enums.MPFileType.CountryMP);
-
-        //路牌标志照片上传相对路径
-        public static readonly string RPBZPhotoRelativePath = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.BZPhoto);
-        //路牌二维码照片上传相对路径
-        public static readonly string RPQRCodeRelativePath = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.QRCode);
-        //路牌维修前后照片上传相对路径
-        public static readonly string RPRepairPhotoRelativePath = Path.Combine("Files", Enums.TypeStr.RP, Enums.RPFileType.RepairPhoto);
-
+      
         public class Paths
         {
             // 相对路径
@@ -55,25 +40,25 @@ namespace JXGIS.JXTopsystem.Controllers
             switch (FileType.ToUpper())
             {
                 case "RESIDENCE":
-                    relativePath = residenceMPRelativePath;
+                    relativePath = StaticVariable.residenceMPRelativePath;
                     break;
                 case "ROAD":
-                    relativePath = roadMPRelativePath;
+                    relativePath = StaticVariable.roadMPRelativePath;
                     break;
                 case "COUNTRY":
-                    relativePath = countryMPRelativePath;
+                    relativePath = StaticVariable.countryMPRelativePath;
                     break;
                 case "RPBZPHOTO":
-                    relativePath = RPBZPhotoRelativePath;
+                    relativePath = StaticVariable.RPBZPhotoRelativePath;
                     break;
                 case "RPREPAIRPHOTO":
-                    relativePath = RPRepairPhotoRelativePath;
+                    relativePath = StaticVariable.RPRepairPhotoRelativePath;
                     break;
                 default:
                     throw new Exception("未知的文件目录");
             }
             relativePath = Path.Combine(relativePath, ID);
-            string savePath = Path.Combine(uploadBasePath, relativePath);
+            string savePath = Path.Combine(StaticVariable.basePath, relativePath);
 
             if (FileType.ToUpper() == "RPREPAIRPHOTO")
             {
@@ -173,6 +158,76 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+
+        public class Photos
+        {
+            public string Id { get; set; }
+
+            public string Photo { get; set; }
+
+            public int Code { get; set; }
+
+            public int Year { get; set; }
+        }
+
+        //public ActionResult ImportTest()
+        //{
+        //    using (var db = SystemUtils.NewEFDbContext)
+        //    {
+        //        using (var ts = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.Required, new TimeSpan(6000000000)))
+        //        {
+
+        //            var photoPath = @"E:\Projects\09 嘉兴地名\路牌导入\路牌数据\2016-2018数据整理\{0}\{1}";
+
+        //            var ps = db.Database.SqlQuery<Photos>("select rp.ID,t.* from photos t left join rp on rp.Code=t.Code").ToList();
+        //            foreach (var p in ps)
+        //            {
+        //                var photo = p.Photo;
+        //                if (!string.IsNullOrEmpty(photo))
+        //                {
+        //                    var photos = photo.Split(';');
+        //                    foreach (var pts in photos)
+        //                    {
+        //                        var filePath = string.Format(photoPath, p.Year, pts);
+
+        //                        if (System.IO.File.Exists(filePath))
+        //                        {
+        //                            var ID = p.Id;
+        //                            var fileName = new FileInfo(filePath).Name;
+        //                            var fileID = System.Guid.NewGuid().ToString();
+        //                            var fileEx = new FileInfo(fileName).Extension;
+        //                            var paths = GetUploadFilePath("RPBZPHOTO", ID, fileID, fileName, null);
+        //                            System.IO.File.Copy(filePath, paths.FullPath);
+
+        //                            using (FileStream fs = System.IO.File.Open(filePath, FileMode.Open))
+        //                            {
+        //                                // 保存缩略图片
+        //                                Image image = Image.FromStream(fs);
+        //                                image = PictureUtils.GetHvtThumbnail(image, 200);
+        //                                image.Save(paths.TFullPath);
+        //                            }
+
+        //                            // 保存到数据库中
+        //                            // 文件ID，门牌记录的ID，图片相对路径，缩略图相对路径，文件名称等
+        //                            RPOfUploadFiles data = new RPOfUploadFiles();
+        //                            data.ID = fileID;
+        //                            data.Name = fileName;
+        //                            data.RPID = ID;
+        //                            data.FileEx = fileEx;
+        //                            data.State = Enums.UseState.Enable;
+        //                            db.RPOfUploadFiles.Add(data);
+
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            db.SaveChanges();
+        //            ts.Complete();
+        //        }
+        //    }
+        //    return null;
+        //}
+
         [LoggerFilter(Description = "根据ID、文件类型删除附件")]
         public ActionResult RemovePicture(string ID, string FileType)
         {

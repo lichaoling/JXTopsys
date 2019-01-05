@@ -138,7 +138,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 rt = new RtObj();
                 var RPids = Session["_RPids"] != null ? (List<string>)Session["_RPids"] : new List<string>();
 
-                string QRFilePath = Path.Combine(FileController.uploadBasePath, FileController.RPQRCodeRelativePath);
+                string QRFilePath = Path.Combine(StaticVariable.basePath,StaticVariable.RPQRCodeRelativePath);
                 MemoryStream ms = new MemoryStream();
                 byte[] buffer = null;
                 using (ZipFile file = ZipFile.Create(ms))
@@ -184,7 +184,7 @@ namespace JXGIS.JXTopsystem.Controllers
             try
             {
                 rt = new RtObj();
-                string QRFilePath = Path.Combine(FileController.uploadBasePath, FileController.RPQRCodeRelativePath);
+                string QRFilePath = Path.Combine(StaticVariable.basePath, StaticVariable.RPQRCodeRelativePath);
                 MemoryStream ms = new MemoryStream();
                 byte[] buffer = null;
                 using (ZipFile file = ZipFile.Create(ms))

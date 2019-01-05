@@ -62,7 +62,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         /// <returns></returns>
         private static void SaveMPFilesByID(IList<HttpPostedFile> files, string MPID, string DocType, string MPTypeStr)
         {
-            var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", MPTypeStr, MPID, DocType);
+            var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "MPFile", MPTypeStr, MPID, DocType);
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
@@ -107,7 +107,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         /// <param name="MPTypeStr"></param>
         private static void UpdateMPFilesByID(List<string> CurrentIDs, IList<HttpPostedFile> AdddedFiles, string MPID, string DocType, string MPTypeStr)
         {
-            var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", MPTypeStr, MPID, DocType);
+            var directory = Path.Combine(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Files", "MPFile", MPTypeStr, MPID, DocType);
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
@@ -271,8 +271,10 @@ namespace JXGIS.JXTopsystem.Business.Common
 
         public static IQueryable<T> DataFilterWithTown<T>(IQueryable<T> entity) where T : IBaseEntityWithNeighborhoodsID
         {
+            if (LoginUtils.CurrentUser.DistrictIDList == null || LoginUtils.CurrentUser.DistrictIDList.Count == 0)
+                throw new Exception("该用户没有任何数据权限，请联系管理员！");
             // 先删选出当前用户权限内的数据
-            if (LoginUtils.CurrentUser.DistrictIDList != null && LoginUtils.CurrentUser.DistrictIDList.Count > 0 && !LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
+            if (!LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
             {
                 var where = PredicateBuilder.False<T>();
                 foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
@@ -284,11 +286,12 @@ namespace JXGIS.JXTopsystem.Business.Common
             return entity;
         }
 
-
         public static IQueryable<T> DataFilterWithDist<T>(IQueryable<T> entity) where T : IBaseEntityWitDistrictID
         {
+            if (LoginUtils.CurrentUser.DistrictIDList == null || LoginUtils.CurrentUser.DistrictIDList.Count == 0)
+                throw new Exception("该用户没有任何数据权限，请联系管理员！");
             // 先删选出当前用户权限内的数据
-            if (LoginUtils.CurrentUser.DistrictIDList != null && LoginUtils.CurrentUser.DistrictIDList.Count > 0 && !LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
+            if (!LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
             {
                 var where = PredicateBuilder.False<T>();
                 foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)

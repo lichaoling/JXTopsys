@@ -46,5 +46,9 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DbSet<DirectionDic> DirectionDic { get; set; }
         public DbSet<ARCHIVEFILE> ArchiveFile { get; set; }
         public DbSet<SystemLog> SystemLog { get; set; }
+
+        public DbSet<CRole> CRole { get; set; }
+
+        public DbSet<CPrivilege> CPrivilege { get; set; }
     }
 }

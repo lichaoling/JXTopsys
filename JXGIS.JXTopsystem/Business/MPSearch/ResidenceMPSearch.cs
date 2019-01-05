@@ -275,7 +275,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                     var HJ = files.Where(t => t.DocType == Enums.DocType.HJ);
                     var SQB = files.Where(t => t.DocType == Enums.DocType.SQB);
 
-                    var baseUrl = Path.Combine("Files", Enums.TypeStr.MP, Enums.MPFileType.ResidenceMP, MPID);
+                    var baseUrl = Path.Combine(StaticVariable.residenceMPRelativePath, MPID);
                     if (FCZ.Count() > 0)
                     {
                         query.FCZ = (from t in FCZ
