@@ -188,12 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Files\MPPrint\门牌证模板.png" />
-    <Content Include="Files\MP\Residence\9103a757-d22a-4108-8f3c-56af5c1acdac\10387e0d-9062-48a0-b661-f16830c04d01.png" />
-    <Content Include="Files\MP\Residence\9103a757-d22a-4108-8f3c-56af5c1acdac\8a9f3a31-f69e-4c42-a0b2-9859304f3907.png" />
-    <Content Include="Files\MP\Residence\9103a757-d22a-4108-8f3c-56af5c1acdac\a1ed8213-6308-4a00-8758-672eac471384.png" />
-    <Content Include="Files\MP\Residence\9103a757-d22a-4108-8f3c-56af5c1acdac\t-10387e0d-9062-48a0-b661-f16830c04d01.png" />
-    <Content Include="Files\MP\Residence\9103a757-d22a-4108-8f3c-56af5c1acdac\t-8a9f3a31-f69e-4c42-a0b2-9859304f3907.png" />
-    <Content Include="Files\MP\Residence\9103a757-d22a-4108-8f3c-56af5c1acdac\t-a1ed8213-6308-4a00-8758-672eac471384.png" />
     <Content Include="Files\RP\BZPhoto\aa1bc4e2-43a4-4d3d-88fb-147a6ddd90ba\4b81054c-bd57-4440-997c-3d947b8d09fe.png" />
     <Content Include="Files\RP\BZPhoto\aa1bc4e2-43a4-4d3d-88fb-147a6ddd90ba\t-4b81054c-bd57-4440-997c-3d947b8d09fe.png" />
     <Content Include="Files\RP\RepairPhoto\160004d9-c009-4f7d-b57a-1d4021be0029\维修前\acb2973a-f77b-4173-9a8c-1240d1de0d6a.png" />
@@ -333,6 +327,7 @@
     <Compile Include="Models\Entities\SysRole_SysPrivilige.cs" />
     <Compile Include="Models\Entities\SystemLog.cs" />
     <Compile Include="Models\Entities\SysUser_District.cs" />
+    <Compile Include="Models\Entities\V_MPNUMSTATISTIC.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ArchiveConfigTab.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ArchivePacketDirectory.cs" />
     <Compile Include="Models\Extends\ArchiveFile\BaseInfoDescription.cs" />
@@ -416,9 +411,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\ArchiveFiles\" />
-    <Folder Include="Files\MPPrint\Merge\" />
-    <Folder Include="Files\MPPrint\Temp\" />
     <Folder Include="Files\MPProduce\" />
+    <Folder Include="Files\MP\" />
     <Folder Include="Files\RP\QRCode\" />
     <Folder Include="Files\RP\RPRepairPhoto\95f4df21-25ef-4b62-96fb-6665006216fe\维修前\" />
     <Folder Include="Files\RP\RPRepairPhoto\95f4df21-25ef-4b62-96fb-6665006216fe\维修后\" />

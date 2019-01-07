@@ -57,7 +57,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         }
         public static class CertificateType
         {
-            public const string Placename = "地名证明";
+            public const string Placename = "地址证明";
             public const string MPZ = "门牌证";
         }
         public static class DocType
@@ -78,7 +78,6 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string BZPhoto = "BZPhoto";
             public const string QRCode = "QRCode";
             public const string RepairPhoto = "RPRepairPhoto";
-
         }
         public static class RPRepairFinish
         {

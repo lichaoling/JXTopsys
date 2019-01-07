@@ -16,7 +16,7 @@ namespace JXGIS.JXTopsystem.Controllers
 {
     public class FileController : Controller
     {
-      
+
         public class Paths
         {
             // 相对路径
@@ -58,21 +58,21 @@ namespace JXGIS.JXTopsystem.Controllers
                     throw new Exception("未知的文件目录");
             }
             relativePath = Path.Combine(relativePath, ID);
-            string savePath = Path.Combine(StaticVariable.basePath, relativePath);
+            string fullPath = Path.Combine(StaticVariable.basePath, relativePath);
 
             if (FileType.ToUpper() == "RPREPAIRPHOTO")
             {
-                savePath = Path.Combine(savePath, RepairType);
+                fullPath = Path.Combine(fullPath, RepairType);
                 relativePath = Path.Combine(relativePath, RepairType);
             }
-            if (!Directory.Exists(savePath))
+            if (!Directory.Exists(fullPath))
             {
-                Directory.CreateDirectory(savePath);
+                Directory.CreateDirectory(fullPath);
             }
             string rPath = Path.Combine(relativePath, fileID + fileEx);
-            string fPath = Path.Combine(savePath, fileID + fileEx);
+            string fPath = Path.Combine(fullPath, fileID + fileEx);
             string trPath = Path.Combine(relativePath, "t-" + fileID + fileEx);
-            string tfPath = Path.Combine(savePath, "t-" + fileID + fileEx);
+            string tfPath = Path.Combine(fullPath, "t-" + fileID + fileEx);
 
             return new Paths()
             {
@@ -234,31 +234,43 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                using (var dbContext = SystemUtils.NewEFDbContext)
+                using (var db = SystemUtils.NewEFDbContext)
                 {
                     var MPTypes = new List<string>() { "RESIDENCE", "ROAD", "COUNTRY" };
                     if (MPTypes.Contains(FileType.ToUpper()))
                     {
-                        var query = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
+                        var query = db.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (query == null)
                             throw new Exception("该图片已经被删除！");
-                        query.State = Enums.UseState.Delete;
+
+                        var paths = GetUploadFilePath(FileType, query.MPID, query.ID, query.Name, null);
+                        DeleteFileByPath(paths);
+                        db.MPOfUploadFiles.Remove(query);
+                        //query.State = Enums.UseState.Delete;
                     }
                     else if (FileType.ToUpper() == "RPBZPHOTO")
                     {
-                        var query = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
+                        var query = db.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (query == null)
                             throw new Exception("该图片已经被删除！");
-                        query.State = Enums.UseState.Delete;
+
+                        var paths = GetUploadFilePath(FileType, query.RPID, query.ID, query.Name, null);
+                        DeleteFileByPath(paths);
+                        db.RPOfUploadFiles.Remove(query);
+                        //query.State = Enums.UseState.Delete;
                     }
                     else if (FileType.ToUpper() == "RPREPAIRPHOTO")
                     {
-                        var query = dbContext.RPPepairUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
+                        var query = db.RPPepairUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (query == null)
                             throw new Exception("该图片已经被删除！");
-                        query.State = Enums.UseState.Delete;
+
+                        var paths = GetUploadFilePath(FileType, query.RPRepairID, query.ID, query.Name, query.RepairType);
+                        DeleteFileByPath(paths);
+                        db.RPPepairUploadFiles.Remove(query);
+                        //query.State = Enums.UseState.Delete;
                     }
-                    dbContext.SaveChanges();
+                    db.SaveChanges();
                 }
                 rt = new RtObj();
             }
@@ -336,6 +348,17 @@ namespace JXGIS.JXTopsystem.Controllers
         public string[] StringSplit(string s, char[] separtor)
         {
             string[] tempFileds = s.Trim().Split(separtor); return tempFileds;
+        }
+
+        public static void DeleteFileByPath(Paths paths)
+        {
+            System.IO.File.Delete(paths.FullPath);
+            System.IO.File.Delete(paths.TFullPath);
+            var directory = Path.GetDirectoryName(paths.FullPath);
+            DirectoryInfo root = new DirectoryInfo(directory);
+            FileInfo[] files = root.GetFiles();
+            if (files.Count() == 0)
+                Directory.Delete(directory);
         }
     }
 }

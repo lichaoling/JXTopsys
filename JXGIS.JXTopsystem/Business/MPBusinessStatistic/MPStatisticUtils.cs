@@ -173,7 +173,7 @@ namespace JXGIS.JXTopsystem.Business
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 int count = 0;
-                
+
                 #region 住宅类
                 var queryResidence = from t in dbContext.MPOfCertificate
                                      join r in dbContext.MPOfResidence
@@ -295,171 +295,220 @@ namespace JXGIS.JXTopsystem.Business
         /// <returns></returns>
         public static Dictionary<string, object> GetMPProduceTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, DateTime? start, DateTime? end)
         {
-            using (var dbContext = SystemUtils.NewEFDbContext)
+            using (var db = SystemUtils.NewEFDbContext)
             {
                 int count = 0;
-                var bigMPsize = dbContext.DMBZDic.Where(t => t.Type == "大门牌").Select(t => t.Size).ToList();
-                var smallMPsize = dbContext.DMBZDic.Where(t => t.Type == "小门牌").Select(t => t.Size).ToList();
+                //var bigMPsize = db.DMBZDic.Where(t => t.Type == "大门牌").Select(t => t.Size).ToList();
+                //var smallMPsize = db.DMBZDic.Where(t => t.Type == "小门牌").Select(t => t.Size).ToList();
 
-                #region 住宅
-                var residenceMP = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.PLProduceID != null || t.LXProduceID != null);
-                if (start != null || end != null)
-                {
-                    if (start != null)
-                        residenceMP = residenceMP.Where(t => t.BZTime >= start);
-                    if (end != null)
-                        residenceMP = residenceMP.Where(t => t.BZTime <= end);
-                }
+                //#region 住宅
+                //var residenceMP = db.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.PLProduceID != null || t.LXProduceID != null);
+                //if (start != null || end != null)
+                //{
+                //    if (start != null)
+                //        residenceMP = residenceMP.Where(t => t.BZTime >= start);
+                //    if (end != null)
+                //        residenceMP = residenceMP.Where(t => t.BZTime <= end);
+                //}
 
-                var lzdis = (from t in residenceMP
-                             select new
-                             {
-                                 CountyID = t.CountyID,
-                                 NeighborhoodsID = t.NeighborhoodsID,
-                                 CommunityName = t.CommunityName,
-                                 ResidenceName = t.ResidenceName,
-                                 LZNumber = t.LZNumber,
-                             }).Distinct();
-                var lz = from t in lzdis
-                         group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
-                         select new Statistic
-                         {
-                             CountyID = g.Key.CountyID,
-                             NeighborhoodsID = g.Key.NeighborhoodsID,
-                             CommunityName = g.Key.CommunityName,
-                             type = "楼幢牌",
-                             Count = g.Count() * 2
-                         };
-                var dydis = (from t in residenceMP
-                             select new
-                             {
-                                 CountyID = t.CountyID,
-                                 NeighborhoodsID = t.NeighborhoodsID,
-                                 CommunityName = t.CommunityName,
-                                 ResidenceName = t.ResidenceName,
-                                 LZNumber = t.LZNumber,
-                                 DYNUmber = t.DYNumber,
-                             }).Distinct();
-                var dy = from t in dydis
-                         group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
-                         select new Statistic
-                         {
-                             CountyID = g.Key.CountyID,
-                             NeighborhoodsID = g.Key.NeighborhoodsID,
-                             CommunityName = g.Key.CommunityName,
-                             type = "单元牌",
-                             Count = g.Count()
-                         };
-                var hs = from t in residenceMP
-                         group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
-                         select new Statistic
-                         {
-                             CountyID = g.Key.CountyID,
-                             NeighborhoodsID = g.Key.NeighborhoodsID,
-                             CommunityName = g.Key.CommunityName,
-                             type = "户室牌",
-                             Count = g.Count()
-                         };
-                #endregion
-                #region 道路
-                var roadMP = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.PLProduceID != null || t.LXProduceID != null);
+                //var lzdis = (from t in residenceMP
+                //             where !string.IsNullOrEmpty(t.LZNumber)
+                //             select new
+                //             {
+                //                 CountyID = t.CountyID,
+                //                 NeighborhoodsID = t.NeighborhoodsID,
+                //                 CommunityName = t.CommunityName,
+                //                 ResidenceName = t.ResidenceName,
+                //                 LZNumber = t.LZNumber,
+                //             }).Distinct();
+                //var lz = from t in lzdis
+                //         group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
+                //         select new Statistic
+                //         {
+                //             CountyID = g.Key.CountyID,
+                //             NeighborhoodsID = g.Key.NeighborhoodsID,
+                //             CommunityName = g.Key.CommunityName,
+                //             type = "楼幢牌",
+                //             Count = g.Count() * 2
+                //         };
+                //var dydis = (from t in residenceMP
+                //             where !string.IsNullOrEmpty(t.LZNumber) & !string.IsNullOrEmpty(t.DYNumber)
+                //             select new
+                //             {
+                //                 CountyID = t.CountyID,
+                //                 NeighborhoodsID = t.NeighborhoodsID,
+                //                 CommunityName = t.CommunityName,
+                //                 ResidenceName = t.ResidenceName,
+                //                 LZNumber = t.LZNumber,
+                //                 DYNUmber = t.DYNumber,
+                //             }).Distinct();
+                //var dy = from t in dydis
+                //         group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
+                //         select new Statistic
+                //         {
+                //             CountyID = g.Key.CountyID,
+                //             NeighborhoodsID = g.Key.NeighborhoodsID,
+                //             CommunityName = g.Key.CommunityName,
+                //             type = "单元牌",
+                //             Count = g.Count()
+                //         };
+                //var hs = from t in residenceMP
+                //         where !string.IsNullOrEmpty(t.HSNumber)
+                //         group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
+                //         select new Statistic
+                //         {
+                //             CountyID = g.Key.CountyID,
+                //             NeighborhoodsID = g.Key.NeighborhoodsID,
+                //             CommunityName = g.Key.CommunityName,
+                //             type = "户室牌",
+                //             Count = g.Count()
+                //         };
+                //#endregion
+                //#region 道路
+                //var roadMP = db.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.PLProduceID != null || t.LXProduceID != null);
 
-                if (start != null || end != null)
-                {
-                    if (start != null)
-                        roadMP = roadMP.Where(t => t.BZTime >= start);
-                    if (end != null)
-                        roadMP = roadMP.Where(t => t.BZTime <= end);
-                }
+                //if (start != null || end != null)
+                //{
+                //    if (start != null)
+                //        roadMP = roadMP.Where(t => t.BZTime >= start);
+                //    if (end != null)
+                //        roadMP = roadMP.Where(t => t.BZTime <= end);
+                //}
 
-                var dmp = from t in roadMP
-                          where bigMPsize.Contains(t.MPSize)
-                          group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
-                          select new Statistic
-                          {
-                              CountyID = g.Key.CountyID,
-                              NeighborhoodsID = g.Key.NeighborhoodsID,
-                              CommunityName = g.Key.CommunityName,
-                              type = "大门牌",
-                              Count = g.Count()
-                          };
-                var xmp = from t in roadMP
-                          where smallMPsize.Contains(t.MPSize)
-                          group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
-                          select new Statistic
-                          {
-                              CountyID = g.Key.CountyID,
-                              NeighborhoodsID = g.Key.NeighborhoodsID,
-                              CommunityName = g.Key.CommunityName,
-                              type = "小门牌",
-                              Count = g.Count()
-                          };
-                #endregion
-                #region 农村
-                var countryMP = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.PLProduceID != null || t.LXProduceID != null);
+                //var dmp = from t in roadMP
+                //          where bigMPsize.Contains(t.MPSize)
+                //          group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
+                //          select new Statistic
+                //          {
+                //              CountyID = g.Key.CountyID,
+                //              NeighborhoodsID = g.Key.NeighborhoodsID,
+                //              CommunityName = g.Key.CommunityName,
+                //              type = "大门牌",
+                //              Count = g.Count()
+                //          };
+                //var xmp = from t in roadMP
+                //          where smallMPsize.Contains(t.MPSize)
+                //          group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
+                //          select new Statistic
+                //          {
+                //              CountyID = g.Key.CountyID,
+                //              NeighborhoodsID = g.Key.NeighborhoodsID,
+                //              CommunityName = g.Key.CommunityName,
+                //              type = "小门牌",
+                //              Count = g.Count()
+                //          };
+                //#endregion
+                //#region 农村
+                //var countryMP = db.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.PLProduceID != null || t.LXProduceID != null);
 
 
-                if (start != null || end != null)
-                {
-                    if (start != null)
-                        countryMP = countryMP.Where(t => t.BZTime >= start);
-                    if (end != null)
-                        countryMP = countryMP.Where(t => t.BZTime <= end);
-                }
+                //if (start != null || end != null)
+                //{
+                //    if (start != null)
+                //        countryMP = countryMP.Where(t => t.BZTime >= start);
+                //    if (end != null)
+                //        countryMP = countryMP.Where(t => t.BZTime <= end);
+                //}
 
-                var ncmp = from t in countryMP
-                           group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
-                           select new Statistic
-                           {
-                               CountyID = g.Key.CountyID,
-                               NeighborhoodsID = g.Key.NeighborhoodsID,
-                               CommunityName = g.Key.CommunityName,
-                               type = Enums.MPTypeCh.Country,
-                               Count = g.Count()
-                           };
-                #endregion
+                //var ncmp = from t in countryMP
+                //           group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
+                //           select new Statistic
+                //           {
+                //               CountyID = g.Key.CountyID,
+                //               NeighborhoodsID = g.Key.NeighborhoodsID,
+                //               CommunityName = g.Key.CommunityName,
+                //               type = Enums.MPTypeCh.Country,
+                //               Count = g.Count()
+                //           };
+                //#endregion
 
-                var rt = lz.Concat(dy).Concat(hs).Concat(dmp).Concat(xmp).Concat(hs);
-                rt = BaseUtils.DataFilterWithTown<Statistic>(rt);
+                //var rt = lz.Concat(dy).Concat(hs).Concat(dmp).Concat(xmp).Concat(hs);
+                //rt = BaseUtils.DataFilterWithTown<Statistic>(rt);
 
-                var result = from t in rt
-                             group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
-                             select new StatisticAll
-                             {
-                                 CountyID = g.Key.CountyID,
-                                 NeighborhoodsID = g.Key.NeighborhoodsID,
-                                 CommunityName = g.Key.CommunityName,
-                                 DMP = g.Where(t => t.type == "大门牌").Select(t => t.Count).FirstOrDefault(),
-                                 XMP = g.Where(t => t.type == "小门牌").Select(t => t.Count).FirstOrDefault(),
-                                 LZP = g.Where(t => t.type == "楼幢牌").Select(t => t.Count).FirstOrDefault(),
-                                 DYP = g.Where(t => t.type == "单元牌").Select(t => t.Count).FirstOrDefault(),
-                                 HSP = g.Where(t => t.type == "户室牌").Select(t => t.Count).FirstOrDefault(),
-                                 NCP = g.Where(t => t.type == Enums.MPTypeCh.Country).Select(t => t.Count).FirstOrDefault(),
-                             };
+                //var result = from t in rt
+                //             group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
+                //             select new StatisticAll
+                //             {
+                //                 CountyID = g.Key.CountyID,
+                //                 NeighborhoodsID = g.Key.NeighborhoodsID,
+                //                 CommunityName = g.Key.CommunityName,
+                //                 DMP = g.Where(t => t.type == "大门牌").Select(t => t.Count).FirstOrDefault(),
+                //                 XMP = g.Where(t => t.type == "小门牌").Select(t => t.Count).FirstOrDefault(),
+                //                 LZP = g.Where(t => t.type == "楼幢牌").Select(t => t.Count).FirstOrDefault(),
+                //                 DYP = g.Where(t => t.type == "单元牌").Select(t => t.Count).FirstOrDefault(),
+                //                 HSP = g.Where(t => t.type == "户室牌").Select(t => t.Count).FirstOrDefault(),
+                //                 NCP = g.Where(t => t.type == Enums.MPTypeCh.Country).Select(t => t.Count).FirstOrDefault(),
+                //             };
+                //if (!string.IsNullOrEmpty(DistrictID))
+                //    result = result.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0 || t.NeighborhoodsID == DistrictID);
+
+                //if (!string.IsNullOrEmpty(CommunityName))
+                //    result = result.Where(t => t.CommunityName == CommunityName);
+
+                //count = result.Count();
+                //var query = result.OrderBy(t => t.NeighborhoodsID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                //var data = (from t in query
+                //            select new StatisticAll
+                //            {
+                //                CountyID = t.CountyID,
+                //                NeighborhoodsID = t.NeighborhoodsID,
+                //                CountyName = !string.IsNullOrEmpty(t.CountyID) ? t.CountyID.Split('.').Last() : null,
+                //                NeighborhoodsName = !string.IsNullOrEmpty(t.NeighborhoodsID) ? t.NeighborhoodsID.Split('.').Last() : null,
+                //                CommunityName = t.CommunityName,
+                //                DMP = t.DMP,
+                //                XMP = t.XMP,
+                //                LZP = t.LZP,
+                //                DYP = t.DYP,
+                //                HSP = t.HSP,
+                //                NCP = t.NCP,
+                //                Sum = t.DMP + t.XMP + t.LZP + t.DYP + t.HSP + t.NCP
+                //            }).ToList();
+
+                var res = db.V_MPNUMSTATISTIC.Where(t => t.count > 0);
                 if (!string.IsNullOrEmpty(DistrictID))
-                    result = result.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0 || t.NeighborhoodsID == DistrictID);
-
+                    res = res.Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0 || t.NeighborhoodsID == DistrictID);
                 if (!string.IsNullOrEmpty(CommunityName))
-                    result = result.Where(t => t.CommunityName == CommunityName);
-
-                count = result.Count();
-                var query = result.OrderBy(t => t.NeighborhoodsID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
-                var data = (from t in query
-                            select new StatisticAll
-                            {
-                                CountyID = t.CountyID,
-                                NeighborhoodsID = t.NeighborhoodsID,
-                                CountyName = !string.IsNullOrEmpty(t.CountyID) ? t.CountyID.Split('.').Last() : null,
-                                NeighborhoodsName = !string.IsNullOrEmpty(t.NeighborhoodsID) ? t.NeighborhoodsID.Split('.').Last() : null,
-                                CommunityName = t.CommunityName,
-                                DMP = t.DMP,
-                                XMP = t.XMP,
-                                LZP = t.LZP,
-                                DYP = t.DYP,
-                                HSP = t.HSP,
-                                NCP = t.NCP,
-                                Sum = t.DMP + t.XMP + t.LZP + t.DYP + t.HSP + t.NCP
-                            }).ToList();
+                    res = res.Where(t => t.CommunityName == CommunityName);
+                if (start != null || end != null)
+                {
+                    if (start != null)
+                        res = res.Where(t => t.BZTime >= start);
+                    if (end != null)
+                        res = res.Where(t => t.BZTime <= end);
+                }
+                var d = from t in res
+                        group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
+                        select new StatisticAll
+                        {
+                            CountyID = g.Key.CountyID,
+                            NeighborhoodsID = g.Key.NeighborhoodsID,
+                            CommunityName = g.Key.CommunityName,
+                            DMP = g.Where(t => t.type == "大门牌").Sum(t => t.count),
+                            XMP = g.Where(t => t.type == "小门牌").Sum(t => t.count),
+                            LZP = g.Where(t => t.type == "楼幢牌").Sum(t => t.count),
+                            DYP = g.Where(t => t.type == "单元牌").Sum(t => t.count),
+                            HSP = g.Where(t => t.type == "户室牌").Sum(t => t.count),
+                            NCP = g.Where(t => t.type == "农村牌").Sum(t => t.count),
+                            Sum = g.Sum(t => t.count),
+                        };
+                count = d.Count();
+                var data = d.OrderBy(t => t.NeighborhoodsID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                data = (from t in data
+                        select new StatisticAll
+                        {
+                            CountyID = t.CountyID,
+                            NeighborhoodsID = t.NeighborhoodsID,
+                            CountyName = !string.IsNullOrEmpty(t.CountyID) ? t.CountyID.Split('.').Last() : null,
+                            NeighborhoodsName = !string.IsNullOrEmpty(t.NeighborhoodsID) ? t.NeighborhoodsID.Split('.').Last() : null,
+                            CommunityName = t.CommunityName,
+                            DMP = t.DMP,
+                            XMP = t.XMP,
+                            LZP = t.LZP,
+                            DYP = t.DYP,
+                            HSP = t.HSP,
+                            NCP = t.NCP,
+                            Sum = t.Sum,
+                        }).ToList();
 
                 return new Dictionary<string, object> {
                    { "Data",data},
@@ -468,7 +517,7 @@ namespace JXGIS.JXTopsystem.Business
             }
         }
     }
-    class Statistic: IBaseEntityWithNeighborhoodsID
+    class Statistic : IBaseEntityWithNeighborhoodsID
     {
         public string CountyID { get; set; }
         public string CountyName { get; set; }
@@ -486,13 +535,13 @@ namespace JXGIS.JXTopsystem.Business
         public string NeighborhoodsID { get; set; }
         public string NeighborhoodsName { get; set; }
         public string CommunityName { get; set; }
-        public int LZP { get; set; }
-        public int DYP { get; set; }
-        public int HSP { get; set; }
-        public int DMP { get; set; }
-        public int XMP { get; set; }
-        public int NCP { get; set; }
-        public int Sum { get; set; }
+        public int? LZP { get; set; }
+        public int? DYP { get; set; }
+        public int? HSP { get; set; }
+        public int? DMP { get; set; }
+        public int? XMP { get; set; }
+        public int? NCP { get; set; }
+        public int? Sum { get; set; }
 
     }
 }

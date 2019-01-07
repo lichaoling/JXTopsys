@@ -180,13 +180,13 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(rt);
         }
         [LoggerFilter(Description = "地址证明打印")]
-        public ActionResult DZZMPrint(string ID, string MPType)
+        public ActionResult DZZMPrint(List<string> IDs, string MPType)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                List<string> IDs = ID.Split(',').ToList();
+                //List<string> IDs = ID.Split(',').ToList();
                 var ms = MPPrintUtils.DZZMPrint(IDs, MPType);
                 string fileName = $"地址证明_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.pdf";
                 return File(ms, "application/pdf", fileName);
@@ -199,13 +199,13 @@ namespace JXGIS.JXTopsystem.Controllers
 
         }
         [LoggerFilter(Description = "门牌证打印")]
-        public ActionResult MPZPrint(string ID, string MPType)
+        public ActionResult MPZPrint(List<string> IDs, string MPType)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                List<string> IDs = ID.Split(',').ToList();
+                //List<string> IDs = ID.Split(',').ToList();
                 var ms = MPPrintUtils.MPZPrint(IDs, MPType);
                 string fileName = $"门牌证_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.pdf";
                 return File(ms, "application/pdf", fileName);

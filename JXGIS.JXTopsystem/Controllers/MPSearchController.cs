@@ -5,6 +5,7 @@ using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -106,7 +107,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 Session["_ResidenceMPPropertyOwner"] = null;
                 Session["_ResidenceMPStandardAddress"] = null;
                 Session["_ResidenceMPUseState"] = null;
-                string fileName = $"住宅门牌_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.xls";
+                string fileName = $"住宅门牌{DateTime.Now.ToString("yyyyMMddHHmmss")}.xls";
                 return File(ms, "application/vnd.ms-excel", fileName);
             }
             catch (Exception ex)
@@ -203,7 +204,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 Session["_RoadMPStandardAddress"] = null;
                 Session["_RoadMPNumberType"] = null;
                 Session["_RoadMPUseState"] = null;
-                string fileName = $"道路门牌_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.xls";
+                string fileName = $"道路门牌{DateTime.Now.ToString("yyyyMMddHHmmss")}.xls";
                 return File(ms, "application/vnd.ms-excel", fileName);
             }
             catch (Exception ex)
@@ -294,7 +295,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 Session["_CountryMPPropertyOwner"] = null;
                 Session["_CountryMPStandardAddress"] = null;
                 Session["_CountryMPUseState"] = null;
-                string fileName = $"农村门牌_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.xls";
+                string fileName = $"农村门牌{DateTime.Now.ToString("yyyyMMddHHmmss")}.xls";
                 return File(ms, "application/vnd.ms-excel", fileName);
             }
             catch (Exception ex)

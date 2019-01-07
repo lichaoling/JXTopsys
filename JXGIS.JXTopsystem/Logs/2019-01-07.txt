@@ -1,0 +1,47 @@
+=======2019/1/7 星期一 15:26:03
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/7 星期一 16:41:15
+|Message:The cast to value type 'System.Int32' failed because the materialized value is null. Either the result type's generic parameter or the query must use a nullable type.
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPStatisticUtils.GetMPProduceTJ(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPBusinessStatistic\MPStatisticUtils.cs:行号 495
+   在 JXGIS.JXTopsystem.Controllers.MPBusinessStatisticController.GetMPProduceTJ(String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPBusinessStatisticController.cs:行号 59
+=======2019/1/7 星期一 16:43:06
+|Message:The cast to value type 'System.Int32' failed because the materialized value is null. Either the result type's generic parameter or the query must use a nullable type.
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPStatisticUtils.GetMPProduceTJ(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPBusinessStatistic\MPStatisticUtils.cs:行号 495
+   在 JXGIS.JXTopsystem.Controllers.MPBusinessStatisticController.GetMPProduceTJ(String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPBusinessStatisticController.cs:行号 59
+=======2019/1/7 星期一 16:43:18
+|Message:The cast to value type 'System.Int32' failed because the materialized value is null. Either the result type's generic parameter or the query must use a nullable type.
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPStatisticUtils.GetMPProduceTJ(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPBusinessStatistic\MPStatisticUtils.cs:行号 495
+   在 JXGIS.JXTopsystem.Controllers.MPBusinessStatisticController.GetMPProduceTJ(String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPBusinessStatisticController.cs:行号 59
+=======2019/1/7 星期一 16:44:48
+|Message:The cast to value type 'System.Int32' failed because the materialized value is null. Either the result type's generic parameter or the query must use a nullable type.
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPStatisticUtils.GetMPProduceTJ(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPBusinessStatistic\MPStatisticUtils.cs:行号 495
+   在 JXGIS.JXTopsystem.Controllers.MPBusinessStatisticController.GetMPProduceTJ(String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPBusinessStatisticController.cs:行号 59

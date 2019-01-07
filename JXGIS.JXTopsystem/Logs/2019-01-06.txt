@@ -1,0 +1,40 @@
+=======2019/1/6 星期日 11:39:01
+|Message:对象的类型必须是 __ComObject 或是从 __ComObject 派生。
+参数名: o
+|StackTrace:   在 System.Runtime.InteropServices.Marshal.ReleaseComObject(Object o)
+   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.ExportResidenceMP(String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.ExportResidenceMP()
+=======2019/1/6 星期日 11:40:04
+|Message:对象的类型必须是 __ComObject 或是从 __ComObject 派生。
+参数名: o
+|StackTrace:   在 System.Runtime.InteropServices.Marshal.ReleaseComObject(Object o)
+   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.ExportResidenceMP(String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.ExportResidenceMP()
+=======2019/1/6 星期日 11:40:24
+|Message:对象的类型必须是 __ComObject 或是从 __ComObject 派生。
+参数名: o
+|StackTrace:   在 System.Runtime.InteropServices.Marshal.ReleaseComObject(Object o)
+   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.ExportResidenceMP(String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.ExportResidenceMP()
+=======2019/1/6 星期日 11:40:52
+|Message:对象的类型必须是 __ComObject 或是从 __ComObject 派生。
+参数名: o
+|StackTrace:   在 System.Runtime.InteropServices.Marshal.ReleaseComObject(Object o)
+   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.ExportResidenceMP(String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.ExportResidenceMP()
+=======2019/1/6 星期日 11:45:23
+|Message:对象的类型必须是 __ComObject 或是从 __ComObject 派生。
+参数名: o
+|StackTrace:   在 System.Runtime.InteropServices.Marshal.ReleaseComObject(Object o)
+   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.ExportResidenceMP(String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.ExportResidenceMP()
+=======2019/1/6 星期日 12:44:02
+|Message:值不能为 null。
+参数名: path1
+|StackTrace:   在 System.IO.Path.Combine(String path1, String path2)
+   在 JXGIS.JXTopsystem.Controllers.FileController.RemovePicture(String ID, String FileType)
+=======2019/1/6 星期日 12:44:35
+|Message:值不能为 null。
+参数名: path1
+|StackTrace:   在 System.IO.Path.Combine(String path1, String path2)
+   在 JXGIS.JXTopsystem.Controllers.FileController.RemovePicture(String ID, String FileType)

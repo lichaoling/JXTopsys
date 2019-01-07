@@ -349,7 +349,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
             var Data = dict["Data"] as List<ResidenceMPDetails>;
-
+            
             Workbook wb = new Workbook();
             Worksheet ws = wb.Worksheets[0];
             ws.Name = Enums.MPTypeCh.Residence;

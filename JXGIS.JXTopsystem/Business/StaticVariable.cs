@@ -40,10 +40,13 @@ namespace JXGIS.JXTopsystem.Business
         public static readonly string baseRelativePathRPFile = Path.Combine("Files", "RPFile");
         //路牌标志照片上传相对路径
         public static readonly string RPBZPhotoRelativePath = Path.Combine(baseRelativePathRPFile, "路牌照片");
+        public static readonly string RPBZPhotoFullPath = Path.Combine(basePath, RPBZPhotoRelativePath);
         //路牌二维码照片上传相对路径
         public static readonly string RPQRCodeRelativePath = Path.Combine(baseRelativePathRPFile, "路牌二维码");
+        public static readonly string RPQRCodeFullPath = Path.Combine(basePath, RPQRCodeRelativePath);
         //路牌维修前后照片上传相对路径
         public static readonly string RPRepairPhotoRelativePath = Path.Combine(baseRelativePathRPFile, "维修照片");
+        public static readonly string RPRepairPhotoFullPath = Path.Combine(basePath, RPRepairPhotoRelativePath);
 
 
         public static readonly string basePathLogMessage = Path.Combine(basePath, "Logs");

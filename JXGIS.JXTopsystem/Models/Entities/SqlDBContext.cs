@@ -50,5 +50,6 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DbSet<CRole> CRole { get; set; }
 
         public DbSet<CPrivilege> CPrivilege { get; set; }
+        public DbSet<V_MPNUMSTATISTIC> V_MPNUMSTATISTIC { get; set; }
     }
 }
