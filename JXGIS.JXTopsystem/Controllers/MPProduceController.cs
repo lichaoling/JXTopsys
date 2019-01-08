@@ -49,13 +49,31 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        [LoggerFilter(Description = "批量制作零星门牌")]
-        public JsonResult ProduceLXMP(List<NotProducedLXMPList> mpLists)
+
+        public JsonResult GetConditionForProduceLXMP(List<NotProducedLXMPList> mpLists)
         {
             RtObj rt = null;
             try
             {
+                Session["_ProduceLXMP_list"] = mpLists;
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
+
+        [LoggerFilter(Description = "批量制作零星门牌")]
+        public JsonResult ProduceLXMP()
+        {
+            RtObj rt = null;
+            try
+            {
+                var mpLists = Session["_ProduceLXMP_list"] != null ? (List<NotProducedLXMPList>)Session["_ProduceLXMP_list"] : null;
                 MPProduceUtils.ProduceLXMP(mpLists);
+                Session["_ProduceLXMP_list"] = null;
                 rt = new RtObj();
             }
             catch (Exception ex)
@@ -122,13 +140,29 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        [LoggerFilter(Description = "批量制作批量导入的门牌")]
-        public JsonResult ProducePLMP(List<NotProducedPLMPList> mpLists)
+        public JsonResult GetConditionForProducePLMP(List<NotProducedPLMPList> mpLists)
         {
             RtObj rt = null;
             try
             {
+                Session["_ProducePLMP_list"] = mpLists;
+                rt = new RtObj();
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            return Json(rt);
+        }
+        [LoggerFilter(Description = "批量制作批量导入的门牌")]
+        public JsonResult ProducePLMP()
+        {
+            RtObj rt = null;
+            try
+            {
+                var mpLists = Session["_ProduceLXMP_list"] != null ? (List<NotProducedPLMPList>)Session["_ProduceLXMP_list"] : null;
                 var r = MPProduceUtils.ProducePLMP(mpLists);
+                Session["_ProduceLXMP_list"] = null;
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -160,23 +194,23 @@ namespace JXGIS.JXTopsystem.Controllers
         }
 
 
-        public JsonResult CreateTabToWord()
-        {
-            RtObj rt = null;
-            try
-            {
-                MPProduceUtils.CreateTabToWord2();
-                rt = new RtObj();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
-            timeConverter.DateTimeFormat = "yyyy-MM-dd";
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
-            return Json(s);
+        //public JsonResult CreateTabToWord()
+        //{
+        //    RtObj rt = null;
+        //    try
+        //    {
+        //        MPProduceUtils.CreateTabToWord2();
+        //        rt = new RtObj();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        rt = new RtObj(ex);
+        //    }
+        //    IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+        //    timeConverter.DateTimeFormat = "yyyy-MM-dd";
+        //    var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
+        //    return Json(s);
 
-        }
+        //}
     }
 }

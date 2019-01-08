@@ -886,7 +886,6 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
             //    return plmphzs;
             //}
         }
-
         public static void CreateTabToWord_PL(List<PLMPHZ> plMPHZ, string PLProduceID)
         {
             Microsoft.Office.Interop.Word.Application app = null;
@@ -1078,6 +1077,10 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 }
             }
         }
+
+
+
+
         public static void CreateTabToWord2()
         {
             Microsoft.Office.Interop.Word.Application app = null;
