@@ -171,6 +171,8 @@ namespace JXGIS.JXTopsystem.Controllers
             try
             {
                 rt = new RtObj();
+                Session["_MPCertificate_IDs"] = IDs;
+                Session["_MPCertificate_MPType"] = MPType;
                 MPPrintUtils.MPCertificate(IDs, MPType, CertificateType);
             }
             catch (Exception ex)
@@ -180,14 +182,19 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(rt);
         }
         [LoggerFilter(Description = "地址证明打印")]
-        public ActionResult DZZMPrint(List<string> IDs, string MPType)
+        public ActionResult DZZMPrint()
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                //List<string> IDs = ID.Split(',').ToList();
+                var IDs = Session["_MPCertificate_IDs"] != null ? (List<string>)Session["_MPCertificate_IDs"] : null;
+                var MPType = Session["_MPCertificate_MPType"] != null ? Session["_MPCertificate_MPType"].ToString() : null;
+
                 var ms = MPPrintUtils.DZZMPrint(IDs, MPType);
+                Session["_MPCertificate_IDs"] = null;
+                Session["_MPCertificate_MPType"] = null;
+
                 string fileName = $"地址证明_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.pdf";
                 return File(ms, "application/pdf", fileName);
             }
@@ -199,14 +206,18 @@ namespace JXGIS.JXTopsystem.Controllers
 
         }
         [LoggerFilter(Description = "门牌证打印")]
-        public ActionResult MPZPrint(List<string> IDs, string MPType)
+        public ActionResult MPZPrint()
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                //List<string> IDs = ID.Split(',').ToList();
+                var IDs = Session["_MPCertificate_IDs"] != null ? (List<string>)Session["_MPCertificate_IDs"] : null;
+                var MPType = Session["_MPCertificate_MPType"] != null ? Session["_MPCertificate_MPType"].ToString() : null;
+
                 var ms = MPPrintUtils.MPZPrint(IDs, MPType);
+                Session["_MPCertificate_IDs"] = null;
+                Session["_MPCertificate_MPType"] = null;
                 string fileName = $"门牌证_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.pdf";
                 return File(ms, "application/pdf", fileName);
 

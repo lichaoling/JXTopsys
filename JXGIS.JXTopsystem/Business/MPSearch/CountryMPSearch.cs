@@ -199,6 +199,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                          FileID = t.ID,
                                          Name = t.Name,
                                          RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                         TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
                                      }).ToList();
                     }
 
