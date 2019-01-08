@@ -104,6 +104,9 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
+
+
+
         [LoggerFilter(Description = "获取已制作的批量门牌")]
         public ContentResult GetProducedPLMP(int PageSize, int PageNum)
         {

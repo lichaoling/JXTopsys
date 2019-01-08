@@ -38,9 +38,9 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("TDZAddress", mpOfResidence.TDZAddress);
                         bookmarks.Add("YYZZAddress/HJAddress", mpOfResidence.HJAddress);
                         bookmarks.Add("OtherAddress", mpOfResidence.OtherAddress);
-                        bookmarks.Add("N", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Y", DateTime.Now.Month.ToString());
-                        bookmarks.Add("R", DateTime.Now.Day.ToString());
+                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
+                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
+                        bookmarks.Add("date", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.DZZMPrintPath, Enums.MPTypeCh.Residence, ID);
                         if (!Directory.Exists(savePath))
@@ -65,9 +65,9 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("TDZAddress", mpOfRoad.TDZAddress);
                         bookmarks.Add("YYZZAddress/HJAddress", mpOfRoad.YYZZAddress);
                         bookmarks.Add("OtherAddress", mpOfRoad.OtherAddress);
-                        bookmarks.Add("N", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Y", DateTime.Now.Month.ToString());
-                        bookmarks.Add("R", DateTime.Now.Day.ToString());
+                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
+                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
+                        bookmarks.Add("date", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.DZZMPrintPath, Enums.MPTypeCh.Road, ID);
                         if (!Directory.Exists(savePath))
@@ -90,9 +90,9 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("StandardAddress", mpOfCounty.StandardAddress);
                         bookmarks.Add("TDZAddress", mpOfCounty.TDZAddress);
                         bookmarks.Add("OtherAddress", mpOfCounty.OtherAddress);
-                        bookmarks.Add("N", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Y", DateTime.Now.Month.ToString());
-                        bookmarks.Add("R", DateTime.Now.Day.ToString());
+                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
+                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
+                        bookmarks.Add("date", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.DZZMPrintPath, Enums.MPTypeCh.Country, ID);
                         if (!Directory.Exists(savePath))
@@ -149,9 +149,9 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("MPNumber", null);
                         bookmarks.Add("ResidenceName", mpOfResidence.ResidenceName);
                         bookmarks.Add("OriginalMPAddress", null);
-                        bookmarks.Add("N", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Y", DateTime.Now.Month.ToString());
-                        bookmarks.Add("R", DateTime.Now.Day.ToString());
+                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
+                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
+                        bookmarks.Add("date", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.MPZPrintPath, Enums.MPTypeCh.Residence, ID);
                         if (!Directory.Exists(savePath))
@@ -179,9 +179,9 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("MPNumber", mpOfRoad.MPNumber);
                         bookmarks.Add("ResidenceName", mpOfRoad.ResidenceName);
                         bookmarks.Add("OriginalMPAddress", mpOfRoad.OriginalMPAddress);
-                        bookmarks.Add("N", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Y", DateTime.Now.Month.ToString());
-                        bookmarks.Add("R", DateTime.Now.Day.ToString());
+                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
+                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
+                        bookmarks.Add("date", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.MPZPrintPath, Enums.MPTypeCh.Road, ID);
                         if (!Directory.Exists(savePath))
@@ -208,9 +208,9 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("MPNumber", mpOfCounty.MPNumber);
                         bookmarks.Add("ResidenceName", null);
                         bookmarks.Add("OriginalMPAddress", mpOfCounty.OriginalMPAddress);
-                        bookmarks.Add("N", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Y", DateTime.Now.Month.ToString());
-                        bookmarks.Add("R", DateTime.Now.Day.ToString());
+                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
+                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
+                        bookmarks.Add("date", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.MPZPrintPath, Enums.MPTypeCh.Country, ID);
                         if (!Directory.Exists(savePath))
@@ -246,6 +246,10 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
         {
             iTextSharp.text.Document document = new iTextSharp.text.Document();
             var targetPDF = Path.Combine(StaticVariable.MergeFilePath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
+            if (!Directory.Exists(StaticVariable.MergeFilePath))
+            {
+                Directory.CreateDirectory(StaticVariable.MergeFilePath);
+            }
             PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(targetPDF, FileMode.Create));
             document.Open();
             PdfContentByte cb = writer.DirectContent;
