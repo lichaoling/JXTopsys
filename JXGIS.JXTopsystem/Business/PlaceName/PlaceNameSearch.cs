@@ -69,9 +69,9 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                              select t).FirstOrDefault();
                 if (query == null)
                     throw new Exception("该地名已经被注销！");
-             
+
                 //将附件的名字都加上路径返回
-                var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == MPID);
+                var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == ID);
                 if (files.Count() > 0)
                 {
                     //var FCZ = files.Where(t => t.DocType == Enums.DocType.FCZ);
@@ -146,97 +146,97 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
         /// <param name="DistrictID"></param>
         /// <param name="Name"></param>
         /// <returns></returns>
-        public static MemoryStream ExportResidenceMP(string DistrictID, string CommunityName, string ResidenceName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
-        {
-            Dictionary<string, object> dict = SearchResidenceMP(-1, -1, DistrictID, CommunityName, ResidenceName, AddressCoding, PropertyOwner, StandardAddress, UseState);
+        //public static MemoryStream ExportResidenceMP(string DistrictID, string CommunityName, string ResidenceName, string AddressCoding, string PropertyOwner, string StandardAddress, int UseState)
+        //{
+        //    Dictionary<string, object> dict = SearchResidenceMP(-1, -1, DistrictID, CommunityName, ResidenceName, AddressCoding, PropertyOwner, StandardAddress, UseState);
 
-            int RowCount = int.Parse(dict["Count"].ToString());
-            if (RowCount >= 65000)
-                throw new Exception("数据量过大，请缩小查询范围后再导出！");
-            var Data = dict["Data"] as List<ResidenceMPDetails>;
+        //    int RowCount = int.Parse(dict["Count"].ToString());
+        //    if (RowCount >= 65000)
+        //        throw new Exception("数据量过大，请缩小查询范围后再导出！");
+        //    var Data = dict["Data"] as List<ResidenceMPDetails>;
 
-            Workbook wb = new Workbook();
-            Worksheet ws = wb.Worksheets[0];
-            ws.Name = Enums.MPTypeCh.Residence;
-            Aspose.Cells.Style styleHeader = wb.Styles[wb.Styles.Add()];
-            styleHeader.Pattern = Aspose.Cells.BackgroundType.Solid;
-            styleHeader.HorizontalAlignment = Aspose.Cells.TextAlignmentType.Center;
-            styleHeader.ForegroundColor = System.Drawing.Color.FromArgb(240, 240, 240);
-            styleHeader.Font.IsBold = true;
-            styleHeader.Borders[BorderType.LeftBorder].LineStyle = CellBorderType.Thin;
-            styleHeader.Borders[BorderType.RightBorder].LineStyle = CellBorderType.Thin;
-            styleHeader.Borders[BorderType.TopBorder].LineStyle = CellBorderType.Thin;
-            styleHeader.Borders[BorderType.BottomBorder].LineStyle = CellBorderType.Thin;
+        //    Workbook wb = new Workbook();
+        //    Worksheet ws = wb.Worksheets[0];
+        //    ws.Name = Enums.MPTypeCh.Residence;
+        //    Aspose.Cells.Style styleHeader = wb.Styles[wb.Styles.Add()];
+        //    styleHeader.Pattern = Aspose.Cells.BackgroundType.Solid;
+        //    styleHeader.HorizontalAlignment = Aspose.Cells.TextAlignmentType.Center;
+        //    styleHeader.ForegroundColor = System.Drawing.Color.FromArgb(240, 240, 240);
+        //    styleHeader.Font.IsBold = true;
+        //    styleHeader.Borders[BorderType.LeftBorder].LineStyle = CellBorderType.Thin;
+        //    styleHeader.Borders[BorderType.RightBorder].LineStyle = CellBorderType.Thin;
+        //    styleHeader.Borders[BorderType.TopBorder].LineStyle = CellBorderType.Thin;
+        //    styleHeader.Borders[BorderType.BottomBorder].LineStyle = CellBorderType.Thin;
 
-            Aspose.Cells.Style styleData = wb.Styles[wb.Styles.Add()];
-            styleData.Borders[BorderType.LeftBorder].LineStyle = CellBorderType.Thin;
-            styleData.Borders[BorderType.RightBorder].LineStyle = CellBorderType.Thin;
-            styleData.Borders[BorderType.TopBorder].LineStyle = CellBorderType.Thin;
-            styleData.Borders[BorderType.BottomBorder].LineStyle = CellBorderType.Thin;
+        //    Aspose.Cells.Style styleData = wb.Styles[wb.Styles.Add()];
+        //    styleData.Borders[BorderType.LeftBorder].LineStyle = CellBorderType.Thin;
+        //    styleData.Borders[BorderType.RightBorder].LineStyle = CellBorderType.Thin;
+        //    styleData.Borders[BorderType.TopBorder].LineStyle = CellBorderType.Thin;
+        //    styleData.Borders[BorderType.BottomBorder].LineStyle = CellBorderType.Thin;
 
-            List<ExcelFields> Fields = new List<ExcelFields> {
-                new ExcelFields() { Field="地址编码",Alias="AddressCoding"},
-                new ExcelFields() { Field="市辖区",Alias="CountyName"},
-                new ExcelFields() { Field="镇街道",Alias="NeighborhoodsName"},
-                new ExcelFields() { Field="村社区",Alias="CommunityName"},
-                new ExcelFields() { Field="小区名称",Alias="ResidenceName"},
-                new ExcelFields() { Field="门牌号码",Alias="MPNumber"},
-                new ExcelFields() { Field="宿舍名",Alias="Dormitory"},
-                new ExcelFields() { Field="幢号",Alias="LZNumber"},
-                new ExcelFields() { Field="单元号",Alias="DYNumber"},
-                new ExcelFields() { Field="户室号",Alias="HSNumber"},
-                new ExcelFields() { Field="门牌规格",Alias="MPSize"},
-                new ExcelFields() { Field="邮政编码",Alias="Postcode"},
-                new ExcelFields() { Field="产权人",Alias="PropertyOwner"},
-                new ExcelFields() { Field="证件类型",Alias="IDType"},
-                new ExcelFields() { Field="证件号",Alias="IDNumber"},
-                new ExcelFields() { Field="房产证地址",Alias="FCZAddress"},
-                new ExcelFields() { Field="房产证号",Alias="FCZNumber"},
-                new ExcelFields() { Field="土地证地址",Alias="TDZAddress"},
-                new ExcelFields() { Field="土地证号",Alias="TDZNumber"},
-                new ExcelFields() { Field="不动产证地址",Alias="BDCZAddress"},
-                new ExcelFields() { Field="不动产证号",Alias="BDCZNumber"},
-                new ExcelFields() { Field="户籍地址",Alias="HJAddress"},
-                new ExcelFields() { Field="户籍号",Alias="HJNumber"},
-                new ExcelFields() { Field="其他地址",Alias="OtherAddress"},
-                new ExcelFields() { Field="申请人",Alias="Applicant"},
-                new ExcelFields() { Field="联系电话",Alias="ApplicantPhone"},
-                new ExcelFields() { Field="申办单位",Alias="SBDW"},
-                new ExcelFields() { Field="编制时间",Alias="BZTime"},
-                new ExcelFields() { Field="纬度",Alias="Lat"},
-                new ExcelFields() { Field="经度",Alias="Lng"},
-            };
-            //写入表头
-            for (int i = 0, l = Fields.Count; i < l; i++)
-            {
-                var field = Fields[i];
-                ws.Cells[0, i].PutValue(field.Field);
-                ws.Cells[0, i].SetStyle(styleHeader);
-            }
-            //写入数据
-            for (int i = 0; i < RowCount; i++)
-            {
-                var row = Data[i];
-                for (int j = 0, l = Fields.Count; j < l; j++)
-                {
-                    var field = Fields[j];
-                    var value = row[field.Alias];
-                    if (field.Field == "编制时间")
-                    {
-                        IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
-                        timeConverter.DateTimeFormat = "yyyy-MM-dd";
-                        string rt = Newtonsoft.Json.JsonConvert.SerializeObject(value, timeConverter);
-                        value = rt.Replace("\"", "");
-                    }
-                    ws.Cells[i + 1, j].PutValue(value);
-                    ws.Cells[i + 1, j].SetStyle(styleData);
-                }
-            }
-            ws.AutoFitColumns();
-            MemoryStream ms = new MemoryStream();
-            wb.Save(ms, SaveFormat.Excel97To2003);
-            ms.Seek(0, SeekOrigin.Begin);
-            return ms;
-        }
+        //    List<ExcelFields> Fields = new List<ExcelFields> {
+        //        new ExcelFields() { Field="地址编码",Alias="AddressCoding"},
+        //        new ExcelFields() { Field="市辖区",Alias="CountyName"},
+        //        new ExcelFields() { Field="镇街道",Alias="NeighborhoodsName"},
+        //        new ExcelFields() { Field="村社区",Alias="CommunityName"},
+        //        new ExcelFields() { Field="小区名称",Alias="ResidenceName"},
+        //        new ExcelFields() { Field="门牌号码",Alias="MPNumber"},
+        //        new ExcelFields() { Field="宿舍名",Alias="Dormitory"},
+        //        new ExcelFields() { Field="幢号",Alias="LZNumber"},
+        //        new ExcelFields() { Field="单元号",Alias="DYNumber"},
+        //        new ExcelFields() { Field="户室号",Alias="HSNumber"},
+        //        new ExcelFields() { Field="门牌规格",Alias="MPSize"},
+        //        new ExcelFields() { Field="邮政编码",Alias="Postcode"},
+        //        new ExcelFields() { Field="产权人",Alias="PropertyOwner"},
+        //        new ExcelFields() { Field="证件类型",Alias="IDType"},
+        //        new ExcelFields() { Field="证件号",Alias="IDNumber"},
+        //        new ExcelFields() { Field="房产证地址",Alias="FCZAddress"},
+        //        new ExcelFields() { Field="房产证号",Alias="FCZNumber"},
+        //        new ExcelFields() { Field="土地证地址",Alias="TDZAddress"},
+        //        new ExcelFields() { Field="土地证号",Alias="TDZNumber"},
+        //        new ExcelFields() { Field="不动产证地址",Alias="BDCZAddress"},
+        //        new ExcelFields() { Field="不动产证号",Alias="BDCZNumber"},
+        //        new ExcelFields() { Field="户籍地址",Alias="HJAddress"},
+        //        new ExcelFields() { Field="户籍号",Alias="HJNumber"},
+        //        new ExcelFields() { Field="其他地址",Alias="OtherAddress"},
+        //        new ExcelFields() { Field="申请人",Alias="Applicant"},
+        //        new ExcelFields() { Field="联系电话",Alias="ApplicantPhone"},
+        //        new ExcelFields() { Field="申办单位",Alias="SBDW"},
+        //        new ExcelFields() { Field="编制时间",Alias="BZTime"},
+        //        new ExcelFields() { Field="纬度",Alias="Lat"},
+        //        new ExcelFields() { Field="经度",Alias="Lng"},
+        //    };
+        //    //写入表头
+        //    for (int i = 0, l = Fields.Count; i < l; i++)
+        //    {
+        //        var field = Fields[i];
+        //        ws.Cells[0, i].PutValue(field.Field);
+        //        ws.Cells[0, i].SetStyle(styleHeader);
+        //    }
+        //    //写入数据
+        //    for (int i = 0; i < RowCount; i++)
+        //    {
+        //        var row = Data[i];
+        //        for (int j = 0, l = Fields.Count; j < l; j++)
+        //        {
+        //            var field = Fields[j];
+        //            var value = row[field.Alias];
+        //            if (field.Field == "编制时间")
+        //            {
+        //                IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+        //                timeConverter.DateTimeFormat = "yyyy-MM-dd";
+        //                string rt = Newtonsoft.Json.JsonConvert.SerializeObject(value, timeConverter);
+        //                value = rt.Replace("\"", "");
+        //            }
+        //            ws.Cells[i + 1, j].PutValue(value);
+        //            ws.Cells[i + 1, j].SetStyle(styleData);
+        //        }
+        //    }
+        //    ws.AutoFitColumns();
+        //    MemoryStream ms = new MemoryStream();
+        //    wb.Save(ms, SaveFormat.Excel97To2003);
+        //    ms.Seek(0, SeekOrigin.Begin);
+        //    return ms;
+        //}
     }
 }

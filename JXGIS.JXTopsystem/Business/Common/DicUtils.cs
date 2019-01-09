@@ -508,8 +508,8 @@ namespace JXGIS.JXTopsystem.Business.Common
                 List<string> code = new List<string>();
                 if (type == Enums.TypeInt.PlaceName)
                 {
-                    IQueryable<PlaceName> query = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable);
-                    query = BaseUtils.DataFilterWithTown<PlaceName>(query);
+                    IQueryable<Models.Entities.PlaceName> query = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable);
+                    query = BaseUtils.DataFilterWithTown<Models.Entities.PlaceName>(query);
                     if (!string.IsNullOrEmpty(CountyID))
                         query = query.Where(t => t.CountyID == CountyID);
                     if (!string.IsNullOrEmpty(NeighborhoodsID))
