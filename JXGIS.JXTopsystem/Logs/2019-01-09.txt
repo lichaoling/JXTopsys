@@ -1,0 +1,72 @@
+=======2019/1/9 星期三 14:05:57
+|Message:路径中具有非法字符。
+|StackTrace:   在 System.IO.Path.CheckInvalidPathChars(String path, Boolean checkAdditional)
+   在 System.IO.Path.Combine(String path1, String path2)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 161
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/9 星期三 14:12:09
+|Message:路径中具有非法字符。
+|StackTrace:   在 System.IO.Path.CheckInvalidPathChars(String path, Boolean checkAdditional)
+   在 System.IO.Path.Combine(String path1, String path2)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 161
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/9 星期三 14:12:41
+|Message:路径中具有非法字符。
+|StackTrace:   在 System.IO.Path.CheckInvalidPathChars(String path, Boolean checkAdditional)
+   在 System.IO.Path.Combine(String path1, String path2)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 161
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/9 星期三 14:15:31
+|Message:路径中具有非法字符。
+|StackTrace:   在 System.IO.Path.CheckInvalidPathChars(String path, Boolean checkAdditional)
+   在 System.IO.Path.Combine(String path1, String path2)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 161
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/9 星期三 15:12:10
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPCertificate(List`1 IDs, String MPType, String CertificateType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 388
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPCertificate(List`1 IDs, String MPType, String CertificateType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 176
+=======2019/1/9 星期三 15:14:00
+|Message:路径中具有非法字符。
+|StackTrace:   在 System.IO.Path.CheckInvalidPathChars(String path, Boolean checkAdditional)
+   在 System.IO.Path.Combine(String path1, String path2)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 161
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/9 星期三 15:24:32
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPCertificate(List`1 IDs, String MPType, String CertificateType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 393
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPCertificate(List`1 IDs, String MPType, String CertificateType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 176
+=======2019/1/9 星期三 15:24:58
+|Message:路径中具有非法字符。
+|StackTrace:   在 System.IO.Path.CheckInvalidPathChars(String path, Boolean checkAdditional)
+   在 System.IO.Path.Combine(String path1, String path2)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 162
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/9 星期三 15:28:32
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPCertificate(List`1 IDs, String MPType, String CertificateType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 394
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPCertificate(List`1 IDs, String MPType, String CertificateType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 176
+=======2019/1/9 星期三 15:29:21
+|Message:路径中具有非法字符。
+|StackTrace:   在 System.IO.Path.CheckInvalidPathChars(String path, Boolean checkAdditional)
+   在 System.IO.Path.Combine(String path1, String path2)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 163
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/9 星期三 15:33:55
+|Message:路径中具有非法字符。
+|StackTrace:   在 System.IO.Path.CheckInvalidPathChars(String path, Boolean checkAdditional)
+   在 System.IO.Path.Combine(String path1, String path2)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint()
+=======2019/1/9 星期三 15:34:19
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint()
+=======2019/1/9 星期三 16:20:57
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 135
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/9 星期三 16:32:25
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 135
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218

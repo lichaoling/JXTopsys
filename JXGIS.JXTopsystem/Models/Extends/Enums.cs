@@ -49,6 +49,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const int RP = 5;
             public const int MP = 6;
             public const int All = 0;
+            public const int PlaceName = 7;
         }
         public static class RPRepairType
         {

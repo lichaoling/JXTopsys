@@ -14,12 +14,12 @@ namespace JXGIS.JXTopsystem.Controllers
     public class MPProduceController : Controller
     {
         [LoggerFilter(Description = "获取已制作的零星门牌")]
-        public ContentResult GetProducedLXMP(int PageSize, int PageNum)
+        public ContentResult GetProducedLXMP(int PageSize, int PageNum, string MPType)
         {
             RtObj rt = null;
             try
             {
-                var r = MPProduceUtils.GetProducedLXMP(PageSize, PageNum);
+                var r = MPProduceUtils.GetProducedLXMP(PageSize, PageNum, MPType);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -32,12 +32,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
         [LoggerFilter(Description = "获取未制作的零星门牌")]
-        public ContentResult GetNotProducedLXMP(int PageSize, int PageNum)
+        public ContentResult GetNotProducedLXMP(int PageSize, int PageNum, string MPType)
         {
             RtObj rt = null;
             try
             {
-                var r = MPProduceUtils.GetNotProducedLXMP(PageSize, PageNum);
+                var r = MPProduceUtils.GetNotProducedLXMP(PageSize, PageNum, MPType);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -50,12 +50,13 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
-        public JsonResult GetConditionForProduceLXMP(List<NotProducedLXMPList> mpLists)
+        public JsonResult GetConditionForProduceLXMP(List<string> MPIDs, string MPType)
         {
             RtObj rt = null;
             try
             {
-                Session["_ProduceLXMP_list"] = mpLists;
+                Session["_ProduceLXMP_MPIDs"] = MPIDs;
+                Session["_ProduceLXMP_MPType"] = MPType;
                 rt = new RtObj();
             }
             catch (Exception ex)
@@ -71,9 +72,11 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var mpLists = Session["_ProduceLXMP_list"] != null ? (List<NotProducedLXMPList>)Session["_ProduceLXMP_list"] : null;
-                MPProduceUtils.ProduceLXMP(mpLists);
-                Session["_ProduceLXMP_list"] = null;
+                var MPIDs = Session["_ProduceLXMP_MPIDs"] != null ? (List<string>)Session["_ProduceLXMP_MPIDs"] : null;
+                var MPType = Session["_ProduceLXMP_MPType"] != null ? Session["_ProduceLXMP_MPType"].ToString() : null;
+                MPProduceUtils.ProduceLXMP(MPIDs, MPType);
+                Session["_ProduceLXMP_MPIDs"] = null;
+                Session["_ProduceLXMP_MPType"] = null;
                 rt = new RtObj();
             }
             catch (Exception ex)
@@ -108,12 +111,12 @@ namespace JXGIS.JXTopsystem.Controllers
 
 
         [LoggerFilter(Description = "获取已制作的批量门牌")]
-        public ContentResult GetProducedPLMP(int PageSize, int PageNum)
+        public ContentResult GetProducedPLMP(int PageSize, int PageNum, string MPType)
         {
             RtObj rt = null;
             try
             {
-                var r = MPProduceUtils.GetProducedPLMP(PageSize, PageNum);
+                var r = MPProduceUtils.GetProducedPLMP(PageSize, PageNum, MPType);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -126,12 +129,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
         [LoggerFilter(Description = "获取未制作的批量门牌")]
-        public ContentResult GetNotProducedPLMP(int PageSize, int PageNum)
+        public ContentResult GetNotProducedPLMP(int PageSize, int PageNum, string MPType)
         {
             RtObj rt = null;
             try
             {
-                var r = MPProduceUtils.GetNotProducedPLMP(PageSize, PageNum);
+                var r = MPProduceUtils.GetNotProducedPLMP(PageSize, PageNum, MPType);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -143,12 +146,13 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        public JsonResult GetConditionForProducePLMP(List<NotProducedPLMPList> mpLists)
+        public JsonResult GetConditionForProducePLMP(List<string> PLIDs, string MPType)
         {
             RtObj rt = null;
             try
             {
-                Session["_ProducePLMP_list"] = mpLists;
+                Session["_ProducePLMP_PLIDs"] = PLIDs;
+                Session["_ProducePLMP_MPType"] = MPType;
                 rt = new RtObj();
             }
             catch (Exception ex)
@@ -163,9 +167,11 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var mpLists = Session["_ProduceLXMP_list"] != null ? (List<NotProducedPLMPList>)Session["_ProduceLXMP_list"] : null;
-                var r = MPProduceUtils.ProducePLMP(mpLists);
+                var PLIDs = Session["_ProducePLMP_PLIDs"] != null ? (List<string>)Session["_ProducePLMP_PLIDs"] : null;
+                var MPType = Session["_ProducePLMP_MPType"] != null ? Session["_ProducePLMP_MPType"].ToString() : null;
+                var r = MPProduceUtils.ProducePLMP(PLIDs, MPType);
                 Session["_ProduceLXMP_list"] = null;
+                Session["_ProducePLMP_MPType"] = null;
                 rt = new RtObj(r);
             }
             catch (Exception ex)

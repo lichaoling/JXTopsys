@@ -22,6 +22,14 @@ namespace JXGIS.JXTopsystem.Business.ArchiveFile
         public static readonly string gd_dz = "电子归档";
         public static readonly string gd_zz = "纸质归档";
 
+        public static void SearchMPArchiveStatus(string DistrictID,int ArchiveState, DateTime? start, DateTime? end)
+        {
+
+        }
+
+
+
+
         public static void ArchiveMPFile(DateTime? start, DateTime? end)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)

@@ -19,38 +19,44 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         /// <param name="PageNum"></param>
         /// <param name="MPProduceComplete"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetProducedLXMP(int PageSize, int PageNum)
+        public static Dictionary<string, object> GetProducedLXMP(int PageSize, int PageNum, string MPType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var mpOfRoad = BaseUtils.DataFilterWithTown<MPOfRoad>(dbContext.MPOfRoad);
-                var mpOfCountry = BaseUtils.DataFilterWithTown<MPOfCountry>(dbContext.MPOfCountry);
-
                 int count = 0;
-
-                var all = (from t in mpOfRoad
-                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.LX && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.LXProduceID)
-                           group t by new { t.LXProduceID, t.MPProduceUser, t.MPProduceTime } into g
-                           select new ProducedLXMPList
-                           {
-                               MPType = Enums.MPTypeCh.Road,
-                               LXProduceID = g.Key.LXProduceID,
-                               MPProduceUser = g.Key.MPProduceUser,
-                               MPProduceTime = g.Key.MPProduceTime
-                           }).Concat(
-                            from t in mpOfCountry
-                            where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.LX && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.LXProduceID)
-                            group t by new { t.LXProduceID, t.MPProduceUser, t.MPProduceTime } into g
-                            select new ProducedLXMPList
-                            {
-                                MPType = Enums.MPTypeCh.Country,
-                                LXProduceID = g.Key.LXProduceID,
-                                MPProduceUser = g.Key.MPProduceUser,
-                                MPProduceTime = g.Key.MPProduceTime
-                            });
-
-                count = all.Count();
-                var data = all.OrderBy(t => t.MPProduceTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                IQueryable<ProducedLXMPList> result;
+                if (MPType == Enums.MPTypeCh.Road)
+                {
+                    var mpOfRoad = BaseUtils.DataFilterWithTown<MPOfRoad>(dbContext.MPOfRoad);
+                    result = from t in mpOfRoad
+                             where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.LX && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.LXProduceID)
+                             group t by new { t.LXProduceID, t.MPProduceUser, t.MPProduceTime } into g
+                             select new ProducedLXMPList
+                             {
+                                 MPType = Enums.MPTypeCh.Road,
+                                 LXProduceID = g.Key.LXProduceID,
+                                 MPProduceUser = g.Key.MPProduceUser,
+                                 MPProduceTime = g.Key.MPProduceTime
+                             };
+                }
+                else if (MPType == Enums.MPTypeCh.Country)
+                {
+                    var mpOfCountry = BaseUtils.DataFilterWithTown<MPOfCountry>(dbContext.MPOfCountry);
+                    result = from t in mpOfCountry
+                             where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.LX && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.LXProduceID)
+                             group t by new { t.LXProduceID, t.MPProduceUser, t.MPProduceTime } into g
+                             select new ProducedLXMPList
+                             {
+                                 MPType = Enums.MPTypeCh.Country,
+                                 LXProduceID = g.Key.LXProduceID,
+                                 MPProduceUser = g.Key.MPProduceUser,
+                                 MPProduceTime = g.Key.MPProduceTime
+                             };
+                }
+                else
+                    throw new Exception("未知的错误类型！");
+                count = result.Count();
+                var data = result.OrderBy(t => t.MPProduceTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 return new Dictionary<string, object> {
                    { "Data",data},
                    { "Count",count}
@@ -63,52 +69,57 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         /// <param name="PageSize"></param>
         /// <param name="PageNum"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetNotProducedLXMP(int PageSize, int PageNum)
+        public static Dictionary<string, object> GetNotProducedLXMP(int PageSize, int PageNum, string MPType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 int count = 0;
-                var roadMPProduce = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => string.IsNullOrEmpty(t.LXProduceID));
-                var countryMPProduce = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => string.IsNullOrEmpty(t.LXProduceID));
-                var all = (from a in roadMPProduce
-                           select new NotProducedLXMPList
-                           {
-                               MPID = a.ID,
-                               CountyID = a.CountyID,
-                               //CountyName = !string.IsNullOrEmpty(a.CountyID) ? a.CountyID.Split('.').Last() : null,
-                               NeighborhoodsID = a.NeighborhoodsID,
-                               //NeighborhoodsName = !string.IsNullOrEmpty(a.NeighborhoodsID) ? a.NeighborhoodsID.Split('.').Last() : null,
-                               CommunityName = a.CommunityName,
-                               MPType = Enums.TypeInt.Road,
-                               MPTypeName = Enums.MPTypeCh.Road,
-                               PlaceName = a.RoadName,
-                               MPNumber = a.MPNumber,
-                               MPSize = a.MPSize,
-                               Postcode = a.Postcode,
-                               MPBZTime = a.BZTime
-                           }).Concat(
-                            from b in countryMPProduce
-                            select new NotProducedLXMPList
-                            {
-                                MPID = b.ID,
-                                CountyID = b.CountyID,
-                                //CountyName = !string.IsNullOrEmpty(b.CountyID) ? b.CountyID.Split('.').Last() : null,
-                                NeighborhoodsID = b.NeighborhoodsID,
-                                //NeighborhoodsName = !string.IsNullOrEmpty(b.NeighborhoodsID) ? b.NeighborhoodsID.Split('.').Last() : null,
-                                CommunityName = b.CommunityName,
-                                MPType = Enums.TypeInt.Country,
-                                MPTypeName = Enums.MPTypeCh.Country,
-                                PlaceName = b.ViligeName,
-                                MPNumber = b.MPNumber,
-                                MPSize = b.MPSize,
-                                Postcode = b.Postcode,
-                                MPBZTime = b.BZTime
-                            });
+                IQueryable<NotProducedLXMPList> result;
+                if (MPType == Enums.MPTypeCh.Road)
+                {
+                    var roadMPProduce = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => string.IsNullOrEmpty(t.LXProduceID));
+                    result = from a in roadMPProduce
+                             select new NotProducedLXMPList
+                             {
+                                 MPID = a.ID,
+                                 CountyID = a.CountyID,
+                                 NeighborhoodsID = a.NeighborhoodsID,
+                                 CommunityName = a.CommunityName,
+                                 MPType = Enums.TypeInt.Road,
+                                 MPTypeName = Enums.MPTypeCh.Road,
+                                 PlaceName = a.RoadName,
+                                 MPNumber = a.MPNumber,
+                                 MPSize = a.MPSize,
+                                 Postcode = a.Postcode,
+                                 MPBZTime = a.BZTime
+                             };
+                    result = BaseUtils.DataFilterWithTown<NotProducedLXMPList>(result);
+                }
+                else if (MPType == Enums.MPTypeCh.Country)
+                {
+                    var countryMPProduce = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => string.IsNullOrEmpty(t.LXProduceID));
+                    result = from b in countryMPProduce
+                             select new NotProducedLXMPList
+                             {
+                                 MPID = b.ID,
+                                 CountyID = b.CountyID,
+                                 NeighborhoodsID = b.NeighborhoodsID,
+                                 CommunityName = b.CommunityName,
+                                 MPType = Enums.TypeInt.Country,
+                                 MPTypeName = Enums.MPTypeCh.Country,
+                                 PlaceName = b.ViligeName,
+                                 MPNumber = b.MPNumber,
+                                 MPSize = b.MPSize,
+                                 Postcode = b.Postcode,
+                                 MPBZTime = b.BZTime
+                             };
+                    result = BaseUtils.DataFilterWithTown<NotProducedLXMPList>(result);
+                }
+                else
+                    throw new Exception("未知的错误类型！");
 
-                all = BaseUtils.DataFilterWithTown<NotProducedLXMPList>(all);
-
-                count = all.Count();
-                var data = all.OrderByDescending(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                count = result.Count();
+                var data = result.OrderByDescending(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 data = (from t in data
                         select new NotProducedLXMPList
                         {
@@ -136,20 +147,21 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         /// 批量选择零星增加的需制作但未制作的门牌，进行批量制作
         /// </summary>
         /// <param name="mpLists"></param>
-        public static List<LXMPHZ> ProduceLXMP(List<NotProducedLXMPList> mpLists)
+        public static List<LXMPHZ> ProduceLXMP(List<string> MPIDs, string MPType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<LXMPHZ> lxmphzs = new List<LXMPHZ>();
                 var LXProduceID = DateTime.Now.ToString("yyyyMMddhhmmss");
-                foreach (var mp in mpLists)
+
+                if (MPType == Enums.MPTypeCh.Road)
                 {
-                    LXMPHZ lxmphz = new LXMPHZ();
-                    if (mp.MPType == Enums.TypeInt.Road)
+                    foreach (var mpid in MPIDs)
                     {
-                        var query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mp.MPID).FirstOrDefault();
+                        LXMPHZ lxmphz = new LXMPHZ();
+                        var query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mpid).FirstOrDefault();
                         if (query == null)
-                            throw new Exception($"ID为{mp.MPID}门牌已被注销");
+                            throw new Exception($"ID为{mpid}门牌已被注销");
                         query.LXProduceID = LXProduceID;
                         query.MPProduceUser = LoginUtils.CurrentUser.UserName;
                         query.MPProduceTime = DateTime.Now;
@@ -159,12 +171,19 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         lxmphz.MPNumber = query.MPNumber;
                         lxmphz.MPSize = query.MPSize;
                         lxmphz.Count = 1;
+
+                        lxmphzs.Add(lxmphz);
                     }
-                    else if (mp.MPType == Enums.TypeInt.Country)
+                    dbContext.SaveChanges();
+                }
+                else if (MPType == Enums.MPTypeCh.Country)
+                {
+                    foreach (var mpid in MPIDs)
                     {
-                        var query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mp.MPID).FirstOrDefault();
+                        LXMPHZ lxmphz = new LXMPHZ();
+                        var query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mpid).FirstOrDefault();
                         if (query == null)
-                            throw new Exception($"ID为{mp.MPID}门牌已被注销");
+                            throw new Exception($"ID为{mpid}门牌已被注销");
                         query.LXProduceID = LXProduceID;
                         query.MPProduceUser = LoginUtils.CurrentUser.UserName;
                         query.MPProduceTime = DateTime.Now;
@@ -174,10 +193,14 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         lxmphz.MPNumber = query.MPNumber;
                         lxmphz.MPSize = query.MPSize;
                         lxmphz.Count = 1;
+
+                        lxmphzs.Add(lxmphz);
                     }
-                    lxmphzs.Add(lxmphz);
                     dbContext.SaveChanges();
                 }
+                else
+                    throw new Exception("未知的错误类型！");
+
                 CreateTabToWord_LX(lxmphzs, LXProduceID);
                 return lxmphzs;
             }
@@ -332,44 +355,57 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
         /// <param name="PageNum"></param>
         /// <param name="PLMPProduceComplete"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetProducedPLMP(int PageSize, int PageNum)
+        public static Dictionary<string, object> GetProducedPLMP(int PageSize, int PageNum, string MPType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var mpOfRoad = BaseUtils.DataFilterWithTown<MPOfRoad>(dbContext.MPOfRoad);
-                var mpOfResidence = BaseUtils.DataFilterWithTown<MPOfResidence>(dbContext.MPOfResidence);
-                var mpOfCountry = BaseUtils.DataFilterWithTown<MPOfCountry>(dbContext.MPOfCountry);
                 int count = 0;
-                var all = (from t in mpOfRoad
-                           where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
-                           group t by new { t.PLProduceID, t.MPProduceUser, t.MPProduceTime } into g
-                           select new ProducedPLMPList
-                           {
-                               MPType = Enums.MPTypeCh.Road,
-                               PLProduceID = g.Key.PLProduceID,
-                               MPProduceUser = g.Key.MPProduceUser,
-                               MPProduceTime = g.Key.MPProduceTime
-                           }).Concat(
-                    from t in mpOfCountry
-                    where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
-                    group t by new { t.PLProduceID, t.MPProduceUser, t.MPProduceTime } into g
-                    select new ProducedPLMPList
-                    {
-                        MPType = Enums.MPTypeCh.Country,
-                        PLProduceID = g.Key.PLProduceID,
-                        MPProduceUser = g.Key.MPProduceUser,
-                        MPProduceTime = g.Key.MPProduceTime
-                    }).Concat(
-                    from t in mpOfResidence
-                    where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
-                    group t by new { t.PLProduceID, t.MPProduceUser, t.MPProduceTime } into g
-                    select new ProducedPLMPList
-                    {
-                        MPType = Enums.MPTypeCh.Residence,
-                        PLProduceID = g.Key.PLProduceID,
-                        MPProduceUser = g.Key.MPProduceUser,
-                        MPProduceTime = g.Key.MPProduceTime
-                    });
+                IQueryable<ProducedPLMPList> result;
+                if (MPType == Enums.MPTypeCh.Residence)
+                {
+                    var mpOfResidence = BaseUtils.DataFilterWithTown<MPOfResidence>(dbContext.MPOfResidence);
+                    result = from t in mpOfResidence
+                             where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
+                             group t by new { t.PLProduceID, t.MPProduceUser, t.MPProduceTime } into g
+                             select new ProducedPLMPList
+                             {
+                                 MPType = Enums.MPTypeCh.Residence,
+                                 PLProduceID = g.Key.PLProduceID,
+                                 MPProduceUser = g.Key.MPProduceUser,
+                                 MPProduceTime = g.Key.MPProduceTime
+                             };
+                }
+                else if (MPType == Enums.MPTypeCh.Road)
+                {
+                    var mpOfRoad = BaseUtils.DataFilterWithTown<MPOfRoad>(dbContext.MPOfRoad);
+                    result = from t in mpOfRoad
+                             where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
+                             group t by new { t.PLProduceID, t.MPProduceUser, t.MPProduceTime } into g
+                             select new ProducedPLMPList
+                             {
+                                 MPType = Enums.MPTypeCh.Road,
+                                 PLProduceID = g.Key.PLProduceID,
+                                 MPProduceUser = g.Key.MPProduceUser,
+                                 MPProduceTime = g.Key.MPProduceTime
+                             };
+                }
+                else if (MPType == Enums.MPTypeCh.Country)
+                {
+                    var mpOfCountry = BaseUtils.DataFilterWithTown<MPOfCountry>(dbContext.MPOfCountry);
+                    result = from t in mpOfCountry
+                             where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
+                             group t by new { t.PLProduceID, t.MPProduceUser, t.MPProduceTime } into g
+                             select new ProducedPLMPList
+                             {
+                                 MPType = Enums.MPTypeCh.Country,
+                                 PLProduceID = g.Key.PLProduceID,
+                                 MPProduceUser = g.Key.MPProduceUser,
+                                 MPProduceTime = g.Key.MPProduceTime
+                             };
+                }
+                else
+                    throw new Exception("未知的错误类型！");
+
                 #region 注释
                 //var lz = (from t in mpOfResidence
                 //          where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && !string.IsNullOrEmpty(t.PLProduceID)
@@ -486,23 +522,76 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 //          }).ToList();
                 //data.AddRange(nc);
                 #endregion
-                count = all.Count();
-                var result = all.OrderByDescending(t => t.MPProduceTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                count = result.Count();
+                var data = result.OrderByDescending(t => t.MPProduceTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 return new Dictionary<string, object> {
-                   { "Data",result},
+                   { "Data",data},
                    { "Count",count}
                 };
             }
         }
-        public static Dictionary<string, object> GetNotProducedPLMP(int PageSize, int PageNum)
+        public static Dictionary<string, object> GetNotProducedPLMP(int PageSize, int PageNum, string MPType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var mpOfRoad = BaseUtils.DataFilterWithTown<MPOfRoad>(dbContext.MPOfRoad);
-                var mpOfResidence = BaseUtils.DataFilterWithTown<MPOfResidence>(dbContext.MPOfResidence);
-                var mpOfCountry = BaseUtils.DataFilterWithTown<MPOfCountry>(dbContext.MPOfCountry);
-
                 int count = 0;
+                IQueryable<NotProducedPLMPList> result;
+                if (MPType == Enums.MPTypeCh.Residence)
+                {
+                    var mpOfResidence = BaseUtils.DataFilterWithTown<MPOfResidence>(dbContext.MPOfResidence);
+                    result = from t in mpOfResidence
+                             where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && string.IsNullOrEmpty(t.PLProduceID)
+                             group t by new { t.PLID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.CreateTime } into g
+                             select new NotProducedPLMPList
+                             {
+                                 PLID = g.Key.PLID,
+                                 MPType = Enums.MPTypeCh.Residence,
+                                 SBDW = g.Key.SBDW,
+                                 ResidenceName = g.Key.ResidenceName,
+                                 Applicant = g.Key.Applicant,
+                                 ApplicantPhone = g.Key.ApplicantPhone,
+                                 CreateTime = g.Key.CreateTime,
+                                 MPCount = g.Count() + (from s in g group s by new { s.LZNumber, s.DYNumber } into h select g).Count() + (from s in g group s by new { s.LZNumber } into h select g).Count() * 2,
+                             };
+                }
+                else if (MPType == Enums.MPTypeCh.Road)
+                {
+                    var mpOfRoad = BaseUtils.DataFilterWithTown<MPOfRoad>(dbContext.MPOfRoad);
+                    result = from t in mpOfRoad
+                             where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && string.IsNullOrEmpty(t.PLProduceID)
+                             group t by new { t.PLID, t.SBDW, t.RoadName, t.Applicant, t.ApplicantPhone, t.CreateTime } into g
+                             select new NotProducedPLMPList
+                             {
+                                 PLID = g.Key.PLID,
+                                 MPType = Enums.MPTypeCh.Road,
+                                 SBDW = g.Key.SBDW,
+                                 RoadName = g.Key.RoadName,
+                                 MPCount = g.Count(),
+                                 Applicant = g.Key.Applicant,
+                                 ApplicantPhone = g.Key.ApplicantPhone,
+                                 CreateTime = g.Key.CreateTime
+                             };
+                }
+                else if (MPType == Enums.MPTypeCh.Country)
+                {
+                    var mpOfCountry = BaseUtils.DataFilterWithTown<MPOfCountry>(dbContext.MPOfCountry);
+                    result = from t in mpOfCountry
+                             where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && string.IsNullOrEmpty(t.PLProduceID)
+                             group t by new { t.PLID, t.SBDW, t.ViligeName, t.Applicant, t.ApplicantPhone, t.CreateTime } into g
+                             select new NotProducedPLMPList
+                             {
+                                 PLID = g.Key.PLID,
+                                 MPType = Enums.MPTypeCh.Country,
+                                 SBDW = g.Key.SBDW,
+                                 ViligeName = g.Key.ViligeName,
+                                 MPCount = g.Count(),
+                                 Applicant = g.Key.Applicant,
+                                 ApplicantPhone = g.Key.ApplicantPhone,
+                                 CreateTime = g.Key.CreateTime
+                             };
+                }
+                else
+                    throw new Exception("未知的错误类型！");
                 #region 注释
                 //var lz = (from t in mpOfResidence
                 //          where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && string.IsNullOrEmpty(t.PLProduceID)
@@ -589,75 +678,26 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 //}
                 #endregion
 
-                List<NotProducedPLMPList> data = new List<NotProducedPLMPList>();
-                var zz = (from t in mpOfResidence
-                          where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && string.IsNullOrEmpty(t.PLProduceID)
-                          group t by new { t.PLID, t.SBDW, t.ResidenceName, t.Applicant, t.ApplicantPhone, t.CreateTime } into g
-                          select new NotProducedPLMPList
-                          {
-                              PLID = g.Key.PLID,
-                              MPType = Enums.MPTypeCh.Residence,
-                              SBDW = g.Key.SBDW,
-                              ResidenceName = g.Key.ResidenceName,
-                              Applicant = g.Key.Applicant,
-                              ApplicantPhone = g.Key.ApplicantPhone,
-                              CreateTime = g.Key.CreateTime,
-                              MPCount = g.Count() + (from s in g group s by new { s.LZNumber, s.DYNumber } into h select g).Count() + (from s in g group s by new { s.LZNumber } into h select g).Count() * 2,
-                          }).ToList();
-                data.AddRange(zz);
-
-                var dl = (from t in mpOfRoad
-                          where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && string.IsNullOrEmpty(t.PLProduceID)
-                          group t by new { t.PLID, t.SBDW, t.RoadName, t.Applicant, t.ApplicantPhone, t.CreateTime } into g
-                          select new NotProducedPLMPList
-                          {
-                              PLID = g.Key.PLID,
-                              MPType = Enums.MPTypeCh.Road,
-                              SBDW = g.Key.SBDW,
-                              RoadName = g.Key.RoadName,
-                              MPCount = g.Count(),
-                              Applicant = g.Key.Applicant,
-                              ApplicantPhone = g.Key.ApplicantPhone,
-                              CreateTime = g.Key.CreateTime
-                          }).ToList();
-                data.AddRange(dl);
-
-                var nc = (from t in mpOfCountry
-                          where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && string.IsNullOrEmpty(t.PLProduceID)
-                          group t by new { t.PLID, t.SBDW, t.ViligeName, t.Applicant, t.ApplicantPhone, t.CreateTime } into g
-                          select new NotProducedPLMPList
-                          {
-                              PLID = g.Key.PLID,
-                              MPType = Enums.MPTypeCh.Country,
-                              SBDW = g.Key.SBDW,
-                              ViligeName = g.Key.ViligeName,
-                              MPCount = g.Count(),
-                              Applicant = g.Key.Applicant,
-                              ApplicantPhone = g.Key.ApplicantPhone,
-                              CreateTime = g.Key.CreateTime
-                          }).ToList();
-                data.AddRange(nc);
-
-                count = data.Count();
-                var result = data.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                count = result.Count();
+                var data = result.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 return new Dictionary<string, object> {
-                   { "Data",result},
+                   { "Data",data},
                    { "Count",count}
                 };
             }
         }
-        public static List<PLMPHZ> ProducePLMP(List<NotProducedPLMPList> mpLists)
+        public static List<PLMPHZ> ProducePLMP(List<string> PLIDs, string MPType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<PLMPHZ> plmphzs = new List<PLMPHZ>();
                 var PLProduceID = DateTime.Now.ToString("yyyyMMddhhmmss");
                 var MPProduceTime = DateTime.Now;
-                foreach (var mp in mpLists)
+                if (MPType == Enums.MPTypeCh.Residence)
                 {
-                    if (mp.MPType == Enums.MPTypeCh.Residence)
+                    foreach (var plid in PLIDs)
                     {
-                        var query = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => string.IsNullOrEmpty(t.PLProduceID)).Where(t => t.PLID == mp.PLID).ToList();
+                        var query = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => string.IsNullOrEmpty(t.PLProduceID)).Where(t => t.PLID == plid).ToList();
 
                         foreach (var q in query)
                         {
@@ -707,11 +747,14 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                           }).ToList();
                             plmphzs.Add(plmphz);
                         }
-
+                        dbContext.SaveChanges();
                     }
-                    else if (mp.MPType == Enums.MPTypeCh.Road)
+                }
+                else if (MPType == Enums.MPTypeCh.Road)
+                {
+                    foreach (var plid in PLIDs)
                     {
-                        var query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => string.IsNullOrEmpty(t.PLProduceID)).Where(t => t.PLID == mp.PLID).ToList();
+                        var query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => string.IsNullOrEmpty(t.PLProduceID)).Where(t => t.PLID == plid).ToList();
                         foreach (var q in query)
                         {
                             q.PLProduceID = PLProduceID;
@@ -739,10 +782,14 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                           }).ToList();
                             plmphzs.Add(plmphz);
                         }
+                        dbContext.SaveChanges();
                     }
-                    else if (mp.MPType == Enums.MPTypeCh.Country)
+                }
+                else if (MPType == Enums.MPTypeCh.Country)
+                {
+                    foreach (var plid in PLIDs)
                     {
-                        var query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => string.IsNullOrEmpty(t.PLProduceID)).Where(t => t.PLID == mp.PLID).ToList();
+                        var query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => string.IsNullOrEmpty(t.PLProduceID)).Where(t => t.PLID == plid).ToList();
                         foreach (var q in query)
                         {
                             q.PLProduceID = PLProduceID;
@@ -770,9 +817,12 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                           }).ToList();
                             plmphzs.Add(plmphz);
                         }
+                        dbContext.SaveChanges();
                     }
-                    dbContext.SaveChanges();
                 }
+                else
+                    throw new Exception("未知的错误类型！");
+
                 CreateTabToWord_PL(plmphzs, PLProduceID);
                 return plmphzs;
             }

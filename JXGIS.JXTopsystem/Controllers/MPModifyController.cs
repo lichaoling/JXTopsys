@@ -179,7 +179,7 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 rt = new RtObj(ex);
             }
-            return Json(rt);
+            return Json(rt, JsonRequestBehavior.AllowGet);
         }
         [LoggerFilter(Description = "地址证明打印")]
         public ActionResult DZZMPrint()
@@ -226,7 +226,7 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 rt = new RtObj(ex);
             }
-            return Json(rt);
+            return Json(rt, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

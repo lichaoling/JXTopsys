@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 
 namespace JXGIS.JXTopsystem.Business.MPPrintUtils
@@ -145,9 +146,9 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("PropertyOwner", mpOfResidence.PropertyOwner);
                         bookmarks.Add("CountyName", mpOfResidence.CountyID.Split('.').Last());
                         bookmarks.Add("NeighborhoodsName", mpOfResidence.NeighborhoodsID.Split('.').Last());
-                        bookmarks.Add("Name", null);
+                        bookmarks.Add("RoadName", null);
                         bookmarks.Add("MPNumber", null);
-                        bookmarks.Add("ResidenceName", mpOfResidence.ResidenceName);
+                        bookmarks.Add("ResidenceName", ReplaceBadChar(mpOfResidence.ResidenceName));
                         bookmarks.Add("OriginalMPAddress", null);
                         bookmarks.Add("Year", DateTime.Now.Year.ToString());
                         bookmarks.Add("Month", DateTime.Now.Month.ToString());
@@ -158,9 +159,11 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         {
                             Directory.CreateDirectory(savePath);
                         }
-                        string fileNameWord = Path.Combine(savePath, mpOfResidence.StandardAddress + "-门牌证.docx");
-                        string fileNamePdf = Path.Combine(savePath, mpOfResidence.StandardAddress + "-门牌证.pdf");
-                        GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        var name = ReplaceBadChar(mpOfResidence.StandardAddress);
+                        string fileNameWord = Path.Combine(savePath, name + "-门牌证.docx");
+                        string fileNamePdf = Path.Combine(savePath, name + "-门牌证.pdf");
+                        if (!File.Exists(fileNameWord) || !File.Exists(fileNamePdf))
+                            GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                         docNames.Add(fileNamePdf);
                         isEnable = true;
                     }
@@ -175,7 +178,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("PropertyOwner", mpOfRoad.PropertyOwner);
                         bookmarks.Add("CountyName", mpOfRoad.CountyID.Split('.').Last());
                         bookmarks.Add("NeighborhoodsName", mpOfRoad.NeighborhoodsID.Split('.').Last());
-                        bookmarks.Add("Name", mpOfRoad.RoadName);
+                        bookmarks.Add("RoadName", ReplaceBadChar(mpOfRoad.RoadName));
                         bookmarks.Add("MPNumber", mpOfRoad.MPNumber);
                         bookmarks.Add("ResidenceName", mpOfRoad.ResidenceName);
                         bookmarks.Add("OriginalMPAddress", mpOfRoad.OriginalMPAddress);
@@ -188,9 +191,11 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         {
                             Directory.CreateDirectory(savePath);
                         }
-                        string fileNameWord = Path.Combine(savePath, mpOfRoad.StandardAddress + "-门牌证.docx");
-                        string fileNamePdf = Path.Combine(savePath, mpOfRoad.StandardAddress + "-门牌证.pdf");
-                        GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        var name = ReplaceBadChar(mpOfRoad.StandardAddress);
+                        string fileNameWord = Path.Combine(savePath, name + "-门牌证.docx");
+                        string fileNamePdf = Path.Combine(savePath, name + "-门牌证.pdf");
+                        if (!File.Exists(fileNameWord) || !File.Exists(fileNamePdf))
+                            GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                         docNames.Add(fileNamePdf);
                         isEnable = true;
                     }
@@ -204,7 +209,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("PropertyOwner", mpOfCounty.PropertyOwner);
                         bookmarks.Add("CountyName", mpOfCounty.CountyID.Split('.').Last());
                         bookmarks.Add("NeighborhoodsName", mpOfCounty.NeighborhoodsID.Split('.').Last());
-                        bookmarks.Add("Name", mpOfCounty.ViligeName);
+                        bookmarks.Add("RoadName", ReplaceBadChar(mpOfCounty.ViligeName));
                         bookmarks.Add("MPNumber", mpOfCounty.MPNumber);
                         bookmarks.Add("ResidenceName", null);
                         bookmarks.Add("OriginalMPAddress", mpOfCounty.OriginalMPAddress);
@@ -217,9 +222,11 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         {
                             Directory.CreateDirectory(savePath);
                         }
-                        string fileNameWord = Path.Combine(savePath, mpOfCounty.StandardAddress + "-门牌证.docx");
-                        string fileNamePdf = Path.Combine(savePath, mpOfCounty.StandardAddress + "-门牌证.pdf");
-                        GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        var name = ReplaceBadChar(mpOfCounty.StandardAddress);
+                        string fileNameWord = Path.Combine(savePath, name + "-门牌证.docx");
+                        string fileNamePdf = Path.Combine(savePath, name + "-门牌证.pdf");
+                        if (!File.Exists(fileNameWord) || !File.Exists(fileNamePdf))
+                            GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                         docNames.Add(fileNamePdf);
                         isEnable = true;
                     }
@@ -362,7 +369,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                 ref MissingValue, ref MissingValue,
                 ref MissingValue, ref MissingValue);
         }
-        
+
         /// <summary>
         /// 地名证明打印或门牌证打印
         /// </summary>
@@ -489,6 +496,43 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                 dbContext.SaveChanges();
                 return certificates;
             }
+        }
+
+
+        /// <summary>
+        /// 过滤非法字符
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string ReplaceBadChar(string src)
+        {
+            if (src == null)
+                return "";
+            StringBuilder result = new StringBuilder();
+            if (src != null)
+            {
+                src = src.Trim();
+                for (int pos = 0; pos < src.Length; pos++)
+                {
+                    switch (src[pos])
+                    {
+                        case '\"': result.Append(""); break;
+                        case '\n': result.Append(""); break;
+                        case '\r': result.Append(""); break;
+                        case '\t': result.Append(""); break;
+                        case '<': result.Append(""); break;
+                        case '>': result.Append(""); break;
+                        case '\'': result.Append(""); break;
+                        case '&': result.Append(""); break;
+                        case '%': result.Append(""); break;
+                        case '_': result.Append(""); break;
+                        case '#': result.Append(""); break;
+                        case '?': result.Append(""); break;
+                        default: result.Append(src[pos]); break;
+                    }
+                }
+            }
+            return result.ToString();
         }
 
 

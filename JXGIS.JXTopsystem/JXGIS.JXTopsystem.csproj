@@ -311,11 +311,13 @@
     <Compile Include="Models\Entities\DirectionDic.cs" />
     <Compile Include="Models\Entities\District.cs" />
     <Compile Include="Models\Entities\DMBZDic.cs" />
+    <Compile Include="Models\Entities\DMOFUPLOADFILES.cs" />
     <Compile Include="Models\Entities\MPOfCertificate.cs" />
     <Compile Include="Models\Entities\MPOfCountry.cs" />
     <Compile Include="Models\Entities\MPOfResidence.cs" />
     <Compile Include="Models\Entities\MPOfRoad.cs" />
     <Compile Include="Models\Entities\OracleDBContext.cs" />
+    <Compile Include="Models\Entities\PlaceName.cs" />
     <Compile Include="Models\Entities\POI.cs" />
     <Compile Include="Models\Entities\PostcodeDic.cs" />
     <Compile Include="Models\Entities\ResidenceDic.cs" />
@@ -412,7 +414,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Files\ArchiveFiles\" />
     <Folder Include="Files\MPProduce\" />
-    <Folder Include="Files\MP\" />
     <Folder Include="Files\RP\QRCode\" />
     <Folder Include="Files\RP\RPRepairPhoto\95f4df21-25ef-4b62-96fb-6665006216fe\维修前\" />
     <Folder Include="Files\RP\RPRepairPhoto\95f4df21-25ef-4b62-96fb-6665006216fe\维修后\" />

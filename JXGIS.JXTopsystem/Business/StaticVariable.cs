@@ -52,6 +52,13 @@ namespace JXGIS.JXTopsystem.Business
         public static readonly string basePathLogMessage = Path.Combine(basePath, "Logs");
 
 
+        //***************路牌编制文件****************
+        public static readonly string baseRelativePathDMFile = Path.Combine("Files", "DMFile");
+        //专业设施地名照片上传相对路径
+        public static readonly string ProfessionalPhotoRelativePath = Path.Combine(baseRelativePathDMFile, "专业设施");
+
+
+
 
         //***************文件归档****************
         public static readonly string basePathArchiveFile = Path.Combine(basePath, "Files", "ArchiveFiles");

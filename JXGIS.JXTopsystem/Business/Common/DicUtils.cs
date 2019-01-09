@@ -36,6 +36,11 @@ namespace JXGIS.JXTopsystem.Business.Common
                 {
                     s = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 }
+                else if (type == Enums.TypeInt.PlaceName)
+                {
+                    s = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
+                }
+
                 return s;
             }
         }
