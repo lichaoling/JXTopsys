@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JXGIS.JXTopsystem.Models.Extends;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +10,7 @@ using System.Web;
 namespace JXGIS.JXTopsystem.Models.Entities
 {
     [Table("PlaceName")]
-    public class PlaceName
+    public class PlaceName : IBaseEntityWithNeighborhoodsID
     {
         [Key]
         public string ID { get; set; }

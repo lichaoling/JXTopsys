@@ -376,7 +376,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var result = DicUtils.GetPostcodes(CountyID, NeighborhoodsID, CommunityName);
+                var result = DicUtils.GetPostcodesFromCode(CountyID, NeighborhoodsID, CommunityName);
                 rt = new RtObj(result);
             }
             catch (Exception ex)

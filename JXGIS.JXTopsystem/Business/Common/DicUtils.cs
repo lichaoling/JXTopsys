@@ -69,6 +69,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 if (type == Enums.TypeInt.Road)
                 {
                     IQueryable<MPOfRoad> query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable);
+                    query = BaseUtils.DataFilterWithTown<MPOfRoad>(query);
                     if (!string.IsNullOrEmpty(CountyID))
                         query = query.Where(t => t.CountyID == CountyID);
                     if (!string.IsNullOrEmpty(NeighborhoodsID))
@@ -80,6 +81,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 else if (type == Enums.TypeInt.RP)
                 {
                     IQueryable<RP> query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable);
+                    query = BaseUtils.DataFilterWithTown<RP>(query);
                     if (!string.IsNullOrEmpty(CountyID))
                         query = query.Where(t => t.CountyID == CountyID);
                     if (!string.IsNullOrEmpty(NeighborhoodsID))
@@ -97,6 +99,8 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 List<string> name = new List<string>();
                 IQueryable<MPOfCountry> query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable);
+                query = BaseUtils.DataFilterWithTown<MPOfCountry>(query);
+
                 if (!string.IsNullOrEmpty(CountyID))
                     query = query.Where(t => t.CountyID == CountyID);
                 if (!string.IsNullOrEmpty(NeighborhoodsID))
@@ -471,7 +475,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return query;
             }
         }
-        public static List<PostcodeDetails> GetPostcodes(string CountyID, string NeighborhoodsID, string CommunityName)
+        public static List<PostcodeDetails> GetPostcodesFromCode(string CountyID, string NeighborhoodsID, string CommunityName)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -495,6 +499,26 @@ namespace JXGIS.JXTopsystem.Business.Common
                               Postcode = t.Postcode,
                           }).OrderBy(t => t.CountyID).ToList();
                 return rt;
+            }
+        }
+        public static List<string> GetPostcodesFromData(int type, string CountyID, string NeighborhoodsID, string CommunityName)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                List<string> code = new List<string>();
+                if (type == Enums.TypeInt.PlaceName)
+                {
+                    IQueryable<PlaceName> query = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable);
+                    query = BaseUtils.DataFilterWithTown<PlaceName>(query);
+                    if (!string.IsNullOrEmpty(CountyID))
+                        query = query.Where(t => t.CountyID == CountyID);
+                    if (!string.IsNullOrEmpty(NeighborhoodsID))
+                        query = query.Where(t => t.NeighborhoodsID == NeighborhoodsID);
+                    if (!string.IsNullOrEmpty(CommunityName))
+                        query = query.Where(t => t.CommunityName == CommunityName);
+                    code = query.Where(t => !string.IsNullOrEmpty(t.Postcode)).Select(t => t.Postcode).Distinct().ToList();
+                }
+                return code;
             }
         }
         public static PostcodeDetails GetPostcodeByID(int id)

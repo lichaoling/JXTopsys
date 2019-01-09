@@ -33,12 +33,12 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         if (mpOfResidence == null)
                             throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
-                        bookmarks.Add("PropertyOwner", mpOfResidence.PropertyOwner);
+                        bookmarks.Add("PropertyOwner", string.IsNullOrEmpty(mpOfResidence.PropertyOwner) ? "" : mpOfResidence.PropertyOwner);
                         bookmarks.Add("StandardAddress", mpOfResidence.StandardAddress);
-                        bookmarks.Add("FCZAddress", mpOfResidence.FCZAddress);
-                        bookmarks.Add("TDZAddress", mpOfResidence.TDZAddress);
-                        bookmarks.Add("YYZZAddress/HJAddress", mpOfResidence.HJAddress);
-                        bookmarks.Add("OtherAddress", mpOfResidence.OtherAddress);
+                        bookmarks.Add("FCZAddress", string.IsNullOrEmpty(mpOfResidence.FCZAddress) ? "" : mpOfResidence.FCZAddress);
+                        bookmarks.Add("TDZAddress", string.IsNullOrEmpty(mpOfResidence.TDZAddress) ? "" : mpOfResidence.TDZAddress);
+                        bookmarks.Add("YYZZAddress/HJAddress", string.IsNullOrEmpty(mpOfResidence.HJAddress) ? "" : mpOfResidence.HJAddress);
+                        bookmarks.Add("OtherAddress", string.IsNullOrEmpty(mpOfResidence.OtherAddress) ? "" : mpOfResidence.OtherAddress);
                         bookmarks.Add("Year", DateTime.Now.Year.ToString());
                         bookmarks.Add("Month", DateTime.Now.Month.ToString());
                         bookmarks.Add("date", DateTime.Now.Day.ToString());
@@ -60,12 +60,12 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         if (mpOfRoad == null)
                             throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
-                        bookmarks.Add("PropertyOwner", mpOfRoad.PropertyOwner);
+                        bookmarks.Add("PropertyOwner", string.IsNullOrEmpty(mpOfRoad.PropertyOwner) ? "" : mpOfRoad.PropertyOwner);
                         bookmarks.Add("StandardAddress", mpOfRoad.StandardAddress);
-                        bookmarks.Add("FCZAddress", mpOfRoad.FCZAddress);
-                        bookmarks.Add("TDZAddress", mpOfRoad.TDZAddress);
-                        bookmarks.Add("YYZZAddress/HJAddress", mpOfRoad.YYZZAddress);
-                        bookmarks.Add("OtherAddress", mpOfRoad.OtherAddress);
+                        bookmarks.Add("FCZAddress", string.IsNullOrEmpty(mpOfRoad.FCZAddress) ? "" : mpOfRoad.FCZAddress);
+                        bookmarks.Add("TDZAddress", string.IsNullOrEmpty(mpOfRoad.TDZAddress) ? "" : mpOfRoad.TDZAddress);
+                        bookmarks.Add("YYZZAddress/HJAddress", string.IsNullOrEmpty(mpOfRoad.YYZZAddress) ? "" : mpOfRoad.YYZZAddress);
+                        bookmarks.Add("OtherAddress", string.IsNullOrEmpty(mpOfRoad.OtherAddress) ? "" : mpOfRoad.OtherAddress);
                         bookmarks.Add("Year", DateTime.Now.Year.ToString());
                         bookmarks.Add("Month", DateTime.Now.Month.ToString());
                         bookmarks.Add("date", DateTime.Now.Day.ToString());
@@ -89,8 +89,10 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
                         bookmarks.Add("PropertyOwner", mpOfCounty.PropertyOwner);
                         bookmarks.Add("StandardAddress", mpOfCounty.StandardAddress);
-                        bookmarks.Add("TDZAddress", mpOfCounty.TDZAddress);
-                        bookmarks.Add("OtherAddress", mpOfCounty.OtherAddress);
+                        bookmarks.Add("FCZAddress", "");
+                        bookmarks.Add("TDZAddress", string.IsNullOrEmpty(mpOfCounty.TDZAddress) ? "" : mpOfCounty.TDZAddress);
+                        bookmarks.Add("YYZZAddress/HJAddress", "");
+                        bookmarks.Add("OtherAddress", string.IsNullOrEmpty(mpOfCounty.OtherAddress) ? "" : mpOfCounty.OtherAddress);
                         bookmarks.Add("Year", DateTime.Now.Year.ToString());
                         bookmarks.Add("Month", DateTime.Now.Month.ToString());
                         bookmarks.Add("date", DateTime.Now.Day.ToString());
