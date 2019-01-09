@@ -70,6 +70,11 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string YYZZ = "YYZZ";
             public const string QQZ = "QQZ";
             public const string SQB = "SQB";
+
+            //专业设施地名
+            public const string SBBG = "申报表格";
+            public const string LXPFWJ = "立项批复文件";
+            public const string SJT = "设计图";
         }
         public static class FileType
         {

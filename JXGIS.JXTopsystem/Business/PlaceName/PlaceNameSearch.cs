@@ -2,6 +2,7 @@
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -71,75 +72,52 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     throw new Exception("该地名已经被注销！");
 
                 //将附件的名字都加上路径返回
-                var files = dbContext.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.MPID == ID);
+                var files = dbContext.DMOFUPLOADFILES.Where(t => t.State == Enums.UseState.Enable).Where(t => t.DMID == ID);
                 if (files.Count() > 0)
                 {
-                    //var FCZ = files.Where(t => t.DocType == Enums.DocType.FCZ);
-                    //var TDZ = files.Where(t => t.DocType == Enums.DocType.TDZ);
-                    //var BDCZ = files.Where(t => t.DocType == Enums.DocType.BDCZ);
-                    //var HJ = files.Where(t => t.DocType == Enums.DocType.HJ);
-                    //var SQB = files.Where(t => t.DocType == Enums.DocType.SQB);
-
-                    //var baseUrl = Path.Combine(StaticVariable.residenceMPRelativePath, MPID);
-                    //if (FCZ.Count() > 0)
-                    //{
-                    //    query.FCZ = (from t in FCZ
-                    //                 select new Pictures
-                    //                 {
-                    //                     FileID = t.ID,
-                    //                     Name = t.Name,
-                    //                     RelativePath = baseUrl + "/" + t.ID + t.FileEx,
-                    //                     TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
-                    //                 }).ToList();
-                    //}
-                    //if (TDZ.Count() > 0)
-                    //{
-                    //    query.TDZ = (from t in TDZ
-                    //                 select new Pictures
-                    //                 {
-                    //                     FileID = t.ID,
-                    //                     Name = t.Name,
-                    //                     RelativePath = baseUrl + "/" + t.ID + t.FileEx,
-                    //                     TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
-                    //                 }).ToList();
-                    //}
-                    //if (BDCZ.Count() > 0)
-                    //{
-                    //    query.BDCZ = (from t in BDCZ
-                    //                  select new Pictures
-                    //                  {
-                    //                      FileID = t.ID,
-                    //                      Name = t.Name,
-                    //                      RelativePath = baseUrl + "/" + t.ID + t.FileEx,
-                    //                      TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
-                    //                  }).ToList();
-                    //}
-                    //if (HJ.Count() > 0)
-                    //{
-                    //    query.HJ = (from t in HJ
-                    //                select new Pictures
-                    //                {
-                    //                    FileID = t.ID,
-                    //                    Name = t.Name,
-                    //                    RelativePath = baseUrl + "/" + t.ID + t.FileEx,
-                    //                    TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
-                    //                }).ToList();
-                    //}
-                    //if (SQB.Count() > 0)
-                    //{
-                    //    query.SQB = (from t in SQB
-                    //                 select new Pictures
-                    //                 {
-                    //                     FileID = t.ID,
-                    //                     Name = t.Name,
-                    //                     RelativePath = baseUrl + "/" + t.ID + t.FileEx,
-                    //                 }).ToList();
-                    //}
+                    var SBBG = files.Where(t => t.DocType == Enums.DocType.SBBG);
+                    var LXPFWJ = files.Where(t => t.DocType == Enums.DocType.LXPFWJ);
+                    var SJT = files.Where(t => t.DocType == Enums.DocType.SJT);
+                    var baseUrl = Path.Combine(StaticVariable.ProfessionalPhotoRelativePath, ID);
+                    if (SBBG.Count() > 0)
+                    {
+                        query.SBBG = (from t in SBBG
+                                      select new Pictures
+                                      {
+                                          FileID = t.ID,
+                                          Name = t.Name,
+                                          RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                          TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
+                                      }).ToList();
+                    }
+                    if (LXPFWJ.Count() > 0)
+                    {
+                        query.LXPFWJ = (from t in LXPFWJ
+                                        select new Pictures
+                                        {
+                                            FileID = t.ID,
+                                            Name = t.Name,
+                                            RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                            TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
+                                        }).ToList();
+                    }
+                    if (SJT.Count() > 0)
+                    {
+                        query.SJT = (from t in SJT
+                                     select new Pictures
+                                     {
+                                         FileID = t.ID,
+                                         Name = t.Name,
+                                         RelativePath = baseUrl + "/" + t.ID + t.FileEx,
+                                         TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
+                                     }).ToList();
+                    }
                 }
                 return query;
             }
 
         }
+        
         /// <summary>
         /// 导出住宅门牌Excel
         /// </summary>

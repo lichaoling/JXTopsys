@@ -12,7 +12,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
     {
         [Key]
         public string ID { get; set; }
-        public string MPID { get; set; }
+        public string DMID { get; set; }
 
         public string Name { get; set; }
         public string FileEx { get; set; }

@@ -131,5 +131,11 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DateTime? RecordDate { get; set; }
         public string Postcode { get; set; }
         public int State { get; set; }
+        [NotMapped]
+        public List<Pictures> SBBG { get; set; }
+        [NotMapped]
+        public List<Pictures> LXPFWJ { get; set; }
+        [NotMapped]
+        public List<Pictures> SJT { get; set; }
     }
 }

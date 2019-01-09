@@ -124,7 +124,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                 }
                 dbContext.MPOfCertificate.AddRange(mpOfCertificates);
                 dbContext.SaveChanges();
-                var ms = MergePDF(docNames);
+                var ms = MergePDF_DZZM(docNames);
                 return ms;
             }
         }
@@ -247,11 +247,39 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                 }
                 dbContext.MPOfCertificate.AddRange(mpCertificates);
                 dbContext.SaveChanges();
-                var ms = MergePDF(docNames);
+                var ms = MergePDF_MPZ(docNames);
                 return ms;
             }
         }
-        public static MemoryStream MergePDF(List<string> docNames)
+        public static MemoryStream MergePDF_MPZ(List<string> docNames)
+        {
+            iTextSharp.text.Document document = new iTextSharp.text.Document();
+            var targetPDF = Path.Combine(StaticVariable.MergeFilePath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
+            if (!Directory.Exists(StaticVariable.MergeFilePath))
+            {
+                Directory.CreateDirectory(StaticVariable.MergeFilePath);
+            }
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(targetPDF, FileMode.Create));
+            document.Open();
+            PdfContentByte cb = writer.DirectContent;
+            PdfImportedPage newPage;
+            PdfReader reader;
+            for (int i = 0; i < docNames.Count; i++)
+            {
+                reader = new PdfReader(docNames[i]);
+                int iPageNum = reader.NumberOfPages;
+                for (int j = 1; j <= iPageNum; j++)
+                {
+                    document.NewPage();
+                    newPage = writer.GetImportedPage(reader, j);
+                    cb.AddTemplate(newPage, 0, 0);
+                }
+            }
+            document.Close();
+            var ms = DownLoad(targetPDF);
+            return ms;
+        }
+        public static MemoryStream MergePDF_DZZM(List<string> docNames)
         {
             iTextSharp.text.Document document = new iTextSharp.text.Document();
             var targetPDF = Path.Combine(StaticVariable.MergeFilePath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");

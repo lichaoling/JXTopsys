@@ -67,17 +67,18 @@ namespace JXGIS.JXTopsystem.Controllers
         }
 
         [LoggerFilter(Description = "批量制作零星门牌")]
-        public JsonResult ProduceLXMP()
+        public ActionResult ProduceLXMP()
         {
             RtObj rt = null;
             try
             {
                 var MPIDs = Session["_ProduceLXMP_MPIDs"] != null ? (List<string>)Session["_ProduceLXMP_MPIDs"] : null;
                 var MPType = Session["_ProduceLXMP_MPType"] != null ? Session["_ProduceLXMP_MPType"].ToString() : null;
-                MPProduceUtils.ProduceLXMP(MPIDs, MPType);
+                var ms = MPProduceUtils.ProduceLXMP(MPIDs, MPType);
                 Session["_ProduceLXMP_MPIDs"] = null;
                 Session["_ProduceLXMP_MPType"] = null;
-                rt = new RtObj();
+                string fileName = $"零星门牌制作清单.doc";
+                return File(ms, "application/vnd.ms-word", fileName);
             }
             catch (Exception ex)
             {
@@ -89,26 +90,20 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(s, JsonRequestBehavior.AllowGet);
         }
         [LoggerFilter(Description = "获取批量制作完的零星门牌")]
-        public ContentResult GetProducedLXMPDetails(string LXProduceID /*ProducedLXMPList producedLXMPList*/)
+        public ActionResult GetProducedLXMPDetails(string LXProduceID /*ProducedLXMPList producedLXMPList*/)
         {
             RtObj rt = null;
             try
             {
                 var r = MPProduceUtils.GetProducedLXMPDetails(LXProduceID);
-                rt = new RtObj(r);
+                return File(r, "application/vnd.ms-word", LXProduceID + ".doc");
             }
             catch (Exception ex)
             {
                 rt = new RtObj(ex);
+                return Json(rt, JsonRequestBehavior.AllowGet);
             }
-            IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
-            timeConverter.DateTimeFormat = "yyyy-MM-dd";
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
-            return Content(s);
         }
-
-
-
 
         [LoggerFilter(Description = "获取已制作的批量门牌")]
         public ContentResult GetProducedPLMP(int PageSize, int PageNum, string MPType)
@@ -162,17 +157,18 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(rt, JsonRequestBehavior.AllowGet);
         }
         [LoggerFilter(Description = "批量制作批量导入的门牌")]
-        public JsonResult ProducePLMP()
+        public ActionResult ProducePLMP()
         {
             RtObj rt = null;
             try
             {
                 var PLIDs = Session["_ProducePLMP_PLIDs"] != null ? (List<string>)Session["_ProducePLMP_PLIDs"] : null;
                 var MPType = Session["_ProducePLMP_MPType"] != null ? Session["_ProducePLMP_MPType"].ToString() : null;
-                var r = MPProduceUtils.ProducePLMP(PLIDs, MPType);
+                var ms = MPProduceUtils.ProducePLMP(PLIDs, MPType);
                 Session["_ProduceLXMP_list"] = null;
                 Session["_ProducePLMP_MPType"] = null;
-                rt = new RtObj(r);
+                string fileName = $"批量门牌制作清单.doc";
+                return File(ms, "application/vnd.ms-word", fileName);
             }
             catch (Exception ex)
             {
