@@ -279,6 +279,7 @@
     <Compile Include="Business\MPSearch\CountryMPSearch.cs" />
     <Compile Include="Business\MPSearch\ResidenceMPSearch.cs" />
     <Compile Include="Business\MPSearch\RoadMPSearch.cs" />
+    <Compile Include="Business\PlaceName\PlaceNameSearch.cs" />
     <Compile Include="Business\RPBusinessStatistic\RPStatisticUtils.cs" />
     <Compile Include="Business\RPModify\RPModifyUtils.cs" />
     <Compile Include="Business\RPRepair\RPRepairUtils.cs" />

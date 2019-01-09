@@ -70,3 +70,9 @@
 |Message:未将对象引用设置到对象的实例。
 |StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 135
    在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/9 星期三 18:56:08
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/9 星期三 18:56:17
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69

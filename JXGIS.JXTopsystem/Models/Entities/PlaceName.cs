@@ -15,7 +15,41 @@ namespace JXGIS.JXTopsystem.Models.Entities
         [Key]
         public string ID { get; set; }
         public string CountyID { get; set; }
+        [NotMapped]
+        public string CountyName
+        {
+            get
+            {
+                var data = string.Empty;
+                if (!string.IsNullOrEmpty(this.CountyID))
+                {
+                    data = this.CountyID.Split(',').Last();
+                }
+                return data;
+            }
+            set
+            {
+                this.CountyName = value;
+            }
+        }
         public string NeighborhoodsID { get; set; }
+        [NotMapped]
+        public string NeighborhoodsName
+        {
+            get
+            {
+                var data = string.Empty;
+                if (!string.IsNullOrEmpty(this.NeighborhoodsID))
+                {
+                    data = this.NeighborhoodsID.Split(',').Last();
+                }
+                return data;
+            }
+            set
+            {
+                this.NeighborhoodsName = value;
+            }
+        }
         public string CommunityName { get; set; }
         public string Name { get; set; }
         /// <summary>

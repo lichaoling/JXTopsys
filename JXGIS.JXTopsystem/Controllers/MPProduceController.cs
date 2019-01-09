@@ -63,7 +63,7 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 rt = new RtObj(ex);
             }
-            return Json(rt);
+            return Json(rt, JsonRequestBehavior.AllowGet);
         }
 
         [LoggerFilter(Description = "批量制作零星门牌")]
@@ -86,7 +86,7 @@ namespace JXGIS.JXTopsystem.Controllers
             IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
             timeConverter.DateTimeFormat = "yyyy-MM-dd";
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
-            return Json(s);
+            return Json(s, JsonRequestBehavior.AllowGet);
         }
         [LoggerFilter(Description = "获取批量制作完的零星门牌")]
         public ContentResult GetProducedLXMPDetails(string LXProduceID /*ProducedLXMPList producedLXMPList*/)
@@ -159,7 +159,7 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 rt = new RtObj(ex);
             }
-            return Json(rt);
+            return Json(rt, JsonRequestBehavior.AllowGet);
         }
         [LoggerFilter(Description = "批量制作批量导入的门牌")]
         public JsonResult ProducePLMP()
@@ -181,7 +181,7 @@ namespace JXGIS.JXTopsystem.Controllers
             IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
             timeConverter.DateTimeFormat = "yyyy-MM-dd";
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
-            return Json(s);
+            return Json(s, JsonRequestBehavior.AllowGet);
         }
         [LoggerFilter(Description = "获取批量制作完的批量导入门牌")]
         public JsonResult GetProducedPLMPDetails(string PLProduceID/* ProducedPLMPList producedPLMPList*/)
