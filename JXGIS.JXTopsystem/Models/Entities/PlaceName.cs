@@ -30,7 +30,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
             }
             set
             {
-                this.CountyName = value;
+                //this.CountyName = value;
             }
         }
         public string NeighborhoodsID { get; set; }
@@ -48,7 +48,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
             }
             set
             {
-                this.NeighborhoodsName = value;
+                //this.NeighborhoodsName = value;
             }
         }
         public string CommunityName { get; set; }

@@ -46,7 +46,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                     var mpCategory = SystemUtils.Config.MPCategory.Road.Value.ToString();
                     var year = targetData.BZTime == null ? DateTime.Now.Year.ToString() : ((DateTime)(targetData.BZTime)).Year.ToString();
-                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
+                    var AddressCoding = CountyCode + NeighborhoodsCode + year + mpCategory;
                     targetData.AddressCoding = AddressCoding;
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
@@ -82,7 +82,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var CountyName = targetData.NeighborhoodsID.Split('.')[1];
                     var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
                     var CommunityName = targetData.CommunityName;
-                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.RoadName + targetData.MPNumber + "号";
+                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.RoadName + targetData.MPNumber + "号";
                     targetData.StandardAddress = StandardAddress;
                     #endregion
                     targetData.MPPosition = (targetData.Lng != 0 && targetData.Lat != 0) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : null;
@@ -139,7 +139,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var CountyName = targetData.NeighborhoodsID.Split('.')[1];
                     var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
                     var CommunityName = targetData.CommunityName;
-                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.RoadName + targetData.MPNumber + "号";
+                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.RoadName + targetData.MPNumber + "号";
                     targetData.StandardAddress = StandardAddress;
                     #endregion
                     targetData.MPPosition = (targetData.Lng != 0 && targetData.Lat != 0) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.MPPosition;

@@ -113,13 +113,13 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     throw new Exception("该地名已经被注销！");
 
                 //将附件的名字都加上路径返回
-                var files = dbContext.DMOFUPLOADFILES.Where(t => t.State == Enums.UseState.Enable).Where(t => t.DMID == ID);
+                var files = dbContext.DMOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.DMID == ID);
                 if (files.Count() > 0)
                 {
                     var SBBG = files.Where(t => t.DocType == Enums.DocType.SBBG);
                     var LXPFWJ = files.Where(t => t.DocType == Enums.DocType.LXPFWJ);
                     var SJT = files.Where(t => t.DocType == Enums.DocType.SJT);
-                    var baseUrl = Path.Combine(StaticVariable.ProfessionalPhotoRelativePath, ID);
+                    var baseUrl = Path.Combine(StaticVariable.ProfessionalDMRelativePath, ID);
                     if (SBBG.Count() > 0)
                     {
                         query.SBBG = (from t in SBBG

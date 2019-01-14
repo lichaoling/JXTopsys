@@ -47,7 +47,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                     var mpCategory = SystemUtils.Config.MPCategory.Residence.Value.ToString();
                     var year = targetData.BZTime == null ? DateTime.Now.Year.ToString() : ((DateTime)(targetData.BZTime)).Year.ToString();
-                    var AddressCoding = CountyCode + NeighborhoodsCode + mpCategory + year;
+                    var AddressCoding = CountyCode + NeighborhoodsCode + year + mpCategory;
                     targetData.AddressCoding = AddressCoding;
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
@@ -73,7 +73,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var LZNumber1 = targetData.LZNumber == null ? "" : targetData.LZNumber + "幢";
                     var DYNumber1 = targetData.DYNumber == null ? "" : targetData.DYNumber + "单元";
                     var HSNumber1 = targetData.HSNumber == null ? "" : targetData.HSNumber + "室";
-                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.ResidenceName + MPNumber1 + targetData.Dormitory + LZNumber1 + DYNumber1 + HSNumber1;
+                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + MPNumber1 + targetData.Dormitory + LZNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
                     targetData.DYPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;
@@ -120,7 +120,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var LZNumber1 = targetData.LZNumber == null ? "" : targetData.LZNumber + "幢";
                     var DYNumber1 = targetData.DYNumber == null ? "" : targetData.DYNumber + "单元";
                     var HSNumber1 = targetData.HSNumber == null ? "" : targetData.HSNumber + "室";
-                    var StandardAddress = CountyName + NeighborhoodsName + CommunityName + targetData.ResidenceName + MPNumber1 + targetData.Dormitory + LZNumber1 + DYNumber1 + HSNumber1;
+                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + MPNumber1 + targetData.Dormitory + LZNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
                     targetData.DYPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;

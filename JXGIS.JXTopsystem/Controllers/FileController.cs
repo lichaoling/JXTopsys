@@ -54,6 +54,9 @@ namespace JXGIS.JXTopsystem.Controllers
                 case "RPREPAIRPHOTO":
                     relativePath = StaticVariable.RPRepairPhotoRelativePath;
                     break;
+                case "PROFESSIONALDM":
+                    relativePath = StaticVariable.ProfessionalDMRelativePath;
+                    break;
                 default:
                     throw new Exception("未知的文件目录");
             }
@@ -146,6 +149,17 @@ namespace JXGIS.JXTopsystem.Controllers
                             data.RepairType = RepairType;
                             data.State = Enums.UseState.Enable;
                             dbContext.RPPepairUploadFiles.Add(data);
+                        }
+                        else if (FileType.ToUpper() == "PROFESSIONALDM")
+                        {
+                            DMOfUploadFiles data = new Models.Entities.DMOfUploadFiles();
+                            data.ID = fileID;
+                            data.Name = fileName;
+                            data.DMID = ID;
+                            data.FileEx = fileEx;
+                            data.DocType = DocType;
+                            data.State = Enums.UseState.Enable;
+                            dbContext.DMOfUploadFiles.Add(data);
                         }
                         dbContext.SaveChanges();
                     }
@@ -241,7 +255,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     {
                         var query = db.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (query == null)
-                            throw new Exception("该图片已经被删除！");
+                            throw new Exception("该附件已经被删除！");
 
                         var paths = GetUploadFilePath(FileType, query.MPID, query.ID, query.Name, null);
                         DeleteFileByPath(paths);
@@ -252,7 +266,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     {
                         var query = db.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (query == null)
-                            throw new Exception("该图片已经被删除！");
+                            throw new Exception("该附件已经被删除！");
 
                         var paths = GetUploadFilePath(FileType, query.RPID, query.ID, query.Name, null);
                         DeleteFileByPath(paths);
@@ -263,12 +277,22 @@ namespace JXGIS.JXTopsystem.Controllers
                     {
                         var query = db.RPPepairUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (query == null)
-                            throw new Exception("该图片已经被删除！");
+                            throw new Exception("该附件已经被删除！");
 
                         var paths = GetUploadFilePath(FileType, query.RPRepairID, query.ID, query.Name, query.RepairType);
                         DeleteFileByPath(paths);
                         db.RPPepairUploadFiles.Remove(query);
                         //query.State = Enums.UseState.Delete;
+                    }
+                    else if (FileType.ToUpper() == "PROFESSIONALDM")
+                    {
+                        var query = db.DMOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
+                        if (query == null)
+                            throw new Exception("该附件已经被删除！");
+
+                        var paths = GetUploadFilePath(FileType, query.DMID, query.ID, query.Name, null);
+                        DeleteFileByPath(paths);
+                        db.DMOfUploadFiles.Remove(query);
                     }
                     db.SaveChanges();
                 }
@@ -312,6 +336,15 @@ namespace JXGIS.JXTopsystem.Controllers
                     else if (FileType.ToUpper() == "RPREPAIRPHOTO")
                     {
                         var files = dbContext.RPPepairUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RepairType == RepairType).Where(t => t.RPRepairID == ID).ToList();
+                        foreach (var f in files)
+                        {
+                            var p = GetUploadFilePath(FileType, ID, f.ID, f.Name, RepairType);
+                            paths.Add(p);
+                        }
+                    }
+                    else if (FileType.ToUpper() == "PROFESSIONALDM")
+                    {
+                        var files = dbContext.DMOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.DMID == ID).Where(t => t.DocType == DocType).ToList();
                         foreach (var f in files)
                         {
                             var p = GetUploadFilePath(FileType, ID, f.ID, f.Name, RepairType);

@@ -1,0 +1,50 @@
+=======2019/1/14 星期一 10:29:44
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/14 星期一 10:29:49
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/14 星期一 10:30:52
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/14 星期一 10:31:47
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48
+=======2019/1/14 星期一 11:04:42
+|Message:未找到属性设置方法。
+|StackTrace:   在 System.Reflection.RuntimePropertyInfo.SetValue(Object obj, Object value, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.SetValue(Object obj, Object value, Object[] index)
+   在 System.Reflection.PropertyInfo.SetValue(Object obj, Object value)
+   在 JXGIS.JXTopsystem.Business.Common.ObjectReflection.ModifyByReflection[S,T](S sourceData, T targetData, Dictionary`2 Dic) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\ObjectReflection.cs:行号 58
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.ModifyPlaceName(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\PlaceName\PlaceNameSearch.cs:行号 280
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.ModifyPlaceName(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\PlaceNameController.cs:行号 151
+=======2019/1/14 星期一 11:13:14
+|Message:未找到属性设置方法。
+|StackTrace:   在 System.Reflection.RuntimePropertyInfo.SetValue(Object obj, Object value, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.SetValue(Object obj, Object value, Object[] index)
+   在 System.Reflection.PropertyInfo.SetValue(Object obj, Object value)
+   在 JXGIS.JXTopsystem.Business.Common.ObjectReflection.ModifyByReflection[S,T](S sourceData, T targetData, Dictionary`2 Dic)
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.ModifyPlaceName(String oldDataJson)
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.ModifyPlaceName(String oldDataJson)
+=======2019/1/14 星期一 11:13:42
+|Message:未找到属性设置方法。
+|StackTrace:   在 System.Reflection.RuntimePropertyInfo.SetValue(Object obj, Object value, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.SetValue(Object obj, Object value, Object[] index)
+   在 System.Reflection.PropertyInfo.SetValue(Object obj, Object value)
+   在 JXGIS.JXTopsystem.Business.Common.ObjectReflection.ModifyByReflection[S,T](S sourceData, T targetData, Dictionary`2 Dic)
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.ModifyPlaceName(String oldDataJson)
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.ModifyPlaceName(String oldDataJson)
+=======2019/1/14 星期一 11:14:29
+|Message:未找到属性设置方法。
+|StackTrace:   在 System.Reflection.RuntimePropertyInfo.SetValue(Object obj, Object value, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.SetValue(Object obj, Object value, Object[] index)
+   在 System.Reflection.PropertyInfo.SetValue(Object obj, Object value)
+   在 JXGIS.JXTopsystem.Business.Common.ObjectReflection.ModifyByReflection[S,T](S sourceData, T targetData, Dictionary`2 Dic)
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.ModifyPlaceName(String oldDataJson)
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.ModifyPlaceName(String oldDataJson)
+=======2019/1/14 星期一 13:00:32
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/14 星期一 13:00:38
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48

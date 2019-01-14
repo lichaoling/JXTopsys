@@ -8,7 +8,7 @@ using System.Web;
 namespace JXGIS.JXTopsystem.Models.Entities
 {
     [Table("DMOFUPLOADFILES")]
-    public class DMOFUPLOADFILES
+    public class DMOfUploadFiles
     {
         [Key]
         public string ID { get; set; }
