@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Entities
@@ -23,7 +24,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
                 var data = string.Empty;
                 if (!string.IsNullOrEmpty(this.CountyID))
                 {
-                    data = this.CountyID.Split(',').Last();
+                    data = this.CountyID.Split('.').Last();
                 }
                 return data;
             }
@@ -41,7 +42,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
                 var data = string.Empty;
                 if (!string.IsNullOrEmpty(this.NeighborhoodsID))
                 {
-                    data = this.NeighborhoodsID.Split(',').Last();
+                    data = this.NeighborhoodsID.Split('.').Last();
                 }
                 return data;
             }
@@ -63,7 +64,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         /// <summary>
         /// 大类类别
         /// </summary>
-        public string BigType { get; set; }
+        public string ZYSSType { get; set; }
         /// <summary>
         /// 小类类别
         /// </summary>
@@ -96,8 +97,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         /// 北至
         /// </summary>
         public string North { get; set; }
-        public decimal X { get; set; }
-        public decimal Y { get; set; }
+        public decimal? Lng { get; set; }
+        public decimal? Lat { get; set; }
         public DbGeography Geom { get; set; }
         /// <summary>
         /// 地理实体概况
@@ -129,6 +130,13 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string ZGDW { get; set; }
         public DateTime? ApplicantDate { get; set; }
         public DateTime? RecordDate { get; set; }
+        public DateTime? CreateTime { get; set; }
+        public string CreateUser { get; set; }
+        public DateTime? LastModifyTime { get; set; }
+        public string LastModifyUser { get; set; }
+        public DateTime? CancelTime { get; set; }
+        public string CancelUser { get; set; }
+
         public string Postcode { get; set; }
         public int State { get; set; }
         [NotMapped]
@@ -137,5 +145,15 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public List<Pictures> LXPFWJ { get; set; }
         [NotMapped]
         public List<Pictures> SJT { get; set; }
+
+        private static PropertyInfo[] props = typeof(PlaceName).GetProperties();
+        public object this[string key]
+        {
+            get
+            {
+                var prop = props.Where(p => p.Name == key).FirstOrDefault();
+                return prop != null ? prop.GetValue(this) : null;
+            }
+        }
     }
 }

@@ -1,5 +1,0 @@
-=======2018/9/20 星期四 15:36:45
-|Message:未将对象引用设置到对象的实例。
-|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.BaseUtils.UpdateAddressCode(MPOfResidence zz, MPOfRoad dl, MPOfCountry nc, RP rp, Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\Common\BaseUtils.cs:行号 219
-   在 JXGIS.JXTopsystem.Business.MPModify.ResidenceMPModify.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\ResidenceMPModify.cs:行号 130
-   在 JXGIS.JXTopsystem.Controllers.MPModifyController.ModifyResidenceMP(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\JXTopsys\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 24

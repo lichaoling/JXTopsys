@@ -214,6 +214,6 @@ E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\Syste
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Webpages.Razor.resources.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Helpers.resources.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Mvc.resources.dll
-E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.csprojResolveAssemblyReference.cache
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.pdb
+E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.csprojResolveAssemblyReference.cache

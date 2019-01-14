@@ -40,6 +40,10 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string Road = "道路门牌";
             public const string Country = "农村门牌";
         }
+        public static class PlaceNameTypeCH
+        {
+            public const string ZYSS = "专业设施地名";
+        }
         public static class TypeInt
         {
             public const int Residence = 1;

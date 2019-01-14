@@ -1,3 +1,0 @@
-=======2019/1/4 10:08:19
-|Message:原始密码验证有误！
-|StackTrace:   在 JXGIS.JXTopsystem.Controllers.LoginController.ModifyPassword(String OPassword, String NPassword) 位置 E:\Projects\09 嘉兴地名\JXTopsys\JXGIS.JXTopsystem\Controllers\LoginController.cs:行号 542

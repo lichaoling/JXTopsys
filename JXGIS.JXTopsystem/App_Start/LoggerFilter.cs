@@ -49,9 +49,12 @@ namespace JXGIS.JXTopsystem.App_Start
                     systemLog.OperateResult = rt.ErrorMessage == null ? 1 : 0;
                     systemLog.ErrorMessage = rt.ErrorMessage;
                 }
-                systemLog.OperateTime = DateTime.Now;
-                dbContext.SystemLog.Add(systemLog);
-                dbContext.SaveChanges();
+                if (systemLog.UserID != null)
+                {
+                    systemLog.OperateTime = DateTime.Now;
+                    dbContext.SystemLog.Add(systemLog);
+                    dbContext.SaveChanges();
+                }
             }
 
         }

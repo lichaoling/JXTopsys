@@ -1,0 +1,30 @@
+=======2019/1/11 星期五 8:50:26
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/11 星期五 9:22:43
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/11 星期五 9:22:53
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48
+=======2019/1/11 星期五 9:22:56
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48
+=======2019/1/11 星期五 9:22:59
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/11 星期五 9:23:00
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/11 星期五 9:23:02
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48
+=======2019/1/11 星期五 12:43:03
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/11 星期五 13:37:49
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/11 星期五 13:37:53
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48

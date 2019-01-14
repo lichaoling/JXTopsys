@@ -1,0 +1,122 @@
+=======2019/1/10 星期四 18:01:04
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48
+=======2019/1/10 星期四 18:44:29
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48
+=======2019/1/10 星期四 20:14:46
+|Message:该门牌已经被注销！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.SearchResidenceMPByID(String MPID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPSearch\ResidenceMPSearch.cs:行号 265
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMPByID(String ID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 55
+=======2019/1/10 星期四 20:17:49
+|Message:对象与目标类型不匹配。
+|StackTrace:   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Reflection.PropertyInfo.GetValue(Object obj)
+   在 JXGIS.JXTopsystem.Models.Entities.PlaceName.get_Item(String key) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Models\Entities\PlaceName.cs:行号 155
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.ExportPlaceName(Int32 PageSize, Int32 PageNum, String ZTSSTypoe, String DistrictID, String CommunityName, String DMType, String Name, String ZGDW, Nullable`1 start, Nullable`1 end) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\PlaceName\PlaceNameSearch.cs:行号 237
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.ExportPlaceName() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\PlaceNameController.cs:行号 107
+=======2019/1/10 星期四 20:19:55
+|Message:对象与目标类型不匹配。
+|StackTrace:   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Reflection.PropertyInfo.GetValue(Object obj)
+   在 JXGIS.JXTopsystem.Models.Entities.PlaceName.get_Item(String key) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Models\Entities\PlaceName.cs:行号 155
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.ExportPlaceName(Int32 PageSize, Int32 PageNum, String ZTSSTypoe, String DistrictID, String CommunityName, String DMType, String Name, String ZGDW, Nullable`1 start, Nullable`1 end) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\PlaceName\PlaceNameSearch.cs:行号 237
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.ExportPlaceName() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\PlaceNameController.cs:行号 107
+=======2019/1/10 星期四 20:22:12
+|Message:对象与目标类型不匹配。
+|StackTrace:   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Reflection.PropertyInfo.GetValue(Object obj)
+   在 JXGIS.JXTopsystem.Models.Entities.PlaceName.get_Item(String key)
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.ExportPlaceName(Int32 PageSize, Int32 PageNum, String ZTSSTypoe, String DistrictID, String CommunityName, String DMType, String Name, String ZGDW, Nullable`1 start, Nullable`1 end)
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.ExportPlaceName()
+=======2019/1/10 星期四 20:28:24
+|Message:对象与目标类型不匹配。
+|StackTrace:   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Reflection.PropertyInfo.GetValue(Object obj)
+   在 JXGIS.JXTopsystem.Models.Entities.PlaceName.get_Item(String key)
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.ExportPlaceName(Int32 PageSize, Int32 PageNum, String ZTSSTypoe, String DistrictID, String CommunityName, String DMType, String Name, String ZGDW, Nullable`1 start, Nullable`1 end)
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.ExportPlaceName()
+=======2019/1/10 星期四 20:31:40
+|Message:Unable to create a null constant value of type 'System.Collections.Generic.List`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]'. Only entity types, enumeration types or primitive types are supported in this context.
+|StackTrace:   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.ConstantTranslator.TypedTranslate(ExpressionConverter parent, ConstantExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.ContainsTranslator.TranslateContains(ExpressionConverter parent, Expression sourceExpression, Expression valueExpression)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.ContainsTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.CancelPlaceName(List`1 ID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\PlaceName\PlaceNameSearch.cs:行号 332
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.CancelPlaceName(List`1 IDs) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\PlaceNameController.cs:行号 131
+=======2019/1/10 星期四 20:32:20
+|Message:Unable to create a null constant value of type 'System.Collections.Generic.List`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]'. Only entity types, enumeration types or primitive types are supported in this context.
+|StackTrace:   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.ConstantTranslator.TypedTranslate(ExpressionConverter parent, ConstantExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.ContainsTranslator.TranslateContains(ExpressionConverter parent, Expression sourceExpression, Expression valueExpression)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.ContainsTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.CancelPlaceName(List`1 ID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\PlaceName\PlaceNameSearch.cs:行号 332
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.CancelPlaceName(List`1 IDs) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\PlaceNameController.cs:行号 131
+=======2019/1/10 星期四 20:36:34
+|Message:该门牌已经被注销！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.SearchResidenceMPByID(String MPID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPSearch\ResidenceMPSearch.cs:行号 265
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMPByID(String ID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 55

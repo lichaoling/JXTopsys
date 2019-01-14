@@ -1,10 +1,12 @@
 ﻿using JXGIS.JXTopsystem.App_Start;
+using JXGIS.JXTopsystem.Business;
 using JXGIS.JXTopsystem.Business.MPProduce;
 using JXGIS.JXTopsystem.Models.Extends;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -57,6 +59,24 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 Session["_ProduceLXMP_MPIDs"] = MPIDs;
                 Session["_ProduceLXMP_MPType"] = MPType;
+                using (var db = SystemUtils.NewEFDbContext)
+                {
+                    List<LXMPHZ> lxmphzs = new List<LXMPHZ>();
+                    var LXProduceID = DateTime.Now.ToString("yyyyMMddhhmmss");
+
+                    if (MPType == Enums.MPTypeCh.Road)
+                    {
+                        var sql = @"update MPOfRoad set LXProduceID=@LXProduceID,MPProduceUser=@MPProduceUser,MPProduceTime=@MPProduceTime where State=1 and AddType='零星' and MPProduce=1 and id in (@MPIDs)";
+                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@LXProduceID", LXProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@MPIDs", string.Join(",", MPIDs)));
+                    }
+                    else if (MPType == Enums.MPTypeCh.Country)
+                    {
+                        var sql = @"update MPOfCountry set LXProduceID=@LXProduceID,MPProduceUser=@MPProduceUser,MPProduceTime=@MPProduceTime where State=1 and AddType='零星' and MPProduce=1 and id in (@MPIDs)";
+                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@LXProduceID", LXProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@MPIDs", string.Join(",", MPIDs)));
+                    }
+                    else
+                        throw new Exception("未知的错误类型！");
+                }
                 rt = new RtObj();
             }
             catch (Exception ex)
@@ -146,8 +166,42 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                Session["_ProducePLMP_PLIDs"] = PLIDs;
-                Session["_ProducePLMP_MPType"] = MPType;
+
+                using (var db = SystemUtils.NewEFDbContext)
+                {
+                    List<LXMPHZ> lxmphzs = new List<LXMPHZ>();
+                    var PLProduceID = DateTime.Now.ToString("yyyyMMddhhmmss");
+                    //List<string> IDs = new List<string>();
+                    if (MPType == Enums.MPTypeCh.Residence)
+                    {
+                        //var sql1 = @"select id from MPOfResidence where State=1 and AddType='批量' and PLProduceID is null and plid in (@plid)";
+                        //IDs = db.Database.SqlQuery<string>(sql1, new SqlParameter("@plid", string.Join(",", PLIDs))).ToList();
+
+                        var sql = @"update MPOfResidence set PLProduceID=@PLProduceID,MPProduceUser=@MPProduceUser,MPProduceTime=@MPProduceTime where State=1 and AddType='批量' and PLProduceID is null and plid in (@plid)";
+                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@PLProduceID", PLProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@plid", string.Join(",", PLIDs)));
+
+                    }
+                    else if (MPType == Enums.MPTypeCh.Road)
+                    {
+                        //var sql1 = @"select id from MPOfRoad where State=1 and AddType='批量' and PLProduceID is null and plid in (@plid)";
+                        //IDs = db.Database.SqlQuery<string>(sql1, new SqlParameter("@plid", string.Join(",", PLIDs))).ToList();
+
+                        var sql = @"update MPOfRoad set PLProduceID=@PLProduceID,MPProduceUser=@MPProduceUser,MPProduceTime=@MPProduceTime where State=1 and AddType='批量' and PLProduceID is null and plid in (@plid)";
+                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@PLProduceID", PLProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@plid", string.Join(",", PLIDs)));
+                    }
+                    else if (MPType == Enums.MPTypeCh.Country)
+                    {
+                        //var sql1 = @"select id from MPOfCountry where State=1 and AddType='批量' and PLProduceID is null and plid in (@plid)";
+                        //IDs = db.Database.SqlQuery<string>(sql1, new SqlParameter("@plid", string.Join(",", PLIDs))).ToList();
+
+                        var sql = @"update MPOfCountry set PLProduceID=@PLProduceID,MPProduceUser=@MPProduceUser,MPProduceTime=@MPProduceTime where State=1 and AddType='批量' and PLProduceID is null and plid in (@plid)";
+                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@PLProduceID", PLProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@plid", string.Join(",", PLIDs)));
+                    }
+                    else
+                        throw new Exception("未知的错误类型！");
+                    Session["_ProducePLMP_PLIDs"] = PLIDs;
+                    Session["_ProducePLMP_MPType"] = MPType;
+                }
                 rt = new RtObj();
             }
             catch (Exception ex)

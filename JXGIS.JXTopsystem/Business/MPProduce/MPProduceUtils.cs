@@ -162,11 +162,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         LXMPHZ lxmphz = new LXMPHZ();
                         var query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mpid).FirstOrDefault();
                         if (query == null)
-                            throw new Exception($"ID为{mpid}门牌已被注销");
-                        query.LXProduceID = LXProduceID;
-                        query.MPProduceUser = LoginUtils.CurrentUser.UserName;
-                        query.MPProduceTime = DateTime.Now;
-
+                            throw new Exception("未选中任何数据！");
                         lxmphz.PlaceName = query.RoadName;
                         lxmphz.Type = Enums.MPTypeCh.Road;
                         lxmphz.MPNumber = query.MPNumber;
@@ -175,7 +171,6 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
 
                         lxmphzs.Add(lxmphz);
                     }
-                    dbContext.SaveChanges();
                 }
                 else if (MPType == Enums.MPTypeCh.Country)
                 {
@@ -184,10 +179,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         LXMPHZ lxmphz = new LXMPHZ();
                         var query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mpid).FirstOrDefault();
                         if (query == null)
-                            throw new Exception($"ID为{mpid}门牌已被注销");
-                        query.LXProduceID = LXProduceID;
-                        query.MPProduceUser = LoginUtils.CurrentUser.UserName;
-                        query.MPProduceTime = DateTime.Now;
+                            throw new Exception("未选中任何数据！");
 
                         lxmphz.PlaceName = query.ViligeName;
                         lxmphz.Type = Enums.MPTypeCh.Country;
@@ -197,7 +189,6 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
 
                         lxmphzs.Add(lxmphz);
                     }
-                    dbContext.SaveChanges();
                 }
                 else
                     throw new Exception("未知的错误类型！");
@@ -268,7 +259,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 app.Selection.Font.Bold = 700;
                 app.Selection.Font.Size = 16;
                 app.Selection.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                app.Selection.Text = $"嘉兴市{string.Join("、", lxMPHZ.Select(t => t.CountryName).ToList())}零星门牌汇总表";
+                app.Selection.Text = $"嘉兴市{string.Join("、", lxMPHZ.Select(t => t.CountryName).Distinct().ToList())}零星门牌汇总表";
                 object line = Microsoft.Office.Interop.Word.WdUnits.wdLine;
 
                 //换行添加表格
@@ -708,18 +699,9 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 {
                     foreach (var plid in PLIDs)
                     {
-                        var query = db.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => string.IsNullOrEmpty(t.PLProduceID)).Where(t => t.PLID == plid).ToList();
-
-                        //foreach (var q in query)
-                        //{
-                        //    q.PLProduceID = PLProduceID;
-                        //    q.MPProduceUser = LoginUtils.CurrentUser.UserName;
-                        //    q.MPProduceTime = MPProduceTime;
-                        //    db.SaveChanges();
-                        //}
-                        var sql = @"update MPOfResidence set PLProduceID=@PLProduceID,MPProduceUser=@MPProduceUser,MPProduceTime=@MPProduceTime where State=1 and AddType='批量' and PLProduceID is null and plid=@plid";
-                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@PLProduceID", PLProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@plid", plid));
-
+                        var query = db.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => t.PLID == plid).ToList();
+                        if (query == null)
+                            throw new Exception("未选中任何数据！");
                         var PlaceNames = query.Select(t => t.ResidenceName).Distinct().ToList();
                         foreach (var PlaceName in PlaceNames)
                         {
@@ -772,13 +754,9 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 {
                     foreach (var plid in PLIDs)
                     {
-                        var query = db.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => string.IsNullOrEmpty(t.PLProduceID)).Where(t => t.PLID == plid).ToList();
-                        foreach (var q in query)
-                        {
-                            q.PLProduceID = PLProduceID;
-                            q.MPProduceUser = LoginUtils.CurrentUser.UserName;
-                            q.MPProduceTime = MPProduceTime;
-                        }
+                        var query = db.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => t.PLID == plid).ToList();
+                        if (query == null)
+                            throw new Exception("未选中任何数据！");
                         var PlaceNames = query.Select(t => t.RoadName).Distinct().ToList();
                         foreach (var PlaceName in PlaceNames)
                         {
@@ -801,22 +779,16 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                           }).ToList();
                             plmphzs.Add(plmphz);
                         }
-                        db.SaveChanges();
                     }
                 }
                 else if (MPType == Enums.MPTypeCh.Country)
                 {
                     foreach (var plid in PLIDs)
                     {
-                        var query = db.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => string.IsNullOrEmpty(t.PLProduceID)).Where(t => t.PLID == plid).ToList();
-                        foreach (var q in query)
-                        {
-                            q.PLProduceID = PLProduceID;
-                            q.MPProduceUser = LoginUtils.CurrentUser.UserName;
-                            q.MPProduceTime = MPProduceTime;
-                        }
+                        var query = db.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => t.PLID == plid).ToList();
+                        if (query == null)
+                            throw new Exception("未选中任何数据！");
                         var PlaceNames = query.Select(t => t.ViligeName).Distinct().ToList();
-
                         foreach (var PlaceName in PlaceNames)
                         {
                             var plmphz = new PLMPHZ();
@@ -837,7 +809,6 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                           }).ToList();
                             plmphzs.Add(plmphz);
                         }
-                        db.SaveChanges();
                     }
                 }
                 else
@@ -981,7 +952,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     }
                 }
 
-                int rows = dataCount + 4;
+                int rows = dataCount + 2;
                 int cols = 12;//表格列数
                 object oMissing = System.Reflection.Missing.Value;
                 app = new Microsoft.Office.Interop.Word.Application();//创建word应用程序
@@ -991,12 +962,12 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 app.Selection.Font.Bold = 700;
                 app.Selection.Font.Size = 16;
                 app.Selection.Range.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                app.Selection.Text = $"嘉兴市{string.Join("、", plMPHZ.Select(t => t.CountryName).ToList())}批量门牌汇总表";
+                app.Selection.Text = $"嘉兴市{string.Join("、", plMPHZ.Select(t => t.CountryName).Distinct().ToList())}批量门牌汇总表";
                 object line = Microsoft.Office.Interop.Word.WdUnits.wdLine;
                 app.Selection.MoveDown(ref line, oMissing, oMissing);
                 app.Selection.TypeParagraph();//换行
                 app.Selection.Font.Size = 12;
-                app.Selection.Text = $"申报单位：{string.Join("、", plMPHZ.Select(t => t.SBDW).ToList())}    邮政编码：{string.Join("、", plMPHZ.Select(t => t.Postcode).ToList())}";
+                app.Selection.Text = $"申报单位：{string.Join("、", plMPHZ.Select(t => t.SBDW).Distinct().ToList())}    邮政编码：{string.Join("、", plMPHZ.Select(t => t.Postcode).Distinct().ToList())}";
 
 
                 //换行添加表格
@@ -1104,7 +1075,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             table.Cell(rowIndex + dlRow, 10).Range.Text = dl.Count.ToString();
                             dlRow++;
                         }
-                        rowIndex = rowIndex + max + 1;
+                        rowIndex = rowIndex + max;
                     }
                     else if (plmp.Type == Enums.MPTypeCh.Country)
                     {

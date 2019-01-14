@@ -164,8 +164,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         var name = ReplaceBadChar(mpOfResidence.StandardAddress);
                         string fileNameWord = Path.Combine(savePath, name + "-门牌证.docx");
                         string fileNamePdf = Path.Combine(savePath, name + "-门牌证.pdf");
-                        if (!File.Exists(fileNameWord) || !File.Exists(fileNamePdf))
-                            GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                         docNames.Add(fileNamePdf);
                         isEnable = true;
                     }
@@ -227,8 +226,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         var name = ReplaceBadChar(mpOfCounty.StandardAddress);
                         string fileNameWord = Path.Combine(savePath, name + "-门牌证.docx");
                         string fileNamePdf = Path.Combine(savePath, name + "-门牌证.pdf");
-                        if (!File.Exists(fileNameWord) || !File.Exists(fileNamePdf))
-                            GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
+                        GenerateWord(StaticVariable.MPZtemplateFile, fileNameWord, fileNamePdf, bookmarks, ID);
                         docNames.Add(fileNamePdf);
                         isEnable = true;
                     }
@@ -253,7 +251,8 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
         }
         public static MemoryStream MergePDF_MPZ(List<string> docNames)
         {
-            iTextSharp.text.Document document = new iTextSharp.text.Document();
+            iTextSharp.text.Rectangle pageSize = new iTextSharp.text.Rectangle(360, 510);
+            iTextSharp.text.Document document = new iTextSharp.text.Document(pageSize);
             var targetPDF = Path.Combine(StaticVariable.MergeFilePath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
             if (!Directory.Exists(StaticVariable.MergeFilePath))
             {
@@ -354,6 +353,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
             try
             {
                 doc = app.Documents.Open(ref Obj_FileName, ref missing, ref ReadOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref Visible, ref missing, ref missing, ref missing, ref missing);
+                //if (doc == null) throw new Exception(fileNameWord);
                 doc.Activate();
 
                 foreach (string bookmarkName in bookmarks.Keys)
@@ -369,10 +369,12 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         ref SaveAsAOCELetter, ref Encoding, ref InsertLineBreaks,
                         ref AllowSubstitutions, ref LineEnding, ref AddBiDiMarks);
                 doc.Close(ref IsSave, ref missing, ref missing);
+                doc = null;
             }
-            catch
+            catch (Exception ex)
             {
-                doc.Close(ref IsSave, ref missing, ref missing);
+                if (doc != null) doc.Close(ref IsSave, ref missing, ref missing);
+                throw ex;
             }
         }
         /// <summary>

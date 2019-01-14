@@ -188,53 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Files\MPPrint\门牌证模板.png" />
-    <Content Include="Files\RP\BZPhoto\aa1bc4e2-43a4-4d3d-88fb-147a6ddd90ba\4b81054c-bd57-4440-997c-3d947b8d09fe.png" />
-    <Content Include="Files\RP\BZPhoto\aa1bc4e2-43a4-4d3d-88fb-147a6ddd90ba\t-4b81054c-bd57-4440-997c-3d947b8d09fe.png" />
-    <Content Include="Files\RP\RepairPhoto\160004d9-c009-4f7d-b57a-1d4021be0029\维修前\acb2973a-f77b-4173-9a8c-1240d1de0d6a.png" />
-    <Content Include="Files\RP\RepairPhoto\160004d9-c009-4f7d-b57a-1d4021be0029\维修前\t-acb2973a-f77b-4173-9a8c-1240d1de0d6a.png" />
-    <Content Include="Files\RP\RepairPhoto\160004d9-c009-4f7d-b57a-1d4021be0029\维修后\8f693284-7fba-4629-b39f-9ac5bbd418f7.png" />
-    <Content Include="Files\RP\RepairPhoto\160004d9-c009-4f7d-b57a-1d4021be0029\维修后\t-8f693284-7fba-4629-b39f-9ac5bbd418f7.png" />
-    <Content Include="Files\RP\RepairPhoto\552a2b17-f548-49b5-b2ad-106ee9cb6ec9\维修前\1f541dbb-740d-42cd-b704-9eb0469bd215.png" />
-    <Content Include="Files\RP\RepairPhoto\552a2b17-f548-49b5-b2ad-106ee9cb6ec9\维修前\b834b246-10e1-438d-8de7-ee036dc1caa6.png" />
-    <Content Include="Files\RP\RepairPhoto\552a2b17-f548-49b5-b2ad-106ee9cb6ec9\维修前\t-1f541dbb-740d-42cd-b704-9eb0469bd215.png" />
-    <Content Include="Files\RP\RepairPhoto\552a2b17-f548-49b5-b2ad-106ee9cb6ec9\维修前\t-b834b246-10e1-438d-8de7-ee036dc1caa6.png" />
-    <Content Include="Files\RP\RepairPhoto\552a2b17-f548-49b5-b2ad-106ee9cb6ec9\维修后\0a68bc92-1d05-4712-9f4c-84fe05f557a7.png" />
-    <Content Include="Files\RP\RepairPhoto\552a2b17-f548-49b5-b2ad-106ee9cb6ec9\维修后\1650bb02-8ed1-4f00-acc9-ad7e84555c3d.png" />
-    <Content Include="Files\RP\RepairPhoto\552a2b17-f548-49b5-b2ad-106ee9cb6ec9\维修后\t-0a68bc92-1d05-4712-9f4c-84fe05f557a7.png" />
-    <Content Include="Files\RP\RepairPhoto\552a2b17-f548-49b5-b2ad-106ee9cb6ec9\维修后\t-1650bb02-8ed1-4f00-acc9-ad7e84555c3d.png" />
-    <Content Include="Files\RP\RPRepairPhoto\747cf332-7cc3-4b96-a0f1-b931e1811df8\维修前\030a97fa-f881-42bc-9a0f-0eeb2b47f638.png" />
-    <Content Include="Files\RP\RPRepairPhoto\747cf332-7cc3-4b96-a0f1-b931e1811df8\维修前\0721ec9a-34a7-42f1-825f-1fa116a4f470.png" />
-    <Content Include="Files\RP\RPRepairPhoto\747cf332-7cc3-4b96-a0f1-b931e1811df8\维修前\b07fc314-c588-4623-b355-abe08b2ec652.png" />
-    <Content Include="Files\RP\RPRepairPhoto\747cf332-7cc3-4b96-a0f1-b931e1811df8\维修前\t-030a97fa-f881-42bc-9a0f-0eeb2b47f638.png" />
-    <Content Include="Files\RP\RPRepairPhoto\747cf332-7cc3-4b96-a0f1-b931e1811df8\维修前\t-0721ec9a-34a7-42f1-825f-1fa116a4f470.png" />
-    <Content Include="Files\RP\RPRepairPhoto\747cf332-7cc3-4b96-a0f1-b931e1811df8\维修前\t-b07fc314-c588-4623-b355-abe08b2ec652.png" />
-    <Content Include="Files\RP\RPRepairPhoto\747cf332-7cc3-4b96-a0f1-b931e1811df8\维修后\e3a0c432-7a87-444d-9d5e-9a6708046a11.png" />
-    <Content Include="Files\RP\RPRepairPhoto\747cf332-7cc3-4b96-a0f1-b931e1811df8\维修后\t-e3a0c432-7a87-444d-9d5e-9a6708046a11.png" />
-    <Content Include="Files\RP\RPRepairPhoto\90dc82b0-f5f3-4257-8c42-fc5a87678590\维修前\5abe81d7-bc0b-4b63-a634-60f7f8e0da81.png" />
-    <Content Include="Files\RP\RPRepairPhoto\90dc82b0-f5f3-4257-8c42-fc5a87678590\维修前\t-5abe81d7-bc0b-4b63-a634-60f7f8e0da81.png" />
-    <Content Include="Files\RP\RPRepairPhoto\90dc82b0-f5f3-4257-8c42-fc5a87678590\维修后\ca7ebdea-a037-4fdb-b28b-7a8f6249da52.png" />
-    <Content Include="Files\RP\RPRepairPhoto\90dc82b0-f5f3-4257-8c42-fc5a87678590\维修后\t-ca7ebdea-a037-4fdb-b28b-7a8f6249da52.png" />
     <Content Include="Global.asax" />
-    <Content Include="Logs\2018-08-24.txt" />
-    <Content Include="Logs\2018-08-28.txt" />
-    <Content Include="Logs\2018-09-13.txt" />
-    <Content Include="Logs\2018-09-18.txt" />
-    <Content Include="Logs\2018-09-20.txt" />
-    <Content Include="Logs\2018-10-12.txt" />
-    <Content Include="Logs\2018-10-13.txt" />
-    <Content Include="Logs\2018-10-26.txt" />
-    <Content Include="Logs\2018-10-28.txt" />
-    <Content Include="Logs\2018-10-30.txt" />
-    <Content Include="Logs\2018-10-31.txt" />
-    <Content Include="Logs\2018-11-01.txt" />
-    <Content Include="Logs\2018-11-06.txt" />
-    <Content Include="Logs\2018-11-07.txt" />
-    <Content Include="Logs\2018-11-08.txt" />
-    <Content Include="Logs\2018-11-09.txt" />
-    <Content Include="Logs\2018-11-12.txt" />
-    <Content Include="Logs\2018-11-13.txt" />
-    <Content Include="Logs\2018-11-20.txt" />
-    <Content Include="Logs\2018-12-08.txt" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="SqlServerTypes\readme.htm" />
@@ -295,6 +249,7 @@
     <Compile Include="Controllers\MPModifyController.cs" />
     <Compile Include="Controllers\MPProduceController.cs" />
     <Compile Include="Controllers\MPSearchController.cs" />
+    <Compile Include="Controllers\PlaceNameController.cs" />
     <Compile Include="Controllers\POIController.cs" />
     <Compile Include="Controllers\RPBusinessStatisticController.cs" />
     <Compile Include="Controllers\RPModifyController.cs" />
@@ -390,14 +345,6 @@
     <Content Include="Views\Common\Index.cshtml" />
     <Content Include="Files\MPPrint\地址证明模板.docx" />
     <Content Include="Files\MPPrint\门牌证模板.docx" />
-    <Content Include="Files\MPPrint\地址证明\住宅门牌\012ce95a-e560-4d3b-b905-58a727ded550\秀洲区嘉北街道阳光社区赞园7幢2单元1604室-地址证明.docx" />
-    <Content Include="Files\MPPrint\地址证明\住宅门牌\012ce95a-e560-4d3b-b905-58a727ded550\秀洲区嘉北街道阳光社区赞园7幢2单元1604室-地址证明.pdf" />
-    <Content Include="Files\MPPrint\地址证明\住宅门牌\01430ba9-bd78-4ac7-a3a2-7d6805ab635f\秀洲区嘉北街道阳光社区赞园5幢1单元1202室-地址证明.docx" />
-    <Content Include="Files\MPPrint\地址证明\住宅门牌\01430ba9-bd78-4ac7-a3a2-7d6805ab635f\秀洲区嘉北街道阳光社区赞园5幢1单元1202室-地址证明.pdf" />
-    <Content Include="Files\MPPrint\地址证明\住宅门牌\014e82c2-ed8c-478f-a765-e3fc3f2c1ff9\秀洲区嘉北街道阳光社区赞园4幢1单元804室-地址证明.docx" />
-    <Content Include="Files\MPPrint\地址证明\住宅门牌\014e82c2-ed8c-478f-a765-e3fc3f2c1ff9\秀洲区嘉北街道阳光社区赞园4幢1单元804室-地址证明.pdf" />
-    <Content Include="Files\MPPrint\门牌证\住宅门牌\01189a38-a496-401d-b56c-d80d3907c630\秀洲区嘉北街道阳光社区赞园9幢1单元1801室-门牌证.docx" />
-    <Content Include="Files\MPPrint\门牌证\住宅门牌\01189a38-a496-401d-b56c-d80d3907c630\秀洲区嘉北街道阳光社区赞园9幢1单元1801室-门牌证.pdf" />
     <None Include="Properties\PublishProfiles\JXToposys.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -414,12 +361,16 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\ArchiveFiles\" />
+    <Folder Include="Files\MPPrint\地址证明\" />
+    <Folder Include="Files\MPPrint\门牌证\" />
     <Folder Include="Files\MPProduce\" />
+    <Folder Include="Files\RP\BZPhoto\" />
     <Folder Include="Files\RP\QRCode\" />
-    <Folder Include="Files\RP\RPRepairPhoto\95f4df21-25ef-4b62-96fb-6665006216fe\维修前\" />
-    <Folder Include="Files\RP\RPRepairPhoto\95f4df21-25ef-4b62-96fb-6665006216fe\维修后\" />
-    <Folder Include="Files\RP\二维码图片备份\" />
+    <Folder Include="Files\RP\RepairPhoto\" />
+    <Folder Include="Files\RP\RPRepairPhoto\" />
     <Folder Include="Lib\" />
+    <Folder Include="Logs\" />
+    <Folder Include="Views\PlaceName\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
