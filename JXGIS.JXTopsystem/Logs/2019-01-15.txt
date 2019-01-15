@@ -1,0 +1,16 @@
+=======2019/1/15 星期二 18:51:48
+|Message:{"errcode":41002,"errmsg":"appid missing hint: [GmGsBA04362067]"}
+|StackTrace:   在 JXGIS.JXTopsystem.Business.WxUtils.RefreshAccessToken() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\WxUtils.cs:行号 91
+   在 JXGIS.JXTopsystem.Business.WxUtils.get_access_token() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\WxUtils.cs:行号 30
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 27
+=======2019/1/15 星期二 19:54:56
+|Message:{"errcode":40001,"errmsg":"invalid credential, access_token is invalid or not latest hint: [sAZasA0251vr30!]"}
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.SaveQRCodeImgs(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 39
+=======2019/1/15 星期二 19:55:11
+|Message:{"errcode":40001,"errmsg":"invalid credential, access_token is invalid or not latest hint: [9gs6cA0266vr43!]"}
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.test1(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 143
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.test() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 153
+=======2019/1/15 星期二 19:56:06
+|Message:{"errcode":40001,"errmsg":"invalid credential, access_token is invalid or not latest hint: [s9V5Ja0294vr58!]"}
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.test1(Nullable`1 Code) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 143
+   在 JXGIS.JXTopsystem.Controllers.SaveQRCodeController.test() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\SaveQRCodeController.cs:行号 153

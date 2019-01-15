@@ -48,3 +48,77 @@
 =======2019/1/14 星期一 13:00:38
 |Message:未将对象引用设置到对象的实例。
 |StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48
+=======2019/1/14 星期一 13:42:28
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.<>c__DisplayClass25_0.<CheckPermission>b__0(String t) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 783
+   在 System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   在 System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.CheckPermission(String NeighborhoodsID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 783
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.ModifyPlaceName(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\PlaceName\PlaceNameSearch.cs:行号 282
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.ModifyPlaceName(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\PlaceNameController.cs:行号 151
+=======2019/1/14 星期一 13:42:48
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.<>c__DisplayClass25_0.<CheckPermission>b__0(String t) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 783
+   在 System.Linq.Enumerable.WhereListIterator`1.MoveNext()
+   在 System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.CheckPermission(String NeighborhoodsID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 783
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.ModifyPlaceName(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\PlaceName\PlaceNameSearch.cs:行号 282
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.ModifyPlaceName(String oldDataJson) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\PlaceNameController.cs:行号 151
+=======2019/1/14 星期一 14:00:40
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.<>c.<getDistrictTreeFromData>b__2_0(String t) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 188
+   在 System.Linq.Enumerable.WhereSelectListIterator`2.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.getDistrictTreeFromData(Int32 type, List`1 districtIDs) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 188
+   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/14 星期一 14:00:54
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.<>c.<getDistrictTreeFromData>b__2_0(String t) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 188
+   在 System.Linq.Enumerable.WhereSelectListIterator`2.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.getDistrictTreeFromData(Int32 type, List`1 districtIDs) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 188
+   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/14 星期一 14:01:00
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.<>c.<getDistrictTreeFromData>b__2_0(String t) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 188
+   在 System.Linq.Enumerable.WhereSelectListIterator`2.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.getDistrictTreeFromData(Int32 type, List`1 districtIDs) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 188
+   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/14 星期一 14:10:25
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.<>c.<getDistrictTreeFromData>b__2_0(String t) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 188
+   在 System.Linq.Enumerable.WhereSelectListIterator`2.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.getDistrictTreeFromData(Int32 type, List`1 districtIDs) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\Common\DistrictUtils.cs:行号 188
+   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/1/14 星期一 14:13:47
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.<>c.<getDistrictTreeFromData>b__2_0(String t)
+   在 System.Linq.Enumerable.WhereSelectListIterator`2.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.DistrictUtils.getDistrictTreeFromData(Int32 type, List`1 districtIDs)
+   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/14 星期一 15:32:27
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/14 星期一 15:32:52
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/14 星期一 16:02:47
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.PinYinConverterHelp.GetTotalPingYin(String str)
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.GetPinyin(String strs)
+=======2019/1/14 星期一 16:07:34
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.PinYinConverterHelp.GetTotalPingYin(String str)
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.GetPinyin(String strs)
+=======2019/1/14 星期一 16:08:03
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.PinYinConverterHelp.GetTotalPingYin(String str)
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.GetPinyin(String strs)

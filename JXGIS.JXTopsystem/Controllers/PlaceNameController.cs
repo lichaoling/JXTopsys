@@ -1,4 +1,5 @@
 ﻿using JXGIS.JXTopsystem.App_Start;
+using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Business.PlaceName;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
@@ -155,6 +156,21 @@ namespace JXGIS.JXTopsystem.Controllers
                 rt = new RtObj(ex);
             }
             return Json(rt);
+        }
+        public ContentResult GetPinyin(string strs)
+        {
+            RtObj rt = null;
+            try
+            {
+                var r = PinYinConverterHelp.GetTotalPingYin(strs);
+                rt = new RtObj(r);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
         }
         #endregion
     }

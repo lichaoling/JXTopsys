@@ -46,6 +46,10 @@
     <Reference Include="Aspose.Cells">
       <HintPath>Lib\Aspose.Cells.dll</HintPath>
     </Reference>
+    <Reference Include="ChnCharInfo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=18f031bd02e5e291, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.International.Converters.PinYinConverter.1.0.0\lib\ChnCharInfo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -109,6 +113,10 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPinyin, Version=0.2.6321.26573, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPinyin.0.2.6321.26573\lib\net20\NPinyin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -220,6 +228,7 @@
     <Compile Include="Business\Common\EFExtend.cs" />
     <Compile Include="Business\Common\ObjectReflection.cs" />
     <Compile Include="Business\Common\PictureUtils.cs" />
+    <Compile Include="Business\Common\PinYinConverterHelp.cs" />
     <Compile Include="Business\Common\RoadUtils.cs" />
     <Compile Include="Business\Login\LoginUtils.cs" />
     <Compile Include="Business\Login\RSACryptoService.cs" />
@@ -238,9 +247,11 @@
     <Compile Include="Business\RPModify\RPModifyUtils.cs" />
     <Compile Include="Business\RPRepair\RPRepairUtils.cs" />
     <Compile Include="Business\RPSearch\RPSearchUtils.cs" />
+    <Compile Include="Business\ServiceUtils.cs" />
     <Compile Include="Business\StaticVariable.cs" />
     <Compile Include="Business\SystemUtils.cs" />
     <Compile Include="Business\Login\ValidateGraphic.cs" />
+    <Compile Include="Business\WxUtils.cs" />
     <Compile Include="Controllers\ArchiveFileController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\FileController.cs" />
@@ -357,6 +368,7 @@
     <Content Include="路牌管理.docx" />
     <Content Include="门牌管理%28新%29.docx" />
     <Content Include="借鉴处.docx" />
+    <Content Include="wxConfig.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,7 +10,7 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Entities
 {
-    [Table("PlaceName")]
+    [Table("PLACENAME")]
     public class PlaceName : IBaseEntityWithNeighborhoodsID
     {
         [Key]

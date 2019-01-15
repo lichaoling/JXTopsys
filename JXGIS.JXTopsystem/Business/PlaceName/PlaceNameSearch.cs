@@ -30,7 +30,6 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
             }
         }
 
-
         /// <summary>
         /// 住宅门牌查询，根据行政区划ID和名称（小区名或道路名或宿舍名）
         /// 关联道路表和行政区划表，获取到行政区划的名称、道路名称和住宅门牌的信息
@@ -279,7 +278,8 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     targetData = new Models.Entities.PlaceName();
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
                     #region 权限检查
-                    if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
+                    var districtID = targetData.NeighborhoodsID == null ? targetData.CountyID : targetData.NeighborhoodsID;
+                    if (!DistrictUtils.CheckPermission(districtID))
                         throw new Exception("无权操作其他镇街数据！");
                     #endregion
 
