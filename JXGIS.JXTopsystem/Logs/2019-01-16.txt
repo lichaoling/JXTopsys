@@ -1,0 +1,56 @@
+=======2019/1/16 星期三 13:08:15
+|Message:值不能为 null。
+参数名: value
+|StackTrace:   在 ns14.Class749.set_String_0(String value)
+   在 Aspose.Words.Range.Replace(String oldValue, String newValue, Boolean isMatchCase, Boolean isMatchWholeWord)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 421
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 167
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/16 星期三 13:09:38
+|Message:值不能为 null。
+参数名: value
+|StackTrace:   在 ns14.Class749.set_String_0(String value)
+   在 Aspose.Words.Range.Replace(String oldValue, String newValue, Boolean isMatchCase, Boolean isMatchWholeWord)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 421
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 167
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/16 星期三 13:12:04
+|Message:值不能为 null。
+参数名: value
+|StackTrace:   在 ns14.Class749.set_String_0(String value)
+   在 Aspose.Words.Range.Replace(String oldValue, String newValue, Boolean isMatchCase, Boolean isMatchWholeWord)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint()
+=======2019/1/16 星期三 13:42:26
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPCertificate(List`1 IDs, String MPType, String CertificateType)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPCertificate(List`1 IDs, String MPType, String CertificateType)
+=======2019/1/16 星期三 13:54:11
+|Message:文件“E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Files\MPPrint\地址证明模板.docx”正由另一进程使用，因此该进程无法访问此文件。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   在 Aspose.Words.Document..ctor(String fileName, LoadOptions loadOptions)
+   在 Aspose.Words.Document..ctor(String fileName)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint()
+=======2019/1/16 星期三 14:09:42
+|Message:文件“E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Files\MPPrint\地址证明模板.docx”正由另一进程使用，因此该进程无法访问此文件。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   在 Aspose.Words.Document..ctor(String fileName, LoadOptions loadOptions)
+   在 Aspose.Words.Document..ctor(String fileName)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 416
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 53
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 194
+=======2019/1/16 星期三 14:12:36
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint()
+=======2019/1/16 星期三 14:16:40
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint()

@@ -39,9 +39,9 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("TDZAddress", string.IsNullOrEmpty(mpOfResidence.TDZAddress) ? "" : mpOfResidence.TDZAddress);
                         bookmarks.Add("YYZZAddress/HJAddress", string.IsNullOrEmpty(mpOfResidence.HJAddress) ? "" : mpOfResidence.HJAddress);
                         bookmarks.Add("OtherAddress", string.IsNullOrEmpty(mpOfResidence.OtherAddress) ? "" : mpOfResidence.OtherAddress);
-                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
-                        bookmarks.Add("date", DateTime.Now.Day.ToString());
+                        bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
+                        bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
+                        bookmarks.Add("{Date}", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.DZZMPrintPath, Enums.MPTypeCh.Residence, ID);
                         if (!Directory.Exists(savePath))
@@ -66,9 +66,9 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("TDZAddress", string.IsNullOrEmpty(mpOfRoad.TDZAddress) ? "" : mpOfRoad.TDZAddress);
                         bookmarks.Add("YYZZAddress/HJAddress", string.IsNullOrEmpty(mpOfRoad.YYZZAddress) ? "" : mpOfRoad.YYZZAddress);
                         bookmarks.Add("OtherAddress", string.IsNullOrEmpty(mpOfRoad.OtherAddress) ? "" : mpOfRoad.OtherAddress);
-                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
-                        bookmarks.Add("date", DateTime.Now.Day.ToString());
+                        bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
+                        bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
+                        bookmarks.Add("{Date}", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.DZZMPrintPath, Enums.MPTypeCh.Road, ID);
                         if (!Directory.Exists(savePath))
@@ -93,9 +93,9 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("TDZAddress", string.IsNullOrEmpty(mpOfCounty.TDZAddress) ? "" : mpOfCounty.TDZAddress);
                         bookmarks.Add("YYZZAddress/HJAddress", "");
                         bookmarks.Add("OtherAddress", string.IsNullOrEmpty(mpOfCounty.OtherAddress) ? "" : mpOfCounty.OtherAddress);
-                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
-                        bookmarks.Add("date", DateTime.Now.Day.ToString());
+                        bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
+                        bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
+                        bookmarks.Add("{Date}", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.DZZMPrintPath, Enums.MPTypeCh.Country, ID);
                         if (!Directory.Exists(savePath))
@@ -148,10 +148,10 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("PropertyOwner", mpOfResidence.PropertyOwner);
                         bookmarks.Add("CountyName", mpOfResidence.CountyID.Split('.').Last());
                         bookmarks.Add("NeighborhoodsName", mpOfResidence.NeighborhoodsID.Split('.').Last());
-                        bookmarks.Add("RoadName", null);
-                        bookmarks.Add("MPNumber", null);
+                        bookmarks.Add("RoadName", "");
+                        bookmarks.Add("MPNumber", "");
                         bookmarks.Add("ResidenceName", ReplaceBadChar(mpOfResidence.ResidenceName));
-                        bookmarks.Add("OriginalMPAddress", null);
+                        bookmarks.Add("OriginalMPAddress", "");
                         bookmarks.Add("Year", DateTime.Now.Year.ToString());
                         bookmarks.Add("Month", DateTime.Now.Month.ToString());
                         bookmarks.Add("date", DateTime.Now.Day.ToString());
@@ -212,7 +212,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("NeighborhoodsName", mpOfCounty.NeighborhoodsID.Split('.').Last());
                         bookmarks.Add("RoadName", ReplaceBadChar(mpOfCounty.ViligeName));
                         bookmarks.Add("MPNumber", mpOfCounty.MPNumber);
-                        bookmarks.Add("ResidenceName", null);
+                        bookmarks.Add("ResidenceName", "");
                         bookmarks.Add("OriginalMPAddress", mpOfCounty.OriginalMPAddress);
                         bookmarks.Add("Year", DateTime.Now.Year.ToString());
                         bookmarks.Add("Month", DateTime.Now.Month.ToString());
@@ -251,58 +251,95 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
         }
         public static MemoryStream MergePDF_MPZ(List<string> docNames)
         {
-            iTextSharp.text.Rectangle pageSize = new iTextSharp.text.Rectangle(360, 510);
-            iTextSharp.text.Document document = new iTextSharp.text.Document(pageSize);
+            //iTextSharp.text.Rectangle pageSize = new iTextSharp.text.Rectangle(360, 510);
+            //iTextSharp.text.Document document = new iTextSharp.text.Document(pageSize);
+            //var targetPDF = Path.Combine(StaticVariable.MergeFilePath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
+            //if (!Directory.Exists(StaticVariable.MergeFilePath))
+            //{
+            //    Directory.CreateDirectory(StaticVariable.MergeFilePath);
+            //}
+            //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(targetPDF, FileMode.Create));
+            //document.Open();
+            //PdfContentByte cb = writer.DirectContent;
+            //PdfImportedPage newPage;
+            //PdfReader reader;
+            //for (int i = 0; i < docNames.Count; i++)
+            //{
+            //    reader = new PdfReader(docNames[i]);
+            //    int iPageNum = reader.NumberOfPages;
+            //    for (int j = 1; j <= iPageNum; j++)
+            //    {
+            //        document.NewPage();
+            //        newPage = writer.GetImportedPage(reader, j);
+            //        cb.AddTemplate(newPage, 0, 0);
+            //    }
+            //}
+            //document.Close();
+            //var ms = DownLoad(targetPDF);
+            //return ms;
+
             var targetPDF = Path.Combine(StaticVariable.MergeFilePath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
             if (!Directory.Exists(StaticVariable.MergeFilePath))
             {
                 Directory.CreateDirectory(StaticVariable.MergeFilePath);
             }
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(targetPDF, FileMode.Create));
-            document.Open();
-            PdfContentByte cb = writer.DirectContent;
-            PdfImportedPage newPage;
-            PdfReader reader;
-            for (int i = 0; i < docNames.Count; i++)
+            Aspose.Pdf.Document a = new Aspose.Pdf.Document();
+            foreach (var file in docNames)//遍历源路径，获取该路径下所有PDF文件的path
             {
-                reader = new PdfReader(docNames[i]);
-                int iPageNum = reader.NumberOfPages;
-                for (int j = 1; j <= iPageNum; j++)
+                Aspose.Pdf.Document b = new Aspose.Pdf.Document(file);
+                foreach (Aspose.Pdf.Page item in b.Pages)
                 {
-                    document.NewPage();
-                    newPage = writer.GetImportedPage(reader, j);
-                    cb.AddTemplate(newPage, 0, 0);
+                    a.Pages.Add(item);
                 }
+
             }
-            document.Close();
+            a.Save(targetPDF);
             var ms = DownLoad(targetPDF);
             return ms;
         }
         public static MemoryStream MergePDF_DZZM(List<string> docNames)
         {
-            iTextSharp.text.Document document = new iTextSharp.text.Document();
+            //iTextSharp.text.Document document = new iTextSharp.text.Document();
+            //var targetPDF = Path.Combine(StaticVariable.MergeFilePath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
+            //if (!Directory.Exists(StaticVariable.MergeFilePath))
+            //{
+            //    Directory.CreateDirectory(StaticVariable.MergeFilePath);
+            //}
+            //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(targetPDF, FileMode.Create));
+            //document.Open();
+            //PdfContentByte cb = writer.DirectContent;
+            //PdfImportedPage newPage;
+            //PdfReader reader;
+            //for (int i = 0; i < docNames.Count; i++)
+            //{
+            //    reader = new PdfReader(docNames[i]);
+            //    int iPageNum = reader.NumberOfPages;
+            //    for (int j = 1; j <= iPageNum; j++)
+            //    {
+            //        document.NewPage();
+            //        newPage = writer.GetImportedPage(reader, j);
+            //        cb.AddTemplate(newPage, 0, 0);
+            //    }
+            //}
+            //document.Close();
+            //var ms = DownLoad(targetPDF);
+            //return ms;
             var targetPDF = Path.Combine(StaticVariable.MergeFilePath, DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf");
             if (!Directory.Exists(StaticVariable.MergeFilePath))
             {
                 Directory.CreateDirectory(StaticVariable.MergeFilePath);
             }
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(targetPDF, FileMode.Create));
-            document.Open();
-            PdfContentByte cb = writer.DirectContent;
-            PdfImportedPage newPage;
-            PdfReader reader;
-            for (int i = 0; i < docNames.Count; i++)
+            Aspose.Pdf.Document a = new Aspose.Pdf.Document();
+            foreach (var file in docNames)//遍历源路径，获取该路径下所有PDF文件的path
             {
-                reader = new PdfReader(docNames[i]);
-                int iPageNum = reader.NumberOfPages;
-                for (int j = 1; j <= iPageNum; j++)
+                Aspose.Pdf.Document b = new Aspose.Pdf.Document(file);
+                foreach (Aspose.Pdf.Page item in b.Pages)
                 {
-                    document.NewPage();
-                    newPage = writer.GetImportedPage(reader, j);
-                    cb.AddTemplate(newPage, 0, 0);
+                    a.Pages.Add(item);
                 }
+
             }
-            document.Close();
+            a.Save(targetPDF);
             var ms = DownLoad(targetPDF);
             return ms;
         }
@@ -325,57 +362,66 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
         /// <param name="bookmarks">模板内书签集合</param>
         public static void GenerateWord(string templateFile, string fileNameWord, string fileNamePdf, Dictionary<string, string> bookmarks, string ID)
         {
-            Application app = new Application();
-            File.Copy(templateFile, fileNameWord, true);
-            Microsoft.Office.Interop.Word.Document doc = new Microsoft.Office.Interop.Word.Document();
-            object Obj_FileName = fileNameWord;
-            object Visible = false;
-            object ReadOnly = false;
-            object missing = System.Reflection.Missing.Value;
-            object IsSave = true;
-            object FileName = fileNamePdf;
-            object FileFormat = WdSaveFormat.wdFormatPDF;
-            object LockComments = false;
-            object AddToRecentFiles = true;
-            object ReadOnlyRecommended = false;
-            object EmbedTrueTypeFonts = false;
-            object SaveNativePictureFormat = true;
-            object SaveFormsData = false;
-            object SaveAsAOCELetter = false;
-            object Encoding = MsoEncoding.msoEncodingSimplifiedChineseGB18030;
-            object InsertLineBreaks = false;
-            object AllowSubstitutions = false;
-            object LineEnding = WdLineEndingType.wdCRLF;
-            object AddBiDiMarks = false;
+            //Application app = new Application();
+            //File.Copy(templateFile, fileNameWord, true);
+            //Microsoft.Office.Interop.Word.Document doc = new Microsoft.Office.Interop.Word.Document();
+            //object Obj_FileName = fileNameWord;
+            //object Visible = false;
+            //object ReadOnly = false;
+            //object missing = System.Reflection.Missing.Value;
+            //object IsSave = true;
+            //object FileName = fileNamePdf;
+            //object FileFormat = WdSaveFormat.wdFormatPDF;
+            //object LockComments = false;
+            //object AddToRecentFiles = true;
+            //object ReadOnlyRecommended = false;
+            //object EmbedTrueTypeFonts = false;
+            //object SaveNativePictureFormat = true;
+            //object SaveFormsData = false;
+            //object SaveAsAOCELetter = false;
+            //object Encoding = MsoEncoding.msoEncodingSimplifiedChineseGB18030;
+            //object InsertLineBreaks = false;
+            //object AllowSubstitutions = false;
+            //object LineEnding = WdLineEndingType.wdCRLF;
+            //object AddBiDiMarks = false;
 
-            //object tempPdfFile = Path.Combine(TempPdf, ID + ".pdf");
+            ////object tempPdfFile = Path.Combine(TempPdf, ID + ".pdf");
 
-            try
+            //try
+            //{
+            //    doc = app.Documents.Open(ref Obj_FileName, ref missing, ref ReadOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref Visible, ref missing, ref missing, ref missing, ref missing);
+            //    //if (doc == null) throw new Exception(fileNameWord);
+            //    doc.Activate();
+
+            //    foreach (string bookmarkName in bookmarks.Keys)
+            //    {
+            //        replace(doc, bookmarkName, bookmarks[bookmarkName]);//替换内容
+            //    }
+            //    //replace(doc, "hello", "shalv");
+            //    //此处存储时，参数可选填，如需另外生成pdf，加入一个参数ref FileName,
+            //    doc.SaveAs(ref FileName, ref FileFormat, ref LockComments,
+            //            ref missing, ref AddToRecentFiles, ref missing,
+            //            ref ReadOnlyRecommended, ref EmbedTrueTypeFonts,
+            //            ref SaveNativePictureFormat, ref SaveFormsData,
+            //            ref SaveAsAOCELetter, ref Encoding, ref InsertLineBreaks,
+            //            ref AllowSubstitutions, ref LineEnding, ref AddBiDiMarks);
+            //    doc.Close(ref IsSave, ref missing, ref missing);
+            //    doc = null;
+            //}
+            //catch (Exception ex)
+            //{
+            //    if (doc != null) doc.Close(ref IsSave, ref missing, ref missing);
+            //    throw ex;
+            //}
+            var doc = new Aspose.Words.Document(templateFile);
+            var builder = new Aspose.Words.DocumentBuilder(doc);
+            //var options = new Aspose.Words.Replacing.FindReplaceOptions() { MatchCase = true, FindWholeWordsOnly = true };
+            foreach (string name in bookmarks.Keys)
             {
-                doc = app.Documents.Open(ref Obj_FileName, ref missing, ref ReadOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref Visible, ref missing, ref missing, ref missing, ref missing);
-                //if (doc == null) throw new Exception(fileNameWord);
-                doc.Activate();
-
-                foreach (string bookmarkName in bookmarks.Keys)
-                {
-                    replace(doc, bookmarkName, bookmarks[bookmarkName]);//替换内容
-                }
-                //replace(doc, "hello", "shalv");
-                //此处存储时，参数可选填，如需另外生成pdf，加入一个参数ref FileName,
-                doc.SaveAs(ref FileName, ref FileFormat, ref LockComments,
-                        ref missing, ref AddToRecentFiles, ref missing,
-                        ref ReadOnlyRecommended, ref EmbedTrueTypeFonts,
-                        ref SaveNativePictureFormat, ref SaveFormsData,
-                        ref SaveAsAOCELetter, ref Encoding, ref InsertLineBreaks,
-                        ref AllowSubstitutions, ref LineEnding, ref AddBiDiMarks);
-                doc.Close(ref IsSave, ref missing, ref missing);
-                doc = null;
+                var x = doc.Range.Replace(name, bookmarks[name], true, true);
             }
-            catch (Exception ex)
-            {
-                if (doc != null) doc.Close(ref IsSave, ref missing, ref missing);
-                throw ex;
-            }
+            doc.Save(fileNameWord);
+            doc.Save(fileNamePdf, Aspose.Words.SaveFormat.Pdf);
         }
         /// <summary>
         /// 在word 中查找一个字符串直接替换所需要的文本

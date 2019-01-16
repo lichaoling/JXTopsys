@@ -159,6 +159,9 @@ E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\JXGIS.JXTopsy
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\JXGIS.JXTopsystem.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\JXGIS.JXTopsystem.pdb
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\Aspose.Cells.dll
+E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\Aspose.Pdf.dll
+E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\Aspose.Words.dll
+E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\ChnCharInfo.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\EntityFramework.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\EntityFramework.SqlServer.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\GeoJSON4EntityFramework.dll
@@ -175,6 +178,7 @@ E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\Microsoft.Cod
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\Microsoft.SqlServer.Types.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\Microsoft.Web.Infrastructure.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\Newtonsoft.Json.dll
+E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\NPinyin.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\Oracle.ManagedDataAccess.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\Oracle.ManagedDataAccess.EntityFramework.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\QRCoder.dll
@@ -214,8 +218,6 @@ E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\Syste
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Webpages.Razor.resources.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Helpers.resources.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Mvc.resources.dll
+E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.csprojResolveAssemblyReference.cache
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.dll
 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.pdb
-E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.csprojResolveAssemblyReference.cache
-E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\ChnCharInfo.dll
-E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\bin\NPinyin.dll

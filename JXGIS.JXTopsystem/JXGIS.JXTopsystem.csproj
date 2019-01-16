@@ -43,8 +43,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aspose.Cells">
+    <Reference Include="Aspose.Cells, Version=7.4.1.0, Culture=neutral, PublicKeyToken=00725b1ceb58d0a9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\Aspose.Cells.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Pdf, Version=7.7.0.0, Culture=neutral, PublicKeyToken=00725b1ceb58d0a9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Aspose.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Aspose.Words, Version=13.2.0.0, Culture=neutral, PublicKeyToken=00725b1ceb58d0a9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Aspose.Words.dll</HintPath>
     </Reference>
     <Reference Include="ChnCharInfo, Version=1.0.0.0, Culture=neutral, PublicKeyToken=18f031bd02e5e291, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.International.Converters.PinYinConverter.1.0.0\lib\ChnCharInfo.dll</HintPath>
@@ -197,6 +206,11 @@
   <ItemGroup>
     <Content Include="Files\MPPrint\门牌证模板.png" />
     <Content Include="Global.asax" />
+    <Content Include="Lib\Aspose.Cells.dll" />
+    <Content Include="Lib\Aspose.Pdf.dll" />
+    <Content Include="Lib\Aspose.Slides.dll" />
+    <Content Include="Lib\Aspose.Words.dll" />
+    <Content Include="Lib\ICSharpCode.SharpZipLib.dll" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="SqlServerTypes\readme.htm" />
@@ -376,11 +390,6 @@
     <Folder Include="Files\MPPrint\地址证明\" />
     <Folder Include="Files\MPPrint\门牌证\" />
     <Folder Include="Files\MPProduce\" />
-    <Folder Include="Files\RP\BZPhoto\" />
-    <Folder Include="Files\RP\QRCode\" />
-    <Folder Include="Files\RP\RepairPhoto\" />
-    <Folder Include="Files\RP\RPRepairPhoto\" />
-    <Folder Include="Lib\" />
     <Folder Include="Logs\" />
     <Folder Include="Views\PlaceName\" />
   </ItemGroup>

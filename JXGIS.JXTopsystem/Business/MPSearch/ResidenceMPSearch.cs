@@ -163,12 +163,12 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    data1 = query.OrderByDescending(t => t.BZTime).ToList();
+                    data1 = query.OrderBy(t => t.ResidenceName).OrderBy(t => t.MPNumber).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    data1 = query.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                    data1 = query.OrderBy(t => t.ResidenceName).OrderBy(t => t.MPNumber).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
 
                 data = (from t in data1
@@ -349,7 +349,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
             var Data = dict["Data"] as List<ResidenceMPDetails>;
-            
+
             Workbook wb = new Workbook();
             Worksheet ws = wb.Worksheets[0];
             ws.Name = Enums.MPTypeCh.Residence;

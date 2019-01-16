@@ -1126,6 +1126,108 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
 
 
 
+        /// <summary>
+        /// 创建一个新表格并输出(独立输出)
+        /// </summary>
+        /// <param name="doc"></param>
+        //public void CreateNewTable()
+        //{
+        //    Aspose.Words.Document doc = new Aspose.Words.Document();
+        //    #region --方法1--
+        //    Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
+        //    //开始构建一个新的表格
+        //    Aspose.Words.Tables.Table docTable = builder.StartTable();
+        //    //builder.Bold = true;
+
+        //    foreach (DataRow dataRow in dataTable.Rows)
+        //    {
+        //        //插入新的行和单元格到表格
+        //        builder.InsertCell();
+        //        builder.Write("第1行第1列:" + dataRow["ID"].ToString());
+        //        builder.InsertCell();
+        //        builder.Write("第1行第2列" + dataRow["Name"].ToString());
+        //        builder.InsertCell();
+        //        builder.Write("第3列");
+        //        builder.InsertCell();
+        //        builder.Write("第4列");
+
+        //        #region 样式
+        //        builder.RowFormat.Height = 50;
+        //        builder.RowFormat.HeightRule = HeightRule.AtLeast;
+        //        builder.RowFormat.Borders.LineWidth = 1;//边框宽度
+        //        //builder.CellFormat.Shading.BackgroundPatternColor = System.Drawing.Color.FromArgb(198, 217, 241);
+        //        //builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;
+        //        //builder.Font.Size = 16;
+        //        //builder.Font.Name = "Arial";
+        //        //builder.Font.Bold = true;
+        //        //builder.CellFormat.Width = 100.0;
+        //        #endregion
+
+        //        //用于指示结束当前行，并且开始新的一行
+        //        builder.EndRow();
+        //    }
+        //    #region 合并单元格
+        //    #region row
+        //    builder.InsertCell();
+        //    //水平合并第1个(基准)
+        //    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+        //    builder.Write("Text in merged cells.");
+
+        //    builder.InsertCell();
+        //    //水平合并,与前一个(First)合并
+        //    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.Previous;
+
+        //    builder.InsertCell();
+        //    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.None;
+        //    builder.Write("Text in one cell.");
+
+        //    builder.InsertCell();
+        //    //垂直合并第1个(基准)
+        //    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.First;
+        //    builder.Write("Text in another cell.");
+        //    builder.EndRow();
+        //    #endregion
+        //    #region row
+        //    builder.InsertCell();
+        //    builder.InsertCell();
+        //    builder.InsertCell();
+        //    builder.Write("列3");
+        //    builder.InsertCell();
+        //    //垂直合并,与前一个(First)合并
+        //    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.Previous;
+        //    #endregion
+        //    #endregion
+        //    //表示表格构建完成
+        //    builder.EndTable();
+        //    #endregion
+
+        //    #region --方法2--
+        //    Aspose.Words.Tables.Table wordTable2 = new Aspose.Words.Tables.Table(doc);
+
+        //    // Create the specified number of rows.
+        //    for (int rowId = 1; rowId <= 2; rowId++)
+        //    {
+        //        Aspose.Words.Tables.Row row = new Aspose.Words.Tables.Row(doc);
+        //        wordTable2.AppendChild(row);
+
+        //        // Create the specified number of cells for each row.
+        //        for (int cellId = 1; cellId <= 3; cellId++)
+        //        {
+        //            Aspose.Words.Tables.Cell cell = new Aspose.Words.Tables.Cell(doc);
+        //            row.AppendChild(cell);
+        //            // Add a blank paragraph to the cell.
+        //            cell.AppendChild(new Paragraph(doc));
+
+        //            // Add the text.
+        //            cell.FirstParagraph.AppendChild(new Run(doc, "xxddd"));
+        //            cell.CellFormat.Borders.LineWidth = 1.5;
+        //        }
+        //    }
+        //    doc.FirstSection.Body.AppendChild(wordTable2);
+        //    #endregion
+        //    doc.Save(@"test_out2.doc", SaveFormat.Doc, SaveType.OpenInWord, this.Response);
+        //}
+
         public static void CreateTabToWord2()
         {
             Microsoft.Office.Interop.Word.Application app = null;

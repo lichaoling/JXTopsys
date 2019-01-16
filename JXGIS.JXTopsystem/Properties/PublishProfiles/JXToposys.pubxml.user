@@ -18,6 +18,9 @@
     <File Include="bin/Aspose.Cells.dll">
       <publishTime>11/03/2017 11:22:02</publishTime>
     </File>
+    <File Include="bin/ChnCharInfo.dll">
+      <publishTime>05/06/2015 16:47:46</publishTime>
+    </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/22/2018 15:34:58</publishTime>
     </File>
@@ -34,7 +37,7 @@
       <publishTime>01/22/2018 18:40:38</publishTime>
     </File>
     <File Include="bin/JXGIS.JXTopsystem.dll">
-      <publishTime>01/10/2019 00:38:35</publishTime>
+      <publishTime>01/15/2019 20:09:50</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>08/22/2018 15:34:58</publishTime>
@@ -68,6 +71,9 @@
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>08/22/2018 15:34:59</publishTime>
+    </File>
+    <File Include="bin/NPinyin.dll">
+      <publishTime>04/22/2017 14:45:50</publishTime>
     </File>
     <File Include="bin/Oracle.ManagedDataAccess.dll">
       <publishTime>11/21/2018 08:54:15</publishTime>
@@ -2617,7 +2623,7 @@
       <publishTime>12/08/2018 13:53:12</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>12/25/2018 19:22:55</publishTime>
+      <publishTime>01/14/2019 16:14:41</publishTime>
     </File>
     <File Include="scripts/ai.0.22.9-build00167.js">
       <publishTime>07/12/2018 11:22:50</publishTime>
@@ -2647,7 +2653,10 @@
       <publishTime>07/12/2018 11:22:40</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/10/2019 00:32:47</publishTime>
+      <publishTime>01/15/2019 20:09:51</publishTime>
+    </File>
+    <File Include="wxConfig.json">
+      <publishTime>01/15/2019 19:56:19</publishTime>
     </File>
     <File Include="任务.txt">
       <publishTime>10/17/2018 15:19:21</publishTime>
