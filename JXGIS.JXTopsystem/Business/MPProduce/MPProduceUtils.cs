@@ -1,4 +1,6 @@
-﻿using JXGIS.JXTopsystem.Business.Common;
+﻿using Aspose.Words;
+using Aspose.Words.Tables;
+using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
@@ -168,6 +170,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         lxmphz.MPNumber = query.MPNumber;
                         lxmphz.MPSize = query.MPSize;
                         lxmphz.Count = 1;
+                        lxmphz.CountryName = !string.IsNullOrEmpty(query.CountyID) ? query.CountyID.Split('.').Last() : null;
 
                         lxmphzs.Add(lxmphz);
                     }
@@ -186,6 +189,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         lxmphz.MPNumber = query.MPNumber;
                         lxmphz.MPSize = query.MPSize;
                         lxmphz.Count = 1;
+                        lxmphz.CountryName = !string.IsNullOrEmpty(query.CountyID) ? query.CountyID.Split('.').Last() : null;
 
                         lxmphzs.Add(lxmphz);
                     }
@@ -193,8 +197,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 else
                     throw new Exception("未知的错误类型！");
 
-
-                return CreateTabToWord_LX(lxmphzs, LXProduceID);
+                return CreateWord_LX(lxmphzs, LXProduceID);
             }
         }
         public static MemoryStream GetProducedLXMPDetails(string LXProduceID/*ProducedLXMPList producedLXMPList*/)
@@ -347,6 +350,109 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
             {
 
             }
+        }
+        public static MemoryStream CreateWord_LX(List<LXMPHZ> lxMPHZ, string LXProduceID)
+        {
+            //创建文件对象
+            Aspose.Words.Document doc = new Aspose.Words.Document();
+            Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
+            //获取ParagraphFormat对象
+            var ph = builder.ParagraphFormat;
+            //文字对齐方式
+            ph.Alignment = ParagraphAlignment.Center;
+            // 单倍行距 = 12 ， 1.5 倍 = 18
+            ph.LineSpacing = 12;
+            //获取Font对象
+            Font font = builder.Font;
+            //字体大小
+            font.Size = 11;
+            //是否粗体
+            font.Bold = false;
+            //下划线样式，None为无下划线
+            font.Underline = Underline.None;
+            builder.Writeln($"嘉兴市{string.Join("、", lxMPHZ.Select(t => t.CountryName).Distinct().ToList())}零星门牌汇总表");
+
+            builder.StartTable();
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.Write("标准名称");
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.Write("门牌类别");
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.Write("门牌号");
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.Write("规格（CM）");
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.Write("数量");
+            builder.EndRow();
+
+            foreach (var lxmp in lxMPHZ)
+            {
+                builder.InsertCell();
+                builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+                builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+                builder.CellFormat.VerticalAlignment = CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.Write(lxmp.PlaceName);
+                builder.InsertCell();
+                builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+                builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+                builder.CellFormat.VerticalAlignment = CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.Write(lxmp.Type);
+                builder.InsertCell();
+                builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+                builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+                builder.CellFormat.VerticalAlignment = CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.Write(lxmp.MPNumber);
+                builder.InsertCell();
+                builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+                builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+                builder.CellFormat.VerticalAlignment = CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.Write(lxmp.MPSize);
+                builder.InsertCell();
+                builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+                builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+                builder.CellFormat.VerticalAlignment = CellVerticalAlignment.Center;//垂直居中对齐
+                builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                builder.Write(lxmp.Count.ToString());
+                builder.EndRow();
+            }
+            builder.EndTable();
+            //导出文件
+            string newFile = LXProduceID + ".doc";
+            var path = StaticVariable.LXMPProducePath_Full;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string physicNewFile = Path.Combine(path, newFile);
+            doc.Save(physicNewFile);
+            byte[] data = File.ReadAllBytes(physicNewFile);
+            MemoryStream ms = new MemoryStream(data);
+            return ms;
         }
 
 
@@ -713,7 +819,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                             plmphz.CountryName = string.Join(",", query.Where(t => t.ResidenceName == PlaceName).Select(t => t.CountyID).ToList().Select(t => t.Split('.').Last()).Distinct().ToList());
 
                             plmphz.LZP = (from t in query
-                                          where t.ResidenceName == PlaceName
+                                          where t.ResidenceName == PlaceName && !string.IsNullOrEmpty(t.LZNumber)
                                           orderby t.LZNumber
                                           group t by t.LZNumber into g
                                           select new PLMPSL
@@ -722,7 +828,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                               Count = 2
                                           }).ToList();
                             var dy = (from t in query
-                                      where t.ResidenceName == PlaceName
+                                      where t.ResidenceName == PlaceName && !string.IsNullOrEmpty(t.DYNumber)
                                       select new
                                       {
                                           LZNumber = t.LZNumber,
@@ -737,7 +843,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                               Count = g.Count()
                                           }).ToList();
                             plmphz.HSP = (from t in query
-                                          where t.ResidenceName == PlaceName
+                                          where t.ResidenceName == PlaceName && !string.IsNullOrEmpty(t.HSNumber)
                                           orderby t.HSNumber
                                           group t by t.HSNumber into g
                                           select new PLMPSL
@@ -747,7 +853,6 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                                           }).ToList();
                             plmphzs.Add(plmphz);
                         }
-
                     }
                 }
                 else if (MPType == Enums.MPTypeCh.Road)
@@ -815,7 +920,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     throw new Exception("未知的错误类型！");
 
 
-                return CreateTabToWord_PL(plmphzs, PLProduceID);
+                return CreateWord_PL(plmphzs, PLProduceID);
             }
         }
         public static MemoryStream GetProducedPLMPDetails(string PLProduceID/*ProducedPLMPList producedPLMPList*/)
@@ -1123,110 +1228,339 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
             }
         }
 
+        public static MemoryStream CreateWord_PL(List<PLMPHZ> plMPHZ, string PLProduceID)
+        {
+            //创建文件对象
+            Aspose.Words.Document doc = new Aspose.Words.Document();
+            Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
+
+            // 单元格垂直对齐方向
+            builder.CellFormat.VerticalAlignment = CellVerticalAlignment.Center;
+            //单元格水平对齐方向
+            builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;
+            // 单倍行距 = 12 ， 1.5 倍 = 18
+            builder.ParagraphFormat.LineSpacing = 12;
+            //字体大小
+            builder.Font.Size = 11;
+            //是否粗体
+            builder.Font.Bold = false;
+            //下划线样式，None为无下划线
+            builder.Font.Underline = Underline.None;
+
+            builder.Writeln($"嘉兴市{string.Join("、", plMPHZ.Select(t => t.CountryName).Distinct().ToList())}批量门牌汇总表");
+
+            builder.Writeln($"申报单位：{string.Join("、", plMPHZ.Select(t => t.SBDW).Distinct().ToList())}    邮政编码：{string.Join("、", plMPHZ.Select(t => t.Postcode).Distinct().ToList())}");
+
+            builder.StartTable();
+            #region 表头
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.First;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("标准名称");
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.First;
+            builder.Write("幢牌");
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.Previous;
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.First;
+            builder.Write("单元牌");
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.Previous;
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.First;
+            builder.Write("户室牌");
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.Previous;
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.First;
+            builder.Write("道路门牌");
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.Previous;
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.Previous;
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.First;
+            builder.Write("农村门牌");
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.Previous;
+            builder.EndRow();
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.Previous;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("幢号");
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("数量");
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("单元号");
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("数量");
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("户室号");
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("数量");
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("门牌号");
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("规格(CM)");
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("数量");
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("门牌号");
+
+            builder.InsertCell();
+            builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+            builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+            builder.CellFormat.VerticalMerge = CellMerge.None;
+            builder.CellFormat.HorizontalMerge = CellMerge.None;
+            builder.Write("数量");
+            builder.EndRow();
+            #endregion
+
+            var maxRows = 0;
+            foreach (var plmp in plMPHZ)
+            {
+                if (plmp.Type == Enums.MPTypeCh.Residence)
+                {
+                    var max = Math.Max(plmp.LZP.Count(), plmp.DYP.Count());
+                    max = Math.Max(max, plmp.HSP.Count());
+                    maxRows += max;
+                }
+                else if (plmp.Type == Enums.MPTypeCh.Road)
+                {
+                    maxRows += plmp.DLP.Count();
+                }
+                else if (plmp.Type == Enums.MPTypeCh.Country)
+                {
+                    maxRows += plmp.NCP.Count();
+                }
+            }
+            for (int i = 0; i <= maxRows; i++)
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    builder.InsertCell();
+                    builder.CellFormat.Borders.LineStyle = LineStyle.Single;
+                    builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+                    builder.CellFormat.VerticalMerge = CellMerge.None;
+                    builder.CellFormat.HorizontalMerge = CellMerge.None;
+                }
+                builder.EndRow();
+            }
+
+            builder.MoveToCell(0, maxRows, 0, 0);
+            builder.Writeln($"{ DateTime.Now.Year}年{ DateTime.Now.Month}月{ DateTime.Now.Day}日");
+
+            var rowIndex = 2;
+            foreach (var plmp in plMPHZ)
+            {
+                if (plmp.Type == Enums.MPTypeCh.Residence)
+                {
+                    var lzRowIndex = rowIndex;
+                    foreach (var lz in plmp.LZP)
+                    {
+                        builder.MoveToCell(0, lzRowIndex, 1, 0);
+                        builder.Write(lz.Number);
+                        builder.MoveToCell(0, lzRowIndex, 2, 0);
+                        builder.Write(lz.Count.ToString());
+                        lzRowIndex++;
+                    }
+
+                    var dyRowIndex = rowIndex;
+                    foreach (var dy in plmp.DYP)
+                    {
+                        builder.MoveToCell(0, dyRowIndex, 3, 0);
+                        builder.Write(dy.Number);
+                        builder.MoveToCell(0, dyRowIndex, 4, 0);
+                        builder.Write(dy.Count.ToString());
+                        dyRowIndex++;
+                    }
+
+                    var hsRowIndex = rowIndex;
+                    foreach (var hs in plmp.HSP)
+                    {
+                        builder.MoveToCell(0, hsRowIndex, 0, 0);
+                        if (hsRowIndex == rowIndex)
+                        {
+                            builder.CellFormat.VerticalMerge = CellMerge.First;
+                            builder.Write(plmp.PlaceName);
+                        }
+                        else
+                        {
+                            builder.CellFormat.VerticalMerge = CellMerge.Previous;
+                        }
+
+                        builder.MoveToCell(0, hsRowIndex, 5, 0);
+                        builder.Write(hs.Number);
+                        builder.MoveToCell(0, hsRowIndex, 6, 0);
+                        builder.Write(hs.Count.ToString());
+                        hsRowIndex++;
+                    }
+                    rowIndex += plmp.HSP.Count();
+                }
+                else if (plmp.Type == Enums.MPTypeCh.Road)
+                {
+                    var dlRowIndex = rowIndex;
+                    foreach (var dl in plmp.DLP)
+                    {
+                        builder.MoveToCell(0, dlRowIndex, 0, 0);
+                        if (dlRowIndex == rowIndex)
+                        {
+                            builder.CellFormat.VerticalMerge = CellMerge.First;
+                            builder.Write(plmp.PlaceName);
+                        }
+                        else
+                        {
+                            builder.CellFormat.VerticalMerge = CellMerge.Previous;
+                        }
+
+                        builder.MoveToCell(0, dlRowIndex, 7, 0);
+                        builder.Write(dl.Number);
+                        builder.MoveToCell(0, dlRowIndex, 8, 0);
+                        builder.Write(dl.MPSize);
+                        builder.MoveToCell(0, dlRowIndex, 9, 0);
+                        builder.Write(dl.Count.ToString());
+                        dlRowIndex++;
+                    }
+                    rowIndex += plmp.DLP.Count();
+                }
+                else if (plmp.Type == Enums.MPTypeCh.Country)
+                {
+                    var ncRowIndex = rowIndex;
+                    foreach (var nc in plmp.NCP)
+                    {
+                        builder.MoveToCell(0, ncRowIndex, 0, 0);
+                        if (ncRowIndex == rowIndex)
+                        {
+                            builder.CellFormat.VerticalMerge = CellMerge.First;
+                            builder.Write(plmp.PlaceName);
+                        }
+                        else
+                        {
+                            builder.CellFormat.VerticalMerge = CellMerge.Previous;
+                        }
+
+                        builder.MoveToCell(0, ncRowIndex, 10, 0);
+                        builder.Write(nc.Number);
+                        builder.MoveToCell(0, ncRowIndex, 11, 0);
+                        builder.Write(nc.Count.ToString());
+                        ncRowIndex++;
+                    }
+                    rowIndex += plmp.NCP.Count();
+                }
+            }
+            //导出文件
+            string newFile = PLProduceID + ".doc";
+            var path = StaticVariable.PLMPProducePath_Full;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string physicNewFile = Path.Combine(path, newFile);
+            doc.Save(physicNewFile);
+            byte[] data = File.ReadAllBytes(physicNewFile);
+            MemoryStream ms = new MemoryStream(data);
+            return ms;
+        }
 
 
 
-        /// <summary>
-        /// 创建一个新表格并输出(独立输出)
-        /// </summary>
-        /// <param name="doc"></param>
-        //public void CreateNewTable()
-        //{
-        //    Aspose.Words.Document doc = new Aspose.Words.Document();
-        //    #region --方法1--
-        //    Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
-        //    //开始构建一个新的表格
-        //    Aspose.Words.Tables.Table docTable = builder.StartTable();
-        //    //builder.Bold = true;
 
-        //    foreach (DataRow dataRow in dataTable.Rows)
-        //    {
-        //        //插入新的行和单元格到表格
-        //        builder.InsertCell();
-        //        builder.Write("第1行第1列:" + dataRow["ID"].ToString());
-        //        builder.InsertCell();
-        //        builder.Write("第1行第2列" + dataRow["Name"].ToString());
-        //        builder.InsertCell();
-        //        builder.Write("第3列");
-        //        builder.InsertCell();
-        //        builder.Write("第4列");
 
-        //        #region 样式
-        //        builder.RowFormat.Height = 50;
-        //        builder.RowFormat.HeightRule = HeightRule.AtLeast;
-        //        builder.RowFormat.Borders.LineWidth = 1;//边框宽度
-        //        //builder.CellFormat.Shading.BackgroundPatternColor = System.Drawing.Color.FromArgb(198, 217, 241);
-        //        //builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;
-        //        //builder.Font.Size = 16;
-        //        //builder.Font.Name = "Arial";
-        //        //builder.Font.Bold = true;
-        //        //builder.CellFormat.Width = 100.0;
-        //        #endregion
-
-        //        //用于指示结束当前行，并且开始新的一行
-        //        builder.EndRow();
-        //    }
-        //    #region 合并单元格
-        //    #region row
-        //    builder.InsertCell();
-        //    //水平合并第1个(基准)
-        //    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-        //    builder.Write("Text in merged cells.");
-
-        //    builder.InsertCell();
-        //    //水平合并,与前一个(First)合并
-        //    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.Previous;
-
-        //    builder.InsertCell();
-        //    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.None;
-        //    builder.Write("Text in one cell.");
-
-        //    builder.InsertCell();
-        //    //垂直合并第1个(基准)
-        //    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.First;
-        //    builder.Write("Text in another cell.");
-        //    builder.EndRow();
-        //    #endregion
-        //    #region row
-        //    builder.InsertCell();
-        //    builder.InsertCell();
-        //    builder.InsertCell();
-        //    builder.Write("列3");
-        //    builder.InsertCell();
-        //    //垂直合并,与前一个(First)合并
-        //    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.Previous;
-        //    #endregion
-        //    #endregion
-        //    //表示表格构建完成
-        //    builder.EndTable();
-        //    #endregion
-
-        //    #region --方法2--
-        //    Aspose.Words.Tables.Table wordTable2 = new Aspose.Words.Tables.Table(doc);
-
-        //    // Create the specified number of rows.
-        //    for (int rowId = 1; rowId <= 2; rowId++)
-        //    {
-        //        Aspose.Words.Tables.Row row = new Aspose.Words.Tables.Row(doc);
-        //        wordTable2.AppendChild(row);
-
-        //        // Create the specified number of cells for each row.
-        //        for (int cellId = 1; cellId <= 3; cellId++)
-        //        {
-        //            Aspose.Words.Tables.Cell cell = new Aspose.Words.Tables.Cell(doc);
-        //            row.AppendChild(cell);
-        //            // Add a blank paragraph to the cell.
-        //            cell.AppendChild(new Paragraph(doc));
-
-        //            // Add the text.
-        //            cell.FirstParagraph.AppendChild(new Run(doc, "xxddd"));
-        //            cell.CellFormat.Borders.LineWidth = 1.5;
-        //        }
-        //    }
-        //    doc.FirstSection.Body.AppendChild(wordTable2);
-        //    #endregion
-        //    doc.Save(@"test_out2.doc", SaveFormat.Doc, SaveType.OpenInWord, this.Response);
-        //}
 
         public static void CreateTabToWord2()
         {

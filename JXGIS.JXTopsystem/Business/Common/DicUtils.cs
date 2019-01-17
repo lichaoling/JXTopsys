@@ -587,6 +587,19 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return rt;
             }
         }
+        public static List<string> GetDirectionFromData(string RoadName, string Intersection)
+        {
+            using (var db = SystemUtils.NewEFDbContext)
+            {
+                var data = db.RP.Where(t => t.State == Enums.UseState.Enable);
+                if (!string.IsNullOrEmpty(RoadName))
+                    data = data.Where(t => t.RoadName == RoadName);
+                if (!string.IsNullOrEmpty(Intersection))
+                    data = data.Where(t => t.Intersection == Intersection);
+                var rt = data.Select(t => t.Direction).Distinct().ToList();
+                return rt;
+            }
+        }
         public static List<string> GetRepairContentFromDic()
         {
             using (var dbContext = SystemUtils.NewEFDbContext)

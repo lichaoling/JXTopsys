@@ -27,5 +27,6 @@ namespace JXGIS.JXTopsystem.Models.Entities
         //public int IsFinish { get; set; }
         public DateTime? FinishRepaireTime { get; set; }
         public string FinishRepaireUser { get; set; }
+        public string BXFS { get; set; }
     }
 }

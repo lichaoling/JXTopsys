@@ -43,7 +43,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aspose.Cells, Version=7.4.1.0, Culture=neutral, PublicKeyToken=00725b1ceb58d0a9, processorArchitecture=MSIL">
+    <Reference Include="Aspose.Cells, Version=18.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\Aspose.Cells.dll</HintPath>
     </Reference>
@@ -51,7 +51,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\Aspose.Pdf.dll</HintPath>
     </Reference>
-    <Reference Include="Aspose.Words, Version=13.2.0.0, Culture=neutral, PublicKeyToken=00725b1ceb58d0a9, processorArchitecture=MSIL">
+    <Reference Include="Aspose.Words, Version=18.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\Aspose.Words.dll</HintPath>
     </Reference>
@@ -208,7 +208,6 @@
     <Content Include="Global.asax" />
     <Content Include="Lib\Aspose.Cells.dll" />
     <Content Include="Lib\Aspose.Pdf.dll" />
-    <Content Include="Lib\Aspose.Slides.dll" />
     <Content Include="Lib\Aspose.Words.dll" />
     <Content Include="Lib\ICSharpCode.SharpZipLib.dll" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />

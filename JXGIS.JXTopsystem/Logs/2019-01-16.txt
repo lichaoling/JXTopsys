@@ -54,3 +54,66 @@
 |Message:未将对象引用设置到对象的实例。
 |StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.DZZMPrint(List`1 IDs, String MPType)
    在 JXGIS.JXTopsystem.Controllers.MPModifyController.DZZMPrint()
+=======2019/1/16 星期三 14:49:43
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPCertificate(List`1 IDs, String MPType, String CertificateType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 472
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPCertificate(List`1 IDs, String MPType, String CertificateType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 176
+=======2019/1/16 星期三 16:48:02
+|Message:未知的错误类型！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.ProduceLXMP(List`1 MPIDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPProduceController.ProduceLXMP()
+=======2019/1/16 星期三 17:38:38
+|Message:指定的参数已超出有效值的范围。
+参数名: rowIndex
+|StackTrace:   在 Aspose.Words.DocumentBuilder.method_32(Int32 int_0, Int32 int_1)
+   在 Aspose.Words.DocumentBuilder.MoveToCell(Int32 tableIndex, Int32 rowIndex, Int32 columnIndex, Int32 characterIndex)
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.CreateWord_PL(List`1 plMPHZ, String PLProduceID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPProduce\MPProduceUtils.cs:行号 1449
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.ProducePLMP(List`1 PLIDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPProduce\MPProduceUtils.cs:行号 924
+   在 JXGIS.JXTopsystem.Controllers.MPProduceController.ProducePLMP() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPProduceController.cs:行号 221
+=======2019/1/16 星期三 17:47:42
+|Message:指定的参数已超出有效值的范围。
+参数名: rowIndex
+|StackTrace:   在 Aspose.Words.DocumentBuilder.method_32(Int32 int_0, Int32 int_1)
+   在 Aspose.Words.DocumentBuilder.MoveToCell(Int32 tableIndex, Int32 rowIndex, Int32 columnIndex, Int32 characterIndex)
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.CreateWord_PL(List`1 plMPHZ, String PLProduceID)
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.ProducePLMP(List`1 PLIDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPProduceController.ProducePLMP()
+=======2019/1/16 星期三 17:50:19
+|Message:值不能为 null。
+参数名: text
+|StackTrace:   在 Aspose.Words.DocumentBuilder.method_23(String string_0, Boolean bool_1)
+   在 Aspose.Words.DocumentBuilder.Write(String text)
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.CreateWord_PL(List`1 plMPHZ, String PLProduceID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPProduce\MPProduceUtils.cs:行号 1460
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.ProducePLMP(List`1 PLIDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPProduce\MPProduceUtils.cs:行号 924
+   在 JXGIS.JXTopsystem.Controllers.MPProduceController.ProducePLMP() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPProduceController.cs:行号 221
+=======2019/1/16 星期三 17:52:13
+|Message:值不能为 null。
+参数名: text
+|StackTrace:   在 Aspose.Words.DocumentBuilder.method_23(String string_0, Boolean bool_1)
+   在 Aspose.Words.DocumentBuilder.Write(String text)
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.CreateWord_PL(List`1 plMPHZ, String PLProduceID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPProduce\MPProduceUtils.cs:行号 1460
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.ProducePLMP(List`1 PLIDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPProduce\MPProduceUtils.cs:行号 924
+   在 JXGIS.JXTopsystem.Controllers.MPProduceController.ProducePLMP() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPProduceController.cs:行号 221
+=======2019/1/16 星期三 18:02:15
+|Message:指定的参数已超出有效值的范围。
+参数名: rowIndex
+|StackTrace:   在 Aspose.Words.DocumentBuilder.method_32(Int32 int_0, Int32 int_1)
+   在 Aspose.Words.DocumentBuilder.MoveToCell(Int32 tableIndex, Int32 rowIndex, Int32 columnIndex, Int32 characterIndex)
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.CreateWord_PL(List`1 plMPHZ, String PLProduceID) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPProduce\MPProduceUtils.cs:行号 1452
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.ProducePLMP(List`1 PLIDs, String MPType) 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Business\MPProduce\MPProduceUtils.cs:行号 923
+   在 JXGIS.JXTopsystem.Controllers.MPProduceController.ProducePLMP() 位置 E:\2018xm\XM\JXGIS.JXTopsystem\Code\JXTopsys\JXGIS.JXTopsystem\Controllers\MPProduceController.cs:行号 221
+=======2019/1/16 星期三 18:08:32
+|Message:指定的参数已超出有效值的范围。
+参数名: rowIndex
+|StackTrace:   在 Aspose.Words.DocumentBuilder.method_32(Int32 int_0, Int32 int_1)
+   在 Aspose.Words.DocumentBuilder.MoveToCell(Int32 tableIndex, Int32 rowIndex, Int32 columnIndex, Int32 characterIndex)
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.CreateWord_PL(List`1 plMPHZ, String PLProduceID)
+   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.ProducePLMP(List`1 PLIDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPProduceController.ProducePLMP()
+=======2019/1/16 星期三 18:08:46
+|Message:未知的错误类型！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.MPProduce.MPProduceUtils.ProducePLMP(List`1 PLIDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPProduceController.ProducePLMP()
+=======2019/1/16 星期三 19:36:54
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)

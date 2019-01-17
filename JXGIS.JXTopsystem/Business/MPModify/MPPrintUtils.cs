@@ -33,12 +33,12 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         if (mpOfResidence == null)
                             throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
-                        bookmarks.Add("PropertyOwner", string.IsNullOrEmpty(mpOfResidence.PropertyOwner) ? "" : mpOfResidence.PropertyOwner);
-                        bookmarks.Add("StandardAddress", mpOfResidence.StandardAddress);
-                        bookmarks.Add("FCZAddress", string.IsNullOrEmpty(mpOfResidence.FCZAddress) ? "" : mpOfResidence.FCZAddress);
-                        bookmarks.Add("TDZAddress", string.IsNullOrEmpty(mpOfResidence.TDZAddress) ? "" : mpOfResidence.TDZAddress);
-                        bookmarks.Add("YYZZAddress/HJAddress", string.IsNullOrEmpty(mpOfResidence.HJAddress) ? "" : mpOfResidence.HJAddress);
-                        bookmarks.Add("OtherAddress", string.IsNullOrEmpty(mpOfResidence.OtherAddress) ? "" : mpOfResidence.OtherAddress);
+                        bookmarks.Add("{PropertyOwner}", string.IsNullOrEmpty(mpOfResidence.PropertyOwner) ? "" : mpOfResidence.PropertyOwner);
+                        bookmarks.Add("{StandardAddress}", mpOfResidence.StandardAddress);
+                        bookmarks.Add("{FCZAddress}", string.IsNullOrEmpty(mpOfResidence.FCZAddress) ? "" : mpOfResidence.FCZAddress);
+                        bookmarks.Add("{TDZAddress}", string.IsNullOrEmpty(mpOfResidence.TDZAddress) ? "" : mpOfResidence.TDZAddress);
+                        bookmarks.Add("{YYZZAddress/HJAddress}", string.IsNullOrEmpty(mpOfResidence.HJAddress) ? "" : mpOfResidence.HJAddress);
+                        bookmarks.Add("{OtherAddress}", string.IsNullOrEmpty(mpOfResidence.OtherAddress) ? "" : mpOfResidence.OtherAddress);
                         bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
                         bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
                         bookmarks.Add("{Date}", DateTime.Now.Day.ToString());
@@ -60,12 +60,12 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         if (mpOfRoad == null)
                             throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
-                        bookmarks.Add("PropertyOwner", string.IsNullOrEmpty(mpOfRoad.PropertyOwner) ? "" : mpOfRoad.PropertyOwner);
-                        bookmarks.Add("StandardAddress", mpOfRoad.StandardAddress);
-                        bookmarks.Add("FCZAddress", string.IsNullOrEmpty(mpOfRoad.FCZAddress) ? "" : mpOfRoad.FCZAddress);
-                        bookmarks.Add("TDZAddress", string.IsNullOrEmpty(mpOfRoad.TDZAddress) ? "" : mpOfRoad.TDZAddress);
-                        bookmarks.Add("YYZZAddress/HJAddress", string.IsNullOrEmpty(mpOfRoad.YYZZAddress) ? "" : mpOfRoad.YYZZAddress);
-                        bookmarks.Add("OtherAddress", string.IsNullOrEmpty(mpOfRoad.OtherAddress) ? "" : mpOfRoad.OtherAddress);
+                        bookmarks.Add("{PropertyOwner}", string.IsNullOrEmpty(mpOfRoad.PropertyOwner) ? "" : mpOfRoad.PropertyOwner);
+                        bookmarks.Add("{StandardAddress}", mpOfRoad.StandardAddress);
+                        bookmarks.Add("{FCZAddress}", string.IsNullOrEmpty(mpOfRoad.FCZAddress) ? "" : mpOfRoad.FCZAddress);
+                        bookmarks.Add("{TDZAddress}", string.IsNullOrEmpty(mpOfRoad.TDZAddress) ? "" : mpOfRoad.TDZAddress);
+                        bookmarks.Add("{YYZZAddress/HJAddress}", string.IsNullOrEmpty(mpOfRoad.YYZZAddress) ? "" : mpOfRoad.YYZZAddress);
+                        bookmarks.Add("{OtherAddress}", string.IsNullOrEmpty(mpOfRoad.OtherAddress) ? "" : mpOfRoad.OtherAddress);
                         bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
                         bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
                         bookmarks.Add("{Date}", DateTime.Now.Day.ToString());
@@ -87,12 +87,12 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         if (mpOfCounty == null)
                             throw new Exception($"ID为{ID}的农村门牌已经注销，请重新查询！");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
-                        bookmarks.Add("PropertyOwner", mpOfCounty.PropertyOwner);
-                        bookmarks.Add("StandardAddress", mpOfCounty.StandardAddress);
-                        bookmarks.Add("FCZAddress", "");
-                        bookmarks.Add("TDZAddress", string.IsNullOrEmpty(mpOfCounty.TDZAddress) ? "" : mpOfCounty.TDZAddress);
-                        bookmarks.Add("YYZZAddress/HJAddress", "");
-                        bookmarks.Add("OtherAddress", string.IsNullOrEmpty(mpOfCounty.OtherAddress) ? "" : mpOfCounty.OtherAddress);
+                        bookmarks.Add("{PropertyOwner}", mpOfCounty.PropertyOwner);
+                        bookmarks.Add("{StandardAddress}", mpOfCounty.StandardAddress);
+                        bookmarks.Add("{FCZAddress}", "");
+                        bookmarks.Add("{TDZAddress}", string.IsNullOrEmpty(mpOfCounty.TDZAddress) ? "" : mpOfCounty.TDZAddress);
+                        bookmarks.Add("{YYZZAddress/HJAddress}", "");
+                        bookmarks.Add("{OtherAddress}", string.IsNullOrEmpty(mpOfCounty.OtherAddress) ? "" : mpOfCounty.OtherAddress);
                         bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
                         bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
                         bookmarks.Add("{Date}", DateTime.Now.Day.ToString());
@@ -144,17 +144,17 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                             throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
 
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
-                        bookmarks.Add("AddressCoding", mpOfResidence.AddressCoding);
-                        bookmarks.Add("PropertyOwner", mpOfResidence.PropertyOwner);
-                        bookmarks.Add("CountyName", mpOfResidence.CountyID.Split('.').Last());
-                        bookmarks.Add("NeighborhoodsName", mpOfResidence.NeighborhoodsID.Split('.').Last());
-                        bookmarks.Add("RoadName", "");
-                        bookmarks.Add("MPNumber", "");
-                        bookmarks.Add("ResidenceName", ReplaceBadChar(mpOfResidence.ResidenceName));
-                        bookmarks.Add("OriginalMPAddress", "");
-                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
-                        bookmarks.Add("date", DateTime.Now.Day.ToString());
+                        bookmarks.Add("{AddressCoding}", mpOfResidence.AddressCoding);
+                        bookmarks.Add("{PropertyOwner}", mpOfResidence.PropertyOwner);
+                        bookmarks.Add("{CountyName}", mpOfResidence.CountyID.Split('.').Last());
+                        bookmarks.Add("{NeighborhoodsName}", mpOfResidence.NeighborhoodsID.Split('.').Last());
+                        bookmarks.Add("{RoadName}", "");
+                        bookmarks.Add("{MPNumber}", "");
+                        bookmarks.Add("{ResidenceName}", ReplaceBadChar(mpOfResidence.ResidenceName));
+                        bookmarks.Add("{OriginalMPAddress}", "");
+                        bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
+                        bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
+                        bookmarks.Add("{Date}", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.MPZPrintPath, Enums.MPTypeCh.Residence, ID);
                         if (!Directory.Exists(savePath))
@@ -175,17 +175,17 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                             throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
 
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
-                        bookmarks.Add("AddressCoding", mpOfRoad.AddressCoding);
-                        bookmarks.Add("PropertyOwner", mpOfRoad.PropertyOwner);
-                        bookmarks.Add("CountyName", mpOfRoad.CountyID.Split('.').Last());
-                        bookmarks.Add("NeighborhoodsName", mpOfRoad.NeighborhoodsID.Split('.').Last());
-                        bookmarks.Add("RoadName", ReplaceBadChar(mpOfRoad.RoadName));
-                        bookmarks.Add("MPNumber", mpOfRoad.MPNumber);
-                        bookmarks.Add("ResidenceName", mpOfRoad.ResidenceName);
-                        bookmarks.Add("OriginalMPAddress", mpOfRoad.OriginalMPAddress);
-                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
-                        bookmarks.Add("date", DateTime.Now.Day.ToString());
+                        bookmarks.Add("{AddressCoding}", mpOfRoad.AddressCoding);
+                        bookmarks.Add("{PropertyOwner}", mpOfRoad.PropertyOwner);
+                        bookmarks.Add("{CountyName}", mpOfRoad.CountyID.Split('.').Last());
+                        bookmarks.Add("{NeighborhoodsName}", mpOfRoad.NeighborhoodsID.Split('.').Last());
+                        bookmarks.Add("{RoadName}", ReplaceBadChar(mpOfRoad.RoadName));
+                        bookmarks.Add("{MPNumber}", mpOfRoad.MPNumber);
+                        bookmarks.Add("{ResidenceName}", mpOfRoad.ResidenceName);
+                        bookmarks.Add("{OriginalMPAddress}", mpOfRoad.OriginalMPAddress);
+                        bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
+                        bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
+                        bookmarks.Add("{Date}", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.MPZPrintPath, Enums.MPTypeCh.Road, ID);
                         if (!Directory.Exists(savePath))
@@ -206,17 +206,17 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         if (mpOfCounty == null)
                             throw new Exception($"ID为{ID}的农村门牌已经注销，请重新查询！");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
-                        bookmarks.Add("AddressCoding", mpOfCounty.AddressCoding);
-                        bookmarks.Add("PropertyOwner", mpOfCounty.PropertyOwner);
-                        bookmarks.Add("CountyName", mpOfCounty.CountyID.Split('.').Last());
-                        bookmarks.Add("NeighborhoodsName", mpOfCounty.NeighborhoodsID.Split('.').Last());
-                        bookmarks.Add("RoadName", ReplaceBadChar(mpOfCounty.ViligeName));
-                        bookmarks.Add("MPNumber", mpOfCounty.MPNumber);
-                        bookmarks.Add("ResidenceName", "");
-                        bookmarks.Add("OriginalMPAddress", mpOfCounty.OriginalMPAddress);
-                        bookmarks.Add("Year", DateTime.Now.Year.ToString());
-                        bookmarks.Add("Month", DateTime.Now.Month.ToString());
-                        bookmarks.Add("date", DateTime.Now.Day.ToString());
+                        bookmarks.Add("{AddressCoding}", mpOfCounty.AddressCoding);
+                        bookmarks.Add("{PropertyOwner}", mpOfCounty.PropertyOwner);
+                        bookmarks.Add("{CountyName}", mpOfCounty.CountyID.Split('.').Last());
+                        bookmarks.Add("{NeighborhoodsName}", mpOfCounty.NeighborhoodsID.Split('.').Last());
+                        bookmarks.Add("{RoadName}", ReplaceBadChar(mpOfCounty.ViligeName));
+                        bookmarks.Add("{MPNumber}", mpOfCounty.MPNumber);
+                        bookmarks.Add("{ResidenceName}", "");
+                        bookmarks.Add("{OriginalMPAddress}", mpOfCounty.OriginalMPAddress);
+                        bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
+                        bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
+                        bookmarks.Add("{Date}", DateTime.Now.Day.ToString());
 
                         string savePath = Path.Combine(StaticVariable.MPZPrintPath, Enums.MPTypeCh.Country, ID);
                         if (!Directory.Exists(savePath))
@@ -418,7 +418,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
             //var options = new Aspose.Words.Replacing.FindReplaceOptions() { MatchCase = true, FindWholeWordsOnly = true };
             foreach (string name in bookmarks.Keys)
             {
-                var x = doc.Range.Replace(name, bookmarks[name], true, true);
+                var x = doc.Range.Replace(name, bookmarks[name], true, false);
             }
             doc.Save(fileNameWord);
             doc.Save(fileNamePdf, Aspose.Words.SaveFormat.Pdf);

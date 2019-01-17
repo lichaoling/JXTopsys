@@ -1,6 +1,8 @@
-﻿using JXGIS.JXTopsystem.Business.Common;
+﻿using Aspose.Cells;
+using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +27,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
         /// <param name="Material"></param>
         /// <param name="Size"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetRPNumTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string DistrictID, string CommunityName, string RoadName, string Model, string Material, string Size)
+        public static Dictionary<string, object> GetRPNumTJ(int PageSize, int PageNum, DateTime? start, DateTime? end, string DistrictID, string CommunityName, string RoadName, string Model, string Manufacturers, string Material, string Size)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -50,6 +52,9 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
 
                 if (!string.IsNullOrEmpty(Model))
                     query = query.Where(t => t.Model == Model);
+
+                if (!string.IsNullOrEmpty(Manufacturers))
+                    query = query.Where(t => t.Manufacturers == Manufacturers);
 
                 if (!string.IsNullOrEmpty(Material))
                     query = query.Where(t => t.Material == Material);
@@ -110,7 +115,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
         /// <param name="FinishTimeStart"></param>
         /// <param name="FinishTimeEnd"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, string RepairMode, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, string FinishTimeStart, string FinishTimeEnd)
+        public static Dictionary<string, object> GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, string RepairMode, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, DateTime? FinishTimeStart, DateTime? FinishTimeEnd)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -134,13 +139,13 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 if (isFinishRepair == Enums.Complete.Yes)//已修复,有修复的起止时间
                 {
                     query = query.Where(t => t.FinishRepaireTime != null);
-                    if (!string.IsNullOrEmpty(FinishTimeStart))
+                    if (FinishTimeStart != null)
                     {
-                        query = query.Where(t => String.Compare(t.FinishRepaireTime.ToString(), FinishTimeStart, StringComparison.Ordinal) >= 0);
+                        query = query.Where(t => t.FinishRepaireTime >= FinishTimeStart);
                     }
-                    if (!string.IsNullOrEmpty(FinishTimeEnd))
+                    if (FinishTimeEnd != null)
                     {
-                        query = query.Where(t => String.Compare(t.FinishRepaireTime.ToString(), FinishTimeEnd, StringComparison.Ordinal) <= 0);
+                        query = query.Where(t => t.FinishRepaireTime <= FinishTimeEnd);
                     }
                 }
                 else if (isFinishRepair == Enums.Complete.NO)//未修复
@@ -206,6 +211,77 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 };
 
             }
+        }
+
+        public static MemoryStream ExportRPRepairTJ(string DistrictID, string CommunityName, string RepairMode, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, DateTime? FinishTimeStart, DateTime? FinishTimeEnd)
+        {
+            Dictionary<string, object> dict = GetRPRepairTJ(-1, -1, DistrictID, CommunityName, RepairMode, RepairedCount, RepairParts, RepairContent, RepairFactory, isFinishRepair, FinishTimeStart, FinishTimeEnd);
+            int RowCount = int.Parse(dict["Count"].ToString());
+            if (RowCount >= 65000)
+                throw new Exception("数据量过大，请缩小查询范围后再导出！");
+            var Data = dict["Data"] as List<RoadMPDetails>;
+            Workbook wb = new Workbook();
+            Worksheet ws = wb.Worksheets[0];
+            ws.Name = Enums.MPTypeCh.Road;
+            Aspose.Cells.Style styleHeader = wb.Styles[wb.Styles.Add()];
+            styleHeader.Pattern = Aspose.Cells.BackgroundType.Solid;
+            styleHeader.HorizontalAlignment = Aspose.Cells.TextAlignmentType.Center;
+            styleHeader.ForegroundColor = System.Drawing.Color.FromArgb(240, 240, 240);
+            styleHeader.Font.IsBold = true;
+            styleHeader.Borders[BorderType.LeftBorder].LineStyle = CellBorderType.Thin;
+            styleHeader.Borders[BorderType.RightBorder].LineStyle = CellBorderType.Thin;
+            styleHeader.Borders[BorderType.TopBorder].LineStyle = CellBorderType.Thin;
+            styleHeader.Borders[BorderType.BottomBorder].LineStyle = CellBorderType.Thin;
+
+            Aspose.Cells.Style styleData = wb.Styles[wb.Styles.Add()];
+            styleData.Borders[BorderType.LeftBorder].LineStyle = CellBorderType.Thin;
+            styleData.Borders[BorderType.RightBorder].LineStyle = CellBorderType.Thin;
+            styleData.Borders[BorderType.TopBorder].LineStyle = CellBorderType.Thin;
+            styleData.Borders[BorderType.BottomBorder].LineStyle = CellBorderType.Thin;
+
+            List<ExcelFields> Fields = new List<ExcelFields> {
+                new ExcelFields() { Field="市辖区",Alias="CountyName"},
+                new ExcelFields() { Field="镇街道",Alias="NeighborhoodsName"},
+                new ExcelFields() { Field="村社区",Alias="CommunityName"},
+                new ExcelFields() { Field="道路名称",Alias="RoadName"},
+                new ExcelFields() { Field="设置路口",Alias="Intersection"},
+                new ExcelFields() { Field="设置方位",Alias="Direction"},
+                new ExcelFields() { Field="设置时间",Alias="BZTime"},
+                new ExcelFields() { Field="维修次数",Alias="RepairedCount"},
+                new ExcelFields() { Field="纬度",Alias="Lat"},
+                new ExcelFields() { Field="经度",Alias="Lng"},
+            };
+            //写入表头
+            for (int i = 0, l = Fields.Count; i < l; i++)
+            {
+                var field = Fields[i];
+                ws.Cells[0, i].PutValue(field.Field);
+                ws.Cells[0, i].SetStyle(styleHeader);
+            }
+            //写入数据
+            for (int i = 0; i < RowCount; i++)
+            {
+                var row = Data[i];
+                for (int j = 0, l = Fields.Count; j < l; j++)
+                {
+                    var field = Fields[j];
+                    var value = row[field.Alias];
+                    if (field.Field == "设置时间")
+                    {
+                        IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
+                        timeConverter.DateTimeFormat = "yyyy-MM-dd";
+                        string rt = Newtonsoft.Json.JsonConvert.SerializeObject(value, timeConverter);
+                        value = rt.Replace("\"", "");
+                    }
+                    ws.Cells[i + 1, j].PutValue(value);
+                    ws.Cells[i + 1, j].SetStyle(styleData);
+                }
+            }
+            ws.AutoFitColumns();
+            MemoryStream ms = new MemoryStream();
+            wb.Save(ms, SaveFormat.Excel97To2003);
+            ms.Seek(0, SeekOrigin.Begin);
+            return ms;
         }
     }
 }

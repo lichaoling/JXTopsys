@@ -218,7 +218,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-        
+
         [LoggerFilter(Description = "获取地名标志字典表中的门牌类型")]
         public ContentResult GetMPType()
         {
@@ -604,7 +604,7 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion 添加道路信息、小区名、自然村信息到字典表
 
         #region 路牌相关
-        [LoggerFilter(Description = "从路牌标志表中获取路牌方向")]
+       
         public ContentResult GetDirectionFromDic()
         {
             RtObj rt = null;
@@ -620,6 +620,23 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
+     
+        public ContentResult GetDirectionFromData(string RoadName, string Intersection)
+        {
+            RtObj rt = null;
+            try
+            {
+                var data = DicUtils.GetDirectionFromData(RoadName, Intersection);
+                rt = new RtObj(data);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
+
         [LoggerFilter(Description = "从路牌标志表中获取维修内容")]
         public ContentResult GetRepairContentFromDic()
         {
@@ -669,7 +686,8 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
         [LoggerFilter(Description = "查看路牌标志详情")]
-        public ContentResult GetRPBZFromDicByID(int id) {
+        public ContentResult GetRPBZFromDicByID(int id)
+        {
             RtObj rt = null;
             try
             {

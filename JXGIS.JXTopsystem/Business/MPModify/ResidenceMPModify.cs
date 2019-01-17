@@ -73,7 +73,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var LZNumber1 = targetData.LZNumber == null ? "" : targetData.LZNumber + "幢";
                     var DYNumber1 = targetData.DYNumber == null ? "" : targetData.DYNumber + "单元";
                     var HSNumber1 = targetData.HSNumber == null ? "" : targetData.HSNumber + "室";
-                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + MPNumber1 + targetData.Dormitory + LZNumber1 + DYNumber1 + HSNumber1;
+                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + LZNumber1 + MPNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
                     targetData.DYPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;
@@ -120,7 +120,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var LZNumber1 = targetData.LZNumber == null ? "" : targetData.LZNumber + "幢";
                     var DYNumber1 = targetData.DYNumber == null ? "" : targetData.DYNumber + "单元";
                     var HSNumber1 = targetData.HSNumber == null ? "" : targetData.HSNumber + "室";
-                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + MPNumber1 + targetData.Dormitory + LZNumber1 + DYNumber1 + HSNumber1;
+                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + LZNumber1 + MPNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
                     targetData.DYPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;

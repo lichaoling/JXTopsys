@@ -142,7 +142,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.RoadName + targetData.MPNumber + "号";
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.MPPosition = (targetData.Lng != 0 && targetData.Lat != 0) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.MPPosition;
+                    targetData.MPPosition = (targetData.Lng != null && targetData.Lat != null && targetData.Lng != 0 && targetData.Lat != 0) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.MPPosition;
                     targetData.LastModifyTime = DateTime.Now;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     BaseUtils.UpdateAddressCode(null, targetData, null, null, Enums.TypeInt.Road);
