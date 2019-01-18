@@ -14,7 +14,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
 {
     public class RPSearchUtils
     {
-        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState)
+        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState, int RepairState)
         {
             int count = 0;
             List<RPDetails> data = null;
@@ -100,6 +100,20 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                     if (endCode != null)
                         query = query.Where(t => t.Code <= endCode);
                 }
+
+                if (RepairState == 0)//未修复
+                {
+                    query = query.Where(t => t.FinishRepaire == 0);
+                }
+                else if (RepairState == 1)//已修复
+                {
+                    query = query.Where(t => t.FinishRepaire == 1);
+                }
+                else if (RepairState == 2)//完好
+                {
+                    query = query.Where(t => t.RepairedCount == 0);
+                }
+
 
                 count = query.Count();
 
@@ -219,9 +233,9 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
             }
         }
 
-        public static MemoryStream ExportRP(string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState)
+        public static MemoryStream ExportRP(string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState, int RepairState = 2)
         {
-            Dictionary<string, object> dict = SearchRP(-1, -1, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, UseState);
+            Dictionary<string, object> dict = SearchRP(-1, -1, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, UseState, RepairState);
 
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
@@ -303,6 +317,6 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
             return ms;
         }
 
-      
+
     }
 }

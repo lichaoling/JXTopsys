@@ -17,12 +17,12 @@ namespace JXGIS.JXTopsystem.Controllers
     public class RPSearchController : Controller
     {
         [LoggerFilter(Description = "查询路牌")]
-        public ContentResult SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState = Enums.UseState.Enable)
+        public ContentResult SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState = Enums.UseState.Enable, int RepairState = 0)
         {
             RtObj rt = null;
             try
             {
-                var r = RPSearchUtils.SearchRP(PageSize, PageNum, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, UseState);
+                var r = RPSearchUtils.SearchRP(PageSize, PageNum, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, UseState, RepairState);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -36,7 +36,7 @@ namespace JXGIS.JXTopsystem.Controllers
         }
 
 
-        public JsonResult GetConditionOfRP(string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState = Enums.UseState.Enable)
+        public JsonResult GetConditionOfRP(string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState = Enums.UseState.Enable, int RepairState = 0)
         {
             RtObj rt = null;
             try
@@ -55,6 +55,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 Session["_RPstartCode"] = startCode;
                 Session["_RPendCode"] = endCode;
                 Session["_RPUseState"] = UseState;
+                Session["_RPRepairState"] = RepairState;
 
                 rt = new RtObj();
             }
@@ -86,8 +87,9 @@ namespace JXGIS.JXTopsystem.Controllers
                 var startCode = Session["_RPstartCode"] != null ? (int?)Session["_RPstartCode"] : null;
                 var endCode = Session["_RPendCode"] != null ? (int?)Session["_RPendCode"] : null;
                 var UseState = Session["_RPUseState"] != null ? (int)Session["_RPUseState"] : Enums.UseState.Enable;
+                var RepairState = Session["_RPRepairState"] != null ? (int)Session["_RPRepairState"] : 2;
 
-                var ms = RPSearchUtils.ExportRP(DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, UseState);
+                var ms = RPSearchUtils.ExportRP(DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, UseState, RepairState);
 
                 Session["_RPDistrictID"] = null;
                 Session["_RPRoadName"] = null;
@@ -103,6 +105,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 Session["_RPstartCode"] = null;
                 Session["_RPendCode"] = null;
                 Session["_RPUseState"] = null;
+                Session["_RPRepairState"] = null;
                 string fileName = $"路牌_{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}.xls";
                 return File(ms, "application/vnd.ms-excel", fileName);
             }
@@ -138,7 +141,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 rt = new RtObj();
                 var RPids = Session["_RPids"] != null ? (List<string>)Session["_RPids"] : new List<string>();
 
-                string QRFilePath = Path.Combine(StaticVariable.basePath,StaticVariable.RPQRCodeRelativePath);
+                string QRFilePath = Path.Combine(StaticVariable.basePath, StaticVariable.RPQRCodeRelativePath);
                 MemoryStream ms = new MemoryStream();
                 byte[] buffer = null;
                 using (ZipFile file = ZipFile.Create(ms))
