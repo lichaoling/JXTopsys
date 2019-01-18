@@ -50,5 +50,6 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CancelUser { get; set; }
         public DateTime? DelTime { get; set; }
         public string DelUser { get; set; }
+        public string BXFS { get; set; }
     }
 }

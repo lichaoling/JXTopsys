@@ -148,6 +148,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                         targetRP.Material = sourceData.Material;
                         targetRP.Size = sourceData.Size;
                         targetRP.Manufacturers = sourceData.Manufacturers;
+                        targetRP.BXFS = sourceData.BXFS;
 
 
                     }
@@ -168,6 +169,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                     rpRepair.Manufacturers = sourceData.Manufacturers;
                     rpRepair.RepairTime = sourceData.RepairTime;
                     rpRepair.FinishRepaireTime = sourceData.FinishRepaireTime;
+                    rpRepair.BXFS = sourceData.BXFS;
                     dbContext.RPRepair.Add(rpRepair);
                 }
                 else //这条维修记录存在，就修改一条维修记录
