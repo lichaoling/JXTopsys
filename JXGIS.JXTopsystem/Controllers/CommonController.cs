@@ -485,12 +485,12 @@ namespace JXGIS.JXTopsystem.Controllers
         /// <param name="CommunityName"></param>
         /// <returns></returns>
         [LoggerFilter(Description = "根据行政区划从三类门牌或路牌表中获取社区名称")]
-        public ContentResult getCommunityNamesFromData(int type, string NeighborhoodsID)
+        public ContentResult getCommunityNamesFromData(int type, string DistrictID)
         {
             RtObj rt = null;
             try
             {
-                var names = DicUtils.getCommunityNamesFromData(type, NeighborhoodsID);
+                var names = DicUtils.getCommunityNamesFromData(type, DistrictID);
                 rt = new RtObj(names);
             }
             catch (Exception ex)
@@ -604,7 +604,7 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion 添加道路信息、小区名、自然村信息到字典表
 
         #region 路牌相关
-       
+
         public ContentResult GetDirectionFromDic()
         {
             RtObj rt = null;
@@ -620,7 +620,21 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
             return Content(s);
         }
-     
+        public ContentResult GetIntersectionFromData(string RoadName)
+        {
+            RtObj rt = null;
+            try
+            {
+                var data = DicUtils.GetIntersectionFromData(RoadName);
+                rt = new RtObj(data);
+            }
+            catch (Exception ex)
+            {
+                rt = new RtObj(ex);
+            }
+            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
+            return Content(s);
+        }
         public ContentResult GetDirectionFromData(string RoadName, string Intersection)
         {
             RtObj rt = null;

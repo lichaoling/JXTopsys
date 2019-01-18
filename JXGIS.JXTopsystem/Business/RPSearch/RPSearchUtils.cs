@@ -14,7 +14,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
 {
     public class RPSearchUtils
     {
-        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState, int RepairState)
+        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState)
         {
             int count = 0;
             List<RPDetails> data = null;
@@ -107,7 +107,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 }
                 else if (RepairState == 1)//已修复
                 {
-                    query = query.Where(t => t.FinishRepaire == 1);
+                    query = query.Where(t => t.RepairedCount > 0).Where(t => t.FinishRepaire == 1);
                 }
                 else if (RepairState == 2)//完好
                 {
@@ -233,9 +233,9 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
             }
         }
 
-        public static MemoryStream ExportRP(string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState, int RepairState = 2)
+        public static MemoryStream ExportRP(string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState)
         {
-            Dictionary<string, object> dict = SearchRP(-1, -1, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, UseState, RepairState);
+            Dictionary<string, object> dict = SearchRP(-1, -1, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, RepairState, UseState);
 
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)

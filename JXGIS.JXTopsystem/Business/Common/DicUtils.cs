@@ -11,34 +11,34 @@ namespace JXGIS.JXTopsystem.Business.Common
     public class DicUtils
     {
         #region 从当前表中获取社区名、小区名、道路名和自然村名
-        public static List<string> getCommunityNamesFromData(int type, string NeighborhoodsID)
+        public static List<string> getCommunityNamesFromData(int type, string DistrictID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var s = new List<string>();
                 if (type == Enums.TypeInt.Residence)
                 {
-                    s = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
+                    s = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 }
                 else if (type == Enums.TypeInt.Road)
                 {
-                    s = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
+                    s = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 }
                 else if (type == Enums.TypeInt.Country)
                 {
-                    s = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
+                    s = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 }
                 else if (type == Enums.TypeInt.MP)
                 {
-                    s = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Concat(dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName)).Concat(dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName)).Distinct().ToList();
+                    s = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Concat(dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName)).Concat(dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName)).Distinct().ToList();
                 }
                 else if (type == Enums.TypeInt.RP)
                 {
-                    s = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
+                    s = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 }
                 else if (type == Enums.TypeInt.PlaceName)
                 {
-                    s = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
+                    s = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 }
 
                 return s;
@@ -584,6 +584,17 @@ namespace JXGIS.JXTopsystem.Business.Common
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var rt = dbContext.DirectionDic.Where(t => !string.IsNullOrEmpty(t.Diretion)).Select(t => t.Diretion).ToList();
+                return rt;
+            }
+        }
+        public static List<string> GetIntersectionFromData(string RoadName)
+        {
+            using (var db = SystemUtils.NewEFDbContext)
+            {
+                var data = db.RP.Where(t => t.State == Enums.UseState.Enable);
+                if (!string.IsNullOrEmpty(RoadName))
+                    data = data.Where(t => t.RoadName == RoadName);
+                var rt = data.Select(t => t.Intersection).Distinct().ToList();
                 return rt;
             }
         }

@@ -1,0 +1,34 @@
+=======2019/1/18 星期五 14:54:12
+|Message:Limit must have a non-negative value.
+参数名: count
+|StackTrace:   在 System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder.DbExpressionBuilder.Limit(DbExpression argument, DbExpression count)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.OrderByLifter.SkipLifter.Limit(DbExpression k)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TakeTranslator.TranslatePagingOperator(ExpressionConverter parent, DbExpression operand, DbExpression count)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.PagingTranslator.TranslateUnary(ExpressionConverter parent, DbExpression operand, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.UnarySequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.RPBusinessStatistic.RPStatisticUtils.GetRPRepairTJ(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String RepairMode, Int32 RepairedCount, String RepairParts, String RepairContent, String RepairFactory, Int32 isFinishRepair, Nullable`1 FinishTimeStart, Nullable`1 FinishTimeEnd) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\RPBusinessStatistic\RPStatisticUtils.cs:行号 168
+   在 JXGIS.JXTopsystem.Business.RPBusinessStatistic.RPStatisticUtils.ExportRPRepairTJ(String DistrictID, String CommunityName, String RepairMode, Int32 RepairedCount, String RepairParts, String RepairContent, String RepairFactory, Int32 isFinishRepair, Nullable`1 FinishTimeStart, Nullable`1 FinishTimeEnd) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\RPBusinessStatistic\RPStatisticUtils.cs:行号 218
+   在 JXGIS.JXTopsystem.Controllers.RPBusinessStatisticController.ExportRPRepairTJ() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\RPBusinessStatisticController.cs:行号 96
+=======2019/1/18 星期五 15:04:17
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.RPBusinessStatistic.RPStatisticUtils.ExportRPRepairTJ(String DistrictID, String CommunityName, String RepairMode, Int32 RepairedCount, String RepairParts, String RepairContent, String RepairFactory, Int32 isFinishRepair, Nullable`1 FinishTimeStart, Nullable`1 FinishTimeEnd) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\RPBusinessStatistic\RPStatisticUtils.cs:行号 276
+   在 JXGIS.JXTopsystem.Controllers.RPBusinessStatisticController.ExportRPRepairTJ() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\RPBusinessStatisticController.cs:行号 96
+=======2019/1/18 星期五 15:04:39
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.RPBusinessStatistic.RPStatisticUtils.ExportRPRepairTJ(String DistrictID, String CommunityName, String RepairMode, Int32 RepairedCount, String RepairParts, String RepairContent, String RepairFactory, Int32 isFinishRepair, Nullable`1 FinishTimeStart, Nullable`1 FinishTimeEnd) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\RPBusinessStatistic\RPStatisticUtils.cs:行号 276
+   在 JXGIS.JXTopsystem.Controllers.RPBusinessStatisticController.ExportRPRepairTJ() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\RPBusinessStatisticController.cs:行号 96

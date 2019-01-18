@@ -165,7 +165,19 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
 
 
                 var count = rps.Count();
-                var data = rps.OrderByDescending(t => t.BZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                var data = new List<RP>();
+
+                //如果是导出，就返回所有
+                if (PageNum == -1 && PageSize == -1)
+                {
+                    data = rps.OrderBy(t => t.RoadName).OrderBy(t => t.Intersection).ToList();
+                }
+                //如果是分页查询，就分页返回
+                else
+                {
+                    data = rps.OrderBy(t => t.RoadName).OrderBy(t => t.Intersection).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                }
+
                 var result = (from t in data
                               select new RPDetails
                               {
@@ -219,7 +231,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
-            var Data = dict["Data"] as List<RoadMPDetails>;
+            var Data = dict["Data"] as List<RPDetails>;
             Workbook wb = new Workbook();
             Worksheet ws = wb.Worksheets[0];
             ws.Name = Enums.MPTypeCh.Road;

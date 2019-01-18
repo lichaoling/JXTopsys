@@ -17,12 +17,12 @@ namespace JXGIS.JXTopsystem.Controllers
     public class RPSearchController : Controller
     {
         [LoggerFilter(Description = "查询路牌")]
-        public ContentResult SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState = Enums.UseState.Enable, int RepairState = 0)
+        public ContentResult SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
             try
             {
-                var r = RPSearchUtils.SearchRP(PageSize, PageNum, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, UseState, RepairState);
+                var r = RPSearchUtils.SearchRP(PageSize, PageNum, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, RepairState, UseState);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -36,7 +36,7 @@ namespace JXGIS.JXTopsystem.Controllers
         }
 
 
-        public JsonResult GetConditionOfRP(string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int UseState = Enums.UseState.Enable, int RepairState = 0)
+        public JsonResult GetConditionOfRP(string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
             try
@@ -89,7 +89,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 var UseState = Session["_RPUseState"] != null ? (int)Session["_RPUseState"] : Enums.UseState.Enable;
                 var RepairState = Session["_RPRepairState"] != null ? (int)Session["_RPRepairState"] : 2;
 
-                var ms = RPSearchUtils.ExportRP(DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, UseState, RepairState);
+                var ms = RPSearchUtils.ExportRP(DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, RepairState, UseState);
 
                 Session["_RPDistrictID"] = null;
                 Session["_RPRoadName"] = null;
