@@ -20,6 +20,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         [Key]
         public string ID { get; set; }
         public string AddressCoding { get; set; }
+        public string AddressCoding2 { get; set; }
         public string CountyID { get; set; }  //*
         public string NeighborhoodsID { get; set; }  //*
         public string CommunityName { get; set; }  //*

@@ -18,6 +18,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         [Key]
         public string ID { get; set; }
         public string AddressCoding { get; set; }
+        public string AddressCoding2 { get; set; }
         public string CountyID { get; set; }
         [NotMapped]
         public string CountyCode { get; set; }
