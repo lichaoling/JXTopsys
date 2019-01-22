@@ -204,6 +204,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Files\MPPrint\18cm&amp;12.7cm.png" />
     <Content Include="Files\MPPrint\门牌证模板.png" />
     <Content Include="Global.asax" />
     <Content Include="Lib\Aspose.Cells.dll" />
@@ -369,6 +370,9 @@
     <Content Include="Views\Common\Index.cshtml" />
     <Content Include="Files\MPPrint\地址证明模板.docx" />
     <Content Include="Files\MPPrint\门牌证模板.docx" />
+    <Content Include="Files\MPPrint\地址证明模板.doc" />
+    <Content Include="Files\MPPrint\地址证明模板1.docx" />
+    <Content Include="Files\MPPrint\门牌证模板1.docx" />
     <None Include="Properties\PublishProfiles\JXToposys.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

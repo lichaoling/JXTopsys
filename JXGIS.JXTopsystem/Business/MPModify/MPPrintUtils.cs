@@ -142,6 +142,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfResidence == null)
                             throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
+
                         var res = ReplaceBadChar(mpOfResidence.ResidenceName) + (string.IsNullOrEmpty(mpOfResidence.LZNumber) ? "" : mpOfResidence.LZNumber + "幢") + (string.IsNullOrEmpty(mpOfResidence.DYNumber) ? "" : mpOfResidence.DYNumber + "单元") + (string.IsNullOrEmpty(mpOfResidence.HSNumber) ? "" : mpOfResidence.HSNumber + "室");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
                         bookmarks.Add("{AddressCoding}", mpOfResidence.AddressCoding);
@@ -205,6 +206,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfCounty == null)
                             throw new Exception($"ID为{ID}的农村门牌已经注销，请重新查询！");
+
                         var res = mpOfCounty.CommunityName + ReplaceBadChar(mpOfCounty.ViligeName) + (string.IsNullOrEmpty(mpOfCounty.MPNumber) ? "" : mpOfCounty.MPNumber + "号");
 
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
