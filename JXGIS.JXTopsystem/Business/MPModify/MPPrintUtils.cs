@@ -142,15 +142,15 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfResidence == null)
                             throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
-
+                        var res = ReplaceBadChar(mpOfResidence.ResidenceName) + (string.IsNullOrEmpty(mpOfResidence.LZNumber) ? "" : mpOfResidence.LZNumber + "幢") + (string.IsNullOrEmpty(mpOfResidence.DYNumber) ? "" : mpOfResidence.DYNumber + "单元") + (string.IsNullOrEmpty(mpOfResidence.HSNumber) ? "" : mpOfResidence.HSNumber + "室");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
                         bookmarks.Add("{AddressCoding}", mpOfResidence.AddressCoding);
-                        bookmarks.Add("{PropertyOwner}", mpOfResidence.PropertyOwner);
+                        bookmarks.Add("{PropertyOwner}", mpOfResidence.PropertyOwner == null ? "" : mpOfResidence.PropertyOwner);
                         bookmarks.Add("{CountyName}", mpOfResidence.CountyID.Split('.').Last());
                         bookmarks.Add("{NeighborhoodsName}", mpOfResidence.NeighborhoodsID.Split('.').Last());
                         bookmarks.Add("{RoadName}", "");
                         bookmarks.Add("{MPNumber}", "");
-                        bookmarks.Add("{ResidenceName}", ReplaceBadChar(mpOfResidence.ResidenceName));
+                        bookmarks.Add("{ResidenceName}", res);
                         bookmarks.Add("{OriginalMPAddress}", "");
                         bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
                         bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
@@ -176,13 +176,13 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
 
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
                         bookmarks.Add("{AddressCoding}", mpOfRoad.AddressCoding);
-                        bookmarks.Add("{PropertyOwner}", mpOfRoad.PropertyOwner);
+                        bookmarks.Add("{PropertyOwner}", mpOfRoad.PropertyOwner == null ? "" : mpOfRoad.PropertyOwner);
                         bookmarks.Add("{CountyName}", mpOfRoad.CountyID.Split('.').Last());
                         bookmarks.Add("{NeighborhoodsName}", mpOfRoad.NeighborhoodsID.Split('.').Last());
                         bookmarks.Add("{RoadName}", ReplaceBadChar(mpOfRoad.RoadName));
-                        bookmarks.Add("{MPNumber}", mpOfRoad.MPNumber);
-                        bookmarks.Add("{ResidenceName}", mpOfRoad.ResidenceName);
-                        bookmarks.Add("{OriginalMPAddress}", mpOfRoad.OriginalMPAddress);
+                        bookmarks.Add("{MPNumber}", mpOfRoad.MPNumber == null ? "" : mpOfRoad.MPNumber);
+                        bookmarks.Add("{ResidenceName}", "");
+                        bookmarks.Add("{OriginalMPAddress}", mpOfRoad.OriginalMPAddress == null ? "" : mpOfRoad.OriginalMPAddress);
                         bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
                         bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
                         bookmarks.Add("{Date}", DateTime.Now.Day.ToString());
@@ -205,15 +205,17 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfCounty == null)
                             throw new Exception($"ID为{ID}的农村门牌已经注销，请重新查询！");
+                        var res = mpOfCounty.CommunityName + ReplaceBadChar(mpOfCounty.ViligeName) + (string.IsNullOrEmpty(mpOfCounty.MPNumber) ? "" : mpOfCounty.MPNumber + "号");
+
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
                         bookmarks.Add("{AddressCoding}", mpOfCounty.AddressCoding);
-                        bookmarks.Add("{PropertyOwner}", mpOfCounty.PropertyOwner);
+                        bookmarks.Add("{PropertyOwner}", mpOfCounty.PropertyOwner == null ? "" : mpOfCounty.PropertyOwner);
                         bookmarks.Add("{CountyName}", mpOfCounty.CountyID.Split('.').Last());
                         bookmarks.Add("{NeighborhoodsName}", mpOfCounty.NeighborhoodsID.Split('.').Last());
-                        bookmarks.Add("{RoadName}", ReplaceBadChar(mpOfCounty.ViligeName));
-                        bookmarks.Add("{MPNumber}", mpOfCounty.MPNumber);
-                        bookmarks.Add("{ResidenceName}", "");
-                        bookmarks.Add("{OriginalMPAddress}", mpOfCounty.OriginalMPAddress);
+                        bookmarks.Add("{RoadName}", "");
+                        bookmarks.Add("{MPNumber}", "");
+                        bookmarks.Add("{ResidenceName}", res);
+                        bookmarks.Add("{OriginalMPAddress}", mpOfCounty.OriginalMPAddress == null ? "" : mpOfCounty.OriginalMPAddress);
                         bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
                         bookmarks.Add("{Month}", DateTime.Now.Month.ToString());
                         bookmarks.Add("{Date}", DateTime.Now.Day.ToString());

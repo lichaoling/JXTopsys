@@ -664,30 +664,30 @@ namespace JXGIS.JXTopsystem.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var Intersection = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Intersection)).Select(t => t.Intersection).Distinct().ToList();
+                //var Intersection = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Intersection)).Select(t => t.Intersection).Distinct().ToList();
                 var Direction = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Direction)).Select(t => t.Direction).Distinct().ToList();
-                var Model = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Model)).Select(t => t.Model).Distinct().ToList();
-                var Material = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Material)).Select(t => t.Material).Distinct().ToList();
-                var Size = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Size)).Select(t => t.Size).Distinct().ToList();
+                //var Model = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Model)).Select(t => t.Model).Distinct().ToList();
+                //var Material = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Material)).Select(t => t.Material).Distinct().ToList();
+                //var Size = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Size)).Select(t => t.Size).Distinct().ToList();
                 var Manufacturers = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Manufacturers)).Select(t => t.Manufacturers).Distinct().ToList();
-                var RepairMode = dbContext.RPRepair.Select(t => t.RepairMode).Distinct().ToList();
-                var RepairedCount = (from t in dbContext.RPRepair
-                                     group t by t.RPID into g
-                                     select g.Count()).Distinct().ToList();
+                //var RepairMode = dbContext.RPRepair.Select(t => t.RepairMode).Distinct().ToList();
+                //var RepairedCount = (from t in dbContext.RPRepair
+                //                     group t by t.RPID into g
+                //                     select g.Count()).Distinct().ToList();
 
-                var RepairParts = dbContext.RPRepair.Where(t => !string.IsNullOrEmpty(t.RepairParts)).Select(t => t.RepairParts).Distinct().ToList();
-                var RepairFactory = dbContext.RPRepair.Where(t => !string.IsNullOrEmpty(t.RepairFactory)).Select(t => t.RepairFactory).Distinct().ToList();
+                //var RepairParts = dbContext.RPRepair.Where(t => !string.IsNullOrEmpty(t.RepairParts)).Select(t => t.RepairParts).Distinct().ToList();
+                //var RepairFactory = dbContext.RPRepair.Where(t => !string.IsNullOrEmpty(t.RepairFactory)).Select(t => t.RepairFactory).Distinct().ToList();
                 return new Dictionary<string, object> {
-                    { "Intersection",Intersection},
+                    //{ "Intersection",Intersection},
                     { "Direction",Direction},
-                    { "Model",Model},
-                    { "Material",Material},
-                    { "Size",Size},
+                    //{ "Model",Model},
+                    //{ "Material",Material},
+                    //{ "Size",Size},
                     { "Manufacturers",Manufacturers},
-                    {"RepairMode",RepairMode },
-                    {"RepairedCount",RepairedCount },
-                    {"RepairParts",RepairParts },
-                    {"RepairFactory",RepairFactory },
+                    //{"RepairMode",RepairMode },
+                    //{"RepairedCount",RepairedCount },
+                    //{"RepairParts",RepairParts },
+                    //{"RepairFactory",RepairFactory },
                 };
             }
         }

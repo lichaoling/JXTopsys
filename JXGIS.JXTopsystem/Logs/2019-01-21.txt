@@ -1,3 +1,112 @@
 =======2019/1/21 星期一 8:52:38
 |Message:未将对象引用设置到对象的实例。
 |StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48
+=======2019/1/21 星期一 9:57:57
+|Message:值不能为 null。
+参数名: value
+|StackTrace:   在    .(String )
+   在    ..ctor(Node , Regex , String , IReplacingCallback , Boolean )
+   在 Aspose.Words.Range.Replace(String oldValue, String newValue, Boolean isMatchCase, Boolean isMatchWholeWord)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 421
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 167
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/21 星期一 9:59:12
+|Message:值不能为 null。
+参数名: value
+|StackTrace:   在    .(String )
+   在    ..ctor(Node , Regex , String , IReplacingCallback , Boolean )
+   在 Aspose.Words.Range.Replace(String oldValue, String newValue, Boolean isMatchCase, Boolean isMatchWholeWord)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 421
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\MPModify\MPPrintUtils.cs:行号 167
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\MPModifyController.cs:行号 218
+=======2019/1/21 星期一 10:02:30
+|Message:值不能为 null。
+参数名: value
+|StackTrace:   在    .(String )
+   在    ..ctor(Node , Regex , String , IReplacingCallback , Boolean )
+   在 Aspose.Words.Range.Replace(String oldValue, String newValue, Boolean isMatchCase, Boolean isMatchWholeWord)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint()
+=======2019/1/21 星期一 11:10:50
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/21 星期一 11:10:50
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/21 星期一 11:10:52
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/21 星期一 11:10:53
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/21 星期一 11:10:55
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/21 星期一 11:10:55
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/21 星期一 11:10:56
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/21 星期一 11:10:57
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/21 星期一 11:10:58
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/21 星期一 11:10:59
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/21 星期一 11:11:00
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/21 星期一 11:11:01
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/21 星期一 11:11:02
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/21 星期一 11:11:03
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/21 星期一 11:11:04
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/21 星期一 11:11:08
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/21 星期一 11:11:08
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict()
+=======2019/1/21 星期一 11:11:09
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/21 星期一 11:17:58
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.BaseUtils.DataFilterWithTown[T](IQueryable`1 entity)
+   在 JXGIS.JXTopsystem.Business.PlaceName.PlaceNameSearch.SearchPlaceName(Int32 PageSize, Int32 PageNum, String ZYSSType, String DistrictID, String CommunityName, String DMType, String Name, String ZGDW, Nullable`1 start, Nullable`1 end)
+   在 JXGIS.JXTopsystem.Controllers.PlaceNameController.SearchPlaceName(Int32 PageSize, Int32 PageNum, String ZYSSType, String DistrictID, String CommunityName, String DMType, String Name, String ZGDW, Nullable`1 start, Nullable`1 end)
+=======2019/1/21 星期一 11:18:01
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/21 星期一 11:18:08
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.BaseUtils.DataFilterWithTown[T](IQueryable`1 entity)
+   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState)
+=======2019/1/21 星期一 11:18:13
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/21 星期一 12:45:30
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type)
+=======2019/1/21 星期一 12:46:08
+|Message:值不能为 null。
+参数名: value
+|StackTrace:   在    .(String )
+   在    ..ctor(Node , Regex , String , IReplacingCallback , Boolean )
+   在 Aspose.Words.Range.Replace(String oldValue, String newValue, Boolean isMatchCase, Boolean isMatchWholeWord)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.GenerateWord(String templateFile, String fileNameWord, String fileNamePdf, Dictionary`2 bookmarks, String ID)
+   在 JXGIS.JXTopsystem.Business.MPPrintUtils.MPPrintUtils.MPZPrint(List`1 IDs, String MPType)
+   在 JXGIS.JXTopsystem.Controllers.MPModifyController.MPZPrint()
