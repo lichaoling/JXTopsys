@@ -2,6 +2,7 @@
 using JXGIS.JXTopsystem.Models.Extends;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -206,9 +207,9 @@ namespace JXGIS.JXTopsystem.Business.Common
 
         public static void UpdateAddressCode(MPOfResidence zz, MPOfRoad dl, MPOfCountry nc, RP rp, int type)
         {
-            using (var dbContext = SystemUtils.NewEFDbContext)
+            using (var db = SystemUtils.NewEFDbContext)
             {
-                var dis = dbContext.District.Where(t => t.State == Enums.UseState.Enable);
+                var dis = db.District.Where(t => t.State == Enums.UseState.Enable);
                 if (type == Enums.TypeInt.Residence)
                 {
                     var CountyCode = zz.AddressCoding.Substring(0, 2);
@@ -217,10 +218,16 @@ namespace JXGIS.JXTopsystem.Business.Common
                     var neighbor = dis.Where(t => t.ID == zz.NeighborhoodsID).FirstOrDefault();
                     if (county == null || neighbor == null || county.ID != zz.CountyID || neighbor.ID != zz.NeighborhoodsID)
                     {
-                        var othercode = zz.AddressCoding.Substring(zz.AddressCoding.Length - 9);
                         CountyCode = dis.Where(t => t.ID == zz.CountyID).Select(t => t.Code).FirstOrDefault();
                         NeighborhoodsCode = dis.Where(t => t.ID == zz.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                        zz.AddressCoding = CountyCode + NeighborhoodsCode + othercode;
+
+                        var year = zz.BZTime.Value.Year.ToString();
+                        var mpCategory = SystemUtils.Config.MPCategory.Residence.Value.ToString();
+                        var dm = CountyCode + NeighborhoodsCode + year + mpCategory;
+                        SqlParameter idx = new SqlParameter("@idx", System.Data.SqlDbType.Int) { Direction = System.Data.ParameterDirection.Output };
+                        db.Database.ExecuteSqlCommand("exec getcode @code,@idx output;", new SqlParameter("@code", dm), idx);
+                        var index = (int)idx.Value;
+                        zz.AddressCoding = dm + index.ToString().PadLeft(5, '0');
                     }
                 }
                 else if (type == Enums.TypeInt.Road)
@@ -231,10 +238,16 @@ namespace JXGIS.JXTopsystem.Business.Common
                     var neighbor = dis.Where(t => t.Code == NeighborhoodsCode).FirstOrDefault();
                     if (county == null || neighbor == null || county.ID != dl.CountyID || neighbor.ID != dl.NeighborhoodsID)
                     {
-                        var othercode = dl.AddressCoding.Substring(dl.AddressCoding.Length - 9);
                         CountyCode = dis.Where(t => t.ID == dl.CountyID).Select(t => t.Code).FirstOrDefault();
                         NeighborhoodsCode = dis.Where(t => t.ID == dl.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                        dl.AddressCoding = CountyCode + NeighborhoodsCode + othercode;
+
+                        var year = dl.BZTime.Value.Year.ToString();
+                        var mpCategory = SystemUtils.Config.MPCategory.Road.Value.ToString();
+                        var dm = CountyCode + NeighborhoodsCode + year + mpCategory;
+                        SqlParameter idx = new SqlParameter("@idx", System.Data.SqlDbType.Int) { Direction = System.Data.ParameterDirection.Output };
+                        db.Database.ExecuteSqlCommand("exec getcode @code,@idx output;", new SqlParameter("@code", dm), idx);
+                        var index = (int)idx.Value;
+                        dl.AddressCoding = dm + index.ToString().PadLeft(5, '0');
                     }
                 }
                 else if (type == Enums.TypeInt.Country)
@@ -245,10 +258,16 @@ namespace JXGIS.JXTopsystem.Business.Common
                     var neighbor = dis.Where(t => t.Code == NeighborhoodsCode).FirstOrDefault();
                     if (county == null || neighbor == null || county.ID != nc.CountyID || neighbor.ID != nc.NeighborhoodsID)
                     {
-                        var othercode = nc.AddressCoding.Substring(nc.AddressCoding.Length - 9);
                         CountyCode = dis.Where(t => t.ID == nc.CountyID).Select(t => t.Code).FirstOrDefault();
                         NeighborhoodsCode = dis.Where(t => t.ID == nc.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                        nc.AddressCoding = CountyCode + NeighborhoodsCode + othercode;
+
+                        var year = nc.BZTime.Value.Year.ToString();
+                        var mpCategory = SystemUtils.Config.MPCategory.Country.Value.ToString();
+                        var dm = CountyCode + NeighborhoodsCode + year + mpCategory;
+                        SqlParameter idx = new SqlParameter("@idx", System.Data.SqlDbType.Int) { Direction = System.Data.ParameterDirection.Output };
+                        db.Database.ExecuteSqlCommand("exec getcode @code,@idx output;", new SqlParameter("@code", dm), idx);
+                        var index = (int)idx.Value;
+                        nc.AddressCoding = dm + index.ToString().PadLeft(5, '0');
                     }
                 }
                 else if (type == Enums.TypeInt.RP)
@@ -259,13 +278,18 @@ namespace JXGIS.JXTopsystem.Business.Common
                     var neighbor = dis.Where(t => t.Code == NeighborhoodsCode).FirstOrDefault();
                     if (county == null || neighbor == null || county.ID != rp.CountyID || neighbor.ID != rp.NeighborhoodsID)
                     {
-                        var othercode = rp.AddressCoding.Substring(rp.AddressCoding.Length - 7);
                         CountyCode = dis.Where(t => t.ID == rp.CountyID).Select(t => t.Code).FirstOrDefault();
                         NeighborhoodsCode = dis.Where(t => t.ID == rp.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
-                        rp.AddressCoding = CountyCode + NeighborhoodsCode + othercode;
+
+                        var year = rp.BZTime.Value.Year.ToString();
+                        var dm = CountyCode + NeighborhoodsCode + year;
+                        SqlParameter idx = new SqlParameter("@idx", System.Data.SqlDbType.Int) { Direction = System.Data.ParameterDirection.Output };
+                        db.Database.ExecuteSqlCommand("exec getcode @code,@idx output;", new SqlParameter("@code", dm), idx);
+                        var index = (int)idx.Value;
+                        rp.AddressCoding = dm + index.ToString().PadLeft(3, '0');
                     }
                 }
-                dbContext.SaveChanges();
+                db.SaveChanges();
             }
         }
 

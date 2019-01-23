@@ -197,17 +197,16 @@ namespace JXGIS.JXTopsystem.Business.Common
         #region 社区名、道路名、小区名、自然村名是动态在字典中添加
         public static void AddCommunityDic(CommunityDic communityDic)
         {
-            using (var dbContext = SystemUtils.NewEFDbContext)
+            if (!string.IsNullOrEmpty(communityDic.CommunityName))
             {
-                if (string.IsNullOrEmpty(communityDic.CommunityName))
-                    communityDic.CommunityName = null;
-
-                var query = dbContext.CommunityDic.Where(t => t.CountyID == communityDic.CountyID).Where(t => t.NeighborhoodsID == communityDic.NeighborhoodsID).Where(t => t.CommunityName == communityDic.CommunityName).Where(t => t.CommunityName == communityDic.CommunityName).FirstOrDefault();
-                if (query == null)
+                using (var dbContext = SystemUtils.NewEFDbContext)
                 {
-                    communityDic.ID = Guid.NewGuid().ToString();
-                    dbContext.CommunityDic.Add(communityDic);
-                    dbContext.SaveChanges();
+                    var query = dbContext.CommunityDic.Where(t => t.CountyID == communityDic.CountyID).Where(t => t.NeighborhoodsID == communityDic.NeighborhoodsID).Where(t => t.CommunityName == communityDic.CommunityName).Where(t => t.CommunityName == communityDic.CommunityName).FirstOrDefault();
+                    if (query == null)
+                    {
+                        dbContext.CommunityDic.Add(communityDic);
+                        dbContext.SaveChanges();
+                    }
                 }
             }
         }

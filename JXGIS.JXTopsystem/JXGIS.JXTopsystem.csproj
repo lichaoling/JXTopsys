@@ -244,6 +244,7 @@
     <Compile Include="Business\Common\PictureUtils.cs" />
     <Compile Include="Business\Common\PinYinConverterHelp.cs" />
     <Compile Include="Business\Common\RoadUtils.cs" />
+    <Compile Include="Business\DataPush\DataPushUtils.cs" />
     <Compile Include="Business\Login\LoginUtils.cs" />
     <Compile Include="Business\Login\RSACryptoService.cs" />
     <Compile Include="Business\Login\SecurityUtils.cs" />
@@ -395,6 +396,7 @@
     <Folder Include="Files\MPProduce\" />
     <Folder Include="Logs\" />
     <Folder Include="Views\PlaceName\" />
+    <Folder Include="Views\Test\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

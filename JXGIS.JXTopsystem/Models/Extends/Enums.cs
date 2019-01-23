@@ -44,6 +44,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         {
             public const string ZYSS = "专业设施地名";
         }
+
         public static class TypeInt
         {
             public const int Residence = 1;

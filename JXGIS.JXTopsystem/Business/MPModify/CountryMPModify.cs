@@ -6,6 +6,7 @@ using JXGIS.JXTopsystem.Models.Extends;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -19,10 +20,10 @@ namespace JXGIS.JXTopsystem.Business.MPModify
     {
         public static void ModifyCountryMP(string oldDataJson)
         {
-            using (var dbContext = SystemUtils.NewEFDbContext)
+            using (var db = SystemUtils.NewEFDbContext)
             {
                 var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<MPOfCountry>(oldDataJson);
-                var targetData = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
+                var targetData = db.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
                 var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
                 if (targetData == null) //新增
                 {
@@ -37,12 +38,15 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                         throw new Exception("该农村门牌已经存在，请检查后重新输入！");
                     #endregion
                     #region 地址编码前10位拼接
-                    var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.CountyID).Select(t => t.Code).FirstOrDefault();
-                    var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+                    var CountyCode = db.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.CountyID).Select(t => t.Code).FirstOrDefault();
+                    var NeighborhoodsCode = db.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                     var mpCategory = SystemUtils.Config.MPCategory.Country.Value.ToString();
                     var year = targetData.BZTime == null ? DateTime.Now.Year.ToString() : ((DateTime)(targetData.BZTime)).Year.ToString();
-                    var AddressCoding = CountyCode + NeighborhoodsCode + year + mpCategory;
-                    targetData.AddressCoding = AddressCoding;
+                    var dm = CountyCode + NeighborhoodsCode + year + mpCategory;
+                    SqlParameter idx = new SqlParameter("@idx", System.Data.SqlDbType.Int) { Direction = System.Data.ParameterDirection.Output };
+                    db.Database.ExecuteSqlCommand("exec getcode @code,@idx output;", new SqlParameter("@code", dm), idx);
+                    var index = (int)idx.Value;
+                    targetData.AddressCoding = dm + index.ToString().PadLeft(5, '0');
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
@@ -77,7 +81,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     targetData.MPMail = targetData.MPMail == null ? Enums.MPMail.No : targetData.MPMail;
                     targetData.CreateTime = DateTime.Now;
                     targetData.CreateUser = LoginUtils.CurrentUser.UserName;
-                    dbContext.MPOfCountry.Add(targetData);
+                    db.MPOfCountry.Add(targetData);
                 }
                 else //修改
                 {
@@ -118,7 +122,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     BaseUtils.UpdateAddressCode(null, null, targetData, null, Enums.TypeInt.Country);
                 }
-                dbContext.SaveChanges();
+                db.SaveChanges();
             }
         }
 
