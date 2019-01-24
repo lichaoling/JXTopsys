@@ -40,7 +40,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 //交叉路口筛选
                 if (!string.IsNullOrEmpty(Intersection))
                 {
-                    query = query.Where(t => t.Intersection == Intersection);
+                    query = query.Where(t => t.Intersection.Contains(Intersection));
                 }
 
                 //方位
