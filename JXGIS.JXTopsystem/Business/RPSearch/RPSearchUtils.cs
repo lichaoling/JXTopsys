@@ -14,7 +14,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
 {
     public class RPSearchUtils
     {
-        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState)
+        public static Dictionary<string, object> SearchRP(int PageSize, int PageNum, string DistrictID, string CommunityName, string RoadName, string Intersection, string Direction, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState)
         {
             int count = 0;
             List<RPDetails> data = null;
@@ -31,10 +31,22 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                     query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID);
                 }
 
+                //社区
+                if (!string.IsNullOrEmpty(CommunityName))
+                {
+                    query = query.Where(t => t.CommunityName == CommunityName);
+                }
+
                 //交叉路口筛选
                 if (!string.IsNullOrEmpty(Intersection))
                 {
                     query = query.Where(t => t.Intersection == Intersection);
+                }
+
+                //方位
+                if (!string.IsNullOrEmpty(Direction))
+                {
+                    query = query.Where(t => t.Direction == Direction);
                 }
 
                 //样式筛选

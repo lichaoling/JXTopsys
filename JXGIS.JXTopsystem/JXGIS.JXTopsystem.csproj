@@ -317,6 +317,17 @@
     <Compile Include="Models\Extends\ArchiveFile\BaseInfoDescription.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ProcessInfoDescription.cs" />
     <Compile Include="Models\Extends\Certificate.cs" />
+    <Compile Include="Models\Extends\DataPush\DW.cs" />
+    <Compile Include="Models\Extends\DataPush\HY.cs" />
+    <Compile Include="Models\Extends\DataPush\FXZQY.cs" />
+    <Compile Include="Models\Extends\DataPush\JMD.cs" />
+    <Compile Include="Models\Extends\DataPush\JTYS.cs" />
+    <Compile Include="Models\Extends\DataPush\JZW.cs" />
+    <Compile Include="Models\Extends\DataPush\LYJD.cs" />
+    <Compile Include="Models\Extends\DataPush\QZZZ.cs" />
+    <Compile Include="Models\Extends\DataPush\SLDLTX.cs" />
+    <Compile Include="Models\Extends\DataPush\SX.cs" />
+    <Compile Include="Models\Extends\DataPush\XZQY.cs" />
     <Compile Include="Models\Extends\DistrictDetails.cs" />
     <Compile Include="Models\Extends\Group.cs" />
     <Compile Include="Models\Extends\GroupX.cs" />

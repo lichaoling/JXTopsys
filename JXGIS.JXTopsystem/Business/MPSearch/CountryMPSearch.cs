@@ -54,12 +54,12 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    data1 = query.OrderBy(t=>t.CountyID).OrderBy(t=>t.NeighborhoodsID).OrderBy(t=>t.CommunityName).OrderBy(t => t.ViligeName).OrderBy(t => t.MPNumber).ToList();
+                    data1 = query.OrderBy(t=>t.NeighborhoodsID).ThenBy(t=>t.CommunityName).ThenBy(t => t.ViligeName).ThenBy(t => t.MPNumber).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    data1 = query.OrderBy(t => t.CountyID).OrderBy(t => t.NeighborhoodsID).OrderBy(t => t.CommunityName).OrderBy(t => t.ViligeName).OrderBy(t => t.MPNumber).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                    data1 = query.OrderBy(t => t.NeighborhoodsID).ThenBy(t => t.CommunityName).ThenBy(t => t.ViligeName).ThenBy(t => t.MPNumber).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
                 data = (from t in data1
                         select new CountryMPDetails
