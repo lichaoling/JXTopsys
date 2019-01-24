@@ -46,7 +46,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 //方位
                 if (!string.IsNullOrEmpty(Direction))
                 {
-                    query = query.Where(t => t.Direction == Direction);
+                    query = query.Where(t => t.Direction.Contains(Direction));
                 }
 
                 //样式筛选
@@ -101,7 +101,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 //道路名称筛选
                 if (!string.IsNullOrEmpty(RoadName))
                 {
-                    query = query.Where(t => t.RoadName == RoadName);
+                    query = query.Where(t => t.RoadName.Contains(RoadName));
                 }
 
                 //起止二维码编码删选
@@ -245,9 +245,9 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
             }
         }
 
-        public static MemoryStream ExportRP(string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState)
+        public static MemoryStream ExportRP(string DistrictID, string CommunityName, string RoadName, string Intersection, string Direction, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState)
         {
-            Dictionary<string, object> dict = SearchRP(-1, -1, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, RepairState, UseState);
+            Dictionary<string, object> dict = SearchRP(-1, -1, DistrictID, CommunityName, RoadName, Intersection, Direction, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, RepairState, UseState);
 
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)

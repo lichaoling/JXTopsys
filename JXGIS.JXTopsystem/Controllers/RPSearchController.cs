@@ -17,12 +17,12 @@ namespace JXGIS.JXTopsystem.Controllers
     public class RPSearchController : Controller
     {
         [LoggerFilter(Description = "查询路牌")]
-        public ContentResult SearchRP(int PageSize, int PageNum, string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState = Enums.UseState.Enable)
+        public ContentResult SearchRP(int PageSize, int PageNum, string DistrictID, string CommunityName, string RoadName, string Intersection, string Direction, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
             try
             {
-                var r = RPSearchUtils.SearchRP(PageSize, PageNum, DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, RepairState, UseState);
+                var r = RPSearchUtils.SearchRP(PageSize, PageNum, DistrictID, CommunityName, RoadName, Intersection, Direction, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, RepairState, UseState);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -36,7 +36,7 @@ namespace JXGIS.JXTopsystem.Controllers
         }
 
 
-        public JsonResult GetConditionOfRP(string DistrictID, string RoadName, string Intersection, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState = Enums.UseState.Enable)
+        public JsonResult GetConditionOfRP(string DistrictID, string CommunityName, string RoadName, string Intersection, string Direction, string Model, string Size, string Material, string Manufacturers, string FrontTagline, string BackTagline, DateTime? start, DateTime? end, int? startCode, int? endCode, int? RepairState, int UseState = Enums.UseState.Enable)
         {
             RtObj rt = null;
             try
@@ -74,8 +74,10 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 rt = new RtObj();
                 var DistrictID = Session["_RPDistrictID"] != null ? Session["_RPDistrictID"].ToString() : null;
+                var CommunityName = Session["_RPCommunityName"] != null ? Session["_RPCommunityName"].ToString() : null;
                 var RoadName = Session["_RPRoadName"] != null ? Session["_RPRoadName"].ToString() : null;
                 var Intersection = Session["_RPIntersection"] != null ? Session["_RPIntersection"].ToString() : null;
+                var Direction = Session["_RPDirection"] != null ? Session["_RPDirection"].ToString() : null;
                 var Model = Session["_RPModel"] != null ? Session["_RPModel"].ToString() : null;
                 var Size = Session["_RPSize"] != null ? Session["_RPSize"].ToString() : null;
                 var Material = Session["_RPMaterial"] != null ? Session["_RPMaterial"].ToString() : null;
@@ -89,11 +91,13 @@ namespace JXGIS.JXTopsystem.Controllers
                 var UseState = Session["_RPUseState"] != null ? (int)Session["_RPUseState"] : Enums.UseState.Enable;
                 var RepairState = Session["_RPRepairState"] != null ? (int)Session["_RPRepairState"] : 2;
 
-                var ms = RPSearchUtils.ExportRP(DistrictID, RoadName, Intersection, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, RepairState, UseState);
+                var ms = RPSearchUtils.ExportRP(DistrictID, CommunityName, RoadName, Intersection, Direction, Model, Size, Material, Manufacturers, FrontTagline, BackTagline, start, end, startCode, endCode, RepairState, UseState);
 
                 Session["_RPDistrictID"] = null;
+                Session["_RPCommunityName"] = null;
                 Session["_RPRoadName"] = null;
                 Session["_RPIntersection"] = null;
+                Session["_RPDirection"] = null;
                 Session["_RPModel"] = null;
                 Session["_RPSize"] = null;
                 Session["_RPMaterial"] = null;
