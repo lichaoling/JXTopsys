@@ -30,7 +30,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 }
                 if (!string.IsNullOrEmpty(CommunityName))
                 {
-                    query = query.Where(t => t.CommunityName == CommunityName);
+                    query = query.Where(t => t.CommunityName.Contains(CommunityName));
                 }
                 if (!string.IsNullOrEmpty(ViligeName))
                 {
