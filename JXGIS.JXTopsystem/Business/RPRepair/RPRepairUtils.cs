@@ -156,6 +156,10 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                     {
 
                     }
+                    else if (sourceData.RepairMode == Enums.RPRepairMode.Del)//拆回
+                    {
+
+                    }
                     Models.Entities.RPRepair rpRepair = new Models.Entities.RPRepair();
                     rpRepair.ID = sourceData.ID;
                     rpRepair.RPID = sourceData.RPID;
@@ -192,7 +196,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var RP = dbContext.RP.Where(t => t.ID == RPID).FirstOrDefault();
-                var rpr = dbContext.RPRepair.Where(t => t.RPID == RPID);
+                var rpr = dbContext.RPRepair.Where(t => t.RPID == RPID).Where(t => t.RepairMode == Enums.RPRepairMode.Change || t.RepairMode == Enums.RPRepairMode.Repair);
                 RP.RepairedCount = rpr.Count();
                 RP.FinishRepaire = rpr.Where(t => t.FinishRepaireTime == null).Count() > 0 ? Enums.RPRepairFinish.No : Enums.RPRepairFinish.Yes;
                 dbContext.SaveChanges();

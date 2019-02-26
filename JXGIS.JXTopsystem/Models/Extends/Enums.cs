@@ -105,6 +105,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         {
             public const string Repair = "维修";
             public const string Change = "更换";
+            public const string Del = "拆回";
             public const int All = 3;
         }
         public static class RPRange
