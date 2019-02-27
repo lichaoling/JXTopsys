@@ -1,0 +1,8 @@
+=======2019/2/26 星期二 14:48:02
+|Message:该路牌已经存在，请检查后重新输入！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.RPModify.RPModifyUtils.ModifyRP(String oldDataJson) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\RPModify\RPModifyUtils.cs:行号 37
+   在 JXGIS.JXTopsystem.Controllers.RPModifyController.ModifyRP(String oldDataJson) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\RPModifyController.cs:行号 22
+=======2019/2/26 星期二 14:51:48
+|Message:该路牌已经存在，请检查后重新输入！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.RPModify.RPModifyUtils.ModifyRP(String oldDataJson) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\RPModify\RPModifyUtils.cs:行号 38
+   在 JXGIS.JXTopsystem.Controllers.RPModifyController.ModifyRP(String oldDataJson) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\RPModifyController.cs:行号 22

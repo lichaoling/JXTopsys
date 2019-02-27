@@ -195,10 +195,18 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var RP = dbContext.RP.Where(t => t.ID == RPID).FirstOrDefault();
+                var rp = dbContext.RP.Where(t => t.ID == RPID).FirstOrDefault();
                 var rpr = dbContext.RPRepair.Where(t => t.RPID == RPID).Where(t => t.RepairMode == Enums.RPRepairMode.Change || t.RepairMode == Enums.RPRepairMode.Repair);
-                RP.RepairedCount = rpr.Count();
-                RP.FinishRepaire = rpr.Where(t => t.FinishRepaireTime == null).Count() > 0 ? Enums.RPRepairFinish.No : Enums.RPRepairFinish.Yes;
+                rp.RepairedCount = rpr.Count();
+                rp.FinishRepaire = rpr.Where(t => t.FinishRepaireTime == null).Count() > 0 ? Enums.RPRepairFinish.No : Enums.RPRepairFinish.Yes;
+                if (rp.FinishRepaire == Enums.RPRepairFinish.Yes)
+                {
+                    rp.FinishRepaireTime = rpr.Max(t => t.FinishRepaireTime);
+                }
+                else
+                {
+                    rp.FinishRepaireTime = null;
+                }
                 dbContext.SaveChanges();
             }
         }

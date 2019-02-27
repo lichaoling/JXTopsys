@@ -3,6 +3,7 @@ using JXGIS.JXTopsystem.Controllers;
 using JXGIS.JXTopsystem.Models;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using QRCoder;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,11 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
                     #region 权限检查
                     if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
-                        throw new Exception("无权操作其他镇街数据！");
+                        throw new Error("无权操作其他镇街数据！");
+                    #endregion
+                    #region 重复性检查
+                    if (!CheckRPIsAvailable(targetData.ID, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.RoadName, targetData.Intersection, targetData.Direction))
+                        throw new Error("该路牌已经存在，请检查后重新输入！");
                     #endregion
                     #region 地址编码前10位拼接
                     var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.CountyID).Select(t => t.Code).FirstOrDefault();
@@ -63,9 +68,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     targetData.State = Enums.UseState.Enable;
                     targetData.CreateTime = DateTime.Now;
                     targetData.CreateUser = LoginUtils.CurrentUser.UserName;
-
-
-
+                    
                     //生成二维码图和缩略图并保存
                     //var tt = dbContext.RP.Max(t => t.Code);
                     targetData.Code = (int)dbContext.Database.SqlQuery<Int64>("select next value for sqc_rp_qrcode").FirstOrDefault();
@@ -228,5 +231,16 @@ namespace JXGIS.JXTopsystem.Business.RPModify
         //    }
 
         //}
+
+
+
+        public static bool CheckRPIsAvailable(string ID, string CountyID, string NeighborhoodsID, string CommunityName, string RoadName, string Intersection, string Direction)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var count = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID != ID).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityName == CommunityName).Where(t => t.RoadName == RoadName).Where(t => t.Intersection == Intersection).Where(t => t.Direction == Direction).Count();
+                return count == 0;
+            }
+        }
     }
 }

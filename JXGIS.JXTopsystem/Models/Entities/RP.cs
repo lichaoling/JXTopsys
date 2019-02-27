@@ -40,6 +40,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string Management { get; set; }
         public int RepairedCount { get; set; }
         public int FinishRepaire { get; set; }
+        public DateTime? FinishRepaireTime { get; set; }
         public DateTime? BZTime { get; set; }
         public DateTime? CreateTime { get; set; }
         public string CreateUser { get; set; }

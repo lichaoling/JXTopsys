@@ -133,12 +133,12 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    data1 = query.OrderBy(t => t.NeighborhoodsID).ThenBy(t => t.CommunityName).ThenBy(t => t.RoadName).ThenBy(t => t.Code).ToList();
+                    data1 = query.OrderBy(t => t.NeighborhoodsID).ThenBy(t => t.RoadName).ThenBy(t => t.Code).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    data1 = query.OrderBy(t => t.NeighborhoodsID).ThenBy(t => t.CommunityName).ThenBy(t => t.RoadName).ThenBy(t => t.Code).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                    data1 = query.OrderBy(t => t.NeighborhoodsID).ThenBy(t => t.RoadName).ThenBy(t => t.Code).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
 
                 data = (from t in data1
