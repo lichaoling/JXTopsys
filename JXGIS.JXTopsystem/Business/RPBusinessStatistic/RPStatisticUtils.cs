@@ -76,7 +76,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                              Count = g.Count(),
                          };
                 var count = re.Count();
-                var result = re.OrderBy(t => t.NeighborhoodsID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                var result = re.OrderBy(t => t.NeighborhoodsID).ThenBy(t => t.CommunityName).ThenBy(t => t.RoadName).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 var data = from t in result
                            select new
                            {
@@ -170,12 +170,12 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    data = rps.OrderBy(t => t.NeighborhoodsID).ThenBy(t => t.RoadName).ThenBy(t => t.Intersection).ToList();
+                    data = rps.OrderBy(t => t.NeighborhoodsID).ThenByDescending(t => t.FinishRepaireTime).ThenBy(t => t.RoadName).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    data = rps.OrderBy(t => t.NeighborhoodsID).ThenBy(t => t.RoadName).ThenBy(t => t.Intersection).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                    data = rps.OrderBy(t => t.NeighborhoodsID).ThenByDescending(t => t.FinishRepaireTime).ThenBy(t => t.RoadName).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
 
                 var result = (from t in data

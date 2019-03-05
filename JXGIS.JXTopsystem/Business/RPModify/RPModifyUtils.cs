@@ -8,6 +8,7 @@ using QRCoder;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -41,8 +42,11 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     var CountyCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.CountyID).Select(t => t.Code).FirstOrDefault();
                     var NeighborhoodsCode = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
                     var year = DateTime.Now.Year.ToString();
-                    var AddressCoding = CountyCode + NeighborhoodsCode + year;
-                    targetData.AddressCoding = AddressCoding;
+                    var dm = CountyCode + NeighborhoodsCode + year;
+                    SqlParameter idx = new SqlParameter("@idx", System.Data.SqlDbType.Int) { Direction = System.Data.ParameterDirection.Output };
+                    dbContext.Database.ExecuteSqlCommand("exec getcode @code,@idx output;", new SqlParameter("@code", dm), idx);
+                    var index = (int)idx.Value;
+                    targetData.AddressCoding = dm + index.ToString().PadLeft(3, '0');
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
