@@ -10,8 +10,8 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Models.Entities
 {
-    [Table("PLACENAME")]
-    public class PlaceName : IBaseEntityWithNeighborhoodsID
+    [Table("DMOFZYSS")]
+    public class DMOFZYSS : IBaseEntityWithNeighborhoodsID
     {
         [Key]
         public string ID { get; set; }
@@ -146,7 +146,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         [NotMapped]
         public List<Pictures> SJT { get; set; }
 
-        private static PropertyInfo[] props = typeof(PlaceName).GetProperties();
+        private static PropertyInfo[] props = typeof(DMOFZYSS).GetProperties();
         public object this[string key]
         {
             get

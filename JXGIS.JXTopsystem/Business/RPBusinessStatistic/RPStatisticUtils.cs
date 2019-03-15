@@ -115,7 +115,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
         /// <param name="FinishTimeStart"></param>
         /// <param name="FinishTimeEnd"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, string RepairMode, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, DateTime? FinishTimeStart, DateTime? FinishTimeEnd)
+        public static Dictionary<string, object> GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, string RepairMode, string BXFS, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, DateTime? FinishTimeStart, DateTime? FinishTimeEnd)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -123,6 +123,10 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 if (!string.IsNullOrEmpty(RepairMode))
                 {
                     query = query.Where(t => t.RepairMode == RepairMode);
+                }
+                if (!string.IsNullOrEmpty(BXFS))
+                {
+                    query = query.Where(t => t.BXFS == BXFS);
                 }
                 if (!string.IsNullOrEmpty(RepairParts))
                 {
@@ -190,12 +194,19 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                                   RoadName = t.RoadName,
                                   Intersection = t.Intersection,
                                   Direction = t.Direction,
+                                  RoadStart = t.RoadStart,
+                                  RoadEnd = t.RoadEnd,
                                   BZTime = t.BZTime,
                                   CreateTime = t.CreateTime,
                                   RepairedCount = t.RepairedCount,
                                   FinishRepaireTime = t.FinishRepaireTime,
                                   Lat = t.Position != null ? t.Position.Latitude : null,
                                   Lng = t.Position != null ? t.Position.Longitude : null,
+
+                                  RepairParts = dbContext.RPRepair.Where(s => s.RPID == t.ID).Select(s => s.RepairParts).FirstOrDefault(),
+                                  RepairContent = dbContext.RPRepair.Where(s => s.RPID == t.ID).Select(s => s.RepairContent).FirstOrDefault(),
+                                  RepairTime = dbContext.RPRepair.Where(s => s.RPID == t.ID).Select(s => s.RepairTime).FirstOrDefault()
+
                               }).ToList();
                 //关联路牌照片 重组url
                 List<RPDetails> rt = new List<RPDetails>();
@@ -226,16 +237,16 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
             }
         }
 
-        public static MemoryStream ExportRPRepairTJ(string DistrictID, string CommunityName, string RepairMode, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, DateTime? FinishTimeStart, DateTime? FinishTimeEnd)
+        public static MemoryStream ExportRPRepairTJ(string DistrictID, string CommunityName, string RepairMode, string BXFS, int RepairedCount, string RepairParts, string RepairContent, string RepairFactory, int isFinishRepair, DateTime? FinishTimeStart, DateTime? FinishTimeEnd)
         {
-            Dictionary<string, object> dict = GetRPRepairTJ(-1, -1, DistrictID, CommunityName, RepairMode, RepairedCount, RepairParts, RepairContent, RepairFactory, isFinishRepair, FinishTimeStart, FinishTimeEnd);
+            Dictionary<string, object> dict = GetRPRepairTJ(-1, -1, DistrictID, CommunityName, RepairMode, BXFS, RepairedCount, RepairParts, RepairContent, RepairFactory, isFinishRepair, FinishTimeStart, FinishTimeEnd);
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
             var Data = dict["Data"] as List<RPDetails>;
             Workbook wb = new Workbook();
             Worksheet ws = wb.Worksheets[0];
-            ws.Name = Enums.MPTypeCh.Road;
+            ws.Name = "路牌";
             Aspose.Cells.Style styleHeader = wb.Styles[wb.Styles.Add()];
             styleHeader.Pattern = Aspose.Cells.BackgroundType.Solid;
             styleHeader.HorizontalAlignment = Aspose.Cells.TextAlignmentType.Center;
@@ -263,6 +274,9 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 new ExcelFields() { Field="维修次数",Alias="RepairedCount"},
                 new ExcelFields() { Field="纬度",Alias="Lat"},
                 new ExcelFields() { Field="经度",Alias="Lng"},
+                new ExcelFields() { Field="维修部位",Alias="RepairParts"},
+                new ExcelFields() { Field="维修内容",Alias="RepairContent"},
+                new ExcelFields() { Field="报修时间",Alias="RepairTime"},
             };
             //写入表头
             for (int i = 0, l = Fields.Count; i < l; i++)
@@ -279,13 +293,14 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 {
                     var field = Fields[j];
                     var value = row[field.Alias];
-                    if (field.Field == "设置时间")
+                    if (field.Field == "设置时间" || field.Field == "报修时间")
                     {
                         IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
                         timeConverter.DateTimeFormat = "yyyy-MM-dd";
                         string rt = Newtonsoft.Json.JsonConvert.SerializeObject(value, timeConverter);
                         value = rt.Replace("\"", "");
                     }
+
                     ws.Cells[i + 1, j].PutValue(value);
                     ws.Cells[i + 1, j].SetStyle(styleData);
                 }

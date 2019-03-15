@@ -24,6 +24,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string RoadName { get; set; }
         public string Intersection { get; set; }
         public string Direction { get; set; }
+        public string RoadStart { get; set; }
+        public string RoadEnd { get; set; }
         public string BZRules { get; set; }
         public string StartEndNum { get; set; }
         public DbGeography Position { get; set; }

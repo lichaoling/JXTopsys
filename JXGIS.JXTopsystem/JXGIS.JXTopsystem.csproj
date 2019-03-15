@@ -299,7 +299,7 @@
     <Compile Include="Models\Entities\MPOfResidence.cs" />
     <Compile Include="Models\Entities\MPOfRoad.cs" />
     <Compile Include="Models\Entities\OracleDBContext.cs" />
-    <Compile Include="Models\Entities\PlaceName.cs" />
+    <Compile Include="Models\Entities\DMOFZYSS.cs" />
     <Compile Include="Models\Entities\POI.cs" />
     <Compile Include="Models\Entities\PostcodeDic.cs" />
     <Compile Include="Models\Entities\ResidenceDic.cs" />

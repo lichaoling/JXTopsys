@@ -51,7 +51,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
 
         public DbSet<CPrivilege> CPrivilege { get; set; }
         public DbSet<V_MPNUMSTATISTIC> V_MPNUMSTATISTIC { get; set; }
-        public DbSet<PlaceName> PlaceName { get; set; }
+        public DbSet<DMOFZYSS> PlaceName { get; set; }
         public DbSet<DMOfUploadFiles> DMOfUploadFiles { get; set; }
     }
 }

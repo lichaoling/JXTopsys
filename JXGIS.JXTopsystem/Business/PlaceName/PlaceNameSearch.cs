@@ -19,8 +19,8 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
             using (var db = SystemUtils.NewEFDbContext)
             {
                 List<string> DMLBTypes = new List<string>();
-                IQueryable<Models.Entities.PlaceName> query = db.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ZYSSType == ZYSSType);
-                query = BaseUtils.DataFilterWithTown<Models.Entities.PlaceName>(query);
+                IQueryable<Models.Entities.DMOFZYSS> query = db.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ZYSSType == ZYSSType);
+                query = BaseUtils.DataFilterWithTown<Models.Entities.DMOFZYSS>(query);
                 if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))
                 {
                     query = query.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID);
@@ -45,7 +45,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var query = dbContext.PlaceName.Where(t => t.State == 1);
-                query = BaseUtils.DataFilterWithTown<Models.Entities.PlaceName>(query);
+                query = BaseUtils.DataFilterWithTown<Models.Entities.DMOFZYSS>(query);
                 if (!string.IsNullOrEmpty(ZYSSType))
                 {
                     query = query.Where(t => t.ZYSSType == ZYSSType);
@@ -78,7 +78,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                         query = query.Where(t => t.ApplicantDate <= end);
                 }
                 count = query.Count();
-                List<Models.Entities.PlaceName> result;
+                List<Models.Entities.DMOFZYSS> result;
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
@@ -101,7 +101,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
         /// 根据一条住宅门牌数据的ID来查详情
         /// </summary>
         /// <param name="ID"></param>
-        public static Models.Entities.PlaceName SearchPlaceNameByID(string ID)
+        public static Models.Entities.DMOFZYSS SearchPlaceNameByID(string ID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -171,7 +171,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
                 throw new Exception("数据量过大，请缩小查询范围后再导出！");
-            var Data = dict["Data"] as List<Models.Entities.PlaceName>;
+            var Data = dict["Data"] as List<Models.Entities.DMOFZYSS>;
 
             Workbook wb = new Workbook();
             Worksheet ws = wb.Worksheets[0];
@@ -270,12 +270,12 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Entities.PlaceName>(oldDataJson);
+                var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Entities.DMOFZYSS>(oldDataJson);
                 var targetData = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
                 var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
                 if (targetData == null) //新增
                 {
-                    targetData = new Models.Entities.PlaceName();
+                    targetData = new Models.Entities.DMOFZYSS();
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
                     #region 权限检查
                     var districtID = targetData.NeighborhoodsID == null ? targetData.CountyID : targetData.NeighborhoodsID;

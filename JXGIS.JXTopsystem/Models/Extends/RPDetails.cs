@@ -29,6 +29,13 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public List<Pictures> RPBZPhoto { get; set; }
         public List<RPRepair> RepairInfos { get; set; }
 
+        //加其中一个维修记录的维修内容、维修部位、报修时间
+        public string RepairParts { get; set; }
+        public string RepairContent { get; set; }
+        public DateTime? RepairTime { get; set; }
+
+
+
         private static PropertyInfo[] props = typeof(RPDetails).GetProperties();
         public object this[string key]
         {

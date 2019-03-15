@@ -32,12 +32,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
         [LoggerFilter(Description = "获取路牌维修统计")]
-        public ContentResult GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, string RepairMode, string RepairParts, string RepairContent, string RepairFactory, DateTime? FinishTimeStart, DateTime? FinishTimeEnd, int RepairedCount = -1, int isFinishRepair = Enums.Complete.All)
+        public ContentResult GetRPRepairTJ(int PageSize, int PageNum, string DistrictID, string CommunityName, string RepairMode, string BXFS, string RepairParts, string RepairContent, string RepairFactory, DateTime? FinishTimeStart, DateTime? FinishTimeEnd, int RepairedCount = -1, int isFinishRepair = Enums.Complete.All)
         {
             RtObj rt = null;
             try
             {
-                var r = RPStatisticUtils.GetRPRepairTJ(PageSize, PageNum, DistrictID, CommunityName, RepairMode, RepairedCount, RepairParts, RepairContent, RepairFactory, isFinishRepair, FinishTimeStart, FinishTimeEnd);
+                var r = RPStatisticUtils.GetRPRepairTJ(PageSize, PageNum, DistrictID, CommunityName, RepairMode, BXFS, RepairedCount, RepairParts, RepairContent, RepairFactory, isFinishRepair, FinishTimeStart, FinishTimeEnd);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -51,7 +51,7 @@ namespace JXGIS.JXTopsystem.Controllers
         }
 
 
-        public JsonResult GetConditionOfRPRepairTJ(string DistrictID, string CommunityName, string RepairMode, string RepairParts, string RepairContent, string RepairFactory, DateTime? FinishTimeStart, DateTime? FinishTimeEnd, int RepairedCount = -1, int isFinishRepair = Enums.Complete.All)
+        public JsonResult GetConditionOfRPRepairTJ(string DistrictID, string CommunityName, string RepairMode, string BXFS, string RepairParts, string RepairContent, string RepairFactory, DateTime? FinishTimeStart, DateTime? FinishTimeEnd, int RepairedCount = -1, int isFinishRepair = Enums.Complete.All)
         {
             RtObj rt = null;
             try
@@ -59,6 +59,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 Session["_RPRepairTJDistrictID"] = DistrictID;
                 Session["_RPRepairTJCommunityName"] = CommunityName;
                 Session["_RPRepairTJRepairMode"] = RepairMode;
+                Session["_RPRepairTJBXFS"] = BXFS;
                 Session["_RPRepairTJRepairParts"] = RepairParts;
                 Session["_RPRepairTJRepairContent"] = RepairContent;
                 Session["_RPRepairTJRepairFactory"] = RepairFactory;
@@ -85,6 +86,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 var DistrictID = Session["_RPRepairTJDistrictID"] != null ? Session["_RPRepairTJDistrictID"].ToString() : null;
                 var CommunityName = Session["_RPRepairTJCommunityName"] != null ? Session["_RPRepairTJCommunityName"].ToString() : null;
                 var RepairMode = Session["_RPRepairTJRepairMode"] != null ? Session["_RPRepairTJRepairMode"].ToString() : null;
+                var BXFS = Session["_RPRepairTJBXFS"] != null ? Session["_RPRepairTJBXFS"].ToString() : null;
                 var RepairParts = Session["_RPRepairTJRepairParts"] != null ? Session["_RPRepairTJRepairParts"].ToString() : null;
                 var RepairContent = Session["_RPRepairTJRepairContent"] != null ? Session["_RPRepairTJRepairContent"].ToString() : null;
                 var RepairFactory = Session["_RPRepairTJRepairFactory"] != null ? Session["_RPRepairTJRepairFactory"].ToString() : null;
@@ -92,11 +94,12 @@ namespace JXGIS.JXTopsystem.Controllers
                 var FinishTimeEnd = Session["_RPRepairTJFinishTimeEnd"] != null ? (DateTime?)Session["_RPRepairTJFinishTimeEnd"] : null;
                 var RepairedCount = Session["_RPRepairTJRepairedCount"] != null ? (int)Session["_RPRepairTJRepairedCount"] : -1;
                 var isFinishRepair = Session["_RPRepairTJisFinishRepair"] != null ? (int)Session["_RPRepairTJisFinishRepair"] : 2;
-                
-                var ms = RPStatisticUtils.ExportRPRepairTJ(DistrictID, CommunityName, RepairMode, RepairedCount, RepairParts, RepairContent, RepairFactory, isFinishRepair, FinishTimeStart, FinishTimeEnd);
+
+                var ms = RPStatisticUtils.ExportRPRepairTJ(DistrictID, CommunityName, RepairMode, BXFS, RepairedCount, RepairParts, RepairContent, RepairFactory, isFinishRepair, FinishTimeStart, FinishTimeEnd);
                 Session["_RPRepairTJDistrictID"] = null;
                 Session["_RPRepairTJCommunityName"] = null;
                 Session["_RPRepairTJRepairMode"] = null;
+                Session["_RPRepairTJBXFS"] = null;
                 Session["_RPRepairTJRepairParts"] = null;
                 Session["_RPRepairTJRepairContent"] = null;
                 Session["_RPRepairTJRepairFactory"] = null;
