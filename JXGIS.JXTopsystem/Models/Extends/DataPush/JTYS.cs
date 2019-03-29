@@ -8,9 +8,9 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
     /// <summary>
     /// 海港、河港专属信息
     /// </summary>
-    public class HWHWZSXX
+    public class HGHGZSXX
     {
-        public  string name = "海港、河港";
+        public string name = "海港、河港";
         /// <summary>
         /// 类型
         /// </summary>
@@ -21,7 +21,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
     /// </summary>
     public class CZSCJZZSXX
     {
-        public  string name = "船闸升船机站";
+        public string name = "船闸升船机站";
         /// <summary>
         /// 类型
         /// </summary>
@@ -32,7 +32,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
     /// </summary>
     public class GLZSXX
     {
-        public  string name = "公路";
+        public string name = "公路";
         /// <summary>
         /// 类型
         /// </summary>
@@ -51,7 +51,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
     /// </summary>
     public class TLZSXX
     {
-        public  string name = "铁路";
+        public string name = "铁路";
         /// <summary>
         /// 类型1
         /// </summary>
@@ -75,7 +75,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
     /// </summary>
     public class HCZZSXX
     {
-        public  string name = "火车站";
+        public string name = "火车站";
         /// <summary>
         /// 类型
         /// </summary>
@@ -86,7 +86,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
     /// </summary>
     public class HKGZSXX
     {
-        public static string name = "航空港";
+        public string name = "航空港";
         /// <summary>
         /// 类型
         /// </summary>
@@ -97,7 +97,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
     /// </summary>
     public class DLJXZSXX
     {
-        public  string name = "道路街巷";
+        public string name = "道路街巷";
         /// <summary>
         /// 道路等级
         /// </summary>
@@ -108,7 +108,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
     /// </summary>
     public class QLZSXX
     {
-        public  string name = "桥梁";
+        public string name = "桥梁";
         /// <summary>
         ///类型
         /// </summary>
@@ -127,7 +127,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
     /// </summary>
     public class SDZSXX
     {
-        public  string name = "隧道";
+        public string name = "隧道";
         /// <summary>
         ///类型
         /// </summary>
@@ -142,7 +142,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
     /// </summary>
     public class HDLKZSXX
     {
-        public  string name = "环岛路口";
+        public string name = "环岛路口";
         /// <summary>
         ///类型
         /// </summary>
@@ -156,7 +156,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
         /// <summary>
         /// 海港、河港专属信息
         /// </summary>
-        public HWHWZSXX hwhkzsxx { get; set; }
+        public HGHGZSXX hghgzsxx { get; set; }
         /// <summary>
         /// 船闸升船机站专属信息
         /// </summary>

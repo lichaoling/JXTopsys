@@ -1,0 +1,15 @@
+=======2019/3/25 星期一 8:39:11
+|Message:基础连接已经关闭: 接收时发生错误。
+|StackTrace:   在 System.Net.HttpWebRequest.GetResponse()
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 dic) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 277
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush(String url, Dictionary`2 dic) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\DataPushController.cs:行号 23
+=======2019/3/25 星期一 8:40:06
+|Message:远程服务器返回错误: (400) 错误的请求。
+|StackTrace:   在 System.Net.HttpWebRequest.GetResponse()
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 dic) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 277
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush(String url, Dictionary`2 dic) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\DataPushController.cs:行号 23
+=======2019/3/25 星期一 8:43:53
+|Message:远程服务器返回错误: (400) 错误的请求。
+|StackTrace:   在 System.Net.HttpWebRequest.GetResponse()
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 dic) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 277
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush(String url, Dictionary`2 dic) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\DataPushController.cs:行号 23

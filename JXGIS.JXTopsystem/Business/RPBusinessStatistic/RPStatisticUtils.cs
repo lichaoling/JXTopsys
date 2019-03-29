@@ -76,6 +76,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                              Count = g.Count(),
                          };
                 var count = re.Count();
+                var totalCount = re.Sum(t => t.Count);
                 var result = re.OrderBy(t => t.NeighborhoodsID).ThenBy(t => t.CommunityName).ThenBy(t => t.RoadName).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 var data = from t in result
                            select new
@@ -93,7 +94,8 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                            };
                 return new Dictionary<string, object> {
                    { "Data",data},
-                   { "Count",count}
+                   { "Count",count},
+                   { "TotalCount",totalCount}
                 };
 
             }
@@ -145,11 +147,13 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                     query = query.Where(t => t.FinishRepaireTime != null);
                     if (FinishTimeStart != null)
                     {
-                        query = query.Where(t => t.FinishRepaireTime >= FinishTimeStart);
+                        var date = FinishTimeStart;
+                        query = query.Where(t => t.FinishRepaireTime >= date);
                     }
                     if (FinishTimeEnd != null)
                     {
-                        query = query.Where(t => t.FinishRepaireTime <= FinishTimeEnd);
+                        var date = FinishTimeEnd.Value.AddDays(1);
+                        query = query.Where(t => t.FinishRepaireTime <= date);
                     }
                 }
                 else if (isFinishRepair == Enums.Complete.NO)//未修复
@@ -174,12 +178,12 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    data = rps.OrderBy(t => t.NeighborhoodsID).ThenByDescending(t => t.FinishRepaireTime).ThenBy(t => t.RoadName).ToList();
+                    data = rps.OrderByDescending(t => t.FinishRepaireTime).ThenBy(t => t.RoadName).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
                 {
-                    data = rps.OrderBy(t => t.NeighborhoodsID).ThenByDescending(t => t.FinishRepaireTime).ThenBy(t => t.RoadName).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                    data = rps.OrderByDescending(t => t.FinishRepaireTime).ThenBy(t => t.RoadName).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 }
 
                 var result = (from t in data
@@ -203,9 +207,9 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                                   Lat = t.Position != null ? t.Position.Latitude : null,
                                   Lng = t.Position != null ? t.Position.Longitude : null,
 
-                                  RepairParts = dbContext.RPRepair.Where(s => s.RPID == t.ID).Select(s => s.RepairParts).FirstOrDefault(),
-                                  RepairContent = dbContext.RPRepair.Where(s => s.RPID == t.ID).Select(s => s.RepairContent).FirstOrDefault(),
-                                  RepairTime = dbContext.RPRepair.Where(s => s.RPID == t.ID).Select(s => s.RepairTime).FirstOrDefault()
+                                  RepairParts = dbContext.RPRepair.Where(s => s.RPID == t.ID).OrderByDescending(s => s.RepairTime).Select(s => s.RepairParts).FirstOrDefault(),
+                                  RepairContent = dbContext.RPRepair.Where(s => s.RPID == t.ID).OrderByDescending(s => s.RepairTime).Select(s => s.RepairContent).FirstOrDefault(),
+                                  RepairTime = dbContext.RPRepair.Where(s => s.RPID == t.ID).OrderByDescending(s => s.RepairTime).Select(s => s.RepairTime).FirstOrDefault(),
 
                               }).ToList();
                 //关联路牌照片 重组url
@@ -264,7 +268,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
             styleData.Borders[BorderType.BottomBorder].LineStyle = CellBorderType.Thin;
 
             List<ExcelFields> Fields = new List<ExcelFields> {
-                new ExcelFields() { Field="市辖区",Alias="CountyName"},
+                new ExcelFields() { Field="行政区",Alias="CountyName"},
                 new ExcelFields() { Field="镇街道",Alias="NeighborhoodsName"},
                 new ExcelFields() { Field="村社区",Alias="CommunityName"},
                 new ExcelFields() { Field="道路名称",Alias="RoadName"},
@@ -277,6 +281,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 new ExcelFields() { Field="维修部位",Alias="RepairParts"},
                 new ExcelFields() { Field="维修内容",Alias="RepairContent"},
                 new ExcelFields() { Field="报修时间",Alias="RepairTime"},
+                new ExcelFields() { Field="修复时间",Alias="FinishRepaireTime"},
             };
             //写入表头
             for (int i = 0, l = Fields.Count; i < l; i++)
@@ -293,7 +298,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                 {
                     var field = Fields[j];
                     var value = row[field.Alias];
-                    if (field.Field == "设置时间" || field.Field == "报修时间")
+                    if (field.Field == "设置时间" || field.Field == "报修时间" || field.Field == "修复时间")
                     {
                         IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
                         timeConverter.DateTimeFormat = "yyyy-MM-dd";

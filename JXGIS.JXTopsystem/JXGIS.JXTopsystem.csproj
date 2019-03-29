@@ -269,6 +269,7 @@
     <Compile Include="Business\WxUtils.cs" />
     <Compile Include="Controllers\ArchiveFileController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\DataPushController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MPBusinessStatisticController.cs" />
@@ -406,6 +407,7 @@
     <Folder Include="Files\MPPrint\门牌证\" />
     <Folder Include="Files\MPProduce\" />
     <Folder Include="Logs\" />
+    <Folder Include="Views\DataPush\" />
     <Folder Include="Views\PlaceName\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>

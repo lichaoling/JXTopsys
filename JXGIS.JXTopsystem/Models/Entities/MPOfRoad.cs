@@ -80,6 +80,25 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CancelUser { get; set; }
         public DateTime? DelTime { get; set; }
         public string DelUser { get; set; }
+        /// <summary>
+        /// 电子文件归档状态 0未归档  1已归档
+        /// </summary>
         public string ArchiveFileStatus { get; set; }
+        /// <summary>
+        /// 办件回传状态 0未上报  1已上报
+        /// </summary>
+        public int InfoReportStatus { get; set; }
+        /// <summary>
+        /// 数据上报省系统 0未上报 1已上报
+        /// </summary>
+        public int DataPushStatus { get; set; }
+        /// <summary>
+        /// 申报来源：线上一窗受理平台收件  线下一窗受理平台申报   部门业务系统窗口收件
+        /// </summary>
+        public string SBLY { get; set; }
+        /// <summary>
+        /// projid
+        /// </summary>
+        public string ProjID { get; set; }
     }
 }

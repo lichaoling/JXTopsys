@@ -218,5 +218,6 @@ E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JX
 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Webpages.Razor.resources.dll
 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Helpers.resources.dll
 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\bin\zh-Hans\System.Web.Mvc.resources.dll
+E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.csprojResolveAssemblyReference.cache
 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.dll
 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\obj\Debug\JXGIS.JXTopsystem.pdb

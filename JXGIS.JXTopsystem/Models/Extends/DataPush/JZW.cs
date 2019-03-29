@@ -30,6 +30,10 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
         /// 地址
         /// </summary>
         public string BNUX0011 { get; set; }
+        /// <summary>
+        /// 邮政编码
+        /// </summary>
+        public string BNUX0016 { get; set; }
     }
     /// <summary>
     /// 亭台碑塔专属信息

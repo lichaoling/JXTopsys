@@ -109,7 +109,7 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
         /// <summary>
         /// 河湾专属信息
         /// </summary>
-        public HWZSXX hwzsxx { get; set; }
+        public HEWZSXX hewzsxx { get; set; }
         /// <summary>
         /// 河口专属信息
         /// </summary>
