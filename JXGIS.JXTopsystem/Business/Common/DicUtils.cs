@@ -668,7 +668,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 //var Model = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Model)).Select(t => t.Model).Distinct().ToList();
                 //var Material = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Material)).Select(t => t.Material).Distinct().ToList();
                 //var Size = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Size)).Select(t => t.Size).Distinct().ToList();
-                //var Manufacturers = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Manufacturers)).Select(t => t.Manufacturers).Distinct().ToList();
+                var Manufacturers = dbContext.RP.Where(t => !string.IsNullOrEmpty(t.Manufacturers)).Select(t => t.Manufacturers).Distinct().ToList();
                 //var RepairMode = dbContext.RPRepair.Select(t => t.RepairMode).Distinct().ToList();
                 //var RepairedCount = (from t in dbContext.RPRepair
                 //                     group t by t.RPID into g
@@ -682,7 +682,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     //{ "Model",Model},
                     //{ "Material",Material},
                     //{ "Size",Size},
-                    //{ "Manufacturers",Manufacturers},
+                    { "Manufacturers",Manufacturers},
                     //{"RepairMode",RepairMode },
                     //{"RepairedCount",RepairedCount },
                     //{"RepairParts",RepairParts },
