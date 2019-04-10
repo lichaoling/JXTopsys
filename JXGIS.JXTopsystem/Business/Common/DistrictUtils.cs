@@ -1,6 +1,7 @@
 ﻿using JXGIS.JXTopsystem.Models;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -304,7 +305,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 var dist = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == dis.ID).FirstOrDefault();
                 if (dist == null)
-                    throw new Exception("该行政区划已经被删除！");
+                    throw new Error("该行政区划已经被删除！");
                 dist.State = Enums.UseState.Cancel;
                 if (dis.ID.Split('.').Length < 3)//区县数据的删除，还要删除区县所属的街道
                 {
@@ -385,7 +386,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 var County = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Name == CountyName).FirstOrDefault();
                 if (County == null)
-                    throw new Exception("该县区已经被删除！");
+                    throw new Error("该县区已经被删除！");
                 County.State = Enums.UseState.Cancel;
                 var neighbors = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ParentID == "嘉兴市." + CountyName).ToList();
                 foreach (var n in neighbors)
@@ -399,7 +400,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 var neighbor = dbContext.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.Name == NeighborhoodsName).FirstOrDefault();
                 if (neighbor == null)
-                    throw new Exception("该乡镇已经被删除！");
+                    throw new Error("该乡镇已经被删除！");
                 neighbor.State = Enums.UseState.Cancel;
                 dbContext.SaveChanges();
             }
@@ -529,7 +530,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 var r = dbContext.SysRole.Where(t => t.RoleID == role.RoleID).FirstOrDefault();
                 if (r == null)
-                    throw new Exception("该角色已经被删除！");
+                    throw new Error("该角色已经被删除！");
                 var rs = dbContext.UserRole.Where(t => t.RoleID == role.RoleID).ToList();
                 dbContext.UserRole.RemoveRange(rs);
                 dbContext.SysRole.Remove(r);
@@ -688,7 +689,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 var u = dbContext.SysUser.Where(t => t.UserID == user.UserID).FirstOrDefault();
                 if (u == null)
-                    throw new Exception("该用户已经被删除！");
+                    throw new Error("该用户已经被删除！");
 
                 var rs = dbContext.UserRole.Where(t => t.UserID == user.UserID).ToList();
                 dbContext.UserRole.RemoveRange(rs);
@@ -781,7 +782,7 @@ left join ds on ds.userid=t.UserID";
         {
             var isPermission = true;
             if (LoginUtils.CurrentUser.DistrictIDList == null || LoginUtils.CurrentUser.DistrictIDList.Count == 0)
-                throw new Exception("该用户没有任何数据权限，请联系管理员！");
+                throw new Error("该用户没有任何数据权限，请联系管理员！");
             if (!LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
             {
                 var did = districtID.Split('.');

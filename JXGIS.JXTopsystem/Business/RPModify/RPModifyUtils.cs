@@ -120,7 +120,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
                     #region 权限检查
                     if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
-                        throw new Exception("无权操作其他镇街数据！");
+                        throw new Error("无权操作其他镇街数据！");
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
@@ -155,7 +155,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
             {
                 var query = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => IDs.Contains(t.ID)).ToList();
                 if (IDs.Count != query.Count)
-                    throw new Exception("部分门牌数据已被注销，请重新查询！");
+                    throw new Error("部分门牌数据已被注销，请重新查询！");
                 foreach (var q in query)
                 {
                     q.State = Enums.UseState.Cancel;

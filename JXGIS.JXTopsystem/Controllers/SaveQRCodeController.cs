@@ -36,7 +36,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 var ticket = ServiceUtils.Post(url, postData);
                 var re = Newtonsoft.Json.JsonConvert.DeserializeObject<ResultTicket>(ticket);
                 if (re == null || string.IsNullOrEmpty(re.url))
-                    throw new Exception(ticket);
+                    throw new Error(ticket);
 
                 string QRFilePath = Path.Combine(StaticVariable.basePath, StaticVariable.RPQRCodeRelativePath);
 
@@ -97,7 +97,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 var ticket = ServiceUtils.Post(url, postData);
                 var re = Newtonsoft.Json.JsonConvert.DeserializeObject<ResultTicket>(ticket);
                 if (re == null || string.IsNullOrEmpty(re.url))
-                    throw new Exception(ticket);
+                    throw new Error(ticket);
 
                 string QRFilePath = Path.Combine(StaticVariable.basePath, StaticVariable.RPQRCodeRelativePath);
 

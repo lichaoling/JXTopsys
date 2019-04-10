@@ -2,6 +2,7 @@
 using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
@@ -246,7 +247,7 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
             Dictionary<string, object> dict = GetRPRepairTJ(-1, -1, DistrictID, CommunityName, RepairMode, BXFS, RepairedCount, RepairParts, RepairContent, RepairFactory, isFinishRepair, FinishTimeStart, FinishTimeEnd);
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
-                throw new Exception("数据量过大，请缩小查询范围后再导出！");
+                throw new Error("数据量过大，请缩小查询范围后再导出！");
             var Data = dict["Data"] as List<RPDetails>;
             Workbook wb = new Workbook();
             Worksheet ws = wb.Worksheets[0];

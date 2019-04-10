@@ -37,7 +37,7 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
                 {
-                    throw new Exception("用户名、密码不能为空！");
+                    throw new Error("用户名、密码不能为空！");
                 }
 
                 using (var db = SystemUtils.NewEFDbContext)
@@ -45,11 +45,11 @@ namespace JXGIS.JXTopsystem.Controllers
                     var user = db.SysUser.Where(u => u.UserName == userName).FirstOrDefault();
                     if (user == null)
                     {
-                        throw new Exception("用户不存在！");
+                        throw new Error("用户不存在！");
                     }
                     else if (user.Password != password)
                     {
-                        throw new Exception("用户名或密码错误！");
+                        throw new Error("用户名或密码错误！");
                     }
                     else
                     {
@@ -377,7 +377,7 @@ on t.CPrivilegeId=t3.id;", new SqlParameter("@id", role.Id)).ToList();
             {
                 if (string.IsNullOrEmpty(id))
                 {
-                    throw new Exception("没有提供有效的参数！");
+                    throw new Error("没有提供有效的参数！");
                 }
                 using (var db = SystemUtils.NewEFDbContext)
                 {
@@ -452,12 +452,12 @@ where t.userid=@userid";
                     var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
                     if (targetData == null)
                     {
-                        if (db.SysUser.Where(i => i.UserName == sourceData2.UserName).Count() > 0) throw new Exception("已存在相同用户名用户，请重新命名！");
+                        if (db.SysUser.Where(i => i.UserName == sourceData2.UserName).Count() > 0) throw new Error("已存在相同用户名用户，请重新命名！");
                         db.SysUser.Add(sourceData2);
                     }
                     else
                     {
-                        if (db.SysUser.Where(i => i.UserName == sourceData2.UserName && i.UserID != sourceData2.UserID).Count() > 0) throw new Exception("已存在相同用户名用户，请重新命名！");
+                        if (db.SysUser.Where(i => i.UserName == sourceData2.UserName && i.UserID != sourceData2.UserID).Count() > 0) throw new Error("已存在相同用户名用户，请重新命名！");
                         ObjectReflection.ModifyByReflection(sourceData2, targetData, Dic);
                     }
 
@@ -525,21 +525,21 @@ where t.userid=@userid";
                 var user = LoginUtils.CurrentUser as SysUser;
                 if (user == null)
                 {
-                    throw new Exception("请先登录！");
+                    throw new Error("请先登录！");
                 }
 
                 if (string.IsNullOrWhiteSpace(OPassword) || string.IsNullOrWhiteSpace(NPassword))
                 {
-                    throw new Exception("密码不能为空！");
+                    throw new Error("密码不能为空！");
                 }
 
                 using (var db = SystemUtils.NewEFDbContext)
                 {
                     var u = db.SysUser.Find(user.UserID);
-                    if (u == null) throw new Exception("未找到指定用户！");
+                    if (u == null) throw new Error("未找到指定用户！");
                     if (u.Password != OPassword)
                     {
-                        throw new Exception("原始密码验证有误！");
+                        throw new Error("原始密码验证有误！");
                     }
                     u.Password = NPassword;
                     db.SaveChanges();

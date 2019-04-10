@@ -1,6 +1,7 @@
 ﻿using Aspose.Cells;
 using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
@@ -109,7 +110,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                              where t.State == Enums.UseState.Enable && t.ID == ID
                              select t).FirstOrDefault();
                 if (query == null)
-                    throw new Exception("该地名已经被注销！");
+                    throw new Error("该地名已经被注销！");
 
                 //将附件的名字都加上路径返回
                 var files = dbContext.DMOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.DMID == ID);
@@ -170,7 +171,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
 
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
-                throw new Exception("数据量过大，请缩小查询范围后再导出！");
+                throw new Error("数据量过大，请缩小查询范围后再导出！");
             var Data = dict["Data"] as List<Models.Entities.DMOFZYSS>;
 
             Workbook wb = new Workbook();
@@ -280,7 +281,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     #region 权限检查
                     var districtID = targetData.NeighborhoodsID == null ? targetData.CountyID : targetData.NeighborhoodsID;
                     if (!DistrictUtils.CheckPermission(districtID))
-                        throw new Exception("无权操作其他镇街数据！");
+                        throw new Error("无权操作其他镇街数据！");
                     #endregion
 
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
@@ -303,7 +304,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
 
                     #region 权限检查
                     if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
-                        throw new Exception("无权操作其他镇街数据！");
+                        throw new Error("无权操作其他镇街数据！");
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new Models.Entities.CommunityDic();
@@ -331,7 +332,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
             {
                 var query = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => ID.Contains(t.ID)).ToList();
                 if (ID.Count != query.Count)
-                    throw new Exception("部分门牌数据已被注销，请重新查询！");
+                    throw new Error("部分门牌数据已被注销，请重新查询！");
                 foreach (var q in query)
                 {
                     q.State = Enums.UseState.Cancel;

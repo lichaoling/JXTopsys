@@ -3,6 +3,7 @@ using JXGIS.JXTopsystem.Business.RPSearch;
 using JXGIS.JXTopsystem.Controllers;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
@@ -62,10 +63,10 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
             {
                 var RepairInfo = dbContext.RPRepair.Where(t => t.ID == RepairID).FirstOrDefault();
                 if (RepairInfo == null)
-                    throw new Exception("不存在该维修信息！");
+                    throw new Error("不存在该维修信息！");
                 var RP = RPSearchUtils.SearchRPByID(RepairInfo.RPID);
                 if (RP == null)
-                    throw new Exception("维修信息所属路牌不存在！");
+                    throw new Error("维修信息所属路牌不存在！");
 
                 List<Paths> RepairBeoforePic = new List<Paths>();
                 List<Paths> RepairAfterPic = new List<Paths>();
@@ -115,7 +116,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Entities.RPRepair>(oldDataJson);
                 var targetData = dbContext.RPRepair.Where(t => t.ID == sourceData.ID).FirstOrDefault();
                 if (targetData == null)
-                    throw new Exception("该维修记录已经被删除！");
+                    throw new Error("该维修记录已经被删除！");
                 var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
                 ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
                 dbContext.SaveChanges();
@@ -136,7 +137,7 @@ namespace JXGIS.JXTopsystem.Business.RPRepair
                 var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<RPRepareInfos>(oldDataJson);
                 var targetRP = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.RPID).FirstOrDefault();
                 if (targetRP == null)
-                    throw new Exception("该路牌已被注销！");
+                    throw new Error("该路牌已被注销！");
                 var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
                 var targetRPR = dbContext.RPRepair.Where(t => t.ID == sourceData.ID).FirstOrDefault();
 

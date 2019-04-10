@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JXGIS.JXTopsystem.Models.Extends.RtObj;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace JXGIS.JXTopsystem.Business
         {
             if (_privateKeyRsaProvider == null)
             {
-                throw new Exception("_privateKeyRsaProvider is null");
+                throw new Error("_privateKeyRsaProvider is null");
             }
             return Encoding.UTF8.GetString(_privateKeyRsaProvider.Decrypt(System.Convert.FromBase64String(cipherText), false));
         }
@@ -39,7 +40,7 @@ namespace JXGIS.JXTopsystem.Business
         {
             if (_publicKeyRsaProvider == null)
             {
-                throw new Exception("_publicKeyRsaProvider is null");
+                throw new Error("_publicKeyRsaProvider is null");
             }
             return Convert.ToBase64String(_publicKeyRsaProvider.Encrypt(Encoding.UTF8.GetBytes(text), false));
         }
@@ -61,15 +62,15 @@ namespace JXGIS.JXTopsystem.Business
                 else if (twobytes == 0x8230)
                     binr.ReadInt16();
                 else
-                    throw new Exception("Unexpected value read binr.ReadUInt16()");
+                    throw new Error("Unexpected value read binr.ReadUInt16()");
 
                 twobytes = binr.ReadUInt16();
                 if (twobytes != 0x0102)
-                    throw new Exception("Unexpected version");
+                    throw new Error("Unexpected version");
 
                 bt = binr.ReadByte();
                 if (bt != 0x00)
-                    throw new Exception("Unexpected value read binr.ReadByte()");
+                    throw new Error("Unexpected value read binr.ReadByte()");
 
                 RSAparams.Modulus = binr.ReadBytes(GetIntegerSize(binr));
                 RSAparams.Exponent = binr.ReadBytes(GetIntegerSize(binr));

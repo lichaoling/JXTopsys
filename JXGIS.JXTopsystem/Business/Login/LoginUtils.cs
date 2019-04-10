@@ -1,5 +1,6 @@
 ﻿using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,9 +83,9 @@ namespace JXGIS.JXTopsystem.Business
 
                 var districtID = SystemUtils.NewEFDbContext.UserDistrict.Where(t => t.UserID == us.UserID).Select(t => t.DistrictID).Distinct().ToList();
                 if (districtID.Count == 0)
-                    throw new Exception("对不起，您目前没有数据权限，请联系管理员！");
+                    throw new Error("对不起，您目前没有数据权限，请联系管理员！");
                 if (roleList.Count == 0)
-                    throw new Exception("对不起，您目前没有功能权限，请联系管理员！");
+                    throw new Error("对不起，您目前没有功能权限，请联系管理员！");
 
                 List<SysRole_SysPrivilige> rolePriviliges = new List<Models.Entities.SysRole_SysPrivilige>();
                 foreach (var role in roleList)

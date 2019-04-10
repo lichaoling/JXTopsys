@@ -3,6 +3,7 @@ using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Models;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
@@ -37,7 +38,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
                     #region 权限检查
                     if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
-                        throw new Exception("无权操作其他镇街数据！");
+                        throw new Error("无权操作其他镇街数据！");
                     #endregion
                     #region 重复性检查
                     if (!CheckResidenceMPIsAvailable(targetData.ID, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.ResidenceName, targetData.MPNumber, targetData.Dormitory, targetData.HSNumber, targetData.LZNumber, targetData.DYNumber))
@@ -95,11 +96,11 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
                     #region 权限检查
                     if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
-                        throw new Exception("无权操作其他镇街数据！");
+                        throw new Error("无权操作其他镇街数据！");
                     #endregion
                     #region 重复性检查
                     if (!CheckResidenceMPIsAvailable(targetData.ID, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.ResidenceName, targetData.MPNumber, targetData.Dormitory, targetData.HSNumber, targetData.LZNumber, targetData.DYNumber))
-                        throw new Exception("该住宅门牌已经存在，请检查后重新输入！");
+                        throw new Error("该住宅门牌已经存在，请检查后重新输入！");
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
@@ -141,7 +142,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             {
                 var query = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => ID.Contains(t.ID)).ToList();
                 if (ID.Count != query.Count)
-                    throw new Exception("部分门牌数据已被注销，请重新查询！");
+                    throw new Error("部分门牌数据已被注销，请重新查询！");
                 foreach (var q in query)
                 {
                     q.State = Enums.UseState.Cancel;
@@ -208,9 +209,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         //    var mps = temp[LoginUtils.CurrentUser.UserName][mpKey] as List<ResidenceMPDetails>;
         //    var errors = temp[LoginUtils.CurrentUser.UserName][errorKey] as List<ResidenceMPErrors>;
         //    if (errors.Count > 0)
-        //        throw new Exception("数据包含错误信息，请先检查数据！");
+        //        throw new Error("数据包含错误信息，请先检查数据！");
         //    if (mps.Count() == 0 || mps == null)
-        //        throw new Exception("无可导入数据！");
+        //        throw new Error("无可导入数据！");
         //    #region****************没有错误后将导入的数据更新到住宅门牌数据库中
         //    foreach (var mp in mps)
         //    {

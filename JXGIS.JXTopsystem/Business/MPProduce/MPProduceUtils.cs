@@ -3,6 +3,7 @@ using Aspose.Words.Tables;
 using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -57,7 +58,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                              };
                 }
                 else
-                    throw new Exception("未知的错误类型！");
+                    throw new Error("未知的错误类型！");
                 count = result.Count();
                 var data = result.OrderBy(t => t.MPProduceTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
                 return new Dictionary<string, object> {
@@ -119,7 +120,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     result = BaseUtils.DataFilterWithTown<NotProducedLXMPList>(result);
                 }
                 else
-                    throw new Exception("未知的错误类型！");
+                    throw new Error("未知的错误类型！");
 
                 count = result.Count();
                 var data = result.OrderByDescending(t => t.MPBZTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
@@ -164,7 +165,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         LXMPHZ lxmphz = new LXMPHZ();
                         var query = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mpid).FirstOrDefault();
                         if (query == null)
-                            throw new Exception("未选中任何数据！");
+                            throw new Error("未选中任何数据！");
                         lxmphz.PlaceName = query.RoadName;
                         lxmphz.Type = Enums.MPTypeCh.Road;
                         lxmphz.MPNumber = query.MPNumber;
@@ -182,7 +183,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                         LXMPHZ lxmphz = new LXMPHZ();
                         var query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.LX).Where(t => t.MPProduce == Enums.MPProduce.Yes).Where(t => t.ID == mpid).FirstOrDefault();
                         if (query == null)
-                            throw new Exception("未选中任何数据！");
+                            throw new Error("未选中任何数据！");
 
                         lxmphz.PlaceName = query.ViligeName;
                         lxmphz.Type = Enums.MPTypeCh.Country;
@@ -195,7 +196,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     }
                 }
                 else
-                    throw new Exception("未知的错误类型！");
+                    throw new Error("未知的错误类型！");
 
                 return CreateWord_LX(lxmphzs, LXProduceID);
             }
@@ -512,7 +513,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                              };
                 }
                 else
-                    throw new Exception("未知的错误类型！");
+                    throw new Error("未知的错误类型！");
 
                 #region 注释
                 //var lz = (from t in mpOfResidence
@@ -699,7 +700,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                              };
                 }
                 else
-                    throw new Exception("未知的错误类型！");
+                    throw new Error("未知的错误类型！");
                 #region 注释
                 //var lz = (from t in mpOfResidence
                 //          where t.State == Enums.UseState.Enable && t.AddType == Enums.MPAddType.PL && t.MPProduce == Enums.MPProduce.Yes && string.IsNullOrEmpty(t.PLProduceID)
@@ -807,7 +808,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         var query = db.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => t.PLID == plid).ToList();
                         if (query == null)
-                            throw new Exception("未选中任何数据！");
+                            throw new Error("未选中任何数据！");
                         var PlaceNames = query.Select(t => t.ResidenceName).Distinct().ToList();
                         foreach (var PlaceName in PlaceNames)
                         {
@@ -861,7 +862,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         var query = db.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => t.PLID == plid).ToList();
                         if (query == null)
-                            throw new Exception("未选中任何数据！");
+                            throw new Error("未选中任何数据！");
                         var PlaceNames = query.Select(t => t.RoadName).Distinct().ToList();
                         foreach (var PlaceName in PlaceNames)
                         {
@@ -892,7 +893,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     {
                         var query = db.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.AddType == Enums.MPAddType.PL).Where(t => t.PLID == plid).ToList();
                         if (query == null)
-                            throw new Exception("未选中任何数据！");
+                            throw new Error("未选中任何数据！");
                         var PlaceNames = query.Select(t => t.ViligeName).Distinct().ToList();
                         foreach (var PlaceName in PlaceNames)
                         {
@@ -917,7 +918,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                     }
                 }
                 else
-                    throw new Exception("未知的错误类型！");
+                    throw new Error("未知的错误类型！");
 
 
                 return CreateWord_PL(plmphzs, PLProduceID);

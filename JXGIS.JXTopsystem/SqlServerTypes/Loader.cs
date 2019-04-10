@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JXGIS.JXTopsystem.Models.Extends.RtObj;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -35,7 +36,7 @@ namespace SqlServerTypes
             var ptr = LoadLibrary(path);
             if (ptr == IntPtr.Zero)
             {
-                throw new Exception(string.Format(
+                throw new Error(string.Format(
                     "Error loading {0} (ErrorCode: {1})",
                     assemblyName,
                     Marshal.GetLastWin32Error()));

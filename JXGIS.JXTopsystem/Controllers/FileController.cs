@@ -58,7 +58,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     relativePath = StaticVariable.ProfessionalDMRelativePath;
                     break;
                 default:
-                    throw new Exception("未知的文件目录");
+                    throw new Error("未知的文件目录");
             }
             relativePath = Path.Combine(relativePath, ID);
             string fullPath = Path.Combine(StaticVariable.basePath, relativePath);
@@ -255,7 +255,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     {
                         var query = db.MPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (query == null)
-                            throw new Exception("该附件已经被删除！");
+                            throw new Error("该附件已经被删除！");
 
                         var paths = GetUploadFilePath(FileType, query.MPID, query.ID, query.Name, null);
                         DeleteFileByPath(paths);
@@ -266,7 +266,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     {
                         var query = db.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (query == null)
-                            throw new Exception("该附件已经被删除！");
+                            throw new Error("该附件已经被删除！");
 
                         var paths = GetUploadFilePath(FileType, query.RPID, query.ID, query.Name, null);
                         DeleteFileByPath(paths);
@@ -277,7 +277,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     {
                         var query = db.RPPepairUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (query == null)
-                            throw new Exception("该附件已经被删除！");
+                            throw new Error("该附件已经被删除！");
 
                         var paths = GetUploadFilePath(FileType, query.RPRepairID, query.ID, query.Name, query.RepairType);
                         DeleteFileByPath(paths);
@@ -288,7 +288,7 @@ namespace JXGIS.JXTopsystem.Controllers
                     {
                         var query = db.DMOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (query == null)
-                            throw new Exception("该附件已经被删除！");
+                            throw new Error("该附件已经被删除！");
 
                         var paths = GetUploadFilePath(FileType, query.DMID, query.ID, query.Name, null);
                         DeleteFileByPath(paths);
@@ -352,7 +352,7 @@ namespace JXGIS.JXTopsystem.Controllers
                         }
                     }
                     else
-                        throw new Exception("未知的图片类型");
+                        throw new Error("未知的图片类型");
                     rt = new RtObj(paths);
                 }
             }

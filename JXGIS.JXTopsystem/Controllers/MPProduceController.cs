@@ -75,7 +75,7 @@ namespace JXGIS.JXTopsystem.Controllers
                         var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@LXProduceID", LXProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@MPIDs", string.Join(",", MPIDs)));
                     }
                     else
-                        throw new Exception("未知的错误类型！");
+                        throw new Error("未知的错误类型！");
                 }
                 rt = new RtObj();
             }
@@ -198,7 +198,7 @@ namespace JXGIS.JXTopsystem.Controllers
                         var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@PLProduceID", PLProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@plid", string.Join(",", PLIDs)));
                     }
                     else
-                        throw new Exception("未知的错误类型！");
+                        throw new Error("未知的错误类型！");
                     Session["_ProducePLMP_PLIDs"] = PLIDs;
                     Session["_ProducePLMP_MPType"] = MPType;
                 }

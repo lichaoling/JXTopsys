@@ -3,6 +3,7 @@ using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Controllers;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
@@ -215,7 +216,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
             {
                 var rp = dbContext.RP.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == RPID).FirstOrDefault();
                 if (rp == null)
-                    throw new Exception("该路牌已经被注销！");
+                    throw new Error("该路牌已经被注销！");
                 var data = new RPDetails(rp);
 
                 var files = dbContext.RPOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.RPID == RPID);
@@ -253,7 +254,7 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
 
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
-                throw new Exception("数据量过大，请缩小查询范围后再导出！");
+                throw new Error("数据量过大，请缩小查询范围后再导出！");
             var Data = dict["Data"] as List<RPDetails>;
 
             Workbook wb = new Workbook();

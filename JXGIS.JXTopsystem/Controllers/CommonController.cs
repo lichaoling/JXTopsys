@@ -524,7 +524,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 else if (type == Enums.TypeInt.Community)
                     names = DicUtils.getCommunityNamesFromDic(CountyID, NeighborhoodsID);
                 else
-                    throw new Exception("获取类型不正确");
+                    throw new Error("获取类型不正确");
                 rt = new RtObj(names);
             }
             catch (Exception ex)

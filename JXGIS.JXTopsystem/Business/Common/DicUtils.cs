@@ -1,6 +1,7 @@
 ﻿using JXGIS.JXTopsystem.Models;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -374,7 +375,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 {
                     var targetData = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.IndetityID == sourceData.IndetityID).FirstOrDefault();
                     if (targetData == null)
-                        throw new Exception("该门牌标志已经被删除");
+                        throw new Error("该门牌标志已经被删除");
                     targetData.Type = sourceData.Type;
                     targetData.Size = sourceData.Size;
                     targetData.Material = sourceData.Material;
@@ -388,7 +389,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 var p = dbContext.DMBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.IndetityID == dmbz.IndetityID).FirstOrDefault();
                 if (p == null)
-                    throw new Exception("该邮编已经被删除！");
+                    throw new Error("该邮编已经被删除！");
                 p.State = Enums.UseState.Cancel;
                 dbContext.SaveChanges();
             }
@@ -570,7 +571,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 var p = dbContext.PostcodeDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.IndetityID == post.IndetityID).FirstOrDefault();
                 if (p == null)
-                    throw new Exception("该邮政编码已经被删除！");
+                    throw new Error("该邮政编码已经被删除！");
                 p.State = Enums.UseState.Cancel;
                 dbContext.SaveChanges();
             }
@@ -718,7 +719,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             {
                 var RPBZ = dbContext.RPBZDic.Where(t => t.State == Enums.UseState.Enable).Where(t => t.IndetityID == rpbz.IndetityID).FirstOrDefault();
                 if (RPBZ == null)
-                    throw new Exception("该路牌编制数据已经被删除！");
+                    throw new Error("该路牌编制数据已经被删除！");
                 RPBZ.State = Enums.UseState.Cancel;
                 dbContext.SaveChanges();
             }

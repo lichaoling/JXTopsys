@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JXGIS.JXTopsystem.Models.Extends.RtObj;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace JXGIS.JXTopsystem.Business
             }
             catch (Exception ex)
             {
-                throw new Exception("获取微信配置缓存失败！");
+                throw new Error("获取微信配置缓存失败！");
             }
             return wxConfig;
         }
@@ -79,7 +80,7 @@ namespace JXGIS.JXTopsystem.Business
                 if (at == null || string.IsNullOrEmpty(at.access_token))
                 {
                     //throw new Exception("获取AccessToken失败");
-                    throw new Exception(accessToken);
+                    throw new Error(accessToken);
                 }
                 this._access_token = at.access_token;
                 this.at_expires_in = at.expires_in;

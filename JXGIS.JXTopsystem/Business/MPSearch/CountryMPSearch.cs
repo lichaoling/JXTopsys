@@ -2,6 +2,7 @@
 using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
@@ -154,7 +155,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                  Lng = t.MPPosition == null ? null : t.MPPosition.Longitude
                              }).FirstOrDefault();
                 if (query == null)
-                    throw new Exception("该门牌已经被注销！");
+                    throw new Error("该门牌已经被注销！");
                 query.NeighborhoodsName = query.NeighborhoodsID.Split('.').Last();
                 query.CountyName = query.CountyID.Split('.').Last();
 
@@ -212,7 +213,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
             Dictionary<string, object> dict = SearchCountryMP(-1, -1, DistrictID, CommunityName, ViligeName, AddressCoding, PropertyOwner, StandardAddress, UseState);
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
-                throw new Exception("数据量过大，请缩小查询范围后再导出！");
+                throw new Error("数据量过大，请缩小查询范围后再导出！");
             var Data = dict["Data"] as List<CountryMPDetails>;
             Workbook wb = new Workbook();
             Worksheet ws = wb.Worksheets[0];

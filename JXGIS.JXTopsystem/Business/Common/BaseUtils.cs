@@ -1,5 +1,6 @@
 ﻿using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -296,7 +297,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         public static IQueryable<T> DataFilterWithTown<T>(IQueryable<T> entity) where T : IBaseEntityWithNeighborhoodsID
         {
             if (LoginUtils.CurrentUser.DistrictIDList == null || LoginUtils.CurrentUser.DistrictIDList.Count == 0)
-                throw new Exception("该用户没有任何数据权限，请联系管理员！");
+                throw new Error("该用户没有任何数据权限，请联系管理员！");
             // 先删选出当前用户权限内的数据
             if (!LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
             {
@@ -313,7 +314,7 @@ namespace JXGIS.JXTopsystem.Business.Common
         public static IQueryable<T> DataFilterWithDist<T>(IQueryable<T> entity) where T : IBaseEntityWitDistrictID
         {
             if (LoginUtils.CurrentUser.DistrictIDList == null || LoginUtils.CurrentUser.DistrictIDList.Count == 0)
-                throw new Exception("该用户没有任何数据权限，请联系管理员！");
+                throw new Error("该用户没有任何数据权限，请联系管理员！");
             // 先删选出当前用户权限内的数据
             if (!LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
             {

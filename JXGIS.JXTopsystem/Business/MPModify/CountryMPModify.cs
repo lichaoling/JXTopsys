@@ -3,6 +3,7 @@ using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Models;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
@@ -31,7 +32,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
                     #region 权限检查
                     if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
-                        throw new Exception("无权操作其他镇街数据！");
+                        throw new Error("无权操作其他镇街数据！");
                     #endregion
                     #region 重复性检查
                     if (!CheckCountryMPIsAvailable(targetData.ID, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.ViligeName, targetData.MPNumber, targetData.HSNumber))
@@ -88,11 +89,11 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     ObjectReflection.ModifyByReflection(sourceData, targetData, Dic);
                     #region 权限检查
                     if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
-                        throw new Exception("无权操作其他镇街数据！");
+                        throw new Error("无权操作其他镇街数据！");
                     #endregion
                     #region 重复性检查
                     if (!CheckCountryMPIsAvailable(targetData.ID, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.ViligeName, targetData.MPNumber, targetData.HSNumber))
-                        throw new Exception("该农村门牌已经存在，请检查后重新输入！");
+                        throw new Error("该农村门牌已经存在，请检查后重新输入！");
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
@@ -132,7 +133,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
             {
                 var query = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => ID.Contains(t.ID)).ToList();
                 if (ID.Count != query.Count)
-                    throw new Exception("部分门牌数据已被注销，请重新查询！");
+                    throw new Error("部分门牌数据已被注销，请重新查询！");
                 foreach (var q in query)
                 {
                     q.State = Enums.UseState.Cancel;

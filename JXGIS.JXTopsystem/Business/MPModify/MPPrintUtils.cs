@@ -4,6 +4,7 @@ using JXGIS.JXTopsystem.Business.Common;
 using JXGIS.JXTopsystem.Controllers;
 using JXGIS.JXTopsystem.Models.Entities;
 using JXGIS.JXTopsystem.Models.Extends;
+using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.Word;
 using System;
@@ -31,7 +32,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     {
                         var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfResidence == null)
-                            throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
+                            throw new Error($"ID为{ID}的道路门牌已经注销，请重新查询！");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
                         bookmarks.Add("{PropertyOwner}", string.IsNullOrEmpty(mpOfResidence.PropertyOwner) ? "" : mpOfResidence.PropertyOwner);
                         bookmarks.Add("{StandardAddress}", mpOfResidence.StandardAddress);
@@ -58,7 +59,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     {
                         var mpOfRoad = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfRoad == null)
-                            throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
+                            throw new Error($"ID为{ID}的道路门牌已经注销，请重新查询！");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
                         bookmarks.Add("{PropertyOwner}", string.IsNullOrEmpty(mpOfRoad.PropertyOwner) ? "" : mpOfRoad.PropertyOwner);
                         bookmarks.Add("{StandardAddress}", mpOfRoad.StandardAddress);
@@ -85,7 +86,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     {
                         var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfCounty == null)
-                            throw new Exception($"ID为{ID}的农村门牌已经注销，请重新查询！");
+                            throw new Error($"ID为{ID}的农村门牌已经注销，请重新查询！");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
                         bookmarks.Add("{PropertyOwner}", mpOfCounty.PropertyOwner);
                         bookmarks.Add("{StandardAddress}", mpOfCounty.StandardAddress);
@@ -141,7 +142,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     {
                         var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfResidence == null)
-                            throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
+                            throw new Error($"ID为{ID}的道路门牌已经注销，请重新查询！");
 
                         var res = ReplaceBadChar(mpOfResidence.ResidenceName) + (string.IsNullOrEmpty(mpOfResidence.LZNumber) ? "" : mpOfResidence.LZNumber + "幢") + (string.IsNullOrEmpty(mpOfResidence.DYNumber) ? "" : mpOfResidence.DYNumber + "单元") + (string.IsNullOrEmpty(mpOfResidence.HSNumber) ? "" : mpOfResidence.HSNumber + "室");
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
@@ -173,7 +174,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     {
                         var mpOfRoad = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfRoad == null)
-                            throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
+                            throw new Error($"ID为{ID}的道路门牌已经注销，请重新查询！");
 
                         Dictionary<string, string> bookmarks = new Dictionary<string, string>();
                         bookmarks.Add("{AddressCoding}", mpOfRoad.AddressCoding);
@@ -205,7 +206,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     {
                         var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfCounty == null)
-                            throw new Exception($"ID为{ID}的农村门牌已经注销，请重新查询！");
+                            throw new Error($"ID为{ID}的农村门牌已经注销，请重新查询！");
 
                         var res = mpOfCounty.CommunityName + ReplaceBadChar(mpOfCounty.ViligeName) + (string.IsNullOrEmpty(mpOfCounty.MPNumber) ? "" : mpOfCounty.MPNumber + "号");
 
@@ -485,7 +486,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     {
                         var mpOfResidence = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfResidence == null)
-                            throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
+                            throw new Error($"ID为{ID}的道路门牌已经注销，请重新查询！");
 
                         certificate.PropertyOwner = mpOfResidence.PropertyOwner;
                         certificate.StandardAddress = mpOfResidence.StandardAddress;
@@ -518,7 +519,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     {
                         var mpOfRoad = dbContext.MPOfRoad.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfRoad == null)
-                            throw new Exception($"ID为{ID}的道路门牌已经注销，请重新查询！");
+                            throw new Error($"ID为{ID}的道路门牌已经注销，请重新查询！");
 
                         certificate.PropertyOwner = mpOfRoad.PropertyOwner;
                         certificate.StandardAddress = mpOfRoad.StandardAddress;
@@ -548,7 +549,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     {
                         var mpOfCounty = dbContext.MPOfCountry.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == ID).FirstOrDefault();
                         if (mpOfCounty == null)
-                            throw new Exception($"ID为{ID}的农村门牌已经注销，请重新查询！");
+                            throw new Error($"ID为{ID}的农村门牌已经注销，请重新查询！");
 
                         certificate.PropertyOwner = mpOfCounty.PropertyOwner;
                         certificate.StandardAddress = mpOfCounty.StandardAddress;
