@@ -59,6 +59,9 @@ namespace JXGIS.JXTopsystem.Business
         public static readonly string ProfessionalDMFullPath = Path.Combine(basePath, ProfessionalDMRelativePath);
 
 
+        //一窗受理、网上申报的申报文件
+        public static readonly string basePathSBFile = Path.Combine(basePath, "Files", "SBFiles");
+
 
 
         //***************文件归档****************

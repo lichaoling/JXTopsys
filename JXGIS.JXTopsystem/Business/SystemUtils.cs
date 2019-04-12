@@ -31,6 +31,20 @@ namespace JXGIS.JXTopsystem.Business
             }
         }
 
+
+        private static string baseUrl = null;
+        public static string BaseUrl
+        {
+            get
+            {
+                if (baseUrl == null)
+                {
+                    string appPath = HttpContext.Current == null ? string.Empty : HttpContext.Current.Request.ApplicationPath;
+                    baseUrl = appPath == "/" ? string.Empty : appPath;
+                }
+                return baseUrl;
+            }
+        }
         public static OracleDBContext NewOrclEFDbContext
         {
             get

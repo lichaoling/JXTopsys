@@ -11,3 +11,21 @@
 |Message:未将对象引用设置到对象的实例。
 |StackTrace:   在 JXGIS.JXTopsystem.Business.MPModify.RoadMPModify.ModifyRoadMP(String oldDataJson)
    在 JXGIS.JXTopsystem.Controllers.MPModifyController.ModifyRoadMP(String oldDataJson)
+=======2019/4/10 星期三 16:20:35
+|Message:可为空的对象必须具有一个值。
+|StackTrace:   在 System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   在 System.Nullable`1.get_Value()
+   在 JXGIS.JXTopsystem.Business.MPStatisticUtils.GetMPProduceTJ(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end)
+   在 JXGIS.JXTopsystem.Controllers.MPBusinessStatisticController.GetMPProduceTJ(String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end)
+=======2019/4/10 星期三 16:23:40
+|Message:可为空的对象必须具有一个值。
+|StackTrace:   在 System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   在 System.Nullable`1.get_Value()
+   在 JXGIS.JXTopsystem.Business.MPStatisticUtils.GetMPProduceTJ(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end)
+   在 JXGIS.JXTopsystem.Controllers.MPBusinessStatisticController.GetMPProduceTJ(String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end)
+=======2019/4/10 星期三 16:24:51
+|Message:可为空的对象必须具有一个值。
+|StackTrace:   在 System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   在 System.Nullable`1.get_Value()
+   在 JXGIS.JXTopsystem.Business.MPStatisticUtils.GetMPProduceTJ(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end)
+   在 JXGIS.JXTopsystem.Controllers.MPBusinessStatisticController.GetMPProduceTJ(String DistrictID, String CommunityName, Nullable`1 start, Nullable`1 end)

@@ -59,5 +59,34 @@ namespace JXGIS.JXTopsystem.Business.Common
                 }
             }
         }
+
+        public static T ModifyEntity<T>(T oEntity, string mEntityJson)
+        {
+            if (oEntity != null && !string.IsNullOrEmpty(mEntityJson))
+            {
+                var mEntity = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(mEntityJson);
+                var keys = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(mEntityJson).Keys;
+
+                /* 是否需要缓存反射类型？ */
+                //var type = typeof(T);
+                //PropertyInfo[] props = null;
+                //if (!properties.Keys.Contains(type.FullName))
+                //{
+                //    props = type.GetProperties();
+                //}
+                //properties[type.FullName] = props;
+
+                PropertyInfo[] props = typeof(T).GetProperties();
+                foreach (var key in keys)
+                {
+                    var ps = props.Where(p => p.Name == key).FirstOrDefault();
+                    if (ps != null)
+                    {
+                        ps.SetValue(oEntity, ps.GetValue(mEntity));
+                    }
+                }
+            }
+            return oEntity;
+        }
     }
 }

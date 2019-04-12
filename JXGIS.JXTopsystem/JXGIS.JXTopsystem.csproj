@@ -262,7 +262,9 @@
     <Compile Include="Business\RPModify\RPModifyUtils.cs" />
     <Compile Include="Business\RPRepair\RPRepairUtils.cs" />
     <Compile Include="Business\RPSearch\RPSearchUtils.cs" />
+    <Compile Include="Business\Schedule\HomePage.cs" />
     <Compile Include="Business\ServiceUtils.cs" />
+    <Compile Include="Business\SPItemFileUtils.cs" />
     <Compile Include="Business\StaticVariable.cs" />
     <Compile Include="Business\SystemUtils.cs" />
     <Compile Include="Business\Login\ValidateGraphic.cs" />
@@ -271,6 +273,7 @@
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\DataPushController.cs" />
     <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MPBusinessStatisticController.cs" />
     <Compile Include="Controllers\MPModifyController.cs" />
@@ -287,6 +290,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\ARCHIVEFILE.cs" />
+    <Compile Include="Models\Entities\BA_DMOFZYSS.cs" />
+    <Compile Include="Models\Entities\BG_MPOFCOUNTRY.cs" />
+    <Compile Include="Models\Entities\BG_MPOFRESIDENCE.cs" />
+    <Compile Include="Models\Entities\BG_MPOFROAD.cs" />
     <Compile Include="Models\Entities\CommunityDic.cs" />
     <Compile Include="Models\Entities\CPrivilege.cs" />
     <Compile Include="Models\Entities\CRole.cs" />
@@ -295,6 +302,7 @@
     <Compile Include="Models\Entities\District.cs" />
     <Compile Include="Models\Entities\DMBZDic.cs" />
     <Compile Include="Models\Entities\DMOFUPLOADFILES.cs" />
+    <Compile Include="Models\Entities\FILE.cs" />
     <Compile Include="Models\Entities\MPOfCertificate.cs" />
     <Compile Include="Models\Entities\MPOfCountry.cs" />
     <Compile Include="Models\Entities\MPOfResidence.cs" />
@@ -308,11 +316,21 @@
     <Compile Include="Models\Entities\MPOfUploadFiles.cs" />
     <Compile Include="Models\Entities\RPPeparUploadFiles.cs" />
     <Compile Include="Models\Entities\RPOfUploadFiles.cs" />
+    <Compile Include="Models\Entities\SB_DMOFBRIDGE.cs" />
+    <Compile Include="Models\Entities\SB_DMOFBUILDING.cs" />
+    <Compile Include="Models\Entities\SB_DMOFROAD.cs" />
+    <Compile Include="Models\Entities\SB_DMOFSETTLEMENT.cs" />
+    <Compile Include="Models\Entities\SB_MPOFCOUNTRY.cs" />
+    <Compile Include="Models\Entities\SB_MPOFRESIDENCE.cs" />
+    <Compile Include="Models\Entities\SB_MPOFROAD.cs" />
     <Compile Include="Models\Entities\SysPrivilige.cs" />
     <Compile Include="Models\Entities\SysRole_SysPrivilige.cs" />
     <Compile Include="Models\Entities\SystemLog.cs" />
     <Compile Include="Models\Entities\SysUser_District.cs" />
     <Compile Include="Models\Entities\V_MPNUMSTATISTIC.cs" />
+    <Compile Include="Models\Entities\ZM_MPOFCOUNTRY.cs" />
+    <Compile Include="Models\Entities\ZM_MPOFRESIDENCE.cs" />
+    <Compile Include="Models\Entities\ZM_MPOFROAD.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ArchiveConfigTab.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ArchivePacketDirectory.cs" />
     <Compile Include="Models\Extends\ArchiveFile\BaseInfoDescription.cs" />
@@ -408,6 +426,7 @@
     <Folder Include="Files\MPProduce\" />
     <Folder Include="Logs\" />
     <Folder Include="Views\DataPush\" />
+    <Folder Include="Views\HomePage\" />
     <Folder Include="Views\PlaceName\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>

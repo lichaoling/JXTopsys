@@ -127,6 +127,7 @@ namespace JXGIS.JXTopsystem.Controllers
                             data.MPID = ID;
                             data.FileEx = fileEx;
                             data.State = Enums.UseState.Enable;
+                            data.CreateTime = DateTime.Now;
                             dbContext.MPOfUploadFiles.Add(data);
                         }
                         else if (FileType.ToUpper() == "RPBZPHOTO")
@@ -137,6 +138,7 @@ namespace JXGIS.JXTopsystem.Controllers
                             data.RPID = ID;
                             data.FileEx = fileEx;
                             data.State = Enums.UseState.Enable;
+                            data.CreateTime = DateTime.Now;
                             dbContext.RPOfUploadFiles.Add(data);
                         }
                         else if (FileType.ToUpper() == "RPREPAIRPHOTO")
@@ -148,6 +150,7 @@ namespace JXGIS.JXTopsystem.Controllers
                             data.FileEx = fileEx;
                             data.RepairType = RepairType;
                             data.State = Enums.UseState.Enable;
+                            data.CreateTime = DateTime.Now;
                             dbContext.RPPepairUploadFiles.Add(data);
                         }
                         else if (FileType.ToUpper() == "PROFESSIONALDM")
@@ -159,6 +162,7 @@ namespace JXGIS.JXTopsystem.Controllers
                             data.FileEx = fileEx;
                             data.DocType = DocType;
                             data.State = Enums.UseState.Enable;
+                            data.CreateTime = DateTime.Now;
                             dbContext.DMOfUploadFiles.Add(data);
                         }
                         dbContext.SaveChanges();

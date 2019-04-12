@@ -53,5 +53,20 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DbSet<V_MPNUMSTATISTIC> V_MPNUMSTATISTIC { get; set; }
         public DbSet<DMOFZYSS> PlaceName { get; set; }
         public DbSet<DMOfUploadFiles> DMOfUploadFiles { get; set; }
+        public DbSet<BA_DMOFZYSS> BA_DMOFZYSS { get; set; }
+        public DbSet<BG_MPOFCOUNTRY> BG_MPOFCOUNTRY { get; set; }
+        public DbSet<BG_MPOFRESIDENCE> BG_MPOFRESIDENCE { get; set; }
+        public DbSet<BG_MPOFROAD> BG_MPOFROAD { get; set; }
+        public DbSet<SB_DMOFBRIDGE> SB_DMOFBRIDGE { get; set; }
+        public DbSet<SB_DMOFBUILDING> SB_DMOFBUILDING { get; set; }
+        public DbSet<SB_DMOFROAD> SB_DMOFROAD { get; set; }
+        public DbSet<SB_DMOFSETTLEMENT> SB_DMOFSETTLEMENT { get; set; }
+        public DbSet<SB_MPOFCOUNTRY> SB_MPOFCOUNTRY { get; set; }
+        public DbSet<SB_MPOFRESIDENCE> SB_MPOFRESIDENCE { get; set; }
+        public DbSet<SB_MPOFROAD> SB_MPOFROAD { get; set; }
+        public DbSet<ZM_MPOFCOUNTRY> ZM_MPOFCOUNTRY { get; set; }
+        public DbSet<ZM_MPOFRESIDENCE> ZM_MPOFRESIDENCE { get; set; }
+        public DbSet<ZM_MPOFROAD> ZM_MPOFROAD { get; set; }
+        public DbSet<FILE> FILE { get; set; }
     }
 }

@@ -68,17 +68,24 @@ namespace JXGIS.JXTopsystem.Models.Extends
         }
         public static class DocType
         {
-            public const string FCZ = "FCZ";
-            public const string TDZ = "TDZ";
-            public const string BDCZ = "BDCZ";
-            public const string HJ = "HJ";
-            public const string YYZZ = "YYZZ";
-            public const string QQZ = "QQZ";
-            public const string SQB = "SQB";
+            public const string FCZ = "房产证";
+            public const string TDZ = "土地证";
+            public const string BDCZ = "不动产证";
+            public const string HJ = "户籍";
+            public const string YYZZ = "营业执照";
+            public const string QQZ = "确权证";
+            public const string SQB = "申请表";
+
+            public const string JSYDXKZ = "建设用地许可证";
+            public const string JSGCGHXKZ = "建设工程规划许可证";
+            public const string ZPMT = "总平面图";
+            public const string XGT = "效果图";
+            public const string DLTZ = "道路图纸";
+            public const string QLTZ = "桥梁图纸";
 
             //专业设施地名
-            public const string SBBG = "申报表格";
-            public const string LXPFWJ = "立项批复文件";
+            //public const string SBBG = "申报表格";
+            public const string LXPFS = "立项批复书";
             public const string SJT = "设计图";
         }
         public static class FileType
@@ -113,6 +120,54 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const int YXF = 1;
             public const int WXF = 0;
             public const int All = 2;
+        }
+
+        public class SPFileCertificateTypes
+        {
+            public const string QQZ = "确权证";
+            public const string TDZ = "土地证";
+            public const string FCZ = "房产证";
+            public const string BDCZ = "不动产证";
+            public const string HJ = "户籍";
+            public const string YYZZ = "营业执照";
+            //public const string QSZJ = "权属证件";
+
+            public const string JSYDXKZ = "建设用地许可证";
+            public const string JSGCGHXKZ = "建设工程规划许可证";
+            public const string ZPMT = "总平面图";
+            public const string XGT = "效果图";
+
+            public const string LXPFS = "立项批复书";
+            public const string DLTZ = "道路图纸";
+            public const string QLTZ = "桥梁图纸";
+
+            public const string SQB = "申请表";
+            public const string SJT = "设计图";
+        }
+
+        public class SPFileBusinessTypes
+        {
+            public const string MPZSQ_DL = "门牌证申请_道路类";
+            public const string MPZSQ_ZZ = "门牌证申请_住宅类";
+            public const string MPZSQ_NC = "门牌证申请_农村";
+
+            public const string MPZBG_DL = "门牌证变更_道路类";
+            public const string MPZBG_ZZ = "门牌证变更_住宅类";
+            public const string MPZBG_NC = "门牌证变更_农村类";
+
+            public const string DMZM_DL = "地名证明_道路类";
+            public const string DMZM_ZZ = "地名证明_住宅类";
+            public const string DMZM_NC = "地名证明_农村类";
+
+            public const string DMMM_JMD = "地名命名_居名点类";
+            public const string DMMM_DLJX = "地名命名_道路街巷类";
+            public const string DMMM_JZW = "地名命名_建筑物类";
+            public const string DMMM_QL = "地名命名_桥梁类";
+
+            public const string DMBA_ZYSS = "地名备案_专业设施地名";
+
+
+            public const string DMGM_JMD = "地名更名_居名点类";
         }
     }
 }

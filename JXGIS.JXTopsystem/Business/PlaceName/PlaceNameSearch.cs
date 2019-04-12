@@ -116,13 +116,13 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                 var files = dbContext.DMOfUploadFiles.Where(t => t.State == Enums.UseState.Enable).Where(t => t.DMID == ID);
                 if (files.Count() > 0)
                 {
-                    var SBBG = files.Where(t => t.DocType == Enums.DocType.SBBG);
-                    var LXPFWJ = files.Where(t => t.DocType == Enums.DocType.LXPFWJ);
+                    var SQB = files.Where(t => t.DocType == Enums.DocType.SQB);
+                    var LXPFS = files.Where(t => t.DocType == Enums.DocType.LXPFS);
                     var SJT = files.Where(t => t.DocType == Enums.DocType.SJT);
                     var baseUrl = Path.Combine(StaticVariable.ProfessionalDMRelativePath, ID);
-                    if (SBBG.Count() > 0)
+                    if (SQB.Count() > 0)
                     {
-                        query.SBBG = (from t in SBBG
+                        query.SBBG = (from t in SQB
                                       select new Pictures
                                       {
                                           FileID = t.ID,
@@ -131,9 +131,9 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                                           TRelativePath = baseUrl + "/t-" + t.ID + t.FileEx
                                       }).ToList();
                     }
-                    if (LXPFWJ.Count() > 0)
+                    if (LXPFS.Count() > 0)
                     {
-                        query.LXPFWJ = (from t in LXPFWJ
+                        query.LXPFWJ = (from t in LXPFS
                                         select new Pictures
                                         {
                                             FileID = t.ID,

@@ -476,7 +476,7 @@ namespace JXGIS.JXTopsystem.Business
                     if (end != null)
                         res = res.Where(t => t.BZTime <= end);
                 }
-                var d = from t in res
+                var d = (from t in res
                         group t by new { t.CountyID, t.NeighborhoodsID, t.CommunityName } into g
                         select new StatisticAll
                         {
@@ -490,10 +490,18 @@ namespace JXGIS.JXTopsystem.Business
                             HSP = g.Where(t => t.type == "户室牌").Sum(t => t.count),
                             NCP = g.Where(t => t.type == "农村牌").Sum(t => t.count),
                             Sum = g.Sum(t => t.count),
-                        };
-                count = d.Count();
-                var data = d.OrderBy(t => t.NeighborhoodsID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
-                data = (from t in data
+                        }).ToList();
+                //count = d.Count();
+                int totalCount = 0; totalCount = int.Parse(d.Sum(t => t.Sum).ToString());
+                int dmpTotal = 0; dmpTotal = int.Parse(d.Sum(t => t.DMP).ToString());
+                int xmpTotal = 0; xmpTotal = int.Parse(d.Sum(t => t.XMP).ToString());
+                int lzpTotal = 0; lzpTotal = int.Parse(d.Sum(t => t.LZP).ToString());
+                int dypTotal = 0; dypTotal = int.Parse(d.Sum(t => t.DYP).ToString());
+                int hspTotal = 0; hspTotal = int.Parse(d.Sum(t => t.HSP).ToString());
+                int ncpTotal = 0; ncpTotal = int.Parse(d.Sum(t => t.NCP).ToString());
+
+                //var data = d.OrderBy(t => t.NeighborhoodsID).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
+                var data = (from t in d
                         select new StatisticAll
                         {
                             CountyID = t.CountyID,
@@ -510,9 +518,17 @@ namespace JXGIS.JXTopsystem.Business
                             Sum = t.Sum,
                         }).ToList();
 
+
                 return new Dictionary<string, object> {
                    { "Data",data},
-                   { "Count",count}
+                   //{ "Count",count},
+                   { "TotalCount",totalCount},
+                   { "dmpTotal",dmpTotal},
+                   { "xmpTotal",xmpTotal},
+                   { "lzpTotal",lzpTotal},
+                   { "dypTotal",dypTotal},
+                   { "hspTotal",hspTotal},
+                   { "ncpTotal",ncpTotal},
                 };
             }
         }
