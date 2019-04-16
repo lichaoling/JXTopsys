@@ -1,0 +1,44 @@
+=======2019/4/16 星期二 14:23:22
+|Message:对象与目标类型不匹配。
+|StackTrace:   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Reflection.PropertyInfo.GetValue(Object obj)
+   在 JXGIS.JXTopsystem.Models.Extends.CountryMPDetails.get_Item(String key)
+   在 JXGIS.JXTopsystem.Business.MPSearch.CountryMPSearch.ExportCountryMP(String DistrictID, String CommunityName, String ViligeName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.ExportCountryMP()
+=======2019/4/16 星期二 14:26:27
+|Message:对象与目标类型不匹配。
+|StackTrace:   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Reflection.PropertyInfo.GetValue(Object obj)
+   在 JXGIS.JXTopsystem.Models.Extends.CountryMPDetails.get_Item(String key)
+   在 JXGIS.JXTopsystem.Business.MPSearch.CountryMPSearch.ExportCountryMP(String DistrictID, String CommunityName, String ViligeName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.ExportCountryMP()
+=======2019/4/16 星期二 14:33:08
+|Message:对象与目标类型不匹配。
+|StackTrace:   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Reflection.PropertyInfo.GetValue(Object obj)
+   在 JXGIS.JXTopsystem.Models.Extends.CountryMPDetails.get_Item(String key)
+   在 JXGIS.JXTopsystem.Business.MPSearch.CountryMPSearch.ExportCountryMP(String DistrictID, String CommunityName, String ViligeName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.ExportCountryMP()
+=======2019/4/16 星期二 14:33:48
+|Message:对象与目标类型不匹配。
+|StackTrace:   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Reflection.PropertyInfo.GetValue(Object obj)
+   在 JXGIS.JXTopsystem.Models.Extends.CountryMPDetails.get_Item(String key)
+   在 JXGIS.JXTopsystem.Business.MPSearch.CountryMPSearch.ExportCountryMP(String DistrictID, String CommunityName, String ViligeName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState)
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.ExportCountryMP()

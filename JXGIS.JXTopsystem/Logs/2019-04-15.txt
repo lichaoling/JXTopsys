@@ -1,0 +1,4 @@
+=======2019/4/15 星期一 8:41:15
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Models.SysUser.GetWebUser() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Models\Extends\SysUser.cs:行号 72
+   在 JXGIS.JXTopsystem.Controllers.LoginController.GetCurrentUser() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\LoginController.cs:行号 144

@@ -72,7 +72,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + CommunityName + targetData.ViligeName + targetData.MPNumber + "号" + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.MPPosition = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : null;
+                    targetData.MPPosition = (targetData.Lng != 0 && targetData.Lat != 0 && targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : null;
                     targetData.AddType = Enums.MPAddType.LX;
                     targetData.MPProduce = targetData.MPProduce == null ? Enums.MPProduce.NO : targetData.MPProduce;
                     //targetData.MPProduceComplete = Enums.Complete.NO;
@@ -118,7 +118,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + CommunityName + targetData.ViligeName + targetData.MPNumber + "号" + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.MPPosition = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.MPPosition;
+                    targetData.MPPosition = (targetData.Lng != 0 && targetData.Lat != 0 && targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.MPPosition;
                     targetData.LastModifyTime = DateTime.Now;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     BaseUtils.UpdateAddressCode(null, null, targetData, null, Enums.TypeInt.Country);

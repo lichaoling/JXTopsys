@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JXGIS.JXTopsystem.Business;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,8 +21,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string RoadName { get; set; }
         public string ShopName { get; set; }
         public string MPNumber { get; set; }
-        public string MPPositionX { get; set; }
-        public string MPPositionY { get; set; }
+        public double? MPPositionX { get; set; }
+        public double? MPPositionY { get; set; }
         public string OriginalMPAddress { get; set; }
         public string MailAddress { get; set; }
         public string Postcode { get; set; }
@@ -44,5 +45,11 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string ProjID { get; set; }
         public int? IsFinish { get; set; }
         public string Remark { get; set; }
+        [NotMapped]
+        public List<SPFile> fcz { get; set; }
+        [NotMapped]
+        public List<SPFile> tdz { get; set; }
+        [NotMapped]
+        public List<SPFile> yyzz { get; set; }
     }
 }

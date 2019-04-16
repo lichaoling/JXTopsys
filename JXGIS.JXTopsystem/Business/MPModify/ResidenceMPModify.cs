@@ -42,7 +42,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     #endregion
                     #region 重复性检查
                     if (!CheckResidenceMPIsAvailable(targetData.ID, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.ResidenceName, targetData.MPNumber, targetData.Dormitory, targetData.HSNumber, targetData.LZNumber, targetData.DYNumber))
-                        throw new Exception("该住宅门牌已经存在，请检查后重新输入！");
+                        throw new Error("该住宅门牌已经存在，请检查后重新输入！");
                     #endregion
                     #region 地址编码前10位拼接
                     var CountyCode = db.District.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == targetData.CountyID).Select(t => t.Code).FirstOrDefault();
@@ -81,7 +81,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + LZNumber1 + MPNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.DYPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;
+                    targetData.DYPosition = (targetData.Lng != 0 && targetData.Lat != 0 && targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;
                     targetData.AddType = Enums.MPAddType.LX;
                     targetData.MPProduce = Enums.MPProduce.NO;
                     targetData.MPZPrintComplete = Enums.Complete.NO;
@@ -128,7 +128,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + LZNumber1 + MPNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.DYPosition = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;
+                    targetData.DYPosition = (targetData.Lng != 0 && targetData.Lat != 0 && targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;
                     targetData.LastModifyTime = DateTime.Now;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     BaseUtils.UpdateAddressCode(targetData, null, null, null, Enums.TypeInt.Residence);
@@ -170,7 +170,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var count = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID != ID).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityName == CommunityName).Where(t => t.ResidenceName == ResidenceName).Where(t => t.MPNumber == MPNumber).Where(t => t.Dormitory == Dormitory).Where(t => t.LZNumber == LZNumber).Where(t => t.DYNumber == DYNumber).Where(t => t.HSNumber == HSNumber).Count();
+                var count = dbContext.MPOfResidence.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID != ID).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityName == CommunityName).Where(t => t.ResidenceName == ResidenceName).Where(t => t.MPNumber == MPNumber).Where(t => t.LZNumber == LZNumber).Where(t => t.DYNumber == DYNumber).Where(t => t.HSNumber == HSNumber).Count();
                 return count == 0;
             }
         }

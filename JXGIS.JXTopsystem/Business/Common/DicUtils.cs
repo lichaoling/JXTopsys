@@ -39,7 +39,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 }
                 else if (type == Enums.TypeInt.PlaceName)
                 {
-                    s = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0 || t.NeighborhoodsID == DistrictID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
+                    s = dbContext.ZYSS.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID.IndexOf(DistrictID + ".") == 0 || t.NeighborhoodsID == DistrictID).Where(t => !string.IsNullOrEmpty(t.CommunityName)).Select(t => t.CommunityName).Distinct().ToList();
                 }
 
                 return s;
@@ -508,7 +508,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 List<string> code = new List<string>();
                 if (type == Enums.TypeInt.PlaceName)
                 {
-                    IQueryable<Models.Entities.DMOFZYSS> query = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable);
+                    IQueryable<Models.Entities.DMOFZYSS> query = dbContext.ZYSS.Where(t => t.State == Enums.UseState.Enable);
                     query = BaseUtils.DataFilterWithTown<Models.Entities.DMOFZYSS>(query);
                     if (!string.IsNullOrEmpty(CountyID))
                         query = query.Where(t => t.CountyID == CountyID);

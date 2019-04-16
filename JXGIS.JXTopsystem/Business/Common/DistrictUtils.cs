@@ -175,13 +175,13 @@ namespace JXGIS.JXTopsystem.Business.Common
                     {
                         foreach (var districtID in districtIDs)
                         {
-                            var s = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID != null ? t.NeighborhoodsID.IndexOf(districtID + ".") == 0 || t.NeighborhoodsID == districtID : districtID.IndexOf(t.CountyID + ".") == 0 || t.CountyID == districtID).Where(t => t.NeighborhoodsID != null).Select(t => t.NeighborhoodsID).Distinct().ToList();
+                            var s = dbContext.ZYSS.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID != null ? t.NeighborhoodsID.IndexOf(districtID + ".") == 0 || t.NeighborhoodsID == districtID : districtID.IndexOf(t.CountyID + ".") == 0 || t.CountyID == districtID).Where(t => t.NeighborhoodsID != null).Select(t => t.NeighborhoodsID).Distinct().ToList();
                             neighborhoodsIDs.AddRange(s);
                         }
                     }
                     else
                     {
-                        var s = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID != null).Select(t => t.NeighborhoodsID).Distinct().ToList();
+                        var s = dbContext.ZYSS.Where(t => t.State == Enums.UseState.Enable).Where(t => t.NeighborhoodsID != null).Select(t => t.NeighborhoodsID).Distinct().ToList();
                         neighborhoodsIDs.AddRange(s);
                     }
                 }

@@ -33,15 +33,15 @@ namespace JXGIS.JXTopsystem.Business
             get
             {
 #if DEBUG
-                SysUser user = new SysUser();
-                user.UserName = "测试用户";
-                user.UserID = "1";
-                //user.DistrictIDList = new List<string>() { "嘉兴市.秀洲区.新塍镇", "嘉兴市.南湖区.新兴街道", "嘉兴市" };
-                user.DistrictIDList = new List<string>() { "嘉兴市.南湖区.新兴街道", "嘉兴市.秀洲区.塘汇街道" };
-                //user.DistrictIDList = new List<string>() { "嘉兴市.南湖区" };
-                //user.Window = "地名办公室";
-                HttpContext.Current.Session[_user] = user;
-                return HttpContext.Current != null ? (HttpContext.Current.Session[_user] as IUser) : null;
+                //SysUser user = new SysUser();
+                //user.UserName = "测试用户";
+                //user.UserID = "1";
+                ////user.DistrictIDList = new List<string>() { "嘉兴市.秀洲区.新塍镇", "嘉兴市.南湖区.新兴街道", "嘉兴市" };
+                //user.DistrictIDList = new List<string>() { "嘉兴市.南湖区.新兴街道", "嘉兴市.秀洲区.塘汇街道" };
+                ////user.DistrictIDList = new List<string>() { "嘉兴市.南湖区" };
+                ////user.Window = "地名办公室";
+                //HttpContext.Current.Session[_user] = user;
+                //return HttpContext.Current != null ? (HttpContext.Current.Session[_user] as IUser) : null;
 #endif
                 return HttpContext.Current != null ? (HttpContext.Current.Session[_user] as IUser) : null;
             }

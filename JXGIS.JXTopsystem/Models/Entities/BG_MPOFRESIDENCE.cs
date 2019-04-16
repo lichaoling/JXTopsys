@@ -42,9 +42,13 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string ProjID { get; set; }
         public int? IsFinish { get; set; }
         public string Remark { get; set; }
+        [NotMapped]
         public List<SPFile> fcz { get; set; }
+        [NotMapped]
         public List<SPFile> tdz { get; set; }
+        [NotMapped]
         public List<SPFile> bdcz { get; set; }
+        [NotMapped]
         public List<SPFile> hj { get; set; }
     }
 }

@@ -38,6 +38,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("{StandardAddress}", mpOfResidence.StandardAddress);
                         bookmarks.Add("{FCZAddress}", string.IsNullOrEmpty(mpOfResidence.FCZAddress) ? "" : mpOfResidence.FCZAddress);
                         bookmarks.Add("{TDZAddress}", string.IsNullOrEmpty(mpOfResidence.TDZAddress) ? "" : mpOfResidence.TDZAddress);
+                        bookmarks.Add("{BDCZAddress}", string.IsNullOrEmpty(mpOfResidence.BDCZAddress) ? "" : mpOfResidence.BDCZAddress);
                         bookmarks.Add("{YYZZAddress/HJAddress}", string.IsNullOrEmpty(mpOfResidence.HJAddress) ? "" : mpOfResidence.HJAddress);
                         bookmarks.Add("{OtherAddress}", string.IsNullOrEmpty(mpOfResidence.OtherAddress) ? "" : mpOfResidence.OtherAddress);
                         bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
@@ -65,6 +66,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("{StandardAddress}", mpOfRoad.StandardAddress);
                         bookmarks.Add("{FCZAddress}", string.IsNullOrEmpty(mpOfRoad.FCZAddress) ? "" : mpOfRoad.FCZAddress);
                         bookmarks.Add("{TDZAddress}", string.IsNullOrEmpty(mpOfRoad.TDZAddress) ? "" : mpOfRoad.TDZAddress);
+                        bookmarks.Add("{BDCZAddress}", "");
                         bookmarks.Add("{YYZZAddress/HJAddress}", string.IsNullOrEmpty(mpOfRoad.YYZZAddress) ? "" : mpOfRoad.YYZZAddress);
                         bookmarks.Add("{OtherAddress}", string.IsNullOrEmpty(mpOfRoad.OtherAddress) ? "" : mpOfRoad.OtherAddress);
                         bookmarks.Add("{Year}", DateTime.Now.Year.ToString());
@@ -92,6 +94,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         bookmarks.Add("{StandardAddress}", mpOfCounty.StandardAddress);
                         bookmarks.Add("{FCZAddress}", "");
                         bookmarks.Add("{TDZAddress}", string.IsNullOrEmpty(mpOfCounty.TDZAddress) ? "" : mpOfCounty.TDZAddress);
+                        bookmarks.Add("{BDCZAddress}", "");
                         bookmarks.Add("{YYZZAddress/HJAddress}", "");
                         bookmarks.Add("{OtherAddress}", string.IsNullOrEmpty(mpOfCounty.OtherAddress) ? "" : mpOfCounty.OtherAddress);
                         bookmarks.Add("{Year}", DateTime.Now.Year.ToString());

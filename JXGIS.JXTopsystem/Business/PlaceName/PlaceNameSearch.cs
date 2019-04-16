@@ -20,7 +20,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
             using (var db = SystemUtils.NewEFDbContext)
             {
                 List<string> DMLBTypes = new List<string>();
-                IQueryable<Models.Entities.DMOFZYSS> query = db.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ZYSSType == ZYSSType);
+                IQueryable<Models.Entities.DMOFZYSS> query = db.ZYSS.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ZYSSType == ZYSSType);
                 query = BaseUtils.DataFilterWithTown<Models.Entities.DMOFZYSS>(query);
                 if (!(string.IsNullOrEmpty(DistrictID) || DistrictID == "嘉兴市"))
                 {
@@ -45,7 +45,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
             int count = 0;
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContext.PlaceName.Where(t => t.State == 1);
+                var query = dbContext.ZYSS.Where(t => t.State == 1);
                 query = BaseUtils.DataFilterWithTown<Models.Entities.DMOFZYSS>(query);
                 if (!string.IsNullOrEmpty(ZYSSType))
                 {
@@ -106,7 +106,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = (from t in dbContext.PlaceName
+                var query = (from t in dbContext.ZYSS
                              where t.State == Enums.UseState.Enable && t.ID == ID
                              select t).FirstOrDefault();
                 if (query == null)
@@ -272,7 +272,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 var sourceData = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Entities.DMOFZYSS>(oldDataJson);
-                var targetData = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
+                var targetData = dbContext.ZYSS.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID == sourceData.ID).FirstOrDefault();
                 var Dic = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(oldDataJson);
                 if (targetData == null) //新增
                 {
@@ -283,7 +283,10 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     if (!DistrictUtils.CheckPermission(districtID))
                         throw new Error("无权操作其他镇街数据！");
                     #endregion
-
+                    #region 重复性检查
+                    if (!CheckZYSSIsAvailable(targetData.ID, targetData.ZYSSType, targetData.DMType, targetData.SmallType, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.Name))
+                        throw new Exception("该专业设施已经存在，请检查后重新输入！");
+                    #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new Models.Entities.CommunityDic();
                     CommunityDic.CountyID = targetData.CountyID;
@@ -296,7 +299,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     targetData.State = Enums.UseState.Enable;
                     targetData.CreateTime = DateTime.Now;
                     targetData.CreateUser = LoginUtils.CurrentUser.UserName;
-                    dbContext.PlaceName.Add(targetData);
+                    dbContext.ZYSS.Add(targetData);
                 }
                 else //修改
                 {
@@ -305,6 +308,10 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     #region 权限检查
                     if (!DistrictUtils.CheckPermission(targetData.NeighborhoodsID))
                         throw new Error("无权操作其他镇街数据！");
+                    #endregion
+                    #region 重复性检查
+                    if (!CheckZYSSIsAvailable(targetData.ID, targetData.ZYSSType, targetData.DMType, targetData.SmallType, targetData.CountyID, targetData.NeighborhoodsID, targetData.CommunityName, targetData.Name))
+                        throw new Exception("该专业设施已经存在，请检查后重新输入！");
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new Models.Entities.CommunityDic();
@@ -330,7 +337,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var query = dbContext.PlaceName.Where(t => t.State == Enums.UseState.Enable).Where(t => ID.Contains(t.ID)).ToList();
+                var query = dbContext.ZYSS.Where(t => t.State == Enums.UseState.Enable).Where(t => ID.Contains(t.ID)).ToList();
                 if (ID.Count != query.Count)
                     throw new Error("部分门牌数据已被注销，请重新查询！");
                 foreach (var q in query)
@@ -340,6 +347,14 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     q.CancelUser = LoginUtils.CurrentUser.UserName;
                 }
                 dbContext.SaveChanges();
+            }
+        }
+        public static bool CheckZYSSIsAvailable(string ID, string ZYSSType, string DMType, string SmallType, string CountyID, string NeighborhoodsID, string CommunityName, string Name)
+        {
+            using (var dbContext = SystemUtils.NewEFDbContext)
+            {
+                var count = dbContext.ZYSS.Where(t => t.State == Enums.UseState.Enable).Where(t => t.ID != ID).Where(t => t.ZYSSType == ZYSSType).Where(t => t.DMType == DMType).Where(t => t.SmallType == SmallType).Where(t => t.CountyID == CountyID).Where(t => t.NeighborhoodsID == NeighborhoodsID).Where(t => t.CommunityName == CommunityName).Where(t => t.Name == Name).Count();
+                return count == 0;
             }
         }
     }

@@ -156,7 +156,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<LXMPHZ> lxmphzs = new List<LXMPHZ>();
-                var LXProduceID = DateTime.Now.ToString("yyyyMMddhhmmss");
+                var LXProduceID = DateTime.Now.ToString("yyyyMMddHHmmss");
 
                 if (MPType == Enums.MPTypeCh.Road)
                 {
@@ -800,7 +800,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
             using (var db = SystemUtils.NewEFDbContext)
             {
                 List<PLMPHZ> plmphzs = new List<PLMPHZ>();
-                var PLProduceID = DateTime.Now.ToString("yyyyMMddhhmmss");
+                var PLProduceID = DateTime.Now.ToString("yyyyMMddHHmmss");
                 var MPProduceTime = DateTime.Now;
                 if (MPType == Enums.MPTypeCh.Residence)
                 {

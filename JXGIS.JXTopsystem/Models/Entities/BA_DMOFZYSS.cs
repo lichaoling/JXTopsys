@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JXGIS.JXTopsystem.Business;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -53,5 +54,12 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string Remark { get; set; }
         public string ProjID { get; set; }
         public int? IsFinish { get; set; }
+        [NotMapped]
+        public List<SPFile> sqb { get; set; }
+        [NotMapped]
+        public List<SPFile> sjt { get; set; }
+        [NotMapped]
+        public List<SPFile> lxpfs { get; set; }
+
     }
 }
