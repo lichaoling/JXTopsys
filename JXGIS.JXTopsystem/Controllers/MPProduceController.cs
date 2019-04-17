@@ -170,7 +170,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 using (var db = SystemUtils.NewEFDbContext)
                 {
                     List<LXMPHZ> lxmphzs = new List<LXMPHZ>();
-                    var PLProduceID = DateTime.Now.ToString("yyyyMMddhhmmss");
+                    var PLProduceID = DateTime.Now.ToString("yyyyMMddHHmmss");
                     //List<string> IDs = new List<string>();
                     if (MPType == Enums.MPTypeCh.Residence)
                     {

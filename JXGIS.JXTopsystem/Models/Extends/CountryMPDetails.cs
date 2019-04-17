@@ -19,7 +19,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public List<Pictures> SQB { get; set; }
 
 
-        private static PropertyInfo[] props = typeof(RoadMPDetails).GetProperties();
+        private static PropertyInfo[] props = typeof(CountryMPDetails).GetProperties();
         public object this[string key]
         {
             get

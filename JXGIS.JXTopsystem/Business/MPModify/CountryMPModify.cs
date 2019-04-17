@@ -68,7 +68,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var CountyName = targetData.NeighborhoodsID.Split('.')[1];
                     var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
                     var CommunityName = targetData.CommunityName;
-                    var HSNumber1 = targetData.HSNumber == null ? string.Empty : targetData.HSNumber + "室";
+                    var HSNumber1 = string.IsNullOrEmpty(targetData.HSNumber) ? string.Empty : targetData.HSNumber + "室";
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + CommunityName + targetData.ViligeName + targetData.MPNumber + "号" + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
@@ -114,7 +114,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var CountyName = targetData.NeighborhoodsID.Split('.')[1];
                     var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
                     var CommunityName = targetData.CommunityName;
-                    var HSNumber1 = targetData.HSNumber == null ? string.Empty : targetData.HSNumber + "室";
+                    var HSNumber1 = string.IsNullOrEmpty(targetData.HSNumber) ? string.Empty : targetData.HSNumber + "室";
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + CommunityName + targetData.ViligeName + targetData.MPNumber + "号" + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion

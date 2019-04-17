@@ -74,10 +74,10 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var CountyName = targetData.NeighborhoodsID.Split('.')[1];
                     var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
                     var CommunityName = targetData.CommunityName;
-                    var MPNumber1 = targetData.MPNumber == null ? "" : targetData.MPNumber + "号";
-                    var LZNumber1 = targetData.LZNumber == null ? "" : targetData.LZNumber + "幢";
-                    var DYNumber1 = targetData.DYNumber == null ? "" : targetData.DYNumber + "单元";
-                    var HSNumber1 = targetData.HSNumber == null ? "" : targetData.HSNumber + "室";
+                    var MPNumber1 = string.IsNullOrEmpty(targetData.MPNumber) ? "" : targetData.MPNumber + "号";
+                    var LZNumber1 = string.IsNullOrEmpty(targetData.LZNumber) ? "" : targetData.LZNumber + "幢";
+                    var DYNumber1 = string.IsNullOrEmpty(targetData.DYNumber) ? "" : targetData.DYNumber + "单元";
+                    var HSNumber1 = string.IsNullOrEmpty(targetData.HSNumber) ? "" : targetData.HSNumber + "室";
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + LZNumber1 + MPNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
@@ -121,10 +121,10 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var CountyName = targetData.NeighborhoodsID.Split('.')[1];
                     var NeighborhoodsName = targetData.NeighborhoodsID.Split('.')[2];
                     var CommunityName = targetData.CommunityName;
-                    var MPNumber1 = targetData.MPNumber == null ? "" : targetData.MPNumber + "号";
-                    var LZNumber1 = targetData.LZNumber == null ? "" : targetData.LZNumber + "幢";
-                    var DYNumber1 = targetData.DYNumber == null ? "" : targetData.DYNumber + "单元";
-                    var HSNumber1 = targetData.HSNumber == null ? "" : targetData.HSNumber + "室";
+                    var MPNumber1 = string.IsNullOrEmpty(targetData.MPNumber) ? "" : targetData.MPNumber + "号";
+                    var LZNumber1 = string.IsNullOrEmpty(targetData.LZNumber) ? "" : targetData.LZNumber + "幢";
+                    var DYNumber1 = string.IsNullOrEmpty(targetData.DYNumber) ? "" : targetData.DYNumber + "单元";
+                    var HSNumber1 = string.IsNullOrEmpty(targetData.HSNumber) ? "" : targetData.HSNumber + "室";
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + LZNumber1 + MPNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion

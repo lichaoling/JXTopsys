@@ -10,15 +10,16 @@ namespace JXGIS.JXTopsystem.Models.Extends
     public class NotProducedPLMPList
     {
         public string PLID { get; set; }
-        public string MPType { get; set; }
-        public string ResidenceName { get; set; }
-        public string RoadName { get; set; }
-        public string ViligeName { get; set; }
-        public int MPCount { get; set; }
-        public string SBDW { get; set; }
-        public string Applicant { get; set; }
-        public string ApplicantPhone { get; set; }
-        public DateTime? CreateTime { get; set; }
+        public string Content { get; set; }
+        //public string MPType { get; set; }
+        //public IEnumerable<string> ResidenceName { get; set; }
+        //public IEnumerable<string> RoadName { get; set; }
+        //public IEnumerable<string> ViligeName { get; set; }
+        //public int MPCount { get; set; }
+        //public IEnumerable<string> SBDW { get; set; }
+        //public IEnumerable<string> Applicant { get; set; }
+        //public IEnumerable<string> ApplicantPhone { get; set; }
+        //public IEnumerable<DateTime> CreateTime { get; set; }
     }
     public class ProducedPLMPList
     {
