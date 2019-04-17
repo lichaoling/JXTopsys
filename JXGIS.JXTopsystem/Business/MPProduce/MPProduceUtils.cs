@@ -688,7 +688,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
  t1 as(
   select t.PLID,IsNull(t.SBDW, '空') SBDW,IsNull(t.ResidenceName, '空') ResidenceName,IsNull(t.Applicant, '空') Applicant,IsNull(t.ApplicantPhone, '空') ApplicantPhone,CONVERT(varchar(100),t.BZTime, 23) BZTime from t 
   where t.mpproduce=1 and t.AddType='批量' and t.PLProduceID is null and t.State=1
-  group by t.PLID,t.SBDW,t.ResidenceName,t.Applicant,t.ApplicantPhone,t.BZTime
+  group by t.PLID,t.SBDW,t.ResidenceName,t.Applicant,t.ApplicantPhone,CONVERT(varchar(100),t.BZTime, 23)
  ),
  t2 as(
  select t1.plid,'申报单位:'+t1.SBDW+'|'+'小区名称:'+t1.ResidenceName+'|'+'申办人:'+t1.Applicant+'|'+'联系电话:'+t1.ApplicantPhone+'|'+'编制时间:'+t1.BZTime ct from t1
@@ -724,7 +724,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
 t1 as(
   select t.PLID,IsNull(t.SBDW, '空') SBDW,IsNull(t.roadname, '空') roadname,IsNull(t.Applicant, '空') Applicant,IsNull(t.ApplicantPhone, '空') ApplicantPhone,CONVERT(varchar(100),t.BZTime, 23) BZTime from t 
   where t.mpproduce=1 and t.AddType='批量' and t.PLProduceID is null and t.State=1
-  group by t.PLID,t.SBDW,t.roadname,t.Applicant,t.ApplicantPhone,t.BZTime
+  group by t.PLID,t.SBDW,t.roadname,t.Applicant,t.ApplicantPhone,CONVERT(varchar(100),t.BZTime, 23)
  ),
  t2 as(
  select t1.plid,'申报单位:'+t1.SBDW+'|'+'道路名称:'+t1.roadname+'|'+'申办人:'+t1.Applicant+'|'+'联系电话:'+t1.ApplicantPhone+'|'+'编制时间:'+t1.BZTime ct from t1
@@ -761,7 +761,7 @@ t1 as(
   t1 as(
   select t.PLID,IsNull(t.SBDW, '空') SBDW,IsNull(t.ViligeName, '空') ViligeName,IsNull(t.Applicant, '空') Applicant,IsNull(t.ApplicantPhone, '空') ApplicantPhone,CONVERT(varchar(100),t.BZTime, 23) BZTime from t 
   where t.mpproduce=1 and t.AddType='批量' and t.PLProduceID is null and t.State=1
-  group by t.PLID,t.SBDW,t.ViligeName,t.Applicant,t.ApplicantPhone,t.BZTime
+  group by t.PLID,t.SBDW,t.ViligeName,t.Applicant,t.ApplicantPhone,CONVERT(varchar(100),t.BZTime, 23)
  ),
  t2 as(
  select t1.plid,'申报单位:'+t1.SBDW+'|'+'自然村名称:'+t1.ViligeName+'|'+'申办人:'+t1.Applicant+'|'+'联系电话:'+t1.ApplicantPhone+'|'+'编制时间:'+t1.BZTime ct from t1
