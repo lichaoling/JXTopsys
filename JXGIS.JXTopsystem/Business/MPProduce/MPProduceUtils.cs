@@ -652,7 +652,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
                 };
             }
         }
-        public static DbRawSqlQuery<NotProducedPLMPList> GetNotProducedPLMP(int PageSize, int PageNum, string MPType)
+        public static List<NotProducedPLMPList> GetNotProducedPLMP(int PageSize, int PageNum, string MPType)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -857,9 +857,10 @@ t1 as(
                 //}
                 #endregion
                 result = dbContext.Database.SqlQuery<NotProducedPLMPList>(query);
+                var data = result.ToList();
                 //count = result.Count();
                 //var data = result.OrderByDescending(t => t.CreateTime).Skip(PageSize * (PageNum - 1)).Take(PageSize).ToList();
-                return result;
+                return data;
             }
         }
         public static MemoryStream ProducePLMP(List<string> PLIDs, string MPType)
