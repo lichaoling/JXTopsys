@@ -57,7 +57,11 @@ namespace JXGIS.JXTopsystem.Business.DataPush
             if (type == place.zsxx.hy.tthazsxx.name)
                 xml = $"<Item name='BMTX0022' name_cn='所在海洋'>" + place.zsxx.hy.tthazsxx.BMTX0022 + "</Item>";
             if (type == place.zsxx.sx.hlzsxx.name)
-                xml = $"<Item name='AMEX0008' name_cn='长度（千米）'>" + place.zsxx.sx.hlzsxx.AMEX0008 + "</Item>";
+                xml = $"<Item name='AMEX0008' name_cn='长度（千米）'>" + place.zsxx.sx.hlzsxx.AMEX0008 + "</Item>"
+                    + $"<Item name='BMEX0028' name_cn='河流级别'>" + place.zsxx.sx.hlzsxx.BMEX0028 + "</Item>"
+                    + $"<Item name='BMEX0029' name_cn='河流类别1'>" + place.zsxx.sx.hlzsxx.BMEX0029 + "</Item>"
+                    + $"<Item name='BMEX0030' name_cn='河流类别2'>" + place.zsxx.sx.hlzsxx.BMEX0030 + "</Item>"
+                    + $"<Item name='BMEX0031' name_cn='河流类别3'>" + place.zsxx.sx.hlzsxx.BMEX0031 + "</Item>";
             if (type == place.zsxx.sx.hewzsxx.name)
                 xml = $"<Item name='BMYX0017' name_cn='所属河流'>" + place.zsxx.sx.hewzsxx.BMYX0017 + "</Item>";
             if (type == place.zsxx.sx.hkzsxx.name)
@@ -88,9 +92,14 @@ namespace JXGIS.JXTopsystem.Business.DataPush
                     + $"<Item name='BNKX0019' name_cn='面积（平方千米）'>" + place.zsxx.fxzqy.bmqkazsxx.BNKX0019 + "</Item>";
             if (type == place.zsxx.qzzz.qzzzzzzsxx.name)
                 xml = $"<Item name='BNOX0021' name_cn='邮政编码'>" + place.zsxx.qzzz.qzzzzzzsxx.BNOX0021 + "</Item>";
+
+
+            //***************************居民点*********************************
             if (type == place.zsxx.jmd.jmdzsxx.name)
                 xml = $"<Item name='BNPX0017' name_cn='类型'>" + place.zsxx.jmd.jmdzsxx.BNPX0017 + "</Item>"
                     + $"<Item name='BNPX0020' name_cn='邮政编码'>" + place.zsxx.jmd.jmdzsxx.BNPX0020 + "</Item>";
+
+
             if (type == place.zsxx.jtys.hghgzsxx.name)
                 xml = $"<Item name='BXBX0017' name_cn='类型'>" + place.zsxx.jtys.hghgzsxx.BXBX0017 + "</Item>";
             if (type == place.zsxx.jtys.czscjz.name)
@@ -108,12 +117,18 @@ namespace JXGIS.JXTopsystem.Business.DataPush
                 xml = $"<Item name='BXIX0017' name_cn='类型'>" + place.zsxx.jtys.hczzsxx.BXIX0017 + "</Item>";
             if (type == place.zsxx.jtys.hkgzsxx.name)
                 xml = $"<Item name='BXKX0017' name_cn='类型'>" + place.zsxx.jtys.hkgzsxx.BXKX0017 + "</Item>";
+
+            //***************************道路街巷*********************************
             if (type == place.zsxx.jtys.dljxzsxx.name)
                 xml = $"<Item name='BXNX0012' name_cn='道路等级'>" + place.zsxx.jtys.dljxzsxx.BXNX0012 + "</Item>";
+
+            //***************************桥梁*********************************
             if (type == place.zsxx.jtys.qlzsxx.name)
                 xml = $"<Item name='BXRX0017' name_cn='类型'>" + place.zsxx.jtys.qlzsxx.BXRX0017 + "</Item>"
                     + $"<Item name='BXRX0021' name_cn='最大载重量（吨）'>" + place.zsxx.jtys.qlzsxx.BXRX0021 + "</Item>"
                     + $"<Item name='BXRX0022' name_cn='长度（米）'>" + place.zsxx.jtys.qlzsxx.BXRX0022 + "</Item>";
+
+
             if (type == place.zsxx.jtys.sdzsxx.name)
                 xml = $"<Item name='BXSX0017' name_cn='类型'>" + place.zsxx.jtys.sdzsxx.BXSX0017 + "</Item>"
                     + $"<Item name='BXSX0018' name_cn='长度（米）'>" + place.zsxx.jtys.sdzsxx.BXSX0018 + "</Item>";
@@ -126,17 +141,28 @@ namespace JXGIS.JXTopsystem.Business.DataPush
                 xml = $"<Item name='BNSX0018' name_cn='管理单位'>" + place.zsxx.lyjd.gyfjqzsxx.BNSX0018 + "</Item>";
             if (type == place.zsxx.lyjd.zrbhqzsxx.name)
                 xml = $"<Item name='BNTX0020' name_cn='管理单位'>" + place.zsxx.lyjd.zrbhqzsxx.BNTX0020 + "</Item>";
+
+           
             if (type == place.zsxx.jzw.jzwzhzsxx.name)
                 xml = $"<Item name='AMBX0010' name_cn='所在位置'>" + place.zsxx.jzw.jzwzhzsxx.AMBX0010 + "</Item>"
                     + $"<Item name='AMBX0020' name_cn='邮政编码'>" + place.zsxx.jzw.jzwzhzsxx.AMBX0020 + "</Item>";
+
+            //***************************房屋*********************************
             if (type == place.zsxx.jzw.fwzsxx.name)
                 xml = $"<Item name='BNUX0011' name_cn='地址'>" + place.zsxx.jzw.fwzsxx.BNUX0011 + "</Item>"
                     + $"<Item name='BNUX0016' name_cn='邮政编码'>" + place.zsxx.jzw.fwzsxx.BNUX0016 + "</Item>";
+
+
             if (type == place.zsxx.jzw.ttbtzsxx.name)
                 xml = $"<Item name='BNVX0032' name_cn='建筑结构'>" + place.zsxx.jzw.ttbtzsxx.BNVX0032 + "</Item>";
+
+            //***************************广场体育场*********************************
             if (type == place.zsxx.jzw.gctyczsxx.name)
                 xml = $"<Item name='BNWX0013' name_cn='所在位置'>" + place.zsxx.jzw.gctyczsxx.BNWX0013 + "</Item>"
                     + $"<Item name='BNWX0014' name_cn='占地面积（平方米）'>" + place.zsxx.jzw.gctyczsxx.BNWX0014 + "</Item>";
+
+
+
             if (type == place.zsxx.dw.dwzsxx.name)
                 xml = $"<Item name='BNYX0017' name_cn='地址'>" + place.zsxx.dw.dwzsxx.BNYX0017 + "</Item>"
                     + $"<Item name='BNYX0022' name_cn='邮政编码'>" + place.zsxx.dw.dwzsxx.BNYX0022 + "</Item>";
@@ -146,6 +172,20 @@ namespace JXGIS.JXTopsystem.Business.DataPush
             if (type == place.zsxx.sldltx.fdzzsxx.name)
                 xml = $"<Item name='BYMX0017' name_cn='类型'>" + place.zsxx.sldltx.fdzzsxx.BYMX0017 + "</Item>";
 
+            return xml;
+        }
+
+        private static string GetDocumentXml(Document doc)
+        {
+            string xml = $"<Item name='BMJXUUID' name_cn='UUID'>" + doc.BMJXUUID + "</Item>"
+                + $"<Item name='BMJX0001' name_cn='PROJID'>" + doc.BMJX0001 + "</Item>"
+                + $"<Item name='BMJX0002' name_cn='门牌证号/地名代码'>" + doc.BMJX0002 + "</Item>"
+                + $"<Item name='BMJX0003' name_cn='附件文件名称'>" + doc.BMJX0003 + "</Item>"
+                + $"<Item name='BMJX0004' name_cn='附件访问路径'>" + doc.BMJX0004 + "</Item>"
+                + $"<Item name='BMJX0006' name_cn='文件大小'>" + doc.BMJX0006 + "</Item>"
+                + $"<Item name='BMJX0007' name_cn='材料描述代码'>" + doc.BMJX0007 + "</Item>"
+                + $"<Item name='BMJX0008' name_cn='业务类型代码'>" + doc.BMJX0008 + "</Item>"
+                + $"<Item name='ZZZZ9999' name_cn='时间戳'>" + doc.ZZZZ9999 + "</Item>";
             return xml;
         }
 
@@ -300,6 +340,8 @@ namespace JXGIS.JXTopsystem.Business.DataPush
             doorplate.BYUX0031 = mp.AddressCoding;
             doorplate.BYUX0037 = mp.StandardAddress;
             doorplate.BYUX0060 = "农村门牌";
+            doorplate.BYRX0030 = "2";//1单位（委托）申请、2个人（委托）申请、3农居（委托）申请
+            doorplate.BYRX0031 = "1";//1首次申请 2补领申请  3其他
             doorplate.BYRX0032 = mp.Applicant;
             doorplate.BYRX0035 = mp.CreateUser;
             doorplate.BYRX0038 = mp.MPMail == 0 ? "窗口领取" : "邮递到家";//查询代码表
@@ -445,9 +487,9 @@ namespace JXGIS.JXTopsystem.Business.DataPush
         public DW dw { get; set; }
         public FXZQY fxzqy { get; set; }
         public HY hy { get; set; }
-        public JMD jmd { get; set; }
-        public JTYS jtys { get; set; }
-        public JZW jzw { get; set; }
+        public JMD jmd { get; set; }//
+        public JTYS jtys { get; set; }//
+        public JZW jzw { get; set; }//
         public LYJD lyjd { get; set; }
         public QZZZ qzzz { get; set; }
         public SLDLTX sldltx { get; set; }
@@ -643,4 +685,44 @@ namespace JXGIS.JXTopsystem.Business.DataPush
         /// </summary>
         public string ZZZZ9999 { get; set; }
     }
+    public class Document
+    {
+        /// <summary>
+        /// UUID
+        /// </summary>
+        public string BMJXUUID { get; set; }
+        /// <summary>
+        /// PROJID
+        /// </summary>
+        public string BMJX0001 { get; set; }
+        /// <summary>
+        /// 门牌证号/地名代码
+        /// </summary>
+        public string BMJX0002 { get; set; }
+        /// <summary>
+        /// 附件文件名称
+        /// </summary>
+        public string BMJX0003 { get; set; }
+        /// <summary>
+        /// 附件访问路径
+        /// </summary>
+        public string BMJX0004 { get; set; }
+        /// <summary>
+        /// 文件大小
+        /// </summary>
+        public string BMJX0006 { get; set; }
+        /// <summary>
+        /// 材料描述代码
+        /// </summary>
+        public string BMJX0007 { get; set; }
+        /// <summary>
+        /// 业务类型代码
+        /// </summary>
+        public string BMJX0008 { get; set; }
+        /// <summary>
+        /// 时间戳
+        /// </summary>
+        public string ZZZZ9999 { get; set; }
+    }
+    
 }

@@ -68,5 +68,9 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DbSet<ZM_MPOFRESIDENCE> ZM_MPOFRESIDENCE { get; set; }
         public DbSet<ZM_MPOFROAD> ZM_MPOFROAD { get; set; }
         public DbSet<FILE> FILE { get; set; }
+        public DbSet<DMOFBRIDGE> DMOFBRIDGE { get; set; }
+        public DbSet<DMOFBUILDING> DMOFBUILDING { get; set; }
+        public DbSet<DMOFROAD> DMOFROAD { get; set; }
+        public DbSet<DMOFSETTLEMENT> DMOFSETTLEMENT { get; set; }
     }
 }

@@ -82,6 +82,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     targetData.MPMail = targetData.MPMail == null ? Enums.MPMail.No : targetData.MPMail;
                     targetData.CreateTime = DateTime.Now;
                     targetData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    targetData.SBLY = Enums.SBLY.zj;
                     db.MPOfCountry.Add(targetData);
                 }
                 else //修改

@@ -185,6 +185,23 @@ namespace JXGIS.JXTopsystem.Business.Common
                         neighborhoodsIDs.AddRange(s);
                     }
                 }
+                else if (type == Enums.TypeInt.User)
+                {
+                    if (districtIDs != null && districtIDs.Count > 0 && !districtIDs.Contains("嘉兴市"))
+                    {
+                        foreach (var districtID in districtIDs)
+                        {
+                            var s = dbContext.SysUser.Where(t => t.NeighborhoodsID != null ? t.NeighborhoodsID.IndexOf(districtID + ".") == 0 || t.NeighborhoodsID == districtID : districtID.IndexOf(t.CountyID + ".") == 0 || t.CountyID == districtID).Where(t => t.NeighborhoodsID != null).Select(t => t.NeighborhoodsID).Distinct().ToList();
+                            neighborhoodsIDs.AddRange(s);
+                        }
+                    }
+                    else
+                    {
+                        var s = dbContext.SysUser.Where(t => t.NeighborhoodsID != null).Select(t => t.NeighborhoodsID).Distinct().ToList();
+                        neighborhoodsIDs.AddRange(s);
+                    }
+                }
+
 
                 var nIDs = neighborhoodsIDs.Select(t => t.Split('.')).ToList();
                 List<DistrictNode> tree = new List<Common.DistrictNode>();
@@ -414,13 +431,18 @@ namespace JXGIS.JXTopsystem.Business.Common
         /// </summary>
         /// <param name="districtIDs"></param>
         /// <returns></returns>
-        public static List<string> GetWindows(List<string> districtIDs)
+        public static List<string> GetWindows(string DistrictID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var userDistrict = BaseUtils.DataFilterWithDist<SysUser_District>(dbContext.UserDistrict);
-                var uids = userDistrict.Select(t => t.UserID).Distinct().ToList();
-                var data = dbContext.SysUser.Where(t => uids.Contains(t.UserID)).Select(t => t.Window).Distinct().ToList();
+                //var userDistrict = BaseUtils.DataFilterWithDist<SysUser_District>(dbContext.UserDistrict);
+                //var uids = userDistrict.Select(t => t.UserID).Distinct().ToList();
+                //var data = dbContext.SysUser.Where(t => uids.Contains(t.UserID)).Select(t => t.Window).Distinct().ToList();
+                List<string> data = new List<string>();
+                if (!(string.IsNullOrEmpty(DistrictID) && DistrictID != "嘉兴市"))
+                    data = dbContext.SysUser.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID).Select(t => t.Window).Distinct().ToList();
+                else
+                    data = dbContext.SysUser.Select(t => t.Window).Distinct().ToList();
                 return data;
             }
         }
@@ -429,18 +451,24 @@ namespace JXGIS.JXTopsystem.Business.Common
         /// </summary>
         /// <param name="districtIDs"></param>
         /// <returns></returns>
-        public static List<string> GetCreateUsers(List<string> districtIDs, string window)
+        public static List<string> GetCreateUsers(string DistrictID, string window)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                var userDistrict = BaseUtils.DataFilterWithDist<SysUser_District>(dbContext.UserDistrict);
-                var uids = userDistrict.Select(t => t.UserID).Distinct().ToList();
-                var users = dbContext.SysUser.Where(t => uids.Contains(t.UserID));
-                if (!string.IsNullOrEmpty(window))
-                {
-                    users = users.Where(t => t.Window == window);
-                }
-                var names = users.Select(t => t.UserName).Distinct().ToList();
+                //var userDistrict = BaseUtils.DataFilterWithDist<SysUser_District>(dbContext.UserDistrict);
+                //var uids = userDistrict.Select(t => t.UserID).Distinct().ToList();
+                //var users = dbContext.SysUser.Where(t => uids.Contains(t.UserID));
+                //if (!string.IsNullOrEmpty(window))
+                //{
+                //    users = users.Where(t => t.Window == window);
+                //}
+                //var names = users.Select(t => t.UserName).Distinct().ToList();
+                IQueryable<SysUser> a = dbContext.SysUser.Where(t => true);
+                if (!(string.IsNullOrEmpty(DistrictID) && DistrictID != "嘉兴市"))
+                    a = a.Where(t => t.CountyID == DistrictID || t.NeighborhoodsID == DistrictID);
+                if (!(string.IsNullOrEmpty(window)))
+                    a = a.Where(t => t.Window == window);
+                var names = a.Select(t => t.UserName).Distinct().ToList();
                 return names;
             }
         }

@@ -784,12 +784,12 @@ namespace JXGIS.JXTopsystem.Controllers
         #endregion 路牌相关
 
         [LoggerFilter(Description = "根据现有权限获取所有窗口类型")]
-        public ContentResult GetUserWindows()
+        public ContentResult GetUserWindows(string DistrictID)
         {
             RtObj rt = null;
             try
             {
-                var data = DistrictUtils.GetWindows(LoginUtils.CurrentUser.DistrictIDList);
+                var data = DistrictUtils.GetWindows(DistrictID);
                 rt = new RtObj(data);
 
             }
@@ -801,12 +801,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
         [LoggerFilter(Description = "根据窗口获取权限内可查看的所有用户")]
-        public ContentResult GetCreateUsers(string window)
+        public ContentResult GetCreateUsers(string DistrictID, string window)
         {
             RtObj rt = null;
             try
             {
-                var createUsers = DistrictUtils.GetCreateUsers(LoginUtils.CurrentUser.DistrictIDList, window);
+                var createUsers = DistrictUtils.GetCreateUsers(DistrictID, window);
                 rt = new RtObj(createUsers);
 
             }

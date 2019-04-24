@@ -123,6 +123,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         mpCertificate.MPType = MPType;
                         mpCertificate.CertificateType = Enums.CertificateType.Placename;
                         mpCertificate.Window = LoginUtils.CurrentUser.Window;
+                        mpCertificate.SBLY = Enums.SBLY.zj;
                         mpOfCertificates.Add(mpCertificate);
                     }
                 }
@@ -467,21 +468,21 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<MPCertificate> certificates = new List<Models.Extends.MPCertificate>();
-                List<MPOfCertificate> mpOfCertificates = new List<Models.Entities.MPOfCertificate>();
+                //List<MPOfCertificate> mpOfCertificates = new List<Models.Entities.MPOfCertificate>();
 
                 foreach (var ID in IDs)
                 {
-                    MPOfCertificate mpOfCertificate = new Models.Entities.MPOfCertificate();
-                    var GUID = Guid.NewGuid().ToString();
-                    var CreateTime = DateTime.Now;
-                    mpOfCertificate.ID = GUID;
-                    mpOfCertificate.MPID = ID;
-                    mpOfCertificate.CreateTime = CreateTime;
-                    mpOfCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
-                    mpOfCertificate.MPType = MPType;
-                    mpOfCertificate.CertificateType = CertificateType;
-                    mpOfCertificate.Window = LoginUtils.CurrentUser.Window;
-                    mpOfCertificates.Add(mpOfCertificate);
+                    //MPOfCertificate mpOfCertificate = new Models.Entities.MPOfCertificate();
+                    //var GUID = Guid.NewGuid().ToString();
+                    //var CreateTime = DateTime.Now;
+                    //mpOfCertificate.ID = GUID;
+                    //mpOfCertificate.MPID = ID;
+                    //mpOfCertificate.CreateTime = CreateTime;
+                    //mpOfCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
+                    //mpOfCertificate.MPType = MPType;
+                    //mpOfCertificate.CertificateType = CertificateType;
+                    //mpOfCertificate.Window = LoginUtils.CurrentUser.Window;
+                    //mpOfCertificates.Add(mpOfCertificate);
 
                     MPCertificate certificate = new Models.Extends.MPCertificate();
                     certificate.ID = ID;
@@ -578,7 +579,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                     }
                     certificates.Add(certificate);
                 }
-                dbContext.MPOfCertificate.AddRange(mpOfCertificates);
+                //dbContext.MPOfCertificate.AddRange(mpOfCertificates);
                 dbContext.SaveChanges();
                 return certificates;
             }

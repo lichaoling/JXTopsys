@@ -299,6 +299,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     targetData.State = Enums.UseState.Enable;
                     targetData.CreateTime = DateTime.Now;
                     targetData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    targetData.SBLY = Enums.SBLY.zj;
                     dbContext.ZYSS.Add(targetData);
                 }
                 else //修改

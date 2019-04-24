@@ -20,6 +20,22 @@ namespace JXGIS.JXTopsystem.Business.Schedule
         public int DMHZ { get; set; }
         public int DMZM { get; set; }
         public int CJYJ { get; set; }
+        public int MP_YC { get; set; }
+        public int MP_ZXSB { get; set; }
+        public int MP_ZLB { get; set; }
+
+        public int DMHZ_YC { get; set; }
+        public int DMHZ_ZXSB { get; set; }
+        public int DMHZ_ZLB { get; set; }
+
+        public int DMZM_YC { get; set; }
+        public int DMZM_ZXSB { get; set; }
+        public int DMZM_ZLB { get; set; }
+
+        public int CJYJ_YC { get; set; }
+        public int CJYJ_ZXSB { get; set; }
+        public int CJYJ_ZLB { get; set; }
+
 
     }
     public class HomePage
@@ -31,7 +47,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 if (LoginUtils.CurrentUser.DistrictIDList == null || LoginUtils.CurrentUser.DistrictIDList.Count == 0)
                     throw new Error("该用户没有任何数据权限，请联系管理员！");
 
-                string mpsql1 = "", dmhzsql1 = "", dmzmsql1 = "", cjyjsql1 = "";
+                string mpsql_yc = "", mpsql_zxsb = "", mpsql_zlb = "", dmhzsql_yc = "", dmhzsql_zxsb = "", dmhzsql_zlb = "", dmzmsql_yc = "", dmzmsql_zxsb = "", dmzmsql_zlb = "", cjyjsql_yc = "", cjyjsql_zxsb = "", cjyjsql_zlb = "";
                 string mpsql2 = "", dmhzsql2 = "", dmzmsql2 = "", cjyjsql2 = "";
                 string mpsql3 = "", dmhzsql3 = "", dmzmsql3 = "", cjyjsql3 = "";
                 // 先删选出当前用户权限内的数据
@@ -40,54 +56,142 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
                     {
                         #region 待办事项
-                        mpsql1 += $@"union 
+                        mpsql_yc += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
                                 left  join MPOFCOUNTRY a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
                                 left  join MPOFRESIDENCE a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
                                 left  join MPOFROAD a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 ";
-
-                        dmhzsql1 += $@"union 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' ";
+                        mpsql_zxsb += $@"union 
+                                select b.ID from BG_MPOFCOUNTRY b 
+                                left  join MPOFCOUNTRY a on b.MPID=a.ID 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}'
+                                union 
+                                select b.ID from BG_MPOFRESIDENCE b 
+                                left  join MPOFRESIDENCE a on b.MPID=a.ID 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}'
+                                union 
+                                select b.ID from BG_MPOFROAD b 
+                                left  join MPOFROAD a on b.MPID=a.ID 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}'
+                                union 
+                                select b.ID from SB_MPOFCOUNTRY b 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}'
+                                union 
+                                select b.ID from SB_MPOFRESIDENCE b 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}'
+                                union 
+                                select b.ID from SB_MPOFROAD b 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' ";
+                        mpsql_zlb += $@"union 
+                                select b.ID from BG_MPOFCOUNTRY b 
+                                left  join MPOFCOUNTRY a on b.MPID=a.ID 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}'
+                                union 
+                                select b.ID from BG_MPOFRESIDENCE b 
+                                left  join MPOFRESIDENCE a on b.MPID=a.ID 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}'
+                                union 
+                                select b.ID from BG_MPOFROAD b 
+                                left  join MPOFROAD a on b.MPID=a.ID 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}'
+                                union 
+                                select b.ID from SB_MPOFCOUNTRY b 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}'
+                                union 
+                                select b.ID from SB_MPOFRESIDENCE b 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}'
+                                union 
+                                select b.ID from SB_MPOFROAD b 
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' ";
+                        dmhzsql_yc += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.yc}' ";
+                        dmhzsql_zxsb += $@"union 
+                                   select b.ID from SB_DMOFBRIDGE b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}'
+                                   union 
+                                   select b.ID from SB_DMOFBUILDING b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}'
+                                   union 
+                                   select b.ID from SB_DMOFROAD b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}'
+                                   union 
+                                   select b.ID from SB_DMOFSETTLEMENT b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zxsb}' ";
+                        dmhzsql_zlb += $@"union 
+                                   select b.ID from SB_DMOFBRIDGE b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}'
+                                   union 
+                                   select b.ID from SB_DMOFBUILDING b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}'
+                                   union 
+                                   select b.ID from SB_DMOFROAD b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}'
+                                   union 
+                                   select b.ID from SB_DMOFSETTLEMENT b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zlb}' ";
 
-                        dmzmsql1 += $@"union 
+                        dmzmsql_yc += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 ";
-
-                        cjyjsql1 += $@"union 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.yc}' ";
+                        dmzmsql_zxsb += $@"union 
+                                   select b.ID from ZM_MPOFCOUNTRY b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}'
+                                   union 
+                                   select b.ID from ZM_MPOFRESIDENCE b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}'
+                                   union 
+                                   select b.ID from ZM_MPOFROAD b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zxsb}' ";
+                        dmzmsql_zlb += $@"union 
+                                   select b.ID from ZM_MPOFCOUNTRY b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}'
+                                   union 
+                                   select b.ID from ZM_MPOFRESIDENCE b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}'
+                                   union 
+                                   select b.ID from ZM_MPOFROAD b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zlb}' ";
+                        cjyjsql_yc += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.yc}' ";
+                        cjyjsql_zxsb += $@"union 
+                                   select b.ID from BA_DMOFZYSS b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zxsb}' ";
+                        cjyjsql_zlb += $@"union 
+                                   select b.ID from BA_DMOFZYSS b 
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zlb}' ";
 
                         #endregion
 
@@ -146,51 +250,134 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 else
                 {
                     #region 待办事项
-                    mpsql1 += $@"union 
+                    mpsql_yc += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
-                                where b.IsFinish=0
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
-                                where b.IsFinish=0
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
-                                where b.IsFinish=0
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=0
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=0
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=0";
-
-                    dmhzsql1 += $@"union 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' ";
+                    mpsql_zxsb += $@"union 
+                                select b.ID from BG_MPOFCOUNTRY b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}'
+                                union 
+                                select b.ID from BG_MPOFRESIDENCE b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}'
+                                union 
+                                select b.ID from BG_MPOFROAD b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}'
+                                union 
+                                select b.ID from SB_MPOFCOUNTRY b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}'
+                                union 
+                                select b.ID from SB_MPOFRESIDENCE b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}'
+                                union 
+                                select b.ID from SB_MPOFROAD b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' ";
+                    mpsql_zlb += $@"union 
+                                select b.ID from BG_MPOFCOUNTRY b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}'
+                                union 
+                                select b.ID from BG_MPOFRESIDENCE b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}'
+                                union 
+                                select b.ID from BG_MPOFROAD b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}'
+                                union 
+                                select b.ID from SB_MPOFCOUNTRY b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}'
+                                union 
+                                select b.ID from SB_MPOFRESIDENCE b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}'
+                                union 
+                                select b.ID from SB_MPOFROAD b 
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' ";
+                    dmhzsql_yc += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=0
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=0
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=0
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=0";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' ";
+                    dmhzsql_zxsb += $@"union 
+                                   select b.ID from SB_DMOFBRIDGE b 
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}'
+                                   union 
+                                   select b.ID from SB_DMOFBUILDING b 
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}'
+                                   union 
+                                   select b.ID from SB_DMOFROAD b 
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}'
+                                   union 
+                                   select b.ID from SB_DMOFSETTLEMENT b 
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' ";
+                    dmhzsql_zlb += $@"union 
+                                   select b.ID from SB_DMOFBRIDGE b 
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}'
+                                   union 
+                                   select b.ID from SB_DMOFBUILDING b 
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}'
+                                   union 
+                                   select b.ID from SB_DMOFROAD b 
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}'
+                                   union 
+                                   select b.ID from SB_DMOFSETTLEMENT b 
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' ";
 
-                    dmzmsql1 += $@"union 
+                    dmzmsql_yc += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=0
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=0
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0";
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}' ";
+                    dmzmsql_zxsb += $@"union 
+                                   select b.ID from ZM_MPOFCOUNTRY b 
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}'
+                                   union 
+                                   select b.ID from ZM_MPOFRESIDENCE b 
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}'
+                                   union 
+                                   select b.ID from ZM_MPOFROAD b 
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}' ";
+                    dmzmsql_zlb += $@"union 
+                                   select b.ID from ZM_MPOFCOUNTRY b 
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}'
+                                   union 
+                                   select b.ID from ZM_MPOFRESIDENCE b 
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}'
+                                   union 
+                                   select b.ID from ZM_MPOFROAD b 
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}' ";
 
-                    cjyjsql1 += $@"union 
+                    cjyjsql_yc += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=0";
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}' ";
+                    cjyjsql_zxsb+= $@"union 
+                                   select b.ID from BA_DMOFZYSS b 
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}' ";
+                    cjyjsql_zlb += $@"union 
+                                   select b.ID from BA_DMOFZYSS b 
+                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}' ";
 
                     #endregion
 
@@ -291,10 +478,18 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                                    where b.IsFinish=1 and b.checkuser={LoginUtils.CurrentUser.UserName} ";
                 #endregion
 
-                mpsql1 = mpsql1.Substring("union ".Length);
-                dmhzsql1 = dmhzsql1.Substring("union ".Length);
-                dmzmsql1 = dmzmsql1.Substring("union ".Length);
-                cjyjsql1 = cjyjsql1.Substring("union ".Length);
+                mpsql_yc = mpsql_yc.Substring("union ".Length);
+                mpsql_zxsb = mpsql_zxsb.Substring("union ".Length);
+                mpsql_zlb = mpsql_zlb.Substring("union ".Length);
+                dmhzsql_yc = dmhzsql_yc.Substring("union ".Length);
+                dmhzsql_zxsb = dmhzsql_zxsb.Substring("union ".Length);
+                dmhzsql_zlb = dmhzsql_zlb.Substring("union ".Length);
+                dmzmsql_yc = dmzmsql_yc.Substring("union ".Length);
+                dmzmsql_zxsb = dmzmsql_zxsb.Substring("union ".Length);
+                dmzmsql_zlb = dmzmsql_zlb.Substring("union ".Length);
+                cjyjsql_yc = cjyjsql_yc.Substring("union ".Length);
+                cjyjsql_zxsb = cjyjsql_zxsb.Substring("union ".Length);
+                cjyjsql_zlb = cjyjsql_zlb.Substring("union ".Length);
 
                 mpsql2 = mpsql2.Substring("union ".Length);
                 dmhzsql2 = dmhzsql2.Substring("union ".Length);
@@ -307,10 +502,22 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 cjyjsql3 = cjyjsql3.Substring("union ".Length);
 
                 Items toDoItem = new Items();
-                toDoItem.MP = dbContext.Database.SqlQuery<int>($"select count(1) from ({mpsql1}) s").FirstOrDefault();
-                toDoItem.DMHZ = dbContext.Database.SqlQuery<int>($"select count(1) from ({dmhzsql1}) s").FirstOrDefault();
-                toDoItem.DMZM = dbContext.Database.SqlQuery<int>($"select count(1) from ({dmzmsql1}) s").FirstOrDefault();
-                toDoItem.CJYJ = dbContext.Database.SqlQuery<int>($"select count(1) from ({cjyjsql1}) s").FirstOrDefault();
+                toDoItem.MP_YC = dbContext.Database.SqlQuery<int>($"select count(1) from ({mpsql_yc}) s").FirstOrDefault();
+                toDoItem.MP_ZXSB = dbContext.Database.SqlQuery<int>($"select count(1) from ({mpsql_zxsb}) s").FirstOrDefault();
+                toDoItem.MP_ZLB = dbContext.Database.SqlQuery<int>($"select count(1) from ({mpsql_zlb}) s").FirstOrDefault();
+
+                toDoItem.DMHZ_YC = dbContext.Database.SqlQuery<int>($"select count(1) from ({dmhzsql_yc}) s").FirstOrDefault();
+                toDoItem.DMHZ_ZXSB = dbContext.Database.SqlQuery<int>($"select count(1) from ({dmhzsql_zxsb}) s").FirstOrDefault();
+                toDoItem.DMHZ_ZLB = dbContext.Database.SqlQuery<int>($"select count(1) from ({dmhzsql_zlb}) s").FirstOrDefault();
+
+                toDoItem.DMZM_YC = dbContext.Database.SqlQuery<int>($"select count(1) from ({dmzmsql_yc}) s").FirstOrDefault();
+                toDoItem.DMZM_ZXSB = dbContext.Database.SqlQuery<int>($"select count(1) from ({dmzmsql_zxsb}) s").FirstOrDefault();
+                toDoItem.DMZM_ZLB = dbContext.Database.SqlQuery<int>($"select count(1) from ({dmzmsql_zlb}) s").FirstOrDefault();
+
+                toDoItem.CJYJ_YC = dbContext.Database.SqlQuery<int>($"select count(1) from ({cjyjsql_yc}) s").FirstOrDefault();
+                toDoItem.CJYJ_ZXSB = dbContext.Database.SqlQuery<int>($"select count(1) from ({cjyjsql_zxsb}) s").FirstOrDefault();
+                toDoItem.CJYJ_ZLB = dbContext.Database.SqlQuery<int>($"select count(1) from ({cjyjsql_zlb}) s").FirstOrDefault();
+
 
                 Items doneItem = new Items();
                 doneItem.MP = dbContext.Database.SqlQuery<int>($"select count(1) from ({mpsql2}) s").FirstOrDefault();
@@ -332,7 +539,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
             }
         }
 
-        public static Dictionary<string, object> GetTodoItems(int isFinish)
+        public static Dictionary<string, object> GetTodoItems(int isFinish, string sbly)
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
@@ -341,109 +548,221 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 {
                     foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
                     {
-                        #region 待办事项
-                        mpsql1 += $@"union 
+                        if (isFinish == 0)
+                        {
+                            #region 待办事项
+                            mpsql1 += $@"union 
                                 select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFCOUNTRY b 
                                 left  join MPOFCOUNTRY a on b.MPID=a.ID 
-                                where b.IsFinish={isFinish} and CHARINDEX({userDID}, a.NeighborhoodsID)=1
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
                                 select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFRESIDENCE b 
                                 left  join MPOFRESIDENCE a on b.MPID=a.ID 
-                                where b.IsFinish={isFinish} and CHARINDEX({userDID}, a.NeighborhoodsID)=1
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
                                 select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFROAD b 
                                 left  join MPOFROAD a on b.MPID=a.ID 
-                                where b.IsFinish={isFinish} and CHARINDEX({userDID}, a.NeighborhoodsID)=1
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
                                 select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFCOUNTRY b 
-                                where b.IsFinish={isFinish} and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
                                 select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFRESIDENCE b 
-                                where b.IsFinish={isFinish} and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
                                 select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFROAD b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 ";
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
-                        dmhzsql1 += $@"union 
+                            dmhzsql1 += $@"union 
                                    select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBRIDGE b 
-                                   where b.IsFinish={isFinish} and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
                                    select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBUILDING b 
-                                   where b.IsFinish={isFinish} and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
                                    select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFROAD b 
-                                   where b.IsFinish={isFinish} and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
                                    select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish={isFinish} and CHARINDEX({userDID}, b.NeighborhoodsID)=1 ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
-                        dmzmsql1 += $@"union 
+                            dmzmsql1 += $@"union 
                                    select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish={isFinish} and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
                                    select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish={isFinish} and CHARINDEX({userDID}, b.NeighborhoodsID)=1
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
                                    select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFROAD b 
-                                   where b.IsFinish={isFinish} and CHARINDEX({userDID}, b.NeighborhoodsID)=1 ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
-                        cjyjsql1 += $@"union 
+                            cjyjsql1 += $@"union 
                                    select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ from BA_DMOFZYSS b 
-                                   where b.IsFinish={isFinish} and CHARINDEX({userDID}, b.NeighborhoodsID)=1 ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
-                        #endregion
+                            #endregion
+                        }
+                        else
+                        {
+                            #region 已办事项
+                            mpsql1 += $@"union 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFCOUNTRY b 
+                                left  join MPOFCOUNTRY a on b.MPID=a.ID 
+                                where b.IsFinish=1 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName}  and b.sbly='{sbly}'
+                                union 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFRESIDENCE b 
+                                left  join MPOFRESIDENCE a on b.MPID=a.ID 
+                                where b.IsFinish=1 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                union 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFROAD b 
+                                left  join MPOFROAD a on b.MPID=a.ID 
+                                where b.IsFinish=1 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                union 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFCOUNTRY b 
+                                where b.IsFinish=1 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                union 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFRESIDENCE b 
+                                where b.IsFinish=1 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                union 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFROAD b 
+                                where b.IsFinish=1 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName}  and b.sbly='{sbly}' ";
+
+                            dmhzsql1 += $@"union 
+                                   select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBRIDGE b 
+                                   where b.IsFinish=1 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                   union 
+                                   select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBUILDING b 
+                                   where b.IsFinish=1 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                   union 
+                                   select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFROAD b 
+                                   where b.IsFinish=1 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                   union 
+                                   select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFSETTLEMENT b 
+                                   where b.IsFinish=1 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName}  and b.sbly='{sbly}' ";
+
+                            dmzmsql1 += $@"union 
+                                   select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFCOUNTRY b 
+                                   where b.IsFinish=1 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                   union 
+                                   select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ from ZM_MPOFRESIDENCE b 
+                                   where b.IsFinish=1 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                   union 
+                                   select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFROAD b 
+                                   where b.IsFinish=1 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}' ";
+
+                            cjyjsql1 += $@"union 
+                                   select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ from BA_DMOFZYSS b 
+                                   where b.IsFinish=1 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}' ";
+
+                            #endregion
+                        }
                     }
                 }
                 else
                 {
-                    #region 待办事项
-                    mpsql1 += $@"union 
+                    if (isFinish == 0)
+                    {
+                        #region 待办事项
+                        mpsql1 += $@"union 
                                 select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFCOUNTRY b 
-                                where b.IsFinish={isFinish}
+                                where b.IsFinish={isFinish} and b.sbly='{sbly}'
                                 union 
                                 select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFRESIDENCE b 
-                                where b.IsFinish={isFinish}
+                                where b.IsFinish={isFinish} and b.sbly='{sbly}'
                                 union 
                                 select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFROAD b 
-                                where b.IsFinish={isFinish}
+                                where b.IsFinish={isFinish} and b.sbly='{sbly}'
                                 union 
                                 select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFCOUNTRY b 
-                                where b.IsFinish={isFinish}
+                                where b.IsFinish={isFinish} and b.sbly='{sbly}'
                                 union 
                                 select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFRESIDENCE b 
-                                where b.IsFinish={isFinish}
+                                where b.IsFinish={isFinish} and b.sbly='{sbly}'
                                 union 
                                 select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFROAD b 
-                                where b.IsFinish={isFinish}";
+                                where b.IsFinish={isFinish} and b.sbly='{sbly}' ";
 
-                    dmhzsql1 += $@"union 
+                        dmhzsql1 += $@"union 
                                    select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBRIDGE b 
-                                   where b.IsFinish={isFinish}
+                                   where b.IsFinish={isFinish} and b.sbly='{sbly}'
                                    union 
                                    select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBUILDING b 
-                                   where b.IsFinish={isFinish}
+                                   where b.IsFinish={isFinish} and b.sbly='{sbly}'
                                    union 
                                    select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFROAD b 
-                                   where b.IsFinish={isFinish}
+                                   where b.IsFinish={isFinish} and b.sbly='{sbly}'
                                    union 
                                    select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish={isFinish}";
+                                   where b.IsFinish={isFinish} and b.sbly='{sbly}' ";
 
-                    dmzmsql1 += $@"union 
+                        dmzmsql1 += $@"union 
                                    select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish={isFinish}
+                                   where b.IsFinish={isFinish} and b.sbly='{sbly}'
                                    union 
                                    select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish={isFinish}
+                                   where b.IsFinish={isFinish} and b.sbly='{sbly}'
                                    union 
                                    select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFROAD b 
-                                   where b.IsFinish={isFinish}";
+                                   where b.IsFinish={isFinish} and b.sbly='{sbly}' ";
 
-                    cjyjsql1 += $@"union 
+                        cjyjsql1 += $@"union 
                                    select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ from BA_DMOFZYSS b 
-                                   where b.IsFinish={isFinish}";
+                                   where b.IsFinish={isFinish} and b.sbly='{sbly}' ";
 
-                    #endregion
+                        #endregion
+                    }
+                    else
+                    {
+                        #region 已办事项
+                        mpsql1 += $@"union 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFCOUNTRY b 
+                                where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                union 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFRESIDENCE b 
+                                where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                union 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFROAD b 
+                                where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                union 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFCOUNTRY b 
+                                where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                union 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFRESIDENCE b 
+                                where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                union 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFROAD b 
+                                where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}' ";
+
+                        dmhzsql1 += $@"union 
+                                   select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBRIDGE b 
+                                   where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                   union 
+                                   select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBUILDING b 
+                                   where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                   union 
+                                   select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFROAD b 
+                                   where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                   union 
+                                   select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFSETTLEMENT b 
+                                   where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}' ";
+
+                        dmzmsql1 += $@"union 
+                                   select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFCOUNTRY b 
+                                   where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                   union 
+                                   select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ from ZM_MPOFRESIDENCE b 
+                                   where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}'
+                                   union 
+                                   select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFROAD b 
+                                   where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}' ";
+
+                        cjyjsql1 += $@"union 
+                                   select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ from BA_DMOFZYSS b 
+                                   where b.IsFinish={isFinish} and b.checkuser={LoginUtils.CurrentUser.UserName} and b.sbly='{sbly}' ";
+
+                        #endregion
+                    }
+
                 }
                 mpsql1 = mpsql1.Substring("union ".Length);
                 dmhzsql1 = dmhzsql1.Substring("union ".Length);
@@ -1956,6 +2275,207 @@ namespace JXGIS.JXTopsystem.Business.Schedule
         }
 
         #endregion
+
+        #region 居民点申报
+        public static SB_DMOFSETTLEMENT GetDMSBOfSettlementInitData(string ID)
+        {
+            SB_DMOFSETTLEMENT entity = null;
+            if (!string.IsNullOrEmpty(ID))
+            {
+                using (var db = SystemUtils.NewEFDbContext)
+                {
+                    if (entity == null) throw new Error("未能找到指定的数据！");
+                    entity.jsydxkzs = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.JSYDXKZ);
+                    entity.jsgcghxkzs = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.JSGCGHXKZ);
+                    entity.zpmts = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.ZPMT);
+                    entity.xgts = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.XGT);
+                }
+            }
+            return entity;
+        }
+        public static void ModifyDMOfSettlement(string ID, string Json)
+        {
+            SB_DMOFSETTLEMENT targetData = null;
+            using (var db = SystemUtils.NewEFDbContext)
+            {
+                targetData = db.SB_DMOFSETTLEMENT.Find(ID);
+                if (targetData != null)
+                {
+                    ObjectReflection.ModifyEntity<SB_DMOFSETTLEMENT>(targetData, Json);
+
+                    var jsydxkzs = System.Web.HttpContext.Current.Request.Files.GetMultiple("jsydxkzs");
+                    foreach (var f in jsydxkzs)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JMD, targetData.ID, Enums.SPFileCertificateTypes.JSYDXKZ);
+                    }
+                    var jsgcghxkzs = System.Web.HttpContext.Current.Request.Files.GetMultiple("jsgcghxkzs");
+                    foreach (var f in jsgcghxkzs)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JMD, targetData.ID, Enums.SPFileCertificateTypes.JSGCGHXKZ);
+                    }
+                    var zpmts = System.Web.HttpContext.Current.Request.Files.GetMultiple("zpmts");
+                    foreach (var f in zpmts)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JMD, targetData.ID, Enums.SPFileCertificateTypes.ZPMT);
+                    }
+                    var xgts = System.Web.HttpContext.Current.Request.Files.GetMultiple("xgts");
+                    foreach (var f in xgts)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JMD, targetData.ID, Enums.SPFileCertificateTypes.XGT);
+                    }
+                    db.SaveChanges();
+                }
+            }
+        }
+        #endregion
+
+        #region 建筑物申报
+        public static SB_DMOFBUILDING GetDMSBOfBuildingInitData(string ID)
+        {
+            SB_DMOFBUILDING entity = null;
+            if (!string.IsNullOrEmpty(ID))
+            {
+                using (var db = SystemUtils.NewEFDbContext)
+                {
+                    if (entity == null) throw new Error("未能找到指定的数据！");
+                    entity.jsydxkzs = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.JSYDXKZ);
+                    entity.jsgcghxkzs = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.JSGCGHXKZ);
+                    entity.zpmts = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.ZPMT);
+                    entity.xgts = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.XGT);
+                }
+            }
+            return entity;
+        }
+        public static void ModifyDMOfBuilding(string ID, string Json)
+        {
+            SB_DMOFBUILDING targetData = null;
+            using (var db = SystemUtils.NewEFDbContext)
+            {
+                targetData = db.SB_DMOFBUILDING.Find(ID);
+                if (targetData != null)
+                {
+                    ObjectReflection.ModifyEntity<SB_DMOFBUILDING>(targetData, Json);
+
+                    var jsydxkzs = System.Web.HttpContext.Current.Request.Files.GetMultiple("jsydxkzs");
+                    foreach (var f in jsydxkzs)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JZW, targetData.ID, Enums.SPFileCertificateTypes.JSYDXKZ);
+                    }
+                    var jsgcghxkzs = System.Web.HttpContext.Current.Request.Files.GetMultiple("jsgcghxkzs");
+                    foreach (var f in jsgcghxkzs)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JZW, targetData.ID, Enums.SPFileCertificateTypes.JSGCGHXKZ);
+                    }
+                    var zpmts = System.Web.HttpContext.Current.Request.Files.GetMultiple("zpmts");
+                    foreach (var f in zpmts)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JZW, targetData.ID, Enums.SPFileCertificateTypes.ZPMT);
+                    }
+                    var xgts = System.Web.HttpContext.Current.Request.Files.GetMultiple("xgts");
+                    foreach (var f in xgts)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JZW, targetData.ID, Enums.SPFileCertificateTypes.XGT);
+                    }
+                    db.SaveChanges();
+                }
+            }
+        }
+        #endregion
+
+        #region 道路街巷申报
+        public static SB_DMOFROAD GetDMSBOfRoadInitData(string ID)
+        {
+            SB_DMOFROAD entity = null;
+            if (!string.IsNullOrEmpty(ID))
+            {
+                using (var db = SystemUtils.NewEFDbContext)
+                {
+                    if (entity == null) throw new Error("未能找到指定的数据！");
+                    entity.lxpfss = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.LXPFS);
+                    entity.dltzs = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.DLTZ);
+                }
+            }
+            return entity;
+        }
+        public static void ModifyDMOfRoad(string ID, string Json)
+        {
+            SB_DMOFROAD targetData = null;
+            using (var db = SystemUtils.NewEFDbContext)
+            {
+                targetData = db.SB_DMOFROAD.Find(ID);
+                if (targetData != null)
+                {
+                    ObjectReflection.ModifyEntity<SB_DMOFROAD>(targetData, Json);
+
+                    var lxpfss = System.Web.HttpContext.Current.Request.Files.GetMultiple("lxpfss");
+                    foreach (var f in lxpfss)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_DLJX, targetData.ID, Enums.SPFileCertificateTypes.LXPFS);
+                    }
+                    var dltzs = System.Web.HttpContext.Current.Request.Files.GetMultiple("dltzs");
+                    foreach (var f in dltzs)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_DLJX, targetData.ID, Enums.SPFileCertificateTypes.DLTZ);
+                    }
+                    db.SaveChanges();
+                }
+            }
+        }
+        #endregion
+
+        #region 桥梁申报
+        public static SB_DMOFBRIDGE GetDMSBOfBridgeInitData(string ID)
+        {
+            SB_DMOFBRIDGE entity = null;
+            if (!string.IsNullOrEmpty(ID))
+            {
+                using (var db = SystemUtils.NewEFDbContext)
+                {
+                    if (entity == null) throw new Error("未能找到指定的数据！");
+                    entity.lxpfss = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.LXPFS);
+                    entity.qltzs = SPItemFileUtils.GetFiles(ID, Enums.SPFileCertificateTypes.QLTZ);
+                }
+            }
+            return entity;
+        }
+        public static void ModifyDMOfBridge(string ID, string Json)
+        {
+            SB_DMOFBRIDGE targetData = null;
+            using (var db = SystemUtils.NewEFDbContext)
+            {
+                targetData = db.SB_DMOFBRIDGE.Find(ID);
+                if (targetData != null)
+                {
+                    ObjectReflection.ModifyEntity<SB_DMOFBRIDGE>(targetData, Json);
+
+                    var lxpfss = System.Web.HttpContext.Current.Request.Files.GetMultiple("lxpfss");
+                    foreach (var f in lxpfss)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_QL, targetData.ID, Enums.SPFileCertificateTypes.LXPFS);
+                    }
+                    var dltzs = System.Web.HttpContext.Current.Request.Files.GetMultiple("dltzs");
+                    foreach (var f in dltzs)
+                    {
+                        HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_QL, targetData.ID, Enums.SPFileCertificateTypes.DLTZ);
+                    }
+                    db.SaveChanges();
+                }
+            }
+        }
+        #endregion
+
     }
     public class MPItem
     {

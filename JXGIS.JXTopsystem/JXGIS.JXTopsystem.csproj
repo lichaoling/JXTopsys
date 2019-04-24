@@ -301,6 +301,10 @@
     <Compile Include="Models\Entities\DirectionDic.cs" />
     <Compile Include="Models\Entities\District.cs" />
     <Compile Include="Models\Entities\DMBZDic.cs" />
+    <Compile Include="Models\Entities\DMOFBRIDGE.cs" />
+    <Compile Include="Models\Entities\DMOFBUILDING.cs" />
+    <Compile Include="Models\Entities\DMOFROAD.cs" />
+    <Compile Include="Models\Entities\DMOFSETTLEMENT.cs" />
     <Compile Include="Models\Entities\DMOFUPLOADFILES.cs" />
     <Compile Include="Models\Entities\FILE.cs" />
     <Compile Include="Models\Entities\MPOfCertificate.cs" />
@@ -336,6 +340,7 @@
     <Compile Include="Models\Extends\ArchiveFile\BaseInfoDescription.cs" />
     <Compile Include="Models\Extends\ArchiveFile\ProcessInfoDescription.cs" />
     <Compile Include="Models\Extends\Certificate.cs" />
+    <Compile Include="Models\Extends\DataPush\Code.cs" />
     <Compile Include="Models\Extends\DataPush\DW.cs" />
     <Compile Include="Models\Extends\DataPush\HY.cs" />
     <Compile Include="Models\Extends\DataPush\FXZQY.cs" />

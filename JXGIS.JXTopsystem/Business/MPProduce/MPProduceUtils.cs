@@ -691,7 +691,7 @@ namespace JXGIS.JXTopsystem.Business.MPProduce
   group by t.PLID,t.SBDW,t.ResidenceName,t.Applicant,t.ApplicantPhone,CONVERT(varchar(100),t.BZTime, 23)
  ),
  t2 as(
- select t1.plid,'申报单位:'+t1.SBDW+'|'+'小区名称:'+t1.ResidenceName+'|'+'申办人:'+t1.Applicant+'|'+'联系电话:'+t1.ApplicantPhone+'|'+'编制时间:'+t1.BZTime ct from t1
+ select t1.plid,'申报单位:'+t1.SBDW+'  '+'小区名称:'+t1.ResidenceName+'  '+'申办人:'+t1.Applicant+'  '+'联系电话:'+t1.ApplicantPhone+'  '+'编制时间:'+t1.BZTime ct from t1
  )
  select t2.PLID, STUFF((select ';' + tt.ct from  t2 tt where tt.PLID = t2.PLID for xml path('')),1,1,'') Content from t2
  group by t2.plid";
@@ -727,7 +727,7 @@ t1 as(
   group by t.PLID,t.SBDW,t.roadname,t.Applicant,t.ApplicantPhone,CONVERT(varchar(100),t.BZTime, 23)
  ),
  t2 as(
- select t1.plid,'申报单位:'+t1.SBDW+'|'+'道路名称:'+t1.roadname+'|'+'申办人:'+t1.Applicant+'|'+'联系电话:'+t1.ApplicantPhone+'|'+'编制时间:'+t1.BZTime ct from t1
+ select t1.plid,'申报单位:'+t1.SBDW+'  '+'道路名称:'+t1.roadname+'  '+'申办人:'+t1.Applicant+'  '+'联系电话:'+t1.ApplicantPhone+'  '+'编制时间:'+t1.BZTime ct from t1
  )
  select t2.PLID, STUFF((select ';' + tt.ct from  t2 tt where tt.PLID = t2.PLID for xml path('')),1,1,'') Content from t2
  group by t2.plid";
@@ -764,9 +764,9 @@ t1 as(
   group by t.PLID,t.SBDW,t.ViligeName,t.Applicant,t.ApplicantPhone,CONVERT(varchar(100),t.BZTime, 23)
  ),
  t2 as(
- select t1.plid,'申报单位:'+t1.SBDW+'|'+'自然村名称:'+t1.ViligeName+'|'+'申办人:'+t1.Applicant+'|'+'联系电话:'+t1.ApplicantPhone+'|'+'编制时间:'+t1.BZTime ct from t1
+ select t1.plid,'申报单位:'+t1.SBDW+'  '+'自然村名称:'+t1.ViligeName+'  '+'申办人:'+t1.Applicant+'  '+'联系电话:'+t1.ApplicantPhone+'  '+'编制时间:'+t1.BZTime ct from t1
  )
- select t2.PLID, STUFF((select ';' + tt.ct from  t2 tt where tt.PLID = t2.PLID for xml path('')),1,1,'') ct from t2
+ select t2.PLID, STUFF((select ';' + tt.ct from  t2 tt where tt.PLID = t2.PLID for xml path('')),1,1,'') Content from t2
  group by t2.plid";
                 }
                 else

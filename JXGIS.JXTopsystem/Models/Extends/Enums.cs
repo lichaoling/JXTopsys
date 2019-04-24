@@ -55,6 +55,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const int MP = 6;
             public const int All = 0;
             public const int PlaceName = 7;
+            public const int User = 8;
         }
         public static class RPRepairType
         {
@@ -168,6 +169,14 @@ namespace JXGIS.JXTopsystem.Models.Extends
 
 
             public const string DMGM_JMD = "地名更名_居名点类";
+        }
+
+        public class SBLY
+        {
+            public const string yc = "一窗受理";
+            public const string zxsb = "在线申报";
+            public const string zlb = "浙里办";
+            public const string zj = "自建系统";
         }
     }
 }

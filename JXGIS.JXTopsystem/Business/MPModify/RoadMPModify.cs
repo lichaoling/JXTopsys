@@ -98,6 +98,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     targetData.State = Enums.UseState.Enable;
                     targetData.CreateTime = DateTime.Now;
                     targetData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    targetData.SBLY = Enums.SBLY.zj;
                     db.MPOfRoad.Add(targetData);
                 }
                 else //修改

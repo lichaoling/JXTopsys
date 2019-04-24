@@ -173,7 +173,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 rt = new RtObj();
                 Session["_MPCertificate_IDs"] = IDs;
                 Session["_MPCertificate_MPType"] = MPType;
-                MPPrintUtils.MPCertificate(IDs, MPType, CertificateType);
+                //MPPrintUtils.MPCertificate(IDs, MPType, CertificateType);
             }
             catch (Exception ex)
             {

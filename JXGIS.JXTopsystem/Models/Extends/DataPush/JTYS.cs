@@ -180,11 +180,11 @@ namespace JXGIS.JXTopsystem.Models.Extends.DataPush
         /// <summary>
         /// 道路街巷专属信息
         /// </summary>
-        public DLJXZSXX dljxzsxx { get; set; }
+        public DLJXZSXX dljxzsxx { get; set; }//
         /// <summary>
         /// 桥梁专属信息
         /// </summary>
-        public QLZSXX qlzsxx { get; set; }
+        public QLZSXX qlzsxx { get; set; }//
         /// <summary>
         /// 隧道专属信息
         /// </summary>
