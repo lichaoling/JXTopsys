@@ -178,5 +178,12 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string zlb = "浙里办";
             public const string zj = "自建系统";
         }
+        public class SXLX
+        {
+            public const string dmzm = "地名证明";
+            public const string dmhz = "地名核准";
+            public const string mp = "门牌编制";
+            public const string cjyj = "出具意见";
+        }
     }
 }
