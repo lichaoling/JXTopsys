@@ -19,7 +19,7 @@ namespace JXGIS.JXTopsystem.Controllers
             RtObj rt = null;
             try
             {
-                var r = PlaceNameSearch.GetDMTypesFromData(DistrictID, ZYSSType);
+                var r = DMOfZYSS.GetDMTypesFromData(DistrictID, ZYSSType);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -33,12 +33,12 @@ namespace JXGIS.JXTopsystem.Controllers
         }
 
         [LoggerFilter(Description = "查询专业设施地名")]
-        public ContentResult SearchPlaceName(int PageSize, int PageNum, string ZYSSType, string DistrictID, string CommunityName, string DMType, string Name, string ZGDW, DateTime? start, DateTime? end)
+        public ContentResult SearchDMOfZYSS(int PageSize, int PageNum, string ZYSSType, string DistrictID, string CommunityName, string DMType, string Name, string ZGDW, DateTime? start, DateTime? end)
         {
             RtObj rt = null;
             try
             {
-                var r = PlaceNameSearch.SearchPlaceName(PageSize, PageNum, ZYSSType, DistrictID, CommunityName, DMType, Name, ZGDW, start, end);
+                var r = DMOfZYSS.SearchDMOfZYSS(PageSize, PageNum, ZYSSType, DistrictID, CommunityName, DMType, Name, ZGDW, start, end);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -51,12 +51,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
         [LoggerFilter(Description = "查询专业设施地名详情")]
-        public ContentResult SearchPlaceNameByID(string ID)
+        public ContentResult SearchDMOfZYSSByID(string ID)
         {
             RtObj rt = null;
             try
             {
-                var r = PlaceNameSearch.SearchPlaceNameByID(ID);
+                var r = DMOfZYSS.SearchDMOfZYSSByID(ID);
                 rt = new RtObj(r);
             }
             catch (Exception ex)
@@ -68,7 +68,7 @@ namespace JXGIS.JXTopsystem.Controllers
             var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt, timeConverter);
             return Content(s);
         }
-        public JsonResult GetConditionOfPlaceName(string ZYSSType, string DistrictID, string CommunityName, string DMType, string Name, string ZGDW, DateTime? start, DateTime? end)
+        public JsonResult GetConditionOfDMOfZYSS(string ZYSSType, string DistrictID, string CommunityName, string DMType, string Name, string ZGDW, DateTime? start, DateTime? end)
         {
             RtObj rt = null;
             try
@@ -90,7 +90,7 @@ namespace JXGIS.JXTopsystem.Controllers
             return Json(rt);
         }
         [LoggerFilter(Description = "导出专业设施地名查询结果")]
-        public ActionResult ExportPlaceName()
+        public ActionResult ExportDMOfZYSS()
         {
             RtObj rt = null;
             try
@@ -105,7 +105,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 var start = Session["_PlaceName_start"] != null ? (DateTime?)Session["_PlaceName_start"] : null;
                 var end = Session["_PlaceName_end"] != null ? (DateTime?)Session["_PlaceName_end"] : null;
 
-                var ms = PlaceNameSearch.ExportPlaceName(-1, -1, ZYSSType, DistrictID, CommunityName, DMType, Name, ZGDW, start, end);
+                var ms = DMOfZYSS.ExportDMOfZYSS(-1, -1, ZYSSType, DistrictID, CommunityName, DMType, Name, ZGDW, start, end);
                 Session["_PlaceName_ZYSSType"] = null;
                 Session["_PlaceName_DistrictID"] = null;
                 Session["_PlaceName_CommunityName"] = null;
@@ -124,12 +124,12 @@ namespace JXGIS.JXTopsystem.Controllers
             }
         }
 
-        public ActionResult CancelPlaceName(List<string> IDs)
+        public ActionResult CancelDMOfZYSS(List<string> IDs)
         {
             RtObj rt = null;
             try
             {
-                PlaceNameSearch.CancelPlaceName(IDs);
+                DMOfZYSS.CancelDMOfZYSS(IDs);
                 rt = new RtObj();
             }
             catch (Exception ex)
@@ -143,13 +143,13 @@ namespace JXGIS.JXTopsystem.Controllers
 
         #region 专业设施地名备案
         [LoggerFilter(Description = "修改专业设施地名")]
-        public JsonResult ModifyPlaceName(string oldDataJson)
+        public JsonResult ModifyDMOfZYSS(string oldDataJson)
         {
             RtObj rt = null;
             try
             {
                 rt = new RtObj();
-                PlaceNameSearch.ModifyPlaceName(oldDataJson);
+                DMOfZYSS.ModifyDMOfZYSS(oldDataJson);
             }
             catch (Exception ex)
             {

@@ -12,7 +12,7 @@ using System.Web;
 
 namespace JXGIS.JXTopsystem.Business.PlaceName
 {
-    public class PlaceNameSearch
+    public class DMOfZYSS
     {
 
         public static List<string> GetDMTypesFromData(string DistrictID, string ZYSSType)
@@ -40,7 +40,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
         /// <param name="DistrictID"></param>
         /// <param name="Name"></param>
         /// <returns></returns>
-        public static Dictionary<string, object> SearchPlaceName(int PageSize, int PageNum, string ZYSSType, string DistrictID, string CommunityName, string DMType, string Name, string ZGDW, DateTime? start, DateTime? end)
+        public static Dictionary<string, object> SearchDMOfZYSS(int PageSize, int PageNum, string ZYSSType, string DistrictID, string CommunityName, string DMType, string Name, string ZGDW, DateTime? start, DateTime? end)
         {
             int count = 0;
             using (var dbContext = SystemUtils.NewEFDbContext)
@@ -102,7 +102,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
         /// 根据一条住宅门牌数据的ID来查详情
         /// </summary>
         /// <param name="ID"></param>
-        public static Models.Entities.DMOFZYSS SearchPlaceNameByID(string ID)
+        public static Models.Entities.DMOFZYSS SearchDMOfZYSSByID(string ID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -165,9 +165,9 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
         /// <param name="DistrictID"></param>
         /// <param name="Name"></param>
         /// <returns></returns>
-        public static MemoryStream ExportPlaceName(int PageSize, int PageNum, string ZTSSTypoe, string DistrictID, string CommunityName, string DMType, string Name, string ZGDW, DateTime? start, DateTime? end)
+        public static MemoryStream ExportDMOfZYSS(int PageSize, int PageNum, string ZTSSTypoe, string DistrictID, string CommunityName, string DMType, string Name, string ZGDW, DateTime? start, DateTime? end)
         {
-            Dictionary<string, object> dict = SearchPlaceName(-1, -1, ZTSSTypoe, DistrictID, CommunityName, DMType, Name, ZGDW, start, end);
+            Dictionary<string, object> dict = SearchDMOfZYSS(-1, -1, ZTSSTypoe, DistrictID, CommunityName, DMType, Name, ZGDW, start, end);
 
             int RowCount = int.Parse(dict["Count"].ToString());
             if (RowCount >= 65000)
@@ -267,7 +267,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
         /// <param name="oldData"></param>
         /// <param name="newData"></param>
         ///  <param name="CurrentFileIDs">存储四个证件的所有ids</param>
-        public static void ModifyPlaceName(string oldDataJson)
+        public static void ModifyDMOfZYSS(string oldDataJson)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -334,7 +334,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
         /// 注销地名
         /// </summary>
         /// <param name="ID"></param>
-        public static void CancelPlaceName(List<string> ID)
+        public static void CancelDMOfZYSS(List<string> ID)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {

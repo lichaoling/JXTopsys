@@ -73,3 +73,4 @@ namespace JXGIS.JXTopsystem.Models.Entities
         [NotMapped]
         public List<SPFile> xgts { get; set; }
     }
+}

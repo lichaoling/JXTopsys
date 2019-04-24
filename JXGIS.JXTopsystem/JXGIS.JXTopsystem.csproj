@@ -234,7 +234,7 @@
     <Compile Include="App_Start\LoggerFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Business\ArchiveFileUtils.cs" />
+    <Compile Include="Business\ArchiveFile\ArchiveFileUtils.cs" />
     <Compile Include="Business\ArchiveFile\ArchiveFile.cs" />
     <Compile Include="Business\Common\BaseUtils.cs" />
     <Compile Include="Business\Common\DicUtils.cs" />
@@ -257,7 +257,7 @@
     <Compile Include="Business\MPSearch\CountryMPSearch.cs" />
     <Compile Include="Business\MPSearch\ResidenceMPSearch.cs" />
     <Compile Include="Business\MPSearch\RoadMPSearch.cs" />
-    <Compile Include="Business\PlaceName\PlaceNameSearch.cs" />
+    <Compile Include="Business\PlaceName\DMOfZYSS.cs" />
     <Compile Include="Business\RPBusinessStatistic\RPStatisticUtils.cs" />
     <Compile Include="Business\RPModify\RPModifyUtils.cs" />
     <Compile Include="Business\RPRepair\RPRepairUtils.cs" />

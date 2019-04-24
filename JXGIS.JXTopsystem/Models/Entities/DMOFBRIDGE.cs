@@ -71,3 +71,4 @@ namespace JXGIS.JXTopsystem.Models.Entities
         [NotMapped]
         public List<SPFile> qltzs { get; set; }
     }
+}
