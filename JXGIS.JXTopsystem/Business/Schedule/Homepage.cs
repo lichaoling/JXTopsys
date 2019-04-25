@@ -596,7 +596,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                 string mpsql_yc = "", mpsql_zxsb = "", mpsql_zlb = "", dmhzsql_yc = "", dmhzsql_zxsb = "", dmhzsql_zlb = "", dmzmsql_yc = "", dmzmsql_zxsb = "", dmzmsql_zlb = "", cjyjsql_yc = "", cjyjsql_zxsb = "", cjyjsql_zlb = "";
                 string mpsql1_yc = "", mpsql1_zxsb = "", mpsql1_zlb = "", dmhzsql1_yc = "", dmhzsql1_zxsb = "", dmhzsql1_zlb = "", dmzmsql1_yc = "", dmzmsql1_zxsb = "", dmzmsql1_zlb = "", cjyjsql1_yc = "", cjyjsql1_zxsb = "", cjyjsql1_zlb = "";
-             
+
                 // 先删选出当前用户权限内的数据
                 if (!LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
                 {
@@ -1153,7 +1153,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 };
             }
         }
-        public static object GetTodoItems(string sbly, string lx)
+        public static object GetTodoItems(int pageNum, int pageSize, string sbly, string lx)
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
@@ -1271,6 +1271,22 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 dmzmsql1 = dmzmsql1.Substring("union ".Length);
                 cjyjsql1 = cjyjsql1.Substring("union ".Length);
 
+
+                mpsql1 = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {mpsql1}  as b
+      where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
+                dmhzsql1 = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {dmhzsql1}  as b
+      where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
+                dmzmsql1 = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {dmzmsql1}  as b
+      where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
+                cjyjsql1 = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {cjyjsql1}  as b
+      where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
+
+
+
                 object data = null;
                 if (lx == Enums.SXLX.cjyj)
                     data = db.Database.SqlQuery<ZYSSItem>(cjyjsql1).ToList();
@@ -1284,7 +1300,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 return data;
             }
         }
-        public static object GetDoneItems(string sbly, string lx, DateTime start, DateTime end)
+        public static object GetDoneItems(int pageNum, int pageSize, string sbly, string lx, DateTime start, DateTime end)
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
@@ -1343,6 +1359,19 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 dmhzsql1 = dmhzsql1.Substring("union ".Length);
                 dmzmsql1 = dmzmsql1.Substring("union ".Length);
                 cjyjsql1 = cjyjsql1.Substring("union ".Length);
+
+                mpsql1 = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {mpsql1}  as b
+      where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
+                dmhzsql1 = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {dmhzsql1}  as b
+      where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
+                dmzmsql1 = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {dmzmsql1}  as b
+      where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
+                cjyjsql1 = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {cjyjsql1}  as b
+      where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
 
                 object data = null;
                 if (lx == Enums.SXLX.cjyj)

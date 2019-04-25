@@ -46,12 +46,12 @@ namespace JXGIS.JXTopsystem.Controllers
         }
 
         [LoggerFilter(Description = "查询申报的已办或代办事项")]
-        public ActionResult GetTodoItems(string sbly, string lx)
+        public ActionResult GetTodoItems(int pageNum, int pageSize, string sbly, string lx)
         {
             RtObj rt = null;
             try
             {
-                var d = HomePage.GetTodoItems(sbly, lx);
+                var d = HomePage.GetTodoItems(pageNum, pageSize, sbly, lx);
                 rt = new RtObj(d);
             }
             catch (Exception ex)
@@ -64,12 +64,12 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
         [LoggerFilter(Description = "查询申报的已办或代办事项")]
-        public ActionResult GetDoneItems(string sbly, string lx, DateTime start, DateTime end)
+        public ActionResult GetDoneItems(int pageNum, int pageSize, string sbly, string lx, DateTime start, DateTime end)
         {
             RtObj rt = null;
             try
             {
-                var d = HomePage.GetDoneItems(sbly, lx, start, end);
+                var d = HomePage.GetDoneItems(pageNum, pageSize, sbly, lx, start, end);
                 rt = new RtObj(d);
             }
             catch (Exception ex)
