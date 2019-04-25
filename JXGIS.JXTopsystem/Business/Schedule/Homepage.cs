@@ -522,18 +522,18 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 cjyjsql_zxsb = cjyjsql_zxsb.Substring("union ".Length);
                 cjyjsql_zlb = cjyjsql_zlb.Substring("union ".Length);
 
-                mpsql1_yc = mpsql_yc.Substring("union ".Length);
-                mpsql1_zxsb = mpsql_zxsb.Substring("union ".Length);
-                mpsql1_zlb = mpsql_zlb.Substring("union ".Length);
-                dmhzsql1_yc = dmhzsql_yc.Substring("union ".Length);
-                dmhzsql1_zxsb = dmhzsql_zxsb.Substring("union ".Length);
-                dmhzsql1_zlb = dmhzsql_zlb.Substring("union ".Length);
-                dmzmsql1_yc = dmzmsql_yc.Substring("union ".Length);
-                dmzmsql1_zxsb = dmzmsql_zxsb.Substring("union ".Length);
-                dmzmsql1_zlb = dmzmsql_zlb.Substring("union ".Length);
-                cjyjsql1_yc = cjyjsql_yc.Substring("union ".Length);
-                cjyjsql1_zxsb = cjyjsql_zxsb.Substring("union ".Length);
-                cjyjsql1_zlb = cjyjsql_zlb.Substring("union ".Length);
+                mpsql1_yc = mpsql1_yc.Substring("union ".Length);
+                mpsql1_zxsb = mpsql1_zxsb.Substring("union ".Length);
+                mpsql1_zlb = mpsql1_zlb.Substring("union ".Length);
+                dmhzsql1_yc = dmhzsql1_yc.Substring("union ".Length);
+                dmhzsql1_zxsb = dmhzsql1_zxsb.Substring("union ".Length);
+                dmhzsql1_zlb = dmhzsql1_zlb.Substring("union ".Length);
+                dmzmsql1_yc = dmzmsql1_yc.Substring("union ".Length);
+                dmzmsql1_zxsb = dmzmsql1_zxsb.Substring("union ".Length);
+                dmzmsql1_zlb = dmzmsql1_zlb.Substring("union ".Length);
+                cjyjsql1_yc = cjyjsql1_yc.Substring("union ".Length);
+                cjyjsql1_zxsb = cjyjsql1_zxsb.Substring("union ".Length);
+                cjyjsql1_zlb = cjyjsql1_zlb.Substring("union ".Length);
 
                 //mpsql3 = mpsql3.Substring("union ".Length);
                 //dmhzsql3 = dmhzsql3.Substring("union ".Length);
@@ -573,6 +573,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                 doneItem.CJYJ_YC = dbContext.Database.SqlQuery<int>($"select count(1) from ({cjyjsql1_yc}) s").FirstOrDefault();
                 doneItem.CJYJ_ZXSB = dbContext.Database.SqlQuery<int>($"select count(1) from ({cjyjsql1_zxsb}) s").FirstOrDefault();
+                doneItem.CJYJ_ZLB = dbContext.Database.SqlQuery<int>($"select count(1) from ({cjyjsql1_zlb}) s").FirstOrDefault();
 
                 //Items PersonalDoneItem = new Items();
                 //PersonalDoneItem.MP = dbContext.Database.SqlQuery<int>($"select count(1) from ({mpsql3}) s").FirstOrDefault();
@@ -1018,7 +1019,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                                    where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                 cjyjsql1_zlb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'s ";
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                 #endregion
 
                 #region 个人已办事项
@@ -1082,18 +1083,18 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 cjyjsql_zxsb = cjyjsql_zxsb.Substring("union ".Length);
                 cjyjsql_zlb = cjyjsql_zlb.Substring("union ".Length);
 
-                mpsql1_yc = mpsql_yc.Substring("union ".Length);
-                mpsql1_zxsb = mpsql_zxsb.Substring("union ".Length);
-                mpsql1_zlb = mpsql_zlb.Substring("union ".Length);
-                dmhzsql1_yc = dmhzsql_yc.Substring("union ".Length);
-                dmhzsql1_zxsb = dmhzsql_zxsb.Substring("union ".Length);
-                dmhzsql1_zlb = dmhzsql_zlb.Substring("union ".Length);
-                dmzmsql1_yc = dmzmsql_yc.Substring("union ".Length);
-                dmzmsql1_zxsb = dmzmsql_zxsb.Substring("union ".Length);
-                dmzmsql1_zlb = dmzmsql_zlb.Substring("union ".Length);
-                cjyjsql1_yc = cjyjsql_yc.Substring("union ".Length);
-                cjyjsql1_zxsb = cjyjsql_zxsb.Substring("union ".Length);
-                cjyjsql1_zlb = cjyjsql_zlb.Substring("union ".Length);
+                mpsql1_yc = mpsql1_yc.Substring("union ".Length);
+                mpsql1_zxsb = mpsql1_zxsb.Substring("union ".Length);
+                mpsql1_zlb = mpsql1_zlb.Substring("union ".Length);
+                dmhzsql1_yc = dmhzsql1_yc.Substring("union ".Length);
+                dmhzsql1_zxsb = dmhzsql1_zxsb.Substring("union ".Length);
+                dmhzsql1_zlb = dmhzsql1_zlb.Substring("union ".Length);
+                dmzmsql1_yc = dmzmsql1_yc.Substring("union ".Length);
+                dmzmsql1_zxsb = dmzmsql1_zxsb.Substring("union ".Length);
+                dmzmsql1_zlb = dmzmsql1_zlb.Substring("union ".Length);
+                cjyjsql1_yc = cjyjsql1_yc.Substring("union ".Length);
+                cjyjsql1_zxsb = cjyjsql1_zxsb.Substring("union ".Length);
+                cjyjsql1_zlb = cjyjsql1_zlb.Substring("union ".Length);
 
 
                 Items toDoItem = new Items();
@@ -1309,49 +1310,49 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 #region 已办事项
                 mpsql1 += $@"union 
                         select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from BG_MPOFCOUNTRY b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from BG_MPOFRESIDENCE b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from BG_MPOFROAD b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from SB_MPOFCOUNTRY b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from SB_MPOFRESIDENCE b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from SB_MPOFROAD b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 dmhzsql1 += $@"union 
                            select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ from SB_DMOFBRIDGE b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ from SB_DMOFBUILDING b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ from SB_DMOFROAD b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ from SB_DMOFSETTLEMENT b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 dmzmsql1 += $@"union 
                            select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ from ZM_MPOFCOUNTRY b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,b.FinishTime SPSJ from ZM_MPOFRESIDENCE b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ from ZM_MPOFROAD b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 cjyjsql1 += $@"union 
                            select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,b.FinishTime SPSJ from BA_DMOFZYSS b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.FinishTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 #endregion
 
