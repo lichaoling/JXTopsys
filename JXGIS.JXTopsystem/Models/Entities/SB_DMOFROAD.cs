@@ -37,12 +37,15 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string ApplicantPhone { get; set; }
         public string ApplicantAddress { get; set; }
         public DateTime? CreateTime { get; set; }
+        public DateTime? FinishTime { get; set; }
         public string CreateUser { get; set; }
         public string CheckUser { get; set; }
         public string SBLY { get; set; }
         public string ProjID { get; set; }
         public int? IsFinish { get; set; }
         public string Remark { get; set; }
+        public string State { get; set; }
+        public string Opinion { get; set; }
         [NotMapped]
         public List<SPFile> lxpfss { get; set; }
         [NotMapped]

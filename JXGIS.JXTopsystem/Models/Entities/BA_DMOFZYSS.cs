@@ -44,8 +44,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DateTime? ApplicantDate { get; set; }
         public DateTime? RecordDate { get; set; }
         public string Postcode { get; set; }
-        public int? State { get; set; }
         public DateTime? CreateTime { get; set; }
+        public DateTime? FinishTime { get; set; }
         public string CreateUser { get; set; }
         public string CheckUser { get; set; }
         /// <summary>
@@ -54,6 +54,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string Remark { get; set; }
         public string ProjID { get; set; }
         public int? IsFinish { get; set; }
+        public string State { get; set; }
+        public string Opinion { get; set; }
         [NotMapped]
         public List<SPFile> sqb { get; set; }
         [NotMapped]

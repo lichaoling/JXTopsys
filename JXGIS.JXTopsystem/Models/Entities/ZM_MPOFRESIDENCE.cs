@@ -42,12 +42,15 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string MailAddress { get; set; }
         public DateTime? BZTime { get; set; }
         public DateTime? CreateTime { get; set; }
+        public DateTime? FinishTime { get; set; }
         public string CreateUser { get; set; }
         public string CheckUser { get; set; }
         public string SBLY { get; set; }
         public string ProjID { get; set; }
         public int? IsFinish { get; set; }
         public string Remark { get; set; }
+        public string State { get; set; }
+        public string Opinion { get; set; }
         [NotMapped]
         public List<SPFile> fcz { get; set; }
         [NotMapped]

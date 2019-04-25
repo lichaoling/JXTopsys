@@ -185,5 +185,10 @@ namespace JXGIS.JXTopsystem.Models.Extends
             public const string mp = "门牌编制";
             public const string cjyj = "出具意见";
         }
+        public class SPState
+        {
+            public const string tg = "通过";
+            public const string th = "退回";
+        }
     }
 }
