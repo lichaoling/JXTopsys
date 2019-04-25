@@ -293,41 +293,41 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                     dmzmsql_yc += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}'
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}'
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}' ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' ";
                     dmzmsql_zxsb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}'
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}'
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}' ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' ";
                     dmzmsql_zlb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}'
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}'
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}' ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' ";
 
                     cjyjsql_yc += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}' ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' ";
                     cjyjsql_zxsb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}' ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' ";
                     cjyjsql_zlb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}' ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' ";
 
                     #endregion
                 }
@@ -425,41 +425,41 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                 dmzmsql1_yc += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=1 b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=1 b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=1 b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
                 dmzmsql1_zxsb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=1 b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=1 b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
                 dmzmsql1_zlb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=1 b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=1 b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=1 b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
 
                 cjyjsql1_yc += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=1 b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
                 cjyjsql1_zxsb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=1 b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
                 cjyjsql1_zlb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=1 b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserName}' ";
                 #endregion
                 #region 个人已办事项
                 //mpsql3 += $@"union 
@@ -606,139 +606,139 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         mpsql_yc += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
                                 left  join MPOFCOUNTRY a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
                                 left  join MPOFRESIDENCE a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
                                 left  join MPOFROAD a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                         mpsql_zxsb += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
                                 left  join MPOFCOUNTRY a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
                                 left  join MPOFRESIDENCE a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
                                 left  join MPOFROAD a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                         mpsql_zlb += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
                                 left  join MPOFCOUNTRY a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
                                 left  join MPOFRESIDENCE a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
                                 left  join MPOFROAD a on b.MPID=a.ID 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                         dmhzsql_yc += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                         dmhzsql_zxsb += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                         dmhzsql_zlb += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                         dmzmsql_yc += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                         dmzmsql_zxsb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                         dmzmsql_zlb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                         cjyjsql_yc += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                         cjyjsql_zxsb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                         cjyjsql_zlb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                         #endregion
                     }
@@ -748,132 +748,132 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     #region 待办事项
                     mpsql_yc += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                     mpsql_zxsb += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                     mpsql_zlb += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                     dmhzsql_yc += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                     dmhzsql_zxsb += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                     dmhzsql_zlb += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                     dmzmsql_yc += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                     dmzmsql_zxsb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                     dmzmsql_zlb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                     cjyjsql_yc += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                     cjyjsql_zxsb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                     cjyjsql_zlb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=0 b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                     #endregion
                 }
@@ -881,144 +881,144 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 mpsql1_yc += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
                                 left  join MPOFCOUNTRY a on b.MPID=a.ID 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
                                 left  join MPOFRESIDENCE a on b.MPID=a.ID 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
                                 left  join MPOFROAD a on b.MPID=a.ID 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                 mpsql1_zxsb += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
                                 left  join MPOFCOUNTRY a on b.MPID=a.ID 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
                                 left  join MPOFRESIDENCE a on b.MPID=a.ID 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
                                 left  join MPOFROAD a on b.MPID=a.ID 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                 mpsql1_zlb += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
                                 left  join MPOFCOUNTRY a on b.MPID=a.ID 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
                                 left  join MPOFRESIDENCE a on b.MPID=a.ID 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
                                 left  join MPOFROAD a on b.MPID=a.ID 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
 
                 dmhzsql1_yc += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                 dmhzsql1_zxsb += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                 dmhzsql1_zlb += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
 
                 dmzmsql1_yc += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=1 nd b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                 dmzmsql1_zxsb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                 dmzmsql1_zlb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
 
                 cjyjsql1_yc += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.yc}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                 cjyjsql1_zxsb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd') ";
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zxsb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
                 cjyjsql1_zlb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>to_date('{(start).ToString("yyyy/MM/dd")}','yyyy/MM/dd') and b.CreateTime<to_date('{(end.AddDays(1)).ToString("yyyy/MM/dd")}','yyyy/MM/dd')s ";
+                                   where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{Enums.SBLY.zlb}' and b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'s ";
                 #endregion
 
                 #region 个人已办事项
