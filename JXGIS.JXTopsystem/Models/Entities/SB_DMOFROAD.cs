@@ -29,8 +29,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public double? Length { get; set; }
         public double? Width { get; set; }
         public string RoadNature { get; set; }
-        public DateTime? SJTime { get; set; }
-        public DateTime? JCTime { get; set; }
+        public string SJTime { get; set; }
+        public string JCTime { get; set; }
         public string DLSTGK { get; set; }
         public string DMHY { get; set; }
         public string Applicant { get; set; }

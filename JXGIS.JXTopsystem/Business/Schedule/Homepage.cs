@@ -1154,11 +1154,13 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 };
             }
         }
-        public static object GetTodoItems(int pageNum, int pageSize, string sbly, string lx)
+        public static Dictionary<string, object> GetTodoItems(int pageNum, int pageSize, string sbly, string lx)
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
                 string mpsql1 = "", dmhzsql1 = "", dmzmsql1 = "", cjyjsql1 = "";
+                string mpsql_c = "", dmhzsql_c = "", dmzmsql_c = "", cjyjsql_c = "";
+                string mpsql_d = "", dmhzsql_d = "", dmzmsql_d = "", cjyjsql_d = "";
                 if (!LoginUtils.CurrentUser.DistrictIDList.Contains("嘉兴市"))
                 {
                     foreach (var userDID in LoginUtils.CurrentUser.DistrictIDList)
@@ -1272,33 +1274,51 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 dmzmsql1 = dmzmsql1.Substring("union ".Length);
                 cjyjsql1 = cjyjsql1.Substring("union ".Length);
 
+                mpsql_c = $@"select count(1) from ({mpsql1}) as a";
+                dmhzsql_c = $@"select count(1) from ({dmhzsql1}) as a";
+                dmzmsql_c = $@"select count(1) from ({dmzmsql1}) as a";
+                cjyjsql_c = $@"select count(1) from ({cjyjsql1}) as a";
 
-                mpsql1 = $@"select * from ( 
-　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {mpsql1}  as b
+                mpsql_d = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from ({mpsql1}) as b) as c
       where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
-                dmhzsql1 = $@"select * from ( 
-　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {dmhzsql1}  as b
+                dmhzsql_d = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from ({dmhzsql1}) as b) as c
       where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
-                dmzmsql1 = $@"select * from ( 
-　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {dmzmsql1}  as b
+                dmzmsql_d = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from ({dmzmsql1}) as b) as c
       where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
-                cjyjsql1 = $@"select * from ( 
-　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {cjyjsql1}  as b
+                cjyjsql_d = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from ({cjyjsql1}) as b) as c
       where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
-
-
 
                 object data = null;
+                int count = 0;
                 if (lx == Enums.SXLX.cjyj)
-                    data = db.Database.SqlQuery<ZYSSItem>(cjyjsql1).ToList();
+                {
+                    data = db.Database.SqlQuery<ZYSSItem>(cjyjsql_d).ToList();
+                    count = db.Database.SqlQuery<int>(cjyjsql_c).FirstOrDefault();
+                }
                 else if (lx == Enums.SXLX.mp)
-                    data = db.Database.SqlQuery<MPItem>(mpsql1).ToList();
+                {
+                    data = db.Database.SqlQuery<MPItem>(mpsql_d).ToList();
+                    count = db.Database.SqlQuery<int>(mpsql_c).FirstOrDefault();
+                }
                 else if (lx == Enums.SXLX.dmhz)
-                    data = db.Database.SqlQuery<DMHZItem>(dmhzsql1).ToList();
+                {
+                    data = db.Database.SqlQuery<DMHZItem>(dmhzsql_d).ToList();
+                    count = db.Database.SqlQuery<int>(dmhzsql_c).FirstOrDefault();
+                }
                 else if (lx == Enums.SXLX.dmzm)
-                    data = db.Database.SqlQuery<DMZMItem>(dmzmsql1).ToList();
+                {
+                    data = db.Database.SqlQuery<DMZMItem>(dmzmsql_d).ToList();
+                    count = db.Database.SqlQuery<int>(dmzmsql_c).FirstOrDefault();
+                }
 
-                return data;
+                return new Dictionary<string, object> {
+                   { "Data",data},
+                   { "Count",count}
+                };
             }
         }
         public static object GetDoneItems(int pageNum, int pageSize, string sbly, string lx, DateTime start, DateTime end)
@@ -1306,6 +1326,8 @@ namespace JXGIS.JXTopsystem.Business.Schedule
             using (var db = SystemUtils.NewEFDbContext)
             {
                 string mpsql1 = "", dmhzsql1 = "", dmzmsql1 = "", cjyjsql1 = "";
+                string mpsql_c = "", dmhzsql_c = "", dmzmsql_c = "", cjyjsql_c = "";
+                string mpsql_d = "", dmhzsql_d = "", dmzmsql_d = "", cjyjsql_d = "";
 
                 #region 已办事项
                 mpsql1 += $@"union 
@@ -1361,30 +1383,51 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 dmzmsql1 = dmzmsql1.Substring("union ".Length);
                 cjyjsql1 = cjyjsql1.Substring("union ".Length);
 
-                mpsql1 = $@"select * from ( 
-　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {mpsql1}  as b
+                mpsql_c = $@"select count(1) from ({mpsql1}) as a";
+                dmhzsql_c = $@"select count(1) from ({dmhzsql1}) as a";
+                dmzmsql_c = $@"select count(1) from ({dmzmsql1}) as a";
+                cjyjsql_c = $@"select count(1) from ({cjyjsql1}) as a";
+
+                mpsql_d = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from ({mpsql1}) as b) as c
       where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
-                dmhzsql1 = $@"select * from ( 
-　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {dmhzsql1}  as b
+                dmhzsql_d = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from ({dmhzsql1}) as b) as c
       where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
-                dmzmsql1 = $@"select * from ( 
-　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {dmzmsql1}  as b
+                dmzmsql_d = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from ({dmzmsql1}) as b) as c
       where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
-                cjyjsql1 = $@"select * from ( 
-　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from {cjyjsql1}  as b
+                cjyjsql_d = $@"select * from ( 
+　　　　select *, ROW_NUMBER() OVER(Order by sbly) AS RowId from ({cjyjsql1}) as b) as c
       where RowId between ({pageNum} - 1) * {pageSize} and {pageNum} * {pageSize} ";
 
                 object data = null;
+                int count = 0;
                 if (lx == Enums.SXLX.cjyj)
-                    data = db.Database.SqlQuery<ZYSSItem>(cjyjsql1).ToList();
+                {
+                    data = db.Database.SqlQuery<ZYSSItem>(cjyjsql_d).ToList();
+                    count = db.Database.SqlQuery<int>(cjyjsql_c).FirstOrDefault();
+                }
                 else if (lx == Enums.SXLX.mp)
-                    data = db.Database.SqlQuery<MPItem>(mpsql1).ToList();
+                {
+                    data = db.Database.SqlQuery<MPItem>(mpsql_d).ToList();
+                    count = db.Database.SqlQuery<int>(mpsql_c).FirstOrDefault();
+                }
                 else if (lx == Enums.SXLX.dmhz)
-                    data = db.Database.SqlQuery<DMHZItem>(dmhzsql1).ToList();
+                {
+                    data = db.Database.SqlQuery<DMHZItem>(dmhzsql_d).ToList();
+                    count = db.Database.SqlQuery<int>(dmhzsql_c).FirstOrDefault();
+                }
                 else if (lx == Enums.SXLX.dmzm)
-                    data = db.Database.SqlQuery<DMZMItem>(dmzmsql1).ToList();
+                {
+                    data = db.Database.SqlQuery<DMZMItem>(dmzmsql_d).ToList();
+                    count = db.Database.SqlQuery<int>(dmzmsql_c).FirstOrDefault();
+                }
 
-                return data;
+                return new Dictionary<string, object> {
+                   { "Data",data},
+                   { "Count",count}
+                };
             }
         }
 

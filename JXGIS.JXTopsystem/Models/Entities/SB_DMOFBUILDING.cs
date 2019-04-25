@@ -33,7 +33,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public double? JZArea { get; set; }
         public double? Height { get; set; }
         public double? FloorNum { get; set; }
-        public DateTime? JCTime { get; set; }
+        public string JCTime { get; set; }
         public string DLSTGK { get; set; }
         public string DMHY { get; set; }
         public string Applicant { get; set; }

@@ -40,8 +40,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public double? LDBG { get; set; }
         public double? ZDKD { get; set; }
         public string BridgeNature { get; set; }
-        public DateTime? SJTime { get; set; }
-        public DateTime? JCTime { get; set; }
+        public string SJTime { get; set; }
+        public string JCTime { get; set; }
         public string DLSTGK { get; set; }
         public string DMLL { get; set; }
         public string DMHY { get; set; }
