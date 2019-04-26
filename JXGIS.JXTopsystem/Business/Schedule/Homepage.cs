@@ -1576,6 +1576,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 entity.State = State;
                 entity.Opinion = Opinion;
                 entity.IsFinish = 1;
+                entity.FinishTime = DateTime.Now;
                 entity.CheckUser = LoginUtils.CurrentUser.UserName;
                 db.SaveChanges();
             }
@@ -1755,6 +1756,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 entity.State = State;
                 entity.Opinion = Opinion;
                 entity.IsFinish = 1;
+                entity.FinishTime = DateTime.Now;
                 entity.CheckUser = LoginUtils.CurrentUser.UserName;
                 db.SaveChanges();
             }
@@ -1889,6 +1891,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 entity.State = State;
                 entity.Opinion = Opinion;
                 entity.IsFinish = 1;
+                entity.FinishTime = DateTime.Now;
                 entity.CheckUser = LoginUtils.CurrentUser.UserName;
                 db.SaveChanges();
             }
@@ -2056,6 +2059,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 entity.State = State;
                 entity.Opinion = Opinion;
                 entity.IsFinish = 1;
+                entity.FinishTime = DateTime.Now;
                 entity.CheckUser = LoginUtils.CurrentUser.UserName;
                 db.SaveChanges();
             }
@@ -2174,6 +2178,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 entity.State = State;
                 entity.Opinion = Opinion;
                 entity.IsFinish = 1;
+                entity.FinishTime = DateTime.Now;
                 entity.CheckUser = LoginUtils.CurrentUser.UserName;
                 db.SaveChanges();
             }
@@ -2322,6 +2327,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 entity.State = State;
                 entity.Opinion = Opinion;
                 entity.IsFinish = 1;
+                entity.FinishTime = DateTime.Now;
                 entity.CheckUser = LoginUtils.CurrentUser.UserName;
                 db.SaveChanges();
             }
@@ -2515,6 +2521,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 entity.State = State;
                 entity.Opinion = Opinion;
                 entity.IsFinish = 1;
+                entity.FinishTime = DateTime.Now;
                 entity.CheckUser = LoginUtils.CurrentUser.UserName;
                 db.SaveChanges();
             }
@@ -2696,6 +2703,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 entity.State = State;
                 entity.Opinion = Opinion;
                 entity.IsFinish = 1;
+                entity.FinishTime = DateTime.Now;
                 entity.CheckUser = LoginUtils.CurrentUser.UserName;
                 db.SaveChanges();
             }
@@ -2855,6 +2863,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 entity.State = State;
                 entity.Opinion = Opinion;
                 entity.IsFinish = 1;
+                entity.FinishTime = DateTime.Now;
                 entity.CheckUser = LoginUtils.CurrentUser.UserName;
                 db.SaveChanges();
             }
@@ -2984,6 +2993,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 entity.State = State;
                 entity.Opinion = Opinion;
                 entity.IsFinish = 1;
+                entity.FinishTime = DateTime.Now;
                 entity.CheckUser = LoginUtils.CurrentUser.UserName;
                 db.SaveChanges();
             }
