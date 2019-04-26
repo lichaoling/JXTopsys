@@ -1167,52 +1167,52 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     {
                         #region 待办事项
                         mpsql1 += $@"union 
-                                select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFCOUNTRY b 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BG_NC} sign from BG_MPOFCOUNTRY b 
                                 left  join MPOFCOUNTRY a on b.MPID=a.ID 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
-                                select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFRESIDENCE b 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ} sign from BG_MPOFRESIDENCE b 
                                 left  join MPOFRESIDENCE a on b.MPID=a.ID 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
-                                select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFROAD b 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BG_DL} sign from BG_MPOFROAD b 
                                 left  join MPOFROAD a on b.MPID=a.ID 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
-                                select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFCOUNTRY b 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BZ_NC} sign from SB_MPOFCOUNTRY b 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
-                                select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFRESIDENCE b 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ} sign from SB_MPOFRESIDENCE b 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
-                                select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFROAD b 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BZ_DL} sign from SB_MPOFROAD b 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
                         dmhzsql1 += $@"union 
-                                   select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBRIDGE b 
+                                   select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMHZ_QL} sign from SB_DMOFBRIDGE b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBUILDING b 
+                                   select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMHZ_JZW} sign from SB_DMOFBUILDING b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFROAD b 
+                                   select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMHZ_DLJX} sign from SB_DMOFROAD b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFSETTLEMENT b 
+                                   select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMHZ_JMD} sign from SB_DMOFSETTLEMENT b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
                         dmzmsql1 += $@"union 
-                                   select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFCOUNTRY b 
+                                   select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMZM_NC} sign from ZM_MPOFCOUNTRY b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ from ZM_MPOFRESIDENCE b 
+                                   select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMZM_ZZ} sign  from ZM_MPOFRESIDENCE b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFROAD b 
+                                   select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMZM_DL} sign  from ZM_MPOFROAD b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
                         cjyjsql1 += $@"union 
-                                   select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ from BA_DMOFZYSS b 
+                                   select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,{Enums.SPFileBusinessTypes.CJYJ_ZYSS} sign from BA_DMOFZYSS b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
                         #endregion
@@ -1222,49 +1222,49 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 {
                     #region 待办事项
                     mpsql1 += $@"union 
-                                select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and b.sbly='{sbly}'
-                                union 
-                                select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and b.sbly='{sbly}'
-                                union 
-                                select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from BG_MPOFROAD b 
-                                where b.IsFinish=0 and b.sbly='{sbly}'
-                                union 
-                                select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=0 and b.sbly='{sbly}'
-                                union 
-                                select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=0 and b.sbly='{sbly}'
-                                union 
-                                select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ from SB_MPOFROAD b 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BG_NC} sign from BG_MPOFCOUNTRY b 
+                                where b.IsFinish=0 and b.sbly='{sbly}'                                                 
+                                union                                                                                  
+                                select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ} sign from BG_MPOFRESIDENCE b 
+                                where b.IsFinish=0 and b.sbly='{sbly}'                                                 
+                                union                                                                                       
+                                select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BG_DL} sign from BG_MPOFROAD b 
+                                where b.IsFinish=0 and b.sbly='{sbly}'                                                
+                                union                                                                                 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BZ_NC} sign from SB_MPOFCOUNTRY b 
+                                where b.IsFinish=0 and b.sbly='{sbly}'                                                
+                                union                                                                                 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ} sign from SB_MPOFRESIDENCE b 
+                                where b.IsFinish=0 and b.sbly='{sbly}'                                                  
+                                union                                                                                   
+                                select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,{Enums.SPFileBusinessTypes.HFMPZ_BZ_DL} sign from SB_MPOFROAD b 
                                 where b.IsFinish=0 and b.sbly='{sbly}' ";
 
                     dmhzsql1 += $@"union 
-                                   select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBRIDGE b 
+                                   select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMHZ_QL} sign from SB_DMOFBRIDGE b 
                                    where b.IsFinish=0 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFBUILDING b 
+                                   select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMHZ_JZW} sign from SB_DMOFBUILDING b 
                                    where b.IsFinish=0 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFROAD b 
+                                   select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMHZ_DLJX} sign from SB_DMOFROAD b 
                                    where b.IsFinish=0 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ from SB_DMOFSETTLEMENT b 
+                                   select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMHZ_JMD} sign from SB_DMOFSETTLEMENT b 
                                    where b.IsFinish=0 and b.sbly='{sbly}' ";
 
                     dmzmsql1 += $@"union 
-                                   select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFCOUNTRY b 
+                                   select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMZM_NC} sign  from ZM_MPOFCOUNTRY b 
                                    where b.IsFinish=0 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ from ZM_MPOFRESIDENCE b 
+                                   select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMZM_ZZ} sign  from ZM_MPOFRESIDENCE b 
                                    where b.IsFinish=0 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ from ZM_MPOFROAD b 
+                                   select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,{Enums.SPFileBusinessTypes.DMZM_DL} sign from ZM_MPOFROAD b 
                                    where b.IsFinish=0 and b.sbly='{sbly}' ";
 
                     cjyjsql1 += $@"union 
-                                   select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ from BA_DMOFZYSS b 
+                                   select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,{Enums.SPFileBusinessTypes.CJYJ_ZYSS} sign from BA_DMOFZYSS b 
                                    where b.IsFinish=0 and b.sbly='{sbly}' ";
 
                     #endregion
@@ -1331,49 +1331,49 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                 #region 已办事项
                 mpsql1 += $@"union 
-                        select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from BG_MPOFCOUNTRY b 
+                        select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.HFMPZ_BG_NC} sign from BG_MPOFCOUNTRY b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
-                        select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from BG_MPOFRESIDENCE b 
+                        select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.HFMPZ_BG_NC} sign from BG_MPOFRESIDENCE b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
-                        select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from BG_MPOFROAD b 
+                        select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.HFMPZ_BG_NC} sign from BG_MPOFROAD b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
-                        select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from SB_MPOFCOUNTRY b 
+                        select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.HFMPZ_BZ_NC} sign from SB_MPOFCOUNTRY b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
-                        select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from SB_MPOFRESIDENCE b 
+                        select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ} sign from SB_MPOFRESIDENCE b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
-                        select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ from SB_MPOFROAD b 
+                        select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.HFMPZ_BZ_DL} sign from SB_MPOFROAD b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 dmhzsql1 += $@"union 
-                           select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ from SB_DMOFBRIDGE b 
+                           select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.DMHZ_QL} sign from SB_DMOFBRIDGE b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
-                           select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ from SB_DMOFBUILDING b 
+                           select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.DMHZ_JZW} sign from SB_DMOFBUILDING b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
-                           select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ from SB_DMOFROAD b 
+                           select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.DMHZ_DLJX} sign from SB_DMOFROAD b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
-                           select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ from SB_DMOFSETTLEMENT b 
+                           select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.DMHZ_JMD} sign from SB_DMOFSETTLEMENT b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 dmzmsql1 += $@"union 
-                           select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ from ZM_MPOFCOUNTRY b 
+                           select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.DMZM_NC} sign from ZM_MPOFCOUNTRY b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
-                           select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,b.FinishTime SPSJ from ZM_MPOFRESIDENCE b 
+                           select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.DMZM_ZZ} sign from ZM_MPOFRESIDENCE b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
-                           select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ from ZM_MPOFROAD b 
+                           select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.DMZM_DL} sign from ZM_MPOFROAD b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 cjyjsql1 += $@"union 
-                           select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,b.FinishTime SPSJ from BA_DMOFZYSS b 
+                           select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,b.FinishTime SPSJ,{Enums.SPFileBusinessTypes.CJYJ_ZYSS} sign from BA_DMOFZYSS b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 #endregion
@@ -1472,7 +1472,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         foreach (var f in fcz)
                         {
                             HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZBG_ZZ, targetData.ID, Enums.SPFileCertificateTypes.FCZ);
+                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ, targetData.ID, Enums.SPFileCertificateTypes.FCZ);
                         }
                     }
 
@@ -1482,7 +1482,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         foreach (var f in tdz)
                         {
                             HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZBG_ZZ, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
+                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
                         }
                     }
 
@@ -1492,7 +1492,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         foreach (var f in bdcz)
                         {
                             HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZBG_ZZ, targetData.ID, Enums.SPFileCertificateTypes.BDCZ);
+                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ, targetData.ID, Enums.SPFileCertificateTypes.BDCZ);
                         }
                     }
 
@@ -1502,7 +1502,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         foreach (var f in hj)
                         {
                             HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZBG_ZZ, targetData.ID, Enums.SPFileCertificateTypes.HJ);
+                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ, targetData.ID, Enums.SPFileCertificateTypes.HJ);
                         }
                     }
                     db.SaveChanges();
@@ -1619,25 +1619,25 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var f in fcz)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZSQ_ZZ, targetData.ID, Enums.SPFileCertificateTypes.FCZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ, targetData.ID, Enums.SPFileCertificateTypes.FCZ);
                     }
                     var tdz = System.Web.HttpContext.Current.Request.Files.GetMultiple("tdz");
                     foreach (var f in tdz)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZSQ_ZZ, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
                     }
                     var bdcz = System.Web.HttpContext.Current.Request.Files.GetMultiple("bdcz");
                     foreach (var f in bdcz)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZSQ_ZZ, targetData.ID, Enums.SPFileCertificateTypes.BDCZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ, targetData.ID, Enums.SPFileCertificateTypes.BDCZ);
                     }
                     var hj = System.Web.HttpContext.Current.Request.Files.GetMultiple("hj");
                     foreach (var f in hj)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZSQ_ZZ, targetData.ID, Enums.SPFileCertificateTypes.HJ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ, targetData.ID, Enums.SPFileCertificateTypes.HJ);
                     }
                     db.SaveChanges();
                 }
@@ -1800,7 +1800,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         foreach (var f in fcz)
                         {
                             HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZBG_DL, targetData.ID, Enums.SPFileCertificateTypes.FCZ);
+                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BG_DL, targetData.ID, Enums.SPFileCertificateTypes.FCZ);
                         }
                     }
 
@@ -1810,7 +1810,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         foreach (var f in tdz)
                         {
                             HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZBG_DL, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
+                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BG_DL, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
                         }
                     }
 
@@ -1820,7 +1820,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         foreach (var f in yyzz)
                         {
                             HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZBG_DL, targetData.ID, Enums.SPFileCertificateTypes.YYZZ);
+                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BG_DL, targetData.ID, Enums.SPFileCertificateTypes.YYZZ);
                         }
                     }
                     db.SaveChanges();
@@ -1931,19 +1931,19 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var f in fcz)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZSQ_DL, targetData.ID, Enums.SPFileCertificateTypes.FCZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BZ_DL, targetData.ID, Enums.SPFileCertificateTypes.FCZ);
                     }
                     var tdz = System.Web.HttpContext.Current.Request.Files.GetMultiple("tdz");
                     foreach (var f in tdz)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZSQ_DL, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BZ_DL, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
                     }
                     var yyzz = System.Web.HttpContext.Current.Request.Files.GetMultiple("yyzz");
                     foreach (var f in yyzz)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZSQ_DL, targetData.ID, Enums.SPFileCertificateTypes.YYZZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BZ_DL, targetData.ID, Enums.SPFileCertificateTypes.YYZZ);
                     }
                     db.SaveChanges();
                 }
@@ -2100,7 +2100,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         foreach (var f in tdz)
                         {
                             HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZBG_NC, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
+                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BG_NC, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
                         }
                     }
 
@@ -2110,7 +2110,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         foreach (var f in qqz)
                         {
                             HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZBG_NC, targetData.ID, Enums.SPFileCertificateTypes.QQZ);
+                            SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BG_NC, targetData.ID, Enums.SPFileCertificateTypes.QQZ);
                         }
                     }
                     db.SaveChanges();
@@ -2215,13 +2215,13 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var f in tdz)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZSQ_NC, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BZ_NC, targetData.ID, Enums.SPFileCertificateTypes.TDZ);
                     }
                     var qqz = System.Web.HttpContext.Current.Request.Files.GetMultiple("qqz");
                     foreach (var f in qqz)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.MPZSQ_NC, targetData.ID, Enums.SPFileCertificateTypes.QQZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.HFMPZ_BZ_NC, targetData.ID, Enums.SPFileCertificateTypes.QQZ);
                     }
                     db.SaveChanges();
                 }
@@ -2893,19 +2893,19 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var f in sqb)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMBA_ZYSS, targetData.ID, Enums.SPFileCertificateTypes.SQB);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.CJYJ_ZYSS, targetData.ID, Enums.SPFileCertificateTypes.SQB);
                     }
                     var sjt = System.Web.HttpContext.Current.Request.Files.GetMultiple("sjt");
                     foreach (var f in sjt)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMBA_ZYSS, targetData.ID, Enums.SPFileCertificateTypes.SJT);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.CJYJ_ZYSS, targetData.ID, Enums.SPFileCertificateTypes.SJT);
                     }
                     var lxpfs = System.Web.HttpContext.Current.Request.Files.GetMultiple("lxpfs");
                     foreach (var f in lxpfs)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMBA_ZYSS, targetData.ID, Enums.SPFileCertificateTypes.LXPFS);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.CJYJ_ZYSS, targetData.ID, Enums.SPFileCertificateTypes.LXPFS);
                     }
                     db.SaveChanges();
                 }
@@ -3022,25 +3022,25 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var f in jsydxkzs)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JMD, targetData.ID, Enums.SPFileCertificateTypes.JSYDXKZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_JMD, targetData.ID, Enums.SPFileCertificateTypes.JSYDXKZ);
                     }
                     var jsgcghxkzs = System.Web.HttpContext.Current.Request.Files.GetMultiple("jsgcghxkzs");
                     foreach (var f in jsgcghxkzs)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JMD, targetData.ID, Enums.SPFileCertificateTypes.JSGCGHXKZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_JMD, targetData.ID, Enums.SPFileCertificateTypes.JSGCGHXKZ);
                     }
                     var zpmts = System.Web.HttpContext.Current.Request.Files.GetMultiple("zpmts");
                     foreach (var f in zpmts)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JMD, targetData.ID, Enums.SPFileCertificateTypes.ZPMT);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_JMD, targetData.ID, Enums.SPFileCertificateTypes.ZPMT);
                     }
                     var xgts = System.Web.HttpContext.Current.Request.Files.GetMultiple("xgts");
                     foreach (var f in xgts)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JMD, targetData.ID, Enums.SPFileCertificateTypes.XGT);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_JMD, targetData.ID, Enums.SPFileCertificateTypes.XGT);
                     }
                     db.SaveChanges();
                 }
@@ -3079,25 +3079,25 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var f in jsydxkzs)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JZW, targetData.ID, Enums.SPFileCertificateTypes.JSYDXKZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_JZW, targetData.ID, Enums.SPFileCertificateTypes.JSYDXKZ);
                     }
                     var jsgcghxkzs = System.Web.HttpContext.Current.Request.Files.GetMultiple("jsgcghxkzs");
                     foreach (var f in jsgcghxkzs)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JZW, targetData.ID, Enums.SPFileCertificateTypes.JSGCGHXKZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_JZW, targetData.ID, Enums.SPFileCertificateTypes.JSGCGHXKZ);
                     }
                     var zpmts = System.Web.HttpContext.Current.Request.Files.GetMultiple("zpmts");
                     foreach (var f in zpmts)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JZW, targetData.ID, Enums.SPFileCertificateTypes.ZPMT);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_JZW, targetData.ID, Enums.SPFileCertificateTypes.ZPMT);
                     }
                     var xgts = System.Web.HttpContext.Current.Request.Files.GetMultiple("xgts");
                     foreach (var f in xgts)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_JZW, targetData.ID, Enums.SPFileCertificateTypes.XGT);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_JZW, targetData.ID, Enums.SPFileCertificateTypes.XGT);
                     }
                     db.SaveChanges();
                 }
@@ -3134,13 +3134,13 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var f in lxpfss)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_DLJX, targetData.ID, Enums.SPFileCertificateTypes.LXPFS);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_DLJX, targetData.ID, Enums.SPFileCertificateTypes.LXPFS);
                     }
                     var dltzs = System.Web.HttpContext.Current.Request.Files.GetMultiple("dltzs");
                     foreach (var f in dltzs)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_DLJX, targetData.ID, Enums.SPFileCertificateTypes.DLTZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_DLJX, targetData.ID, Enums.SPFileCertificateTypes.DLTZ);
                     }
                     db.SaveChanges();
                 }
@@ -3177,13 +3177,13 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var f in lxpfss)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_QL, targetData.ID, Enums.SPFileCertificateTypes.LXPFS);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_QL, targetData.ID, Enums.SPFileCertificateTypes.LXPFS);
                     }
                     var dltzs = System.Web.HttpContext.Current.Request.Files.GetMultiple("dltzs");
                     foreach (var f in dltzs)
                     {
                         HttpPostedFileBase ff = new HttpPostedFileWrapper(f) as HttpPostedFileBase;
-                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMMM_QL, targetData.ID, Enums.SPFileCertificateTypes.DLTZ);
+                        SPItemFileUtils.SaveFile(ff, Enums.SPFileBusinessTypes.DMHZ_QL, targetData.ID, Enums.SPFileCertificateTypes.DLTZ);
                     }
                     db.SaveChanges();
                 }

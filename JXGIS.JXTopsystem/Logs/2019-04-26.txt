@@ -1,0 +1,22 @@
+=======2019/4/26 星期五 8:50:57
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/4/26 星期五 8:50:57
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.BaseUtils.DataFilterWithTown[T](IQueryable`1 entity) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\Common\BaseUtils.cs:行号 299
+   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\MPSearch\ResidenceMPSearch.cs:行号 137
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 37
+=======2019/4/26 星期五 8:50:57
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48
+=======2019/4/26 星期五 8:50:58
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromDistrict() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 48
+=======2019/4/26 星期五 8:50:58
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.BaseUtils.DataFilterWithTown[T](IQueryable`1 entity) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\Common\BaseUtils.cs:行号 299
+   在 JXGIS.JXTopsystem.Business.RPSearch.RPSearchUtils.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String RoadName, String Intersection, String Direction, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Nullable`1 startCode, Nullable`1 endCode, Nullable`1 RepairState, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\RPSearch\RPSearchUtils.cs:行号 27
+   在 JXGIS.JXTopsystem.Controllers.RPSearchController.SearchRP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String RoadName, String Intersection, String Direction, String Model, String Size, String Material, String Manufacturers, String FrontTagline, String BackTagline, Nullable`1 start, Nullable`1 end, Nullable`1 startCode, Nullable`1 endCode, Nullable`1 RepairState, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\RPSearchController.cs:行号 25
+=======2019/4/26 星期五 8:50:59
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69

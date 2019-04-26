@@ -148,27 +148,29 @@ namespace JXGIS.JXTopsystem.Models.Extends
 
         public class SPFileBusinessTypes
         {
-            public const string MPZSQ_DL = "门牌证申请_道路类";
-            public const string MPZSQ_ZZ = "门牌证申请_住宅类";
-            public const string MPZSQ_NC = "门牌证申请_农村";
+            public const string HFMPZ = "核发门牌证";
+            public const string DMZM = "地名证明";
+            public const string DMHZ = "地名核准";
+            public const string CJYJ = "出具意见";
 
-            public const string MPZBG_DL = "门牌证变更_道路类";
-            public const string MPZBG_ZZ = "门牌证变更_住宅类";
-            public const string MPZBG_NC = "门牌证变更_农村类";
+            public const string HFMPZ_BZ_DL = "核发门牌证_编制_道路类";
+            public const string HFMPZ_BZ_ZZ = "核发门牌证_编制_住宅类";
+            public const string HFMPZ_BZ_NC = "核发门牌证_编制_农村类";
+
+            public const string HFMPZ_BG_DL = "核发门牌证_变更_道路类";
+            public const string HFMPZ_BG_ZZ = "核发门牌证_变更_住宅类";
+            public const string HFMPZ_BG_NC = "核发门牌证_变更_农村类";
 
             public const string DMZM_DL = "地名证明_道路类";
             public const string DMZM_ZZ = "地名证明_住宅类";
             public const string DMZM_NC = "地名证明_农村类";
 
-            public const string DMMM_JMD = "地名命名_居名点类";
-            public const string DMMM_DLJX = "地名命名_道路街巷类";
-            public const string DMMM_JZW = "地名命名_建筑物类";
-            public const string DMMM_QL = "地名命名_桥梁类";
+            public const string DMHZ_JMD = "地名核准_居名点类";
+            public const string DMHZ_DLJX = "地名核准_道路街巷类";
+            public const string DMHZ_JZW = "地名核准_建筑物类";
+            public const string DMHZ_QL = "地名核准_桥梁类";
 
-            public const string DMBA_ZYSS = "地名备案_专业设施地名";
-
-
-            public const string DMGM_JMD = "地名更名_居名点类";
+            public const string CJYJ_ZYSS = "出具意见_专业设施地名";
         }
 
         public class SBLY
