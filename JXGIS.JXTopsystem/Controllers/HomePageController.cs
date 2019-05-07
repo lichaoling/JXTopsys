@@ -1,5 +1,6 @@
 ﻿using JXGIS.JXTopsystem.App_Start;
 using JXGIS.JXTopsystem.Business.Schedule;
+using JXGIS.JXTopsystem.Models.Extends;
 using JXGIS.JXTopsystem.Models.Extends.RtObj;
 using Newtonsoft.Json.Converters;
 using System;
@@ -82,160 +83,37 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
 
-        [LoggerFilter(Description = "住宅门牌变更审批")]
-        public ActionResult CheckMPBGOfResidence(string ID, string State, string Opinion)
+        [LoggerFilter(Description = "申报事项审批")]
+        public ActionResult CheckSBInformation(string ID, string State, string Opinion, string lx)
         {
             RtObj rt = null;
             try
             {
-                HomePage.CheckMPBGOfResidence(ID, State, Opinion);
-                rt = new RtObj();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
+                if (lx == Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ)
+                    HomePage.CheckMPBGOfResidence(ID, State, Opinion);
+                else if ((lx == Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ))
+                    HomePage.CheckMPOfResidence(ID, State, Opinion);
+                else if ((lx == Enums.SPFileBusinessTypes.HFMPZ_BG_DL))
+                    HomePage.CheckMPBGOfRoad(ID, State, Opinion);
+                else if ((lx == Enums.SPFileBusinessTypes.HFMPZ_BG_NC))
+                    HomePage.CheckMPBGOfCountry(ID, State, Opinion);
+                else if ((lx == Enums.SPFileBusinessTypes.HFMPZ_BZ_DL))
+                    HomePage.CheckMPOfRoad(ID, State, Opinion);
+                else if ((lx == Enums.SPFileBusinessTypes.HFMPZ_BZ_NC))
+                    HomePage.CheckMPOfCountry(ID, State, Opinion);
 
-        [LoggerFilter(Description = "住宅门牌申请审批")]
-        public ActionResult CheckMPOfResidence(string ID, string State, string Opinion)
-        {
-            RtObj rt = null;
-            try
-            {
-                HomePage.CheckMPOfResidence(ID, State, Opinion);
-                rt = new RtObj();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
-        [LoggerFilter(Description = "道路门牌变更审批")]
-        public ActionResult CheckMPBGOfRoad(string ID, string State, string Opinion)
-        {
-            RtObj rt = null;
-            try
-            {
-                HomePage.CheckMPBGOfRoad(ID, State, Opinion);
-                rt = new RtObj();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
+                else if ((lx == Enums.SPFileBusinessTypes.DMZM_ZZ))
+                    HomePage.CheckMPZMOfResidence(ID, State, Opinion);
+                else if ((lx == Enums.SPFileBusinessTypes.DMZM_DL))
+                    HomePage.CheckMPZMOfRoad(ID, State, Opinion);
+                else if ((lx == Enums.SPFileBusinessTypes.DMZM_NC))
+                    HomePage.CheckMPZMOfCountry(ID, State, Opinion);
 
-        [LoggerFilter(Description = "道路门牌申请审批")]
-        public ActionResult CheckMPOfRoad(string ID, string State, string Opinion)
-        {
-            RtObj rt = null;
-            try
-            {
-                HomePage.CheckMPOfRoad(ID, State, Opinion);
-                rt = new RtObj();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
-        [LoggerFilter(Description = "农村门牌变更审批")]
-        public ActionResult CheckMPBGOfCountry(string ID, string State, string Opinion)
-        {
-            RtObj rt = null;
-            try
-            {
-                HomePage.CheckMPBGOfCountry(ID, State, Opinion);
-                rt = new RtObj();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
+                else if ((lx == Enums.SPFileBusinessTypes.CJYJ_ZYSS))
+                    HomePage.CheckDMOfZYSS(ID, State, Opinion);
+                else
+                    throw new Error("未知类型");
 
-        [LoggerFilter(Description = "农村门牌申请审批")]
-        public ActionResult CheckMPOfCountry(string ID, string State, string Opinion)
-        {
-            RtObj rt = null;
-            try
-            {
-                HomePage.CheckMPOfCountry(ID, State, Opinion);
-                rt = new RtObj();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
-        [LoggerFilter(Description = "住宅门牌地名证明审批")]
-        public ActionResult CheckMPZMOfResidence(string ID, string State, string Opinion)
-        {
-            RtObj rt = null;
-            try
-            {
-                HomePage.CheckMPZMOfResidence(ID, State, Opinion);
-                rt = new RtObj();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
-        [LoggerFilter(Description = "道路门牌地名证明审批")]
-        public ActionResult CheckMPZMOfRoad(string ID, string State, string Opinion)
-        {
-            RtObj rt = null;
-            try
-            {
-                HomePage.CheckMPZMOfRoad(ID, State, Opinion);
-                rt = new RtObj();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
-        [LoggerFilter(Description = "农村门牌地名证明审批")]
-        public ActionResult CheckMPZMOfCountry(string ID, string State, string Opinion)
-        {
-            RtObj rt = null;
-            try
-            {
-                HomePage.CheckMPZMOfCountry(ID, State, Opinion);
-                rt = new RtObj();
-            }
-            catch (Exception ex)
-            {
-                rt = new RtObj(ex);
-            }
-            var s = Newtonsoft.Json.JsonConvert.SerializeObject(rt);
-            return Content(s);
-        }
-        [LoggerFilter(Description = "出具意见审批")]
-        public ActionResult CheckDMOfZYSS(string ID, string State, string Opinion)
-        {
-            RtObj rt = null;
-            try
-            {
-                HomePage.CheckDMOfZYSS(ID, State, Opinion);
                 rt = new RtObj();
             }
             catch (Exception ex)

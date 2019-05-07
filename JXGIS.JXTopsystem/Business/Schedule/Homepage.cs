@@ -1721,10 +1721,10 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     var CountyName = n_entity.NeighborhoodsID.Split('.')[1];
                     var NeighborhoodsName = n_entity.NeighborhoodsID.Split('.')[2];
                     var CommunityName = n_entity.CommunityName;
-                    var MPNumber1 = n_entity.MPNumber == null ? "" : n_entity.MPNumber + "号";
-                    var LZNumber1 = n_entity.LZNumber == null ? "" : n_entity.LZNumber + "幢";
-                    var DYNumber1 = n_entity.DYNumber == null ? "" : n_entity.DYNumber + "单元";
-                    var HSNumber1 = n_entity.HSNumber == null ? "" : n_entity.HSNumber + "室";
+                    var MPNumber1 = string.IsNullOrEmpty(n_entity.MPNumber) ? "" : n_entity.MPNumber + "号";
+                    var LZNumber1 = string.IsNullOrEmpty(n_entity.LZNumber) ? "" : n_entity.LZNumber + "幢";
+                    var DYNumber1 = string.IsNullOrEmpty(n_entity.DYNumber) ? "" : n_entity.DYNumber + "单元";
+                    var HSNumber1 = string.IsNullOrEmpty(n_entity.HSNumber) ? "" : n_entity.HSNumber + "室";
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + n_entity.ResidenceName + LZNumber1 + MPNumber1 + DYNumber1 + HSNumber1;
                     n_entity.StandardAddress = StandardAddress;
                     #endregion
@@ -2295,7 +2295,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     var CountyName = entity.NeighborhoodsID.Split('.')[1];
                     var NeighborhoodsName = entity.NeighborhoodsID.Split('.')[2];
                     var CommunityName = entity.CommunityName;
-                    var HSNumber1 = entity.HSNumber == null ? string.Empty : entity.HSNumber + "室";
+                    var HSNumber1 = string.IsNullOrEmpty(entity.HSNumber) ? string.Empty : entity.HSNumber + "室";
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + CommunityName + entity.VillageName + entity.MPNumber + "号" + HSNumber1;
                     n_entity.StandardAddress = StandardAddress;
                     #endregion
@@ -2471,10 +2471,10 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         var CountyName = n_entity.NeighborhoodsID.Split('.')[1];
                         var NeighborhoodsName = n_entity.NeighborhoodsID.Split('.')[2];
                         var CommunityName = n_entity.CommunityName;
-                        var MPNumber1 = n_entity.MPNumber == null ? "" : n_entity.MPNumber + "号";
-                        var LZNumber1 = n_entity.LZNumber == null ? "" : n_entity.LZNumber + "幢";
-                        var DYNumber1 = n_entity.DYNumber == null ? "" : n_entity.DYNumber + "单元";
-                        var HSNumber1 = n_entity.HSNumber == null ? "" : n_entity.HSNumber + "室";
+                        var MPNumber1 = string.IsNullOrEmpty(n_entity.MPNumber) ? "" : n_entity.MPNumber + "号";
+                        var LZNumber1 = string.IsNullOrEmpty(n_entity.LZNumber) ? "" : n_entity.LZNumber + "幢";
+                        var DYNumber1 = string.IsNullOrEmpty(n_entity.DYNumber) ? "" : n_entity.DYNumber + "单元";
+                        var HSNumber1 = string.IsNullOrEmpty(n_entity.HSNumber) ? "" : n_entity.HSNumber + "室";
                         var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + n_entity.ResidenceName + LZNumber1 + MPNumber1 + DYNumber1 + HSNumber1;
                         n_entity.StandardAddress = StandardAddress;
                         #endregion
@@ -2820,7 +2820,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         var CountyName = entity.NeighborhoodsID.Split('.')[1];
                         var NeighborhoodsName = entity.NeighborhoodsID.Split('.')[2];
                         var CommunityName = entity.CommunityName;
-                        var HSNumber1 = entity.HSNumber == null ? string.Empty : entity.HSNumber + "室";
+                        var HSNumber1 = string.IsNullOrEmpty(entity.HSNumber) ? string.Empty : entity.HSNumber + "室";
                         var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + CommunityName + entity.VillageName + entity.MPNumber + "号" + HSNumber1;
                         n_entity.StandardAddress = StandardAddress;
                         #endregion
