@@ -1167,52 +1167,52 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     {
                         #region 待办事项
                         mpsql1 += $@"union 
-                                select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign from BG_MPOFCOUNTRY b 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign,b.Opinion from BG_MPOFCOUNTRY b 
                                 left  join MPOFCOUNTRY a on b.MPID=a.ID 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
-                                select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ}' sign from BG_MPOFRESIDENCE b 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ}' sign,b.Opinion from BG_MPOFRESIDENCE b 
                                 left  join MPOFRESIDENCE a on b.MPID=a.ID 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
-                                select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_DL}' sign from BG_MPOFROAD b 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_DL}' sign,b.Opinion from BG_MPOFROAD b 
                                 left  join MPOFROAD a on b.MPID=a.ID 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, a.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
-                                select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_NC}' sign from SB_MPOFCOUNTRY b 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_NC}' sign,b.Opinion from SB_MPOFCOUNTRY b 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
-                                select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ}' sign from SB_MPOFRESIDENCE b 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ}' sign,b.Opinion from SB_MPOFRESIDENCE b 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                 union 
-                                select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_DL}' sign from SB_MPOFROAD b 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_DL}' sign,b.Opinion from SB_MPOFROAD b 
                                 where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
                         dmhzsql1 += $@"union 
-                                   select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_QL}' sign from SB_DMOFBRIDGE b 
+                                   select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_QL}' sign,b.Opinion from SB_DMOFBRIDGE b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_JZW}' sign from SB_DMOFBUILDING b 
+                                   select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_JZW}' sign,b.Opinion from SB_DMOFBUILDING b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_DLJX}' sign from SB_DMOFROAD b 
+                                   select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_DLJX}' sign,b.Opinion from SB_DMOFROAD b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_JMD}' sign from SB_DMOFSETTLEMENT b 
+                                   select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_JMD}' sign,b.Opinion from SB_DMOFSETTLEMENT b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
                         dmzmsql1 += $@"union 
-                                   select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_NC}' sign from ZM_MPOFCOUNTRY b 
+                                   select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_NC}' sign,b.Opinion from ZM_MPOFCOUNTRY b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_ZZ}' sign  from ZM_MPOFRESIDENCE b 
+                                   select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_ZZ}' sign,b.Opinion  from ZM_MPOFRESIDENCE b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_DL}' sign  from ZM_MPOFROAD b 
+                                   select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_DL}' sign,b.Opinion  from ZM_MPOFROAD b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
                         cjyjsql1 += $@"union 
-                                   select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.CJYJ_ZYSS}' sign from BA_DMOFZYSS b 
+                                   select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.CJYJ_ZYSS}' sign,b.Opinion from BA_DMOFZYSS b 
                                    where b.IsFinish=0 and CHARINDEX({userDID}, b.NeighborhoodsID)=1  and b.sbly='{sbly}' ";
 
                         #endregion
@@ -1222,49 +1222,49 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 {
                     #region 待办事项
                     mpsql1 += $@"union 
-                                select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign from BG_MPOFCOUNTRY b 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign,b.Opinion from BG_MPOFCOUNTRY b 
                                 where b.IsFinish=0 and b.sbly='{sbly}'                                                 
                                 union                                                                                  
-                                select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ}' sign from BG_MPOFRESIDENCE b 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ}' sign,b.Opinion from BG_MPOFRESIDENCE b 
                                 where b.IsFinish=0 and b.sbly='{sbly}'                                                 
                                 union                                                                                       
-                                select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_DL}' sign from BG_MPOFROAD b 
+                                select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_DL}' sign,b.Opinion from BG_MPOFROAD b 
                                 where b.IsFinish=0 and b.sbly='{sbly}'                                                
                                 union                                                                                 
-                                select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_NC}' sign from SB_MPOFCOUNTRY b 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_NC}' sign,b.Opinion from SB_MPOFCOUNTRY b 
                                 where b.IsFinish=0 and b.sbly='{sbly}'                                                
                                 union                                                                                 
-                                select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ}' sign from SB_MPOFRESIDENCE b 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ}' sign,b.Opinion from SB_MPOFRESIDENCE b 
                                 where b.IsFinish=0 and b.sbly='{sbly}'                                                  
                                 union                                                                                   
-                                select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_DL}' sign from SB_MPOFROAD b 
+                                select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_DL}' sign,b.Opinion from SB_MPOFROAD b 
                                 where b.IsFinish=0 and b.sbly='{sbly}' ";
 
                     dmhzsql1 += $@"union 
-                                   select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_QL}' sign from SB_DMOFBRIDGE b 
+                                   select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_QL}' sign,b.Opinion from SB_DMOFBRIDGE b 
                                    where b.IsFinish=0 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_JZW}' sign from SB_DMOFBUILDING b 
+                                   select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_JZW}' sign,b.Opinion from SB_DMOFBUILDING b 
                                    where b.IsFinish=0 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_DLJX}' sign from SB_DMOFROAD b 
+                                   select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_DLJX}' sign,b.Opinion from SB_DMOFROAD b 
                                    where b.IsFinish=0 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_JMD}' sign from SB_DMOFSETTLEMENT b 
+                                   select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMHZ_JMD}' sign,b.Opinion from SB_DMOFSETTLEMENT b 
                                    where b.IsFinish=0 and b.sbly='{sbly}' ";
 
                     dmzmsql1 += $@"union 
-                                   select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_NC}' sign  from ZM_MPOFCOUNTRY b 
+                                   select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_NC}' sign,b.Opinion  from ZM_MPOFCOUNTRY b 
                                    where b.IsFinish=0 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_ZZ}' sign  from ZM_MPOFRESIDENCE b 
+                                   select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_ZZ}' sign,b.Opinion  from ZM_MPOFRESIDENCE b 
                                    where b.IsFinish=0 and b.sbly='{sbly}'
                                    union 
-                                   select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_DL}' sign from ZM_MPOFROAD b 
+                                   select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.DMZM_DL}' sign,b.Opinion from ZM_MPOFROAD b 
                                    where b.IsFinish=0 and b.sbly='{sbly}' ";
 
                     cjyjsql1 += $@"union 
-                                   select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.CJYJ_ZYSS}' sign from BA_DMOFZYSS b 
+                                   select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,'{Enums.SPFileBusinessTypes.CJYJ_ZYSS}' sign,b.Opinion from BA_DMOFZYSS b 
                                    where b.IsFinish=0 and b.sbly='{sbly}' ";
 
                     #endregion
@@ -1331,49 +1331,49 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                 #region 已办事项
                 mpsql1 += $@"union 
-                        select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign from BG_MPOFCOUNTRY b 
+                        select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign,b.Opinion from BG_MPOFCOUNTRY b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
-                        select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign from BG_MPOFRESIDENCE b 
+                        select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign,b.Opinion from BG_MPOFRESIDENCE b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
-                        select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign from BG_MPOFROAD b 
+                        select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign,b.Opinion from BG_MPOFROAD b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
-                        select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_NC}' sign from SB_MPOFCOUNTRY b 
+                        select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_NC}' sign,b.Opinion from SB_MPOFCOUNTRY b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
-                        select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ}' sign from SB_MPOFRESIDENCE b 
+                        select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ}' sign,b.Opinion from SB_MPOFRESIDENCE b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
-                        select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_DL}' sign from SB_MPOFROAD b 
+                        select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_DL}' sign,b.Opinion from SB_MPOFROAD b 
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 dmhzsql1 += $@"union 
-                           select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_QL}' sign from SB_DMOFBRIDGE b 
+                           select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_QL}' sign,b.Opinion from SB_DMOFBRIDGE b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
-                           select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_JZW}' sign from SB_DMOFBUILDING b 
+                           select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_JZW}' sign,b.Opinion from SB_DMOFBUILDING b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
-                           select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_DLJX}' sign from SB_DMOFROAD b 
+                           select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_DLJX}' sign,b.Opinion from SB_DMOFROAD b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
-                           select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_JMD}' sign from SB_DMOFSETTLEMENT b 
+                           select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_JMD}' sign,b.Opinion from SB_DMOFSETTLEMENT b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 dmzmsql1 += $@"union 
-                           select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_NC}' sign from ZM_MPOFCOUNTRY b 
+                           select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_NC}' sign,b.Opinion from ZM_MPOFCOUNTRY b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
-                           select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_ZZ}' sign from ZM_MPOFRESIDENCE b 
+                           select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_ZZ}' sign,b.Opinion from ZM_MPOFRESIDENCE b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
-                           select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_DL}' sign from ZM_MPOFROAD b 
+                           select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_DL}' sign,b.Opinion from ZM_MPOFROAD b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 cjyjsql1 += $@"union 
-                           select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.CJYJ_ZYSS}' sign from BA_DMOFZYSS b 
+                           select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.CJYJ_ZYSS}' sign,b.Opinion from BA_DMOFZYSS b 
                            where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 #endregion
@@ -1653,7 +1653,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 {
                     MPOfResidence n_entity = new Models.Entities.MPOfResidence();
                     n_entity.ID = Guid.NewGuid().ToString();
-                    n_entity.CountyID = entity.CountyID;
+                    n_entity.CountyID =entity.CountyID;
                     n_entity.NeighborhoodsID = entity.NeighborhoodsID;
                     n_entity.CommunityName = entity.CommunityName;
                     n_entity.MPNumber = entity.MPNumber;
@@ -2025,10 +2025,10 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     #endregion
 
                     #region 标准地址拼接 市辖区+镇街道+村社区+小区名+门牌号+宿舍名+幢号+单元号+户室号
-                    var CountyName = entity.NeighborhoodsID.Split('.')[1];
-                    var NeighborhoodsName = entity.NeighborhoodsID.Split('.')[2];
-                    var CommunityName = entity.CommunityName;
-                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + entity.RoadName + entity.MPNumber + "号";
+                    var CountyName = n_entity.NeighborhoodsID.Split('.')[1];
+                    var NeighborhoodsName = n_entity.NeighborhoodsID.Split('.')[2];
+                    var CommunityName = n_entity.CommunityName;
+                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + n_entity.RoadName + n_entity.MPNumber + "号";
                     n_entity.StandardAddress = StandardAddress;
                     #endregion
 
@@ -2292,11 +2292,11 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     #endregion
 
                     #region 标准地址拼接 市辖区+镇街道+村社区+小区名+门牌号+宿舍名+幢号+单元号+户室号
-                    var CountyName = entity.NeighborhoodsID.Split('.')[1];
-                    var NeighborhoodsName = entity.NeighborhoodsID.Split('.')[2];
-                    var CommunityName = entity.CommunityName;
-                    var HSNumber1 = string.IsNullOrEmpty(entity.HSNumber) ? string.Empty : entity.HSNumber + "室";
-                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + CommunityName + entity.VillageName + entity.MPNumber + "号" + HSNumber1;
+                    var CountyName = n_entity.NeighborhoodsID.Split('.')[1];
+                    var NeighborhoodsName = n_entity.NeighborhoodsID.Split('.')[2];
+                    var CommunityName = n_entity.CommunityName;
+                    var HSNumber1 = string.IsNullOrEmpty(n_entity.HSNumber) ? string.Empty : n_entity.HSNumber + "室";
+                    var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + CommunityName + n_entity.ViligeName + n_entity.MPNumber + "号" + HSNumber1;
                     n_entity.StandardAddress = StandardAddress;
                     #endregion
 
@@ -2655,10 +2655,10 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         #endregion
 
                         #region 标准地址拼接 市辖区+镇街道+村社区+小区名+门牌号+宿舍名+幢号+单元号+户室号
-                        var CountyName = entity.NeighborhoodsID.Split('.')[1];
-                        var NeighborhoodsName = entity.NeighborhoodsID.Split('.')[2];
-                        var CommunityName = entity.CommunityName;
-                        var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + entity.RoadName + entity.MPNumber + "号";
+                        var CountyName = n_entity.NeighborhoodsID.Split('.')[1];
+                        var NeighborhoodsName = n_entity.NeighborhoodsID.Split('.')[2];
+                        var CommunityName = n_entity.CommunityName;
+                        var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + n_entity.RoadName + n_entity.MPNumber + "号";
                         n_entity.StandardAddress = StandardAddress;
                         #endregion
 
@@ -2817,11 +2817,11 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         #endregion
 
                         #region 标准地址拼接 市辖区+镇街道+村社区+小区名+门牌号+宿舍名+幢号+单元号+户室号
-                        var CountyName = entity.NeighborhoodsID.Split('.')[1];
-                        var NeighborhoodsName = entity.NeighborhoodsID.Split('.')[2];
-                        var CommunityName = entity.CommunityName;
-                        var HSNumber1 = string.IsNullOrEmpty(entity.HSNumber) ? string.Empty : entity.HSNumber + "室";
-                        var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + CommunityName + entity.VillageName + entity.MPNumber + "号" + HSNumber1;
+                        var CountyName = n_entity.NeighborhoodsID.Split('.')[1];
+                        var NeighborhoodsName = n_entity.NeighborhoodsID.Split('.')[2];
+                        var CommunityName = n_entity.CommunityName;
+                        var HSNumber1 = string.IsNullOrEmpty(n_entity.HSNumber) ? string.Empty : n_entity.HSNumber + "室";
+                        var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + CommunityName + n_entity.ViligeName + n_entity.MPNumber + "号" + HSNumber1;
                         n_entity.StandardAddress = StandardAddress;
                         #endregion
 
