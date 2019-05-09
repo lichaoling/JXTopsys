@@ -84,33 +84,33 @@ namespace JXGIS.JXTopsystem.Controllers
         }
 
         [LoggerFilter(Description = "申报事项审批")]
-        public ActionResult CheckSBInformation(string ID, string State, string Opinion, string lx)
+        public ActionResult CheckSBInformation(string ID, string lx)
         {
             RtObj rt = null;
             try
             {
                 if (lx == Enums.SPFileBusinessTypes.HFMPZ_BG_ZZ)
-                    HomePage.CheckMPBGOfResidence(ID, State, Opinion);
+                    HomePage.CheckMPBGOfResidence(ID);
                 else if ((lx == Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ))
-                    HomePage.CheckMPOfResidence(ID, State, Opinion);
+                    HomePage.CheckMPOfResidence(ID);
                 else if ((lx == Enums.SPFileBusinessTypes.HFMPZ_BG_DL))
-                    HomePage.CheckMPBGOfRoad(ID, State, Opinion);
+                    HomePage.CheckMPBGOfRoad(ID);
                 else if ((lx == Enums.SPFileBusinessTypes.HFMPZ_BG_NC))
-                    HomePage.CheckMPBGOfCountry(ID, State, Opinion);
+                    HomePage.CheckMPBGOfCountry(ID);
                 else if ((lx == Enums.SPFileBusinessTypes.HFMPZ_BZ_DL))
-                    HomePage.CheckMPOfRoad(ID, State, Opinion);
+                    HomePage.CheckMPOfRoad(ID);
                 else if ((lx == Enums.SPFileBusinessTypes.HFMPZ_BZ_NC))
-                    HomePage.CheckMPOfCountry(ID, State, Opinion);
+                    HomePage.CheckMPOfCountry(ID);
 
                 else if ((lx == Enums.SPFileBusinessTypes.DMZM_ZZ))
-                    HomePage.CheckMPZMOfResidence(ID, State, Opinion);
+                    HomePage.CheckMPZMOfResidence(ID);
                 else if ((lx == Enums.SPFileBusinessTypes.DMZM_DL))
-                    HomePage.CheckMPZMOfRoad(ID, State, Opinion);
+                    HomePage.CheckMPZMOfRoad(ID);
                 else if ((lx == Enums.SPFileBusinessTypes.DMZM_NC))
-                    HomePage.CheckMPZMOfCountry(ID, State, Opinion);
+                    HomePage.CheckMPZMOfCountry(ID);
 
                 else if ((lx == Enums.SPFileBusinessTypes.CJYJ_ZYSS))
-                    HomePage.CheckDMOfZYSS(ID, State, Opinion);
+                    HomePage.CheckDMOfZYSS(ID);
                 else
                     throw new Error("未知类型");
 

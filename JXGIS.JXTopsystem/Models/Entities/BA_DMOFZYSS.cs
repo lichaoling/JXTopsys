@@ -48,6 +48,9 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public DateTime? FinishTime { get; set; }
         public string CreateUser { get; set; }
         public string CheckUser { get; set; }
+        public string LastModifyUser { get; set; }
+        public DateTime? LastModifyTime { get; set; }
+
         /// <summary>
         /// 备注
         /// </summary>

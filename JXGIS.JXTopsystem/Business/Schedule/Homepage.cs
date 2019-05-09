@@ -1510,13 +1510,13 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
             }
         }
-        public static void CheckMPBGOfResidence(string ID, string State, string Opinion)
+        public static void CheckMPBGOfResidence(string ID)
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
                 var entity = db.BG_MPOFRESIDENCE.Find(ID);
                 var o_entity = db.MPOfResidence.Find(entity.MPID);
-                if (State == Enums.SPState.tg)
+                if (entity.State == Enums.SPState.tg)
                 {
                     //拷贝文件
                     var files = db.FILE.Where(t => t.IsValid == 1 && t.FormID == ID).ToList();
@@ -1573,11 +1573,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 {
 
                 }
-                entity.State = State;
-                entity.Opinion = Opinion;
                 entity.IsFinish = 1;
                 entity.FinishTime = DateTime.Now;
-                entity.CheckUser = LoginUtils.CurrentUser.UserName;
+                entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -1644,16 +1642,16 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
             }
         }
-        public static void CheckMPOfResidence(string ID, string State, string Opinion)
+        public static void CheckMPOfResidence(string ID)
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
                 var entity = db.SB_MPOFRESIDENCE.Find(ID);
-                if (State == Enums.SPState.tg) //通过，新增
+                if (entity.State == Enums.SPState.tg) //通过，新增
                 {
                     MPOfResidence n_entity = new Models.Entities.MPOfResidence();
                     n_entity.ID = Guid.NewGuid().ToString();
-                    n_entity.CountyID =entity.CountyID;
+                    n_entity.CountyID = entity.CountyID;
                     n_entity.NeighborhoodsID = entity.NeighborhoodsID;
                     n_entity.CommunityName = entity.CommunityName;
                     n_entity.MPNumber = entity.MPNumber;
@@ -1753,11 +1751,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
                 else
                 { }
-                entity.State = State;
-                entity.Opinion = Opinion;
                 entity.IsFinish = 1;
                 entity.FinishTime = DateTime.Now;
-                entity.CheckUser = LoginUtils.CurrentUser.UserName;
+                entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -1829,13 +1825,13 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
             }
         }
-        public static void CheckMPBGOfRoad(string ID, string State, string Opinion)
+        public static void CheckMPBGOfRoad(string ID)
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
                 var entity = db.BG_MPOFROAD.Find(ID);
                 var o_entity = db.MPOfRoad.Find(entity.MPID);
-                if (State == Enums.SPState.tg)
+                if (entity.State == Enums.SPState.tg)
                 {
                     //拷贝文件
                     var files = db.FILE.Where(t => t.IsValid == 1 && t.FormID == ID).ToList();
@@ -1888,11 +1884,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 {
 
                 }
-                entity.State = State;
-                entity.Opinion = Opinion;
                 entity.IsFinish = 1;
                 entity.FinishTime = DateTime.Now;
-                entity.CheckUser = LoginUtils.CurrentUser.UserName;
+                entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -1952,12 +1946,12 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
             }
         }
-        public static void CheckMPOfRoad(string ID, string State, string Opinion)
+        public static void CheckMPOfRoad(string ID)
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
                 var entity = db.SB_MPOFROAD.Find(ID);
-                if (State == Enums.SPState.tg) //通过，新增
+                if (entity.State == Enums.SPState.tg) //通过，新增
                 {
                     MPOfRoad n_entity = new Models.Entities.MPOfRoad();
                     n_entity.ID = Guid.NewGuid().ToString();
@@ -2056,11 +2050,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
                 else
                 { }
-                entity.State = State;
-                entity.Opinion = Opinion;
                 entity.IsFinish = 1;
                 entity.FinishTime = DateTime.Now;
-                entity.CheckUser = LoginUtils.CurrentUser.UserName;
+                entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -2121,13 +2113,13 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
             }
         }
-        public static void CheckMPBGOfCountry(string ID, string State, string Opinion)
+        public static void CheckMPBGOfCountry(string ID)
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
                 var entity = db.BG_MPOFCOUNTRY.Find(ID);
                 var o_entity = db.MPOfCountry.Find(entity.MPID);
-                if (State == Enums.SPState.tg)
+                if (entity.State == Enums.SPState.tg)
                 {
                     //拷贝文件
                     var files = db.FILE.Where(t => t.IsValid == 1 && t.FormID == ID).ToList();
@@ -2175,11 +2167,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 {
 
                 }
-                entity.State = State;
-                entity.Opinion = Opinion;
                 entity.IsFinish = 1;
                 entity.FinishTime = DateTime.Now;
-                entity.CheckUser = LoginUtils.CurrentUser.UserName;
+                entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -2232,12 +2222,12 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
             }
         }
-        public static void CheckMPOfCountry(string ID, string State, string Opinion)
+        public static void CheckMPOfCountry(string ID)
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
                 var entity = db.SB_MPOFCOUNTRY.Find(ID);
-                if (State == Enums.SPState.tg) //通过，新增
+                if (entity.State == Enums.SPState.tg) //通过，新增
                 {
                     MPOfCountry n_entity = new Models.Entities.MPOfCountry();
                     n_entity.ID = Guid.NewGuid().ToString();
@@ -2324,11 +2314,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
                 else
                 { }
-                entity.State = State;
-                entity.Opinion = Opinion;
                 entity.IsFinish = 1;
                 entity.FinishTime = DateTime.Now;
-                entity.CheckUser = LoginUtils.CurrentUser.UserName;
+                entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -2390,13 +2378,13 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
             }
         }
-        public static string CheckMPZMOfResidence(string ID, string State, string Opinion)
+        public static string CheckMPZMOfResidence(string ID)
         {
             var mpid = string.Empty;
             using (var db = SystemUtils.NewEFDbContext)
             {
                 var entity = db.ZM_MPOFRESIDENCE.Find(ID);
-                if (State == Enums.SPState.tg)//通过
+                if (entity.State == Enums.SPState.tg)//通过
                 {
                     var isnew = ResidenceMPModify.CheckResidenceMPIsAvailable(entity.ID, entity.CountyID, entity.NeighborhoodsID, entity.CommunityName, entity.ResidenceName, entity.MPNumber, null, entity.HSNumber, entity.LZNumber, entity.DYNumber);
                     if (isnew)//新门牌，需新增
@@ -2518,11 +2506,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     }
                     //保存后显示打印按钮
                 }
-                entity.State = State;
-                entity.Opinion = Opinion;
                 entity.IsFinish = 1;
                 entity.FinishTime = DateTime.Now;
-                entity.CheckUser = LoginUtils.CurrentUser.UserName;
+                entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
             return mpid;
@@ -2578,13 +2564,13 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
             }
         }
-        public static string CheckMPZMOfRoad(string ID, string State, string Opinion)
+        public static string CheckMPZMOfRoad(string ID)
         {
             var mpid = string.Empty;
             using (var db = SystemUtils.NewEFDbContext)
             {
                 var entity = db.ZM_MPOFROAD.Find(ID);
-                if (State == Enums.SPState.tg) //通过
+                if (entity.State == Enums.SPState.tg) //通过
                 {
                     var isnew = RoadMPModify.CheckRoadMPIsAvailable(entity.ID, entity.CountyID, entity.NeighborhoodsID, entity.CommunityName, entity.RoadName, entity.MPNumber);
                     if (isnew)//新门牌，需新增
@@ -2700,11 +2686,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     //保存后显示打印按钮
 
                 }
-                entity.State = State;
-                entity.Opinion = Opinion;
                 entity.IsFinish = 1;
                 entity.FinishTime = DateTime.Now;
-                entity.CheckUser = LoginUtils.CurrentUser.UserName;
+                entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
             return mpid;
@@ -2753,13 +2737,13 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
             }
         }
-        public static string CheckMPZMOfCountry(string ID, string State, string Opinion)
+        public static string CheckMPZMOfCountry(string ID)
         {
             var mpid = string.Empty;
             using (var db = SystemUtils.NewEFDbContext)
             {
                 var entity = db.ZM_MPOFCOUNTRY.Find(ID);
-                if (State == Enums.SPState.tg) //通过
+                if (entity.State == Enums.SPState.tg) //通过
                 {
                     var isnew = CountryMPModify.CheckCountryMPIsAvailable(entity.ID, entity.CountyID, entity.NeighborhoodsID, entity.CommunityName, entity.VillageName, entity.MPNumber, entity.HSNumber);
                     if (isnew)//新门牌，需新增
@@ -2860,11 +2844,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     }
                     //保存后显示打印按钮
                 }
-                entity.State = State;
-                entity.Opinion = Opinion;
                 entity.IsFinish = 1;
                 entity.FinishTime = DateTime.Now;
-                entity.CheckUser = LoginUtils.CurrentUser.UserName;
+                entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
             return mpid;
@@ -2920,12 +2902,12 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
             }
         }
-        public static void CheckDMOfZYSS(string ID, string State, string Opinion)
+        public static void CheckDMOfZYSS(string ID)
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
                 var entity = db.BA_DMOFZYSS.Find(ID);
-                if (State == Enums.SPState.tg) //通过，新增
+                if (entity.State == Enums.SPState.tg) //通过，新增
                 {
                     DMOFZYSS n_entity = new Models.Entities.DMOFZYSS();
                     n_entity.ID = Guid.NewGuid().ToString();
@@ -2990,11 +2972,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
                 else
                 { }
-                entity.State = State;
-                entity.Opinion = Opinion;
                 entity.IsFinish = 1;
                 entity.FinishTime = DateTime.Now;
-                entity.CheckUser = LoginUtils.CurrentUser.UserName;
+                entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }

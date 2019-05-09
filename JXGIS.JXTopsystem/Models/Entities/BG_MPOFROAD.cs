@@ -44,6 +44,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string Remark { get; set; }
         public string State { get; set; }
         public string Opinion { get; set; }
+        public string LastModifyUser { get; set; }
+        public DateTime? LastModifyTime { get; set; }
         [NotMapped]
         public List<SPFile> fcz { get; set; }
         [NotMapped]
