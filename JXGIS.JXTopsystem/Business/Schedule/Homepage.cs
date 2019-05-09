@@ -3190,6 +3190,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
         public DateTime? SQSJ { get; set; }
         public DateTime? SPSJ { get; set; }
         public string SIGN { get; set; }
+        public string Sate { get; set; }
     }
     public class MPItem : ItemFather
     {
