@@ -176,7 +176,7 @@ namespace JXGIS.JXTopsystem.Models.Extends
         public class SBLY
         {
             public const string yc = "一窗受理";
-            public const string zxsb = "在线申报";
+            public const string zxsb = "网上申报";
             public const string zlb = "浙里办";
             public const string zj = "自建系统";
         }

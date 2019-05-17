@@ -91,5 +91,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         /// projid
         /// </summary>
         public string ProjID { get; set; }
+        public DateTime? InfoReportTime { get; set; }
+        public DateTime? ArchiveFileTime { get; set; }
+        public DateTime? DataPushTime { get; set; }
     }
 }

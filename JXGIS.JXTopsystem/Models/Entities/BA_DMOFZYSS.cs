@@ -59,6 +59,9 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public int? IsFinish { get; set; }
         public string State { get; set; }
         public string Opinion { get; set; }
+
+        public int IsSync { get; set; }
+        public int InfoReportStatus { get; set; }
         [NotMapped]
         public List<SPFile> sqb { get; set; }
         [NotMapped]

@@ -51,6 +51,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string Opinion { get; set; }
         public string LastModifyUser { get; set; }
         public DateTime? LastModifyTime { get; set; }
+        public int IsSync { get; set; }
+        public int InfoReportStatus { get; set; }
         [NotMapped]
         public List<SPFile> jsydxkzs { get; set; }
         [NotMapped]

@@ -1335,46 +1335,46 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign,b.State from BG_MPOFRESIDENCE b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign,b.State from BG_MPOFROAD b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_NC}' sign,b.State from SB_MPOFCOUNTRY b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ}' sign,b.State from SB_MPOFRESIDENCE b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_DL}' sign,b.State from SB_MPOFROAD b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
+                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 dmhzsql1 += $@"union 
                            select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_QL}' sign,b.State from SB_DMOFBRIDGE b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_JZW}' sign,b.State from SB_DMOFBUILDING b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_DLJX}' sign,b.State from SB_DMOFROAD b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_JMD}' sign,b.State from SB_DMOFSETTLEMENT b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 dmzmsql1 += $@"union 
                            select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_NC}' sign,b.State from ZM_MPOFCOUNTRY b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_ZZ}' sign,b.State from ZM_MPOFRESIDENCE b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_DL}' sign,b.State from ZM_MPOFROAD b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 cjyjsql1 += $@"union 
                            select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.CJYJ_ZYSS}' sign,b.State from BA_DMOFZYSS b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>b.CreateTime>'{(start).ToString("yyyy/MM/dd")}' and b.CreateTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
+                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserName}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 #endregion
 
@@ -1523,17 +1523,28 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var file in files)
                     {
                         string sourceFile = Path.Combine(StaticVariable.basePathSBFile, file.BusinessType, file.FormID, file.CertificateType, file.FileName);
+                        string targetPath = Path.Combine(StaticVariable.basePath, StaticVariable.residenceMPRelativePath, entity.MPID);
                         string targetFile = Path.Combine(StaticVariable.basePath, StaticVariable.residenceMPRelativePath, entity.MPID, file.FileName);
+                        if (!System.IO.Directory.Exists(targetPath))
+                            System.IO.Directory.CreateDirectory(targetPath);
 
-                        MPOfUploadFiles mpfile = new MPOfUploadFiles();
+                        MPOfUploadFiles mpfile = db.MPOfUploadFiles.Find(file.ID);
+                        bool isnew = false;
+                        if (mpfile == null)
+                        {
+                            mpfile = new MPOfUploadFiles();
+                            isnew = true;
+                        }
                         mpfile.ID = file.ID;
                         mpfile.MPID = entity.MPID;
                         mpfile.Name = file.FileOrginalName;
                         mpfile.FileEx = Path.GetExtension(sourceFile);
-                        mpfile.DocType = file.CertificateType;
+                        mpfile.DocType = entity.CertificateType;
                         mpfile.State = 1;
                         mpfile.CreateTime = DateTime.Now;
-                        db.MPOfUploadFiles.Add(mpfile);
+
+                        if (isnew)
+                            db.MPOfUploadFiles.Add(mpfile);
 
                         System.IO.File.Copy(sourceFile, targetFile, true);
                     }
@@ -1567,14 +1578,15 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     o_entity.SBLY = entity.SBLY;
                     o_entity.ProjID = entity.ProjID;
                     o_entity.LastModifyTime = DateTime.Now;
-                    o_entity.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    o_entity.LastModifyUser = entity.LastModifyUser;
                 }
                 else
                 {
 
                 }
-                entity.IsFinish = 1;
-                entity.FinishTime = DateTime.Now;
+                //entity.IsFinish = 1;
+                //entity.FinishTime = DateTime.Now;
+                entity.IsSync = 1;
                 entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
@@ -1649,8 +1661,15 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 var entity = db.SB_MPOFRESIDENCE.Find(ID);
                 if (entity.State == Enums.SPState.tg) //通过，新增
                 {
-                    MPOfResidence n_entity = new Models.Entities.MPOfResidence();
-                    n_entity.ID = Guid.NewGuid().ToString();
+                    MPOfResidence n_entity = db.MPOfResidence.Find(ID);
+                    bool isnew = false;
+                    if (n_entity == null)
+                    {
+                        n_entity = new Models.Entities.MPOfResidence();
+                        isnew = true;
+                    }
+
+                    n_entity.ID = entity.ID;
                     n_entity.CountyID = entity.CountyID;
                     n_entity.NeighborhoodsID = entity.NeighborhoodsID;
                     n_entity.CommunityName = entity.CommunityName;
@@ -1682,7 +1701,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     n_entity.DZZMPrintComplete = Enums.Complete.NO;
                     n_entity.State = Enums.UseState.Enable;
                     n_entity.CreateTime = DateTime.Now;
-                    n_entity.CreateUser = LoginUtils.CurrentUser.UserName;
+                    n_entity.CreateUser = entity.LastModifyUser;
                     n_entity.SBLY = entity.SBLY;
                     n_entity.ProjID = entity.ProjID;
 
@@ -1727,16 +1746,26 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     n_entity.StandardAddress = StandardAddress;
                     #endregion
 
-                    db.MPOfResidence.Add(n_entity);
+                    if (isnew)
+                        db.MPOfResidence.Add(n_entity);
 
                     //拷贝文件
                     var files = db.FILE.Where(t => t.IsValid == 1 && t.FormID == ID).ToList();
                     foreach (var file in files)
                     {
                         string sourceFile = Path.Combine(StaticVariable.basePathSBFile, file.BusinessType, file.FormID, file.CertificateType, file.FileName);
+                        string targetPath = Path.Combine(StaticVariable.basePath, StaticVariable.residenceMPRelativePath, n_entity.ID);
                         string targetFile = Path.Combine(StaticVariable.basePath, StaticVariable.residenceMPRelativePath, n_entity.ID, file.FileName);
+                        if (!System.IO.Directory.Exists(targetPath))
+                            System.IO.Directory.CreateDirectory(targetPath);
 
-                        MPOfUploadFiles mpfile = new MPOfUploadFiles();
+                        MPOfUploadFiles mpfile = db.MPOfUploadFiles.Find(file.ID);
+                        isnew = false;
+                        if (mpfile == null)
+                        {
+                            mpfile = new MPOfUploadFiles();
+                            isnew = true;
+                        }
                         mpfile.ID = file.ID;
                         mpfile.MPID = n_entity.ID;
                         mpfile.Name = file.FileOrginalName;
@@ -1744,15 +1773,19 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         mpfile.DocType = file.CertificateType;
                         mpfile.State = 1;
                         mpfile.CreateTime = DateTime.Now;
-                        db.MPOfUploadFiles.Add(mpfile);
+
+                        if (isnew)
+                            db.MPOfUploadFiles.Add(mpfile);
+
                         System.IO.File.Copy(sourceFile, targetFile, true);
                     }
 
                 }
                 else
                 { }
-                entity.IsFinish = 1;
-                entity.FinishTime = DateTime.Now;
+                //entity.IsFinish = 1;
+                //entity.FinishTime = DateTime.Now;
+                entity.IsSync = 1;
                 entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
@@ -1838,16 +1871,20 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var file in files)
                     {
                         string sourceFile = Path.Combine(StaticVariable.basePathSBFile, file.BusinessType, file.FormID, file.CertificateType, file.FileName);
+                        string targetPath = Path.Combine(StaticVariable.basePath, StaticVariable.roadMPRelativePath, entity.MPID);
                         string targetFile = Path.Combine(StaticVariable.basePath, StaticVariable.roadMPRelativePath, entity.MPID, file.FileName);
+                        if (!System.IO.Directory.Exists(targetPath))
+                            System.IO.Directory.CreateDirectory(targetPath);
 
                         MPOfUploadFiles mpfile = new MPOfUploadFiles();
                         mpfile.ID = file.ID;
                         mpfile.MPID = entity.MPID;
                         mpfile.Name = file.FileOrginalName;
                         mpfile.FileEx = Path.GetExtension(sourceFile);
-                        mpfile.DocType = file.CertificateType;
+                        mpfile.DocType = entity.CertificateType;
                         mpfile.State = 1;
                         mpfile.CreateTime = DateTime.Now;
+
                         db.MPOfUploadFiles.Add(mpfile);
 
                         System.IO.File.Copy(sourceFile, targetFile, true);
@@ -1878,14 +1915,15 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     o_entity.SBLY = entity.SBLY;
                     o_entity.ProjID = entity.ProjID;
                     o_entity.LastModifyTime = DateTime.Now;
-                    o_entity.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    o_entity.LastModifyUser = entity.LastModifyUser;
                 }
                 else
                 {
 
                 }
-                entity.IsFinish = 1;
-                entity.FinishTime = DateTime.Now;
+                //entity.IsFinish = 1;
+                //entity.FinishTime = DateTime.Now;
+                entity.IsSync = 1;
                 entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
@@ -1954,7 +1992,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 if (entity.State == Enums.SPState.tg) //通过，新增
                 {
                     MPOfRoad n_entity = new Models.Entities.MPOfRoad();
-                    n_entity.ID = Guid.NewGuid().ToString();
+                    n_entity.ID = entity.ID;
                     n_entity.CountyID = entity.CountyID;
                     n_entity.NeighborhoodsID = entity.NeighborhoodsID;
                     n_entity.CommunityName = entity.CommunityName;
@@ -1994,7 +2032,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     n_entity.DZZMPrintComplete = Enums.Complete.NO;
                     n_entity.State = Enums.UseState.Enable;
                     n_entity.CreateTime = DateTime.Now;
-                    n_entity.CreateUser = LoginUtils.CurrentUser.UserName;
+                    n_entity.CreateUser = entity.LastModifyUser;
                     n_entity.SBLY = entity.SBLY;
                     n_entity.ProjID = entity.ProjID;
 
@@ -2033,7 +2071,10 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var file in files)
                     {
                         string sourceFile = Path.Combine(StaticVariable.basePathSBFile, file.BusinessType, file.FormID, file.CertificateType, file.FileName);
+                        string targetPath = Path.Combine(StaticVariable.basePath, StaticVariable.roadMPRelativePath, n_entity.ID);
                         string targetFile = Path.Combine(StaticVariable.basePath, StaticVariable.roadMPRelativePath, n_entity.ID, file.FileName);
+                        if (!System.IO.Directory.Exists(targetPath))
+                            System.IO.Directory.CreateDirectory(targetPath);
 
                         MPOfUploadFiles mpfile = new MPOfUploadFiles();
                         mpfile.ID = file.ID;
@@ -2043,6 +2084,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         mpfile.DocType = file.CertificateType;
                         mpfile.State = 1;
                         mpfile.CreateTime = DateTime.Now;
+
                         db.MPOfUploadFiles.Add(mpfile);
 
                         System.IO.File.Copy(sourceFile, targetFile, true);
@@ -2050,8 +2092,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
                 else
                 { }
-                entity.IsFinish = 1;
-                entity.FinishTime = DateTime.Now;
+                //entity.IsFinish = 1;
+                //entity.FinishTime = DateTime.Now;
+                entity.IsSync = 1;
                 entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
@@ -2126,16 +2169,21 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var file in files)
                     {
                         string sourceFile = Path.Combine(StaticVariable.basePathSBFile, file.BusinessType, file.FormID, file.CertificateType, file.FileName);
+                        string targetPath = Path.Combine(StaticVariable.basePath, StaticVariable.countryMPRelativePath, entity.MPID);
                         string targetFile = Path.Combine(StaticVariable.basePath, StaticVariable.countryMPRelativePath, entity.MPID, file.FileName);
+
+                        if (!System.IO.Directory.Exists(targetPath))
+                            System.IO.Directory.CreateDirectory(targetPath);
 
                         MPOfUploadFiles mpfile = new MPOfUploadFiles();
                         mpfile.ID = file.ID;
                         mpfile.MPID = entity.MPID;
                         mpfile.Name = file.FileOrginalName;
                         mpfile.FileEx = Path.GetExtension(sourceFile);
-                        mpfile.DocType = file.CertificateType;
+                        mpfile.DocType = entity.CertificateType;
                         mpfile.State = 1;
                         mpfile.CreateTime = DateTime.Now;
+
                         db.MPOfUploadFiles.Add(mpfile);
 
                         System.IO.File.Copy(sourceFile, targetFile, true);
@@ -2161,14 +2209,15 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     o_entity.SBLY = entity.SBLY;
                     o_entity.ProjID = entity.ProjID;
                     o_entity.LastModifyTime = DateTime.Now;
-                    o_entity.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    o_entity.LastModifyUser = entity.LastModifyUser;
                 }
                 else
                 {
 
                 }
-                entity.IsFinish = 1;
-                entity.FinishTime = DateTime.Now;
+                //entity.IsFinish = 1;
+                //entity.FinishTime = DateTime.Now;
+                entity.IsSync = 1;
                 entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
@@ -2230,7 +2279,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 if (entity.State == Enums.SPState.tg) //通过，新增
                 {
                     MPOfCountry n_entity = new Models.Entities.MPOfCountry();
-                    n_entity.ID = Guid.NewGuid().ToString();
+                    n_entity.ID = entity.ID;
                     n_entity.CountyID = entity.CountyID;
                     n_entity.NeighborhoodsID = entity.NeighborhoodsID;
                     n_entity.CommunityName = entity.CommunityName;
@@ -2257,7 +2306,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     n_entity.DZZMPrintComplete = Enums.Complete.NO;
                     n_entity.State = Enums.UseState.Enable;
                     n_entity.CreateTime = DateTime.Now;
-                    n_entity.CreateUser = LoginUtils.CurrentUser.UserName;
+                    n_entity.CreateUser = entity.LastModifyUser;
                     n_entity.SBLY = entity.SBLY;
                     n_entity.ProjID = entity.ProjID;
 
@@ -2297,7 +2346,11 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var file in files)
                     {
                         string sourceFile = Path.Combine(StaticVariable.basePathSBFile, file.BusinessType, file.FormID, file.CertificateType, file.FileName);
+                        string targetPath = Path.Combine(StaticVariable.basePath, StaticVariable.countryMPRelativePath, n_entity.ID);
                         string targetFile = Path.Combine(StaticVariable.basePath, StaticVariable.countryMPRelativePath, n_entity.ID, file.FileName);
+
+                        if (!System.IO.Directory.Exists(targetPath))
+                            System.IO.Directory.CreateDirectory(targetPath);
 
                         MPOfUploadFiles mpfile = new MPOfUploadFiles();
                         mpfile.ID = file.ID;
@@ -2314,8 +2367,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
                 else
                 { }
-                entity.IsFinish = 1;
-                entity.FinishTime = DateTime.Now;
+                //entity.IsFinish = 1;
+                //entity.FinishTime = DateTime.Now;
+                entity.IsSync = 1;
                 entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
@@ -2390,7 +2444,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     if (isnew)//新门牌，需新增
                     {
                         MPOfResidence n_entity = new Models.Entities.MPOfResidence();
-                        n_entity.ID = Guid.NewGuid().ToString();
+                        n_entity.ID = entity.ID;
                         n_entity.CountyID = entity.CountyID;
                         n_entity.NeighborhoodsID = entity.NeighborhoodsID;
                         n_entity.CommunityName = entity.CommunityName;
@@ -2422,7 +2476,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         n_entity.DZZMPrintComplete = Enums.Complete.NO;
                         n_entity.State = Enums.UseState.Enable;
                         n_entity.CreateTime = DateTime.Now;
-                        n_entity.CreateUser = LoginUtils.CurrentUser.UserName;
+                        n_entity.CreateUser = entity.LastModifyUser;
                         n_entity.SBLY = entity.SBLY;
                         n_entity.ProjID = entity.ProjID;
 
@@ -2491,7 +2545,10 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var file in files)
                     {
                         string sourceFile = Path.Combine(StaticVariable.basePathSBFile, file.BusinessType, file.FormID, file.CertificateType, file.FileName);
+                        string targetPath = Path.Combine(StaticVariable.basePath, StaticVariable.residenceMPRelativePath, mpid);
                         string targetFile = Path.Combine(StaticVariable.basePath, StaticVariable.residenceMPRelativePath, mpid, file.FileName);
+                        if (!System.IO.Directory.Exists(targetPath))
+                            System.IO.Directory.CreateDirectory(targetPath);
 
                         MPOfUploadFiles mpfile = new MPOfUploadFiles();
                         mpfile.ID = file.ID;
@@ -2506,9 +2563,11 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     }
                     //保存后显示打印按钮
                 }
-                entity.IsFinish = 1;
-                entity.FinishTime = DateTime.Now;
+                //entity.IsFinish = 1;
+                //entity.FinishTime = DateTime.Now;
+                entity.IsSync = 1;
                 entity.CheckUser = entity.LastModifyUser;
+
                 db.SaveChanges();
             }
             return mpid;
@@ -2576,7 +2635,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     if (isnew)//新门牌，需新增
                     {
                         MPOfRoad n_entity = new Models.Entities.MPOfRoad();
-                        n_entity.ID = Guid.NewGuid().ToString();
+                        n_entity.ID = entity.ID;
                         n_entity.CountyID = entity.CountyID;
                         n_entity.NeighborhoodsID = entity.NeighborhoodsID;
                         n_entity.CommunityName = entity.CommunityName;
@@ -2616,7 +2675,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         n_entity.DZZMPrintComplete = Enums.Complete.NO;
                         n_entity.State = Enums.UseState.Enable;
                         n_entity.CreateTime = DateTime.Now;
-                        n_entity.CreateUser = LoginUtils.CurrentUser.UserName;
+                        n_entity.CreateUser = entity.LastModifyUser;
                         n_entity.SBLY = entity.SBLY;
                         n_entity.ProjID = entity.ProjID;
 
@@ -2670,7 +2729,10 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var file in files)
                     {
                         string sourceFile = Path.Combine(StaticVariable.basePathSBFile, file.BusinessType, file.FormID, file.CertificateType, file.FileName);
+                        string targetPath = Path.Combine(StaticVariable.basePath, StaticVariable.roadMPRelativePath, mpid);
                         string targetFile = Path.Combine(StaticVariable.basePath, StaticVariable.roadMPRelativePath, mpid, file.FileName);
+                        if (!System.IO.Directory.Exists(targetPath))
+                            System.IO.Directory.CreateDirectory(targetPath);
 
                         MPOfUploadFiles mpfile = new MPOfUploadFiles();
                         mpfile.ID = file.ID;
@@ -2686,8 +2748,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     //保存后显示打印按钮
 
                 }
-                entity.IsFinish = 1;
-                entity.FinishTime = DateTime.Now;
+                //entity.IsFinish = 1;
+                //entity.FinishTime = DateTime.Now;
+                entity.IsSync = 1;
                 entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
@@ -2749,7 +2812,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     if (isnew)//新门牌，需新增
                     {
                         MPOfCountry n_entity = new Models.Entities.MPOfCountry();
-                        n_entity.ID = Guid.NewGuid().ToString();
+                        n_entity.ID = entity.ID;
                         n_entity.CountyID = entity.CountyID;
                         n_entity.NeighborhoodsID = entity.NeighborhoodsID;
                         n_entity.CommunityName = entity.CommunityName;
@@ -2776,7 +2839,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         n_entity.DZZMPrintComplete = Enums.Complete.NO;
                         n_entity.State = Enums.UseState.Enable;
                         n_entity.CreateTime = DateTime.Now;
-                        n_entity.CreateUser = LoginUtils.CurrentUser.UserName;
+                        n_entity.CreateUser = entity.LastModifyUser;
                         n_entity.SBLY = entity.SBLY;
                         n_entity.ProjID = entity.ProjID;
 
@@ -2829,7 +2892,11 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var file in files)
                     {
                         string sourceFile = Path.Combine(StaticVariable.basePathSBFile, file.BusinessType, file.FormID, file.CertificateType, file.FileName);
+                        string targetPath = Path.Combine(StaticVariable.basePath, StaticVariable.countryMPRelativePath, mpid);
                         string targetFile = Path.Combine(StaticVariable.basePath, StaticVariable.countryMPRelativePath, mpid, file.FileName);
+
+                        if (!System.IO.Directory.Exists(targetPath))
+                            System.IO.Directory.CreateDirectory(targetPath);
 
                         MPOfUploadFiles mpfile = new MPOfUploadFiles();
                         mpfile.ID = file.ID;
@@ -2844,8 +2911,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     }
                     //保存后显示打印按钮
                 }
-                entity.IsFinish = 1;
-                entity.FinishTime = DateTime.Now;
+                //entity.IsFinish = 1;
+                //entity.FinishTime = DateTime.Now;
+                entity.IsSync = 1;
                 entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
@@ -2910,7 +2978,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 if (entity.State == Enums.SPState.tg) //通过，新增
                 {
                     DMOFZYSS n_entity = new Models.Entities.DMOFZYSS();
-                    n_entity.ID = Guid.NewGuid().ToString();
+                    n_entity.ID = entity.ID;
                     n_entity.CountyID = entity.CountyID;
                     n_entity.NeighborhoodsID = entity.NeighborhoodsID;
                     n_entity.CommunityName = entity.CommunityName;
@@ -2938,7 +3006,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     n_entity.RecordDate = entity.RecordDate;
                     n_entity.State = Enums.UseState.Enable;
                     n_entity.CreateTime = DateTime.Now;
-                    n_entity.CreateUser = LoginUtils.CurrentUser.UserName;
+                    n_entity.CreateUser = entity.LastModifyUser;
                     n_entity.SBLY = entity.SBLY;
                     n_entity.ProjID = entity.ProjID;
 
@@ -2957,7 +3025,12 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     foreach (var file in files)
                     {
                         string sourceFile = Path.Combine(StaticVariable.basePathSBFile, file.BusinessType, file.FormID, file.CertificateType, file.FileName);
+                        string targetPath = Path.Combine(StaticVariable.basePath, StaticVariable.ProfessionalDMRelativePath, n_entity.ID);
                         string targetFile = Path.Combine(StaticVariable.basePath, StaticVariable.ProfessionalDMRelativePath, n_entity.ID, file.FileName);
+
+                        if (!System.IO.Directory.Exists(targetPath))
+                            System.IO.Directory.CreateDirectory(targetPath);
+
                         DMOfUploadFiles mpfile = new DMOfUploadFiles();
                         mpfile.ID = file.ID;
                         mpfile.DMID = n_entity.ID;
@@ -2972,8 +3045,9 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 }
                 else
                 { }
-                entity.IsFinish = 1;
-                entity.FinishTime = DateTime.Now;
+                //entity.IsFinish = 1;
+                //entity.FinishTime = DateTime.Now;
+                entity.IsSync = 1;
                 entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
@@ -3190,7 +3264,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
         public DateTime? SQSJ { get; set; }
         public DateTime? SPSJ { get; set; }
         public string SIGN { get; set; }
-        public string Sate { get; set; }
+        public string State { get; set; }
     }
     public class MPItem : ItemFather
     {

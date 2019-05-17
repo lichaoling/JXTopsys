@@ -1,0 +1,34 @@
+=======2019/5/13 星期一 10:33:54
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Schedule.HomePage.GetHomePageTotalData() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\Schedule\HomePage.cs:行号 47
+   在 JXGIS.JXTopsystem.Controllers.HomePageController.GetHomePageTotalData() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\HomePageController.cs:行号 38
+=======2019/5/13 星期一 10:33:55
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Schedule.HomePage.GetHomePageDetailData(DateTime start, DateTime end) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\Schedule\HomePage.cs:行号 595
+   在 JXGIS.JXTopsystem.Controllers.HomePageController.GetHomePageDetailData(DateTime start, DateTime end) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\HomePageController.cs:行号 22
+=======2019/5/13 星期一 14:06:25
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Controllers.CommonController.getDistrictTreeFromData(Int32 type) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 69
+=======2019/5/13 星期一 14:06:38
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Common.BaseUtils.DataFilterWithTown[T](IQueryable`1 entity) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\Common\BaseUtils.cs:行号 299
+   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\MPSearch\ResidenceMPSearch.cs:行号 137
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 37
+=======2019/5/13 星期一 14:29:59
+|Message:未将对象引用设置到对象的实例。
+|StackTrace:   在 JXGIS.JXTopsystem.Business.Schedule.HomePage.CheckMPZMOfCountry(String ID)
+   在 JXGIS.JXTopsystem.Controllers.HomePageController.CheckSBInformation(String ID, String lx)
+=======2019/5/13 星期一 14:33:29
+|Message:未能找到路径“E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Files\SBFiles\地名证明_农村类\37ecf77f-b91d-4bb0-b4e6-79a3ee5c3dce\土地证\4f1edf68-fcb7-4578-8b48-94aa9105fe9e.png”的一部分。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   在 System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 JXGIS.JXTopsystem.Business.Schedule.HomePage.CheckMPZMOfCountry(String ID)
+   在 JXGIS.JXTopsystem.Controllers.HomePageController.CheckSBInformation(String ID, String lx)
+=======2019/5/13 星期一 14:34:43
+|Message:未能找到路径“E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Files\SBFiles\地名证明_农村类\37ecf77f-b91d-4bb0-b4e6-79a3ee5c3dce\土地证\4f1edf68-fcb7-4578-8b48-94aa9105fe9e.png”的一部分。
+|StackTrace:   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   在 System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 JXGIS.JXTopsystem.Business.Schedule.HomePage.CheckMPZMOfCountry(String ID)
+   在 JXGIS.JXTopsystem.Controllers.HomePageController.CheckSBInformation(String ID, String lx)
