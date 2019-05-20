@@ -1,0 +1,56 @@
+=======2019/5/20 星期一 9:45:40
+|Message:无法连接到远程服务器
+|StackTrace:   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 309
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 500
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 583
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\DataPushController.cs:行号 63
+=======2019/5/20 星期一 9:46:34
+|Message:无法连接到远程服务器
+|StackTrace:   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 309
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 500
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 583
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\DataPushController.cs:行号 63
+=======2019/5/20 星期一 10:17:14
+|Message:无法连接到远程服务器
+|StackTrace:   在 System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   在 System.Net.HttpWebRequest.GetRequestStream()
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/20 星期一 10:17:58
+|Message:无法连接到远程服务器
+|StackTrace:   在 System.Net.HttpWebRequest.GetResponse()
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/20 星期一 10:25:32
+|Message:远程服务器返回错误: (400) 错误的请求。
+|StackTrace:   在 System.Net.HttpWebRequest.GetResponse()
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/20 星期一 10:27:06
+|Message:更新时PLACEOLDID不能为空！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.MPOfRoadDataPush(MPOfRoad mp)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_MP()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/20 星期一 11:38:49
+|Message:更新时PLACEOLDID不能为空！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 323
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.MPOfRoadDataPush(MPOfRoad mp) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 443
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_MP() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 583
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\DataPushController.cs:行号 63
+=======2019/5/20 星期一 11:40:00
+|Message:更新时PLACEOLDID不能为空！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.MPOfRoadDataPush(MPOfRoad mp)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_MP()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()

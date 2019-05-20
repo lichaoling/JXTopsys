@@ -55,7 +55,7 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                 //如果是导出，就返回所有
                 if (PageNum == -1 && PageSize == -1)
                 {
-                    data1 = query.OrderBy(t=>t.NeighborhoodsID).ThenBy(t=>t.CommunityName).ThenBy(t => t.ViligeName).ThenBy(t => t.MPNumber).ToList();
+                    data1 = query.OrderBy(t => t.NeighborhoodsID).ThenBy(t => t.CommunityName).ThenBy(t => t.ViligeName).ThenBy(t => t.MPNumber).ToList();
                 }
                 //如果是分页查询，就分页返回
                 else
@@ -100,8 +100,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                             ApplicantPhone = t.ApplicantPhone,
                             SBDW = t.SBDW,
                             BZTime = t.BZTime,
-                            Lat = t.MPPosition == null ? null : t.MPPosition.Latitude,
-                            Lng = t.MPPosition == null ? null : t.MPPosition.Longitude
+                            MPPositionX = t.MPPositionX,
+                            MPPositionY = t.MPPositionY
                         }).ToList();
 
                 return new Dictionary<string, object> {
@@ -151,8 +151,8 @@ namespace JXGIS.JXTopsystem.Business.MPSearch
                                  ApplicantPhone = t.ApplicantPhone,
                                  SBDW = t.SBDW,
                                  BZTime = t.BZTime,
-                                 Lat = t.MPPosition == null ? null : t.MPPosition.Latitude,
-                                 Lng = t.MPPosition == null ? null : t.MPPosition.Longitude
+                                 MPPositionX = t.MPPositionX,
+                                 MPPositionY = t.MPPositionY
                              }).FirstOrDefault();
                 if (query == null)
                     throw new Error("该门牌已经被注销！");

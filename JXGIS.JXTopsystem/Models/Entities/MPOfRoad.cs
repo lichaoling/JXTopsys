@@ -36,11 +36,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string MPNumberRange { get; set; }
         public string MPNumber { get; set; }
         public int? MPNumberType { get; set; } //门牌号码类型 1单 2 双
-        public DbGeography MPPosition { get; set; }
-        [NotMapped]
-        public double? Lat { get; set; }
-        [NotMapped]
-        public double? Lng { get; set; }
+        public double? MPPositionX { get; set; }
+        public double? MPPositionY { get; set; }
         public string ReservedNumber { get; set; }
         public string OriginalMPAddress { get; set; }
         public string MPSize { get; set; }

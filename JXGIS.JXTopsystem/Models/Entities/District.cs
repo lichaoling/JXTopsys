@@ -11,7 +11,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
     public class District
     {
         [Key]
-        public int IndetityID { get; set; }
+        public string IndetityID { get; set; }
         public string ID { get; set; }
         public string ParentID { get; set; }
         public string Code { get; set; }

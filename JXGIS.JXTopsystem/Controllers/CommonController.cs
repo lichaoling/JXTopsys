@@ -387,7 +387,7 @@ namespace JXGIS.JXTopsystem.Controllers
             return Content(s);
         }
         [LoggerFilter(Description = "查看邮政编码详情")]
-        public ContentResult GetPostcodeByID(int id)
+        public ContentResult GetPostcodeByID(string id)
         {
             RtObj rt = null;
             try

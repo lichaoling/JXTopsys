@@ -205,8 +205,8 @@ namespace JXGIS.JXTopsystem.Business.RPBusinessStatistic
                                   CreateTime = t.CreateTime,
                                   RepairedCount = t.RepairedCount,
                                   FinishRepaireTime = t.FinishRepaireTime,
-                                  Lat = t.Position != null ? t.Position.Latitude : null,
-                                  Lng = t.Position != null ? t.Position.Longitude : null,
+                                  PositionX = t.PositionX,
+                                  PositionY = t.PositionY,
 
                                   RepairParts = dbContext.RPRepair.Where(s => s.RPID == t.ID).OrderByDescending(s => s.RepairTime).Select(s => s.RepairParts).FirstOrDefault(),
                                   RepairContent = dbContext.RPRepair.Where(s => s.RPID == t.ID).OrderByDescending(s => s.RepairTime).Select(s => s.RepairContent).FirstOrDefault(),

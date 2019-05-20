@@ -30,11 +30,9 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string Dormitory { get; set; }
         public string LZNumber { get; set; } //没有楼幢时可为空
         public string DYNumber { get; set; } //没有单元时可为空
-        public DbGeography DYPosition { get; set; }
-        [NotMapped]
-        public double? Lat { get; set; }
-        [NotMapped]
-        public double? Lng { get; set; }
+        public double? DYPositionX { get; set; }
+        public double? DYPositionY { get; set; }
+      
         public string HSNumber { get; set; }
         public string MPSize { get; set; }
         public string Postcode { get; set; }  //*

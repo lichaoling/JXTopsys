@@ -1677,7 +1677,8 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     n_entity.ResidenceName = entity.ResidenceName;
                     n_entity.LZNumber = entity.LZNumber;
                     n_entity.DYNumber = entity.DYNumber;
-                    n_entity.DYPosition = (entity.DYPositionX != null && entity.DYPositionY != null && entity.DYPositionX != 0 && entity.DYPositionY != 0) ? (DbGeography.FromText($"POINT({entity.DYPositionX} {entity.DYPositionY})")) : null;
+                    n_entity.DYPositionX = entity.DYPositionX;
+                    n_entity.DYPositionY = entity.DYPositionY;
                     n_entity.HSNumber = entity.HSNumber;
                     n_entity.Postcode = entity.Postcode;
                     n_entity.PropertyOwner = entity.PropertyOwner;
@@ -1719,6 +1720,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
+                    CommunityDic.ID = Guid.NewGuid().ToString();
                     CommunityDic.CountyID = n_entity.CountyID;
                     CommunityDic.NeighborhoodsID = n_entity.NeighborhoodsID;
                     CommunityDic.CommunityName = n_entity.CommunityName;
@@ -1999,7 +2001,8 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     n_entity.RoadName = entity.RoadName;
                     n_entity.ShopName = entity.ShopName;
                     n_entity.MPNumber = entity.MPNumber;
-                    n_entity.MPPosition = (entity.MPPositionX != 0 && entity.MPPositionY != 0 && entity.MPPositionX != null && entity.MPPositionY != null) ? (DbGeography.FromText($"POINT({entity.MPPositionX} {entity.MPPositionY})")) : null;
+                    n_entity.MPPositionX = entity.MPPositionX;
+                    n_entity.MPPositionY = entity.MPPositionY;
                     #region 门牌号码类型 单双号判断赋值
                     if (!string.IsNullOrEmpty(entity.MPNumber))
                     {
@@ -2050,6 +2053,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
+                    CommunityDic.ID = Guid.NewGuid().ToString();
                     CommunityDic.CountyID = n_entity.CountyID;
                     CommunityDic.NeighborhoodsID = n_entity.NeighborhoodsID;
                     CommunityDic.CommunityName = n_entity.CommunityName;
@@ -2285,7 +2289,8 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     n_entity.CommunityName = entity.CommunityName;
                     n_entity.ViligeName = entity.VillageName;
                     n_entity.MPNumber = entity.MPNumber;
-                    n_entity.MPPosition = (entity.MPPositionX != 0 && entity.MPPositionY != 0 && entity.MPPositionX != null && entity.MPPositionY != null) ? (DbGeography.FromText($"POINT({entity.MPPositionX} {entity.MPPositionY})")) : null;
+                    n_entity.MPPositionX = entity.MPPositionX;
+                    n_entity.MPPositionY = entity.MPPositionY;
                     n_entity.OriginalMPAddress = entity.OriginalMPAddress;
                     n_entity.HSNumber = entity.HSNumber;
                     n_entity.Postcode = entity.Postcode;
@@ -2324,6 +2329,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
+                    CommunityDic.ID = Guid.NewGuid().ToString();
                     CommunityDic.CountyID = n_entity.CountyID;
                     CommunityDic.NeighborhoodsID = n_entity.NeighborhoodsID;
                     CommunityDic.CommunityName = n_entity.CommunityName;
@@ -2452,7 +2458,8 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         n_entity.ResidenceName = entity.ResidenceName;
                         n_entity.LZNumber = entity.LZNumber;
                         n_entity.DYNumber = entity.DYNumber;
-                        n_entity.DYPosition = entity.DYPositionX != null && entity.DYPositionY != null ? (DbGeography.FromText($"POINT({entity.DYPositionX} {entity.DYPositionY})")) : null;
+                        n_entity.DYPositionX = entity.DYPositionX;
+                        n_entity.DYPositionY = entity.DYPositionY;
                         n_entity.HSNumber = entity.HSNumber;
                         n_entity.Postcode = entity.Postcode;
                         n_entity.PropertyOwner = entity.PropertyOwner;
@@ -2494,6 +2501,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                         #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                         var CommunityDic = new CommunityDic();
+                        CommunityDic.ID = Guid.NewGuid().ToString();
                         CommunityDic.CountyID = n_entity.CountyID;
                         CommunityDic.NeighborhoodsID = n_entity.NeighborhoodsID;
                         CommunityDic.CommunityName = n_entity.CommunityName;
@@ -2642,7 +2650,8 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         n_entity.RoadName = entity.RoadName;
                         n_entity.ShopName = entity.ShopName;
                         n_entity.MPNumber = entity.MPNumber;
-                        n_entity.MPPosition = (entity.MPPositionX != 0 && entity.MPPositionY != 0 && entity.MPPositionX != null && entity.MPPositionY != null) ? (DbGeography.FromText($"POINT({entity.MPPositionX} {entity.MPPositionY})")) : null;
+                        n_entity.MPPositionX = entity.MPPositionX;
+                        n_entity.MPPositionY = entity.MPPositionY;
                         #region 门牌号码类型 单双号判断赋值
                         if (!string.IsNullOrEmpty(entity.MPNumber))
                         {
@@ -2693,6 +2702,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                         #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                         var CommunityDic = new CommunityDic();
+                        CommunityDic.ID = Guid.NewGuid().ToString();
                         CommunityDic.CountyID = n_entity.CountyID;
                         CommunityDic.NeighborhoodsID = n_entity.NeighborhoodsID;
                         CommunityDic.CommunityName = n_entity.CommunityName;
@@ -2818,7 +2828,8 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         n_entity.CommunityName = entity.CommunityName;
                         n_entity.ViligeName = entity.VillageName;
                         n_entity.MPNumber = entity.MPNumber;
-                        n_entity.MPPosition = (entity.MPPositionX != 0 && entity.MPPositionY != 0 && entity.MPPositionX != null && entity.MPPositionY != null) ? (DbGeography.FromText($"POINT({entity.MPPositionX} {entity.MPPositionY})")) : null;
+                        n_entity.MPPositionX = entity.MPPositionX;
+                        n_entity.MPPositionY = entity.MPPositionY;
                         n_entity.OriginalMPAddress = entity.OriginalMPAddress;
                         n_entity.HSNumber = entity.HSNumber;
                         n_entity.Postcode = entity.Postcode;
@@ -2857,6 +2868,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                         #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                         var CommunityDic = new CommunityDic();
+                        CommunityDic.ID = Guid.NewGuid().ToString();
                         CommunityDic.CountyID = n_entity.CountyID;
                         CommunityDic.NeighborhoodsID = n_entity.NeighborhoodsID;
                         CommunityDic.CommunityName = n_entity.CommunityName;
@@ -3012,6 +3024,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
 
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
+                    CommunityDic.ID = Guid.NewGuid().ToString();
                     CommunityDic.CountyID = n_entity.CountyID;
                     CommunityDic.NeighborhoodsID = n_entity.NeighborhoodsID;
                     CommunityDic.CommunityName = n_entity.CommunityName;

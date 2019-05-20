@@ -170,8 +170,8 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                             BZTime = t.BZTime,
                             CreateTime = t.CreateTime,
                             RepairedCount = t.RepairedCount,
-                            Lat = t.Position != null ? t.Position.Latitude : null,
-                            Lng = t.Position != null ? t.Position.Longitude : null
+                            PositionX = t.PositionX,
+                            PositionY = t.PositionY
                         }).ToList();
 
 
@@ -242,8 +242,8 @@ namespace JXGIS.JXTopsystem.Business.RPSearch
                 };
                 data.CountyName = data.CountyID.Split('.').Last();
                 data.NeighborhoodsName = data.NeighborhoodsID.Split('.').Last();
-                data.Lat = data.Position != null ? data.Position.Latitude : null;
-                data.Lng = data.Position != null ? data.Position.Longitude : null;
+                data.PositionX = data.PositionX;
+                data.PositionY = data.PositionY;
                 return data;
             }
         }

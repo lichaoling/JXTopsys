@@ -28,11 +28,8 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string RoadEnd { get; set; }
         public string BZRules { get; set; }
         public string StartEndNum { get; set; }
-        public DbGeography Position { get; set; }
-        [NotMapped]
-        public double? Lat { get; set; }
-        [NotMapped]
-        public double? Lng { get; set; }
+        public double? PositionX { get; set; }
+        public double? PositionY { get; set; }
         public string Model { get; set; }
         public string Size { get; set; }
         public string Material { get; set; }

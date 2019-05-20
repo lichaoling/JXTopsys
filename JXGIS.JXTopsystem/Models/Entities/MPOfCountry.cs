@@ -25,11 +25,12 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string ViligeID { get; set; }
         public string ViligeName { get; set; }
         public string MPNumber { get; set; }
-        public DbGeography MPPosition { get; set; }
-        [NotMapped]
-        public double? Lat { get; set; }
-        [NotMapped]
-        public double? Lng { get; set; }
+        public double? MPPositionX { get; set; }
+        public double? MPPositionY { get; set; }
+        //[NotMapped]
+        //public double? Lat { get; set; }
+        //[NotMapped]
+        //public double? Lng { get; set; }
         public string OriginalMPAddress { get; set; }
         public string MPSize { get; set; }
         public string HSNumber { get; set; }

@@ -1,0 +1,66 @@
+=======2019/5/17 星期五 19:08:58
+|Message:业务表单信息缺失！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/17 星期五 19:12:26
+|Message:业务表单信息缺失！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/17 星期五 19:12:31
+|Message:业务表单信息缺失！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/17 星期五 19:16:15
+|Message:业务表单信息缺失！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/17 星期五 19:17:11
+|Message:业务表单信息缺失！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/17 星期五 19:17:19
+|Message:业务表单信息缺失！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/17 星期五 19:17:22
+|Message:业务表单信息缺失！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/17 星期五 19:17:22
+|Message:业务表单信息缺失！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/17 星期五 19:17:23
+|Message:业务表单信息缺失！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/17 星期五 19:17:25
+|Message:业务表单信息缺失！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/17 星期五 19:21:17
+|Message:业务表单信息缺失！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.PlaceProveDataPush(MPOfCertificate mc)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_DMZM()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()

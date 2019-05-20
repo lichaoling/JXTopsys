@@ -50,6 +50,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
+                    CommunityDic.ID = Guid.NewGuid().ToString();
                     CommunityDic.CountyID = targetData.CountyID;
                     CommunityDic.NeighborhoodsID = targetData.NeighborhoodsID;
                     CommunityDic.CommunityName = targetData.CommunityName;
@@ -66,7 +67,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     roadDic.StartEndNum = targetData.StartEndNum;
                     targetData.RoadID = DicUtils.AddRoadDic(roadDic);
                     #endregion
-                    targetData.Position = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : null;
+                    //targetData.Position = (targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : null;
                     targetData.RepairedCount = 0;
                     targetData.FinishRepaire = Enums.RPRepairFinish.Yes;
                     targetData.State = Enums.UseState.Enable;
@@ -124,6 +125,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
+                    CommunityDic.ID = Guid.NewGuid().ToString();
                     CommunityDic.CountyID = targetData.CountyID;
                     CommunityDic.NeighborhoodsID = targetData.NeighborhoodsID;
                     CommunityDic.CommunityName = targetData.CommunityName;
@@ -140,7 +142,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     roadDic.StartEndNum = targetData.StartEndNum;
                     targetData.RoadID = DicUtils.AddRoadDic(roadDic);
                     #endregion
-                    targetData.Position = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.Position;
+                    //targetData.Position = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.Position;
                     targetData.LastModifyTime = DateTime.Now;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     BaseUtils.UpdateAddressCode(null, null, null, targetData, Enums.TypeInt.RP);

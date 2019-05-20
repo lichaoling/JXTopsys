@@ -142,7 +142,7 @@ namespace JXGIS.JXTopsystem.Business.DataPush
             if (type == place.zsxx.lyjd.zrbhqzsxx.name)
                 xml = $"<Item name='BNTX0020' name_cn='管理单位'>" + place.zsxx.lyjd.zrbhqzsxx.BNTX0020 + "</Item>";
 
-           
+
             if (type == place.zsxx.jzw.jzwzhzsxx.name)
                 xml = $"<Item name='AMBX0010' name_cn='所在位置'>" + place.zsxx.jzw.jzwzhzsxx.AMBX0010 + "</Item>"
                     + $"<Item name='AMBX0020' name_cn='邮政编码'>" + place.zsxx.jzw.jzwzhzsxx.AMBX0020 + "</Item>";
@@ -270,15 +270,15 @@ namespace JXGIS.JXTopsystem.Business.DataPush
                             + "<Item name='BYXX0013' name_cn='填报用户'>" + placeOpinion.BYXX0013 + "</Item>"
                             + "<Item name='BYXX0017' name_cn='申请接收方式'>" + placeOpinion.BYXX0017 + "</Item>"
                             + "<Item name='BYXX0021' name_cn='结果领取方式'>" + placeOpinion.BYXX0021 + "</Item>"
-                            + "<Item name='BMJXUUID' name_cn='UUID'>" + placeOpinion.BMJXUUID + "</Item>"
-                            + "<Item name='BMJX0001' name_cn='PROJID'>" + placeOpinion.BMJX0001 + "</Item>"
-                            + "<Item name='BMJX0002' name_cn='门牌证号/地名代码'>" + placeOpinion.BMJX0002 + "</Item>"
-                            + "<Item name='BMJX0003' name_cn='附件文件名称'>" + placeOpinion.BMJX0003 + "</Item>"
-                            + "<Item name='BMJX0004' name_cn='附件访问路径'>" + placeOpinion.BMJX0004 + "</Item>"
-                            + "<Item name='BMJX0006' name_cn='文件大小'>" + placeOpinion.BMJX0006 + "</Item>"
-                            + "<Item name='BMJX0007' name_cn='材料描述代码'>" + placeOpinion.BMJX0007 + "</Item>"
-                            + "<Item name='BMJX0008' name_cn='业务类型代码'>" + placeOpinion.BMJX0008 + "</Item>"
-                            + "<Item name='ZZZZ9999' name_cn='时间戳'>" + placeOpinion.ZZZZ9999 + "</Item>"
+                        //+ "<Item name='BMJXUUID' name_cn='UUID'>" + placeOpinion.BMJXUUID + "</Item>"
+                        //+ "<Item name='BMJX0001' name_cn='PROJID'>" + placeOpinion.BMJX0001 + "</Item>"
+                        //+ "<Item name='BMJX0002' name_cn='门牌证号/地名代码'>" + placeOpinion.BMJX0002 + "</Item>"
+                        //+ "<Item name='BMJX0003' name_cn='附件文件名称'>" + placeOpinion.BMJX0003 + "</Item>"
+                        //+ "<Item name='BMJX0004' name_cn='附件访问路径'>" + placeOpinion.BMJX0004 + "</Item>"
+                        //+ "<Item name='BMJX0006' name_cn='文件大小'>" + placeOpinion.BMJX0006 + "</Item>"
+                        //+ "<Item name='BMJX0007' name_cn='材料描述代码'>" + placeOpinion.BMJX0007 + "</Item>"
+                        //+ "<Item name='BMJX0008' name_cn='业务类型代码'>" + placeOpinion.BMJX0008 + "</Item>"
+                        //+ "<Item name='ZZZZ9999' name_cn='时间戳'>" + placeOpinion.ZZZZ9999 + "</Item>"
                         + "</RECORDS>";
             return xml;
         }
@@ -323,11 +323,13 @@ namespace JXGIS.JXTopsystem.Business.DataPush
                 throw new Error(msg.msg);
         }
 
+
         public static void MPOfCountryDataPush(MPOfCountry mp)
         {
             BaseInfo baseInfo = new BaseInfo();
             baseInfo.CALLER = "门牌";
-            baseInfo.CALLOPERATE = mp.LastModifyTime != null ? "UPDATE" : (mp.State == 1 ? "ADD" : "DELETE");
+            baseInfo.CALLOPERATE = mp.DataPushStatus != 1 && mp.LastModifyTime != null ? "UPDATE" : (mp.State == 1 ? "ADD" : "DELETE");
+            baseInfo.PLACEOLDID = mp.ID;
             baseInfo.CALLTIME = DateTime.Now.ToString("yyyy-MM-dd");
             baseInfo.PLACEID = "3304" + mp.AddressCoding.Substring(0, 5) + mp.ID;
             baseInfo.STREETID = "3304" + mp.AddressCoding.Substring(0, 5);
@@ -336,15 +338,21 @@ namespace JXGIS.JXTopsystem.Business.DataPush
             Doorplate doorplate = new Doorplate();
             doorplate.BYUX0001 = mp.AddressCoding.Substring(2, 3);
             doorplate.ALAA0001 = "3304" + mp.AddressCoding.Substring(0, 2);
-            doorplate.BYUX0004 = mp.PropertyOwner;
+            doorplate.BYUX0004 = mp.PropertyOwner == null ? "无" : mp.PropertyOwner;
+            doorplate.BYUX0003 = mp.CommunityName;
+            doorplate.BYUX0009 = mp.ViligeName;
+            doorplate.BYUX0010 = mp.ViligeName == null ? null : "3";
+            doorplate.BYUX0013 = mp.MPNumber;
+            doorplate.BYUX0014 = "1";
+
             doorplate.BYUX0031 = mp.AddressCoding;
             doorplate.BYUX0037 = mp.StandardAddress;
-            doorplate.BYUX0060 = "农村门牌";
+            doorplate.BYUX0060 = "2";
             doorplate.BYRX0030 = "2";//1单位（委托）申请、2个人（委托）申请、3农居（委托）申请
             doorplate.BYRX0031 = "1";//1首次申请 2补领申请  3其他
-            doorplate.BYRX0032 = mp.Applicant;
+            doorplate.BYRX0032 = mp.Applicant == null ? "无" : mp.Applicant;
             doorplate.BYRX0035 = mp.CreateUser;
-            doorplate.BYRX0038 = mp.MPMail == 0 ? "窗口领取" : "邮递到家";//查询代码表
+            doorplate.BYRX0038 = mp.MPMail == 0 ? "3" : "1";//查询代码表
             string AcceptInfoXml = GetAcceptInfoXml_Doorplate(doorplate);
 
             string url = System.Configuration.ConfigurationManager.AppSettings["PostDoorplateInfoURL"];
@@ -355,6 +363,262 @@ namespace JXGIS.JXTopsystem.Business.DataPush
             };
             Post(url, dic);
         }
+        public static void MPOfResidenceDataPush(MPOfResidence mp)
+        {
+            BaseInfo baseInfo = new BaseInfo();
+            baseInfo.CALLER = "门牌";
+            baseInfo.CALLOPERATE = mp.LastModifyTime != null ? "UPDATE" : (mp.State == 1 ? "ADD" : "DELETE");
+            baseInfo.PLACEOLDID = mp.ID;
+            baseInfo.CALLTIME = DateTime.Now.ToString("yyyy-MM-dd");
+            baseInfo.PLACEID = "3304" + mp.AddressCoding.Substring(0, 5) + mp.ID;
+            baseInfo.STREETID = "3304" + mp.AddressCoding.Substring(0, 5);
+            string BaseInfoXml = GetBaseInfoXml(baseInfo);
+
+            Doorplate doorplate = new Doorplate();
+            doorplate.BYUX0001 = mp.AddressCoding.Substring(2, 3);
+            doorplate.ALAA0001 = "3304" + mp.AddressCoding.Substring(0, 2);
+            doorplate.BYUX0004 = mp.PropertyOwner == null ? "无" : mp.PropertyOwner;
+            doorplate.BYUX0003 = mp.CommunityName;
+            doorplate.BYUX0021 = mp.ResidenceName;
+            doorplate.BYUX0022 = mp.ResidenceName.Contains("公寓") ? "3" : mp.ResidenceName.Contains("大厦") ? "4" : mp.ResidenceName.Contains("广场") ? "8" : mp.ResidenceName.Contains("家园") ? "11" : mp.ResidenceName.Contains("公馆") ? "13" : mp.ResidenceName.Contains("名苑") ? "14" : mp.ResidenceName.Contains("商厦") ? "9" : "1";
+            doorplate.BYUX0025 = mp.LZNumber;
+            doorplate.BYUX0026 = "1";
+            doorplate.BYUX0027 = mp.DYNumber;
+            doorplate.BYUX0028 = "1";
+            doorplate.BYUX0029 = mp.HSNumber;
+            doorplate.BYUX0030 = "1";
+
+            doorplate.BYUX0031 = mp.AddressCoding;
+            doorplate.BYUX0037 = mp.StandardAddress;
+            doorplate.BYUX0060 = "3";
+            doorplate.BYRX0030 = "1";//1单位（委托）申请、2个人（委托）申请、3农居（委托）申请
+            doorplate.BYRX0031 = "1";//1首次申请 2补领申请  3其他
+            doorplate.BYRX0032 = mp.Applicant == null ? "无" : mp.Applicant;
+            doorplate.BYRX0035 = mp.CreateUser;
+            doorplate.BYRX0038 = "3";//查询代码表
+            string AcceptInfoXml = GetAcceptInfoXml_Doorplate(doorplate);
+
+            string url = System.Configuration.ConfigurationManager.AppSettings["PostDoorplateInfoURL"];
+            Dictionary<string, string> dic = new Dictionary<string, string>()
+            {
+                {"baseInfoXml", BaseInfoXml},
+                { "acceptInfoXml", AcceptInfoXml}
+            };
+            Post(url, dic);
+        }
+        public static void MPOfRoadDataPush(MPOfRoad mp)
+        {
+            BaseInfo baseInfo = new BaseInfo();
+            baseInfo.CALLER = "门牌";
+            baseInfo.CALLOPERATE = mp.LastModifyTime != null ? "UPDATE" : (mp.State == 1 ? "ADD" : "DELETE");
+            baseInfo.PLACEOLDID = mp.ID;
+            baseInfo.CALLTIME = DateTime.Now.ToString("yyyy-MM-dd");
+            baseInfo.PLACEID = "3304" + mp.AddressCoding.Substring(0, 5) + mp.ID;
+            baseInfo.STREETID = "3304" + mp.AddressCoding.Substring(0, 5);
+            string BaseInfoXml = GetBaseInfoXml(baseInfo);
+
+            Doorplate doorplate = new Doorplate();
+            doorplate.BYUX0001 = mp.AddressCoding.Substring(2, 3);
+            doorplate.ALAA0001 = "3304" + mp.AddressCoding.Substring(0, 2);
+            doorplate.BYUX0004 = mp.PropertyOwner == null ? "无" : mp.PropertyOwner;
+            doorplate.BYUX0003 = mp.CommunityName;
+            doorplate.BYUX0015 = mp.RoadName;
+            doorplate.BYUX0016 = mp.RoadName.Contains("弄") ? "4" : mp.RoadName.Contains("街") ? "3" : mp.RoadName.Contains("巷") ? "6" : "1";
+            doorplate.BYUX0019 = mp.MPNumber;
+
+            doorplate.BYUX0031 = mp.AddressCoding;
+            doorplate.BYUX0037 = mp.StandardAddress;
+            doorplate.BYUX0060 = "1";
+            doorplate.BYRX0030 = "1";//1单位（委托）申请、2个人（委托）申请、3农居（委托）申请
+            doorplate.BYRX0031 = "1";//1首次申请 2补领申请  3其他
+            doorplate.BYRX0032 = mp.Applicant == null ? "无" : mp.Applicant;
+            doorplate.BYRX0035 = mp.CreateUser;
+            doorplate.BYRX0038 = mp.MPMail == 0 ? "3" : "1";//查询代码表
+            string AcceptInfoXml = GetAcceptInfoXml_Doorplate(doorplate);
+
+            string url = System.Configuration.ConfigurationManager.AppSettings["PostDoorplateInfoURL"];
+            Dictionary<string, string> dic = new Dictionary<string, string>()
+            {
+                {"baseInfoXml", BaseInfoXml},
+                { "acceptInfoXml", AcceptInfoXml}
+            };
+            Post(url, dic);
+        }
+        public static void PlaceProveDataPush(MPOfCertificate mc)
+        {
+            using (var db = SystemUtils.NewEFDbContext)
+            {
+                BaseInfo baseInfo = new BaseInfo();
+                baseInfo.CALLER = "地名证明";
+                baseInfo.CALLOPERATE = "ADD";
+                baseInfo.CALLTIME = DateTime.Now.ToString("yyyy-MM-dd");
+
+                PlaceProve placeProve = new PlaceProve();
+
+                if (mc.MPType == "住宅门牌")
+                {
+                    var mp = db.MPOfResidence.Where(t => t.ID == mc.MPID).FirstOrDefault();
+                    baseInfo.PLACEID = "3304" + mp.AddressCoding.Substring(0, 5) + mp.ID;
+                    baseInfo.STREETID = "3304" + mp.AddressCoding.Substring(0, 5);
+
+                    placeProve.ALAA0001 = "3304" + mp.AddressCoding.Substring(0, 2);
+                    placeProve.BYWX0001 = mp.PropertyOwner == null ? "无" : mp.PropertyOwner;
+                    placeProve.BYWX0002 = mp.IDNumber == null ? "无" : mp.IDNumber;
+                    placeProve.BYWX0003 = mp.IDType == null ? "4" : mp.IDType == "统一社会信用代码证" ? "3" : "1";
+                    placeProve.BYWX0008 = mp.FCZAddress == null && mp.TDZAddress == null && mp.BDCZAddress == null && mp.HJAddress == null && mp.OtherAddress == null ? "无" : mp.FCZAddress + mp.TDZAddress + mp.BDCZAddress + mp.HJAddress + mp.OtherAddress;
+                    placeProve.BYWX0009 = mp.StandardAddress;
+                    placeProve.BYWX0012 = mc.CreateTime.ToString("yyyy-MM-dd");
+                    placeProve.BYWX0013 = mc.CreateUser;
+                    placeProve.BYWX0014 = mp.Applicant == null ? "无" : mp.Applicant;
+                    placeProve.BYWX0015 = mp.ApplicantPhone == null ? "无" : mp.ApplicantPhone;
+                    placeProve.BYWX0016 = "109";
+                    placeProve.BYWX0024 = "2";
+                }
+                else if (mc.MPType == "道路门牌")
+                {
+                    var mp = db.MPOfRoad.Where(t => t.ID == mc.MPID).FirstOrDefault();
+                    baseInfo.PLACEID = "3304" + mp.AddressCoding.Substring(0, 5) + mp.ID;
+                    baseInfo.STREETID = "3304" + mp.AddressCoding.Substring(0, 5);
+
+                    placeProve.ALAA0001 = "3304" + mp.AddressCoding.Substring(0, 2);
+                    placeProve.BYWX0001 = mp.PropertyOwner == null ? "无" : mp.PropertyOwner;
+                    placeProve.BYWX0002 = mp.IDNumber == null ? "无" : mp.IDNumber;
+                    placeProve.BYWX0003 = mp.IDType == null ? "4" : mp.IDType == "统一社会信用代码证" ? "3" : "1";
+                    placeProve.BYWX0008 = mp.FCZAddress == null && mp.TDZAddress == null && mp.YYZZAddress == null && mp.OtherAddress == null ? "无" : mp.FCZAddress + mp.TDZAddress + mp.YYZZAddress + mp.OtherAddress;
+                    placeProve.BYWX0009 = mp.StandardAddress;
+                    placeProve.BYWX0012 = mc.CreateTime.ToString("yyyy-MM-dd"); ;
+                    placeProve.BYWX0013 = mc.CreateUser;
+                    placeProve.BYWX0014 = mp.Applicant == null ? "无" : mp.Applicant;
+                    placeProve.BYWX0015 = mp.ApplicantPhone == null ? "无" : mp.ApplicantPhone;
+                    placeProve.BYWX0016 = "109";
+                    placeProve.BYWX0024 = "2";
+                }
+                else if (mc.MPType == "农村门牌")
+                {
+                    var mp = db.MPOfCountry.Where(t => t.ID == mc.MPID).FirstOrDefault();
+                    baseInfo.PLACEID = "3304" + mp.AddressCoding.Substring(0, 5) + mp.ID;
+                    baseInfo.STREETID = "3304" + mp.AddressCoding.Substring(0, 5);
+
+                    placeProve.ALAA0001 = "3304" + mp.AddressCoding.Substring(0, 2);
+                    placeProve.BYWX0001 = mp.PropertyOwner == null ? "无" : mp.PropertyOwner;
+                    placeProve.BYWX0002 = mp.IDNumber == null ? "无" : mp.IDNumber;
+                    placeProve.BYWX0003 = mp.IDType == null ? "4" : mp.IDType == "统一社会信用代码证" ? "3" : "1";
+                    placeProve.BYWX0008 = mp.TDZAddress == null && mp.QQZAddress == null && mp.OtherAddress == null ? "无" : mp.TDZAddress + mp.QQZAddress + mp.OtherAddress;
+                    placeProve.BYWX0009 = mp.StandardAddress;
+                    placeProve.BYWX0012 = mc.CreateTime.ToString("yyyy-MM-dd"); ;
+                    placeProve.BYWX0013 = mc.CreateUser;
+                    placeProve.BYWX0014 = mp.Applicant == null ? "无" : mp.Applicant;
+                    placeProve.BYWX0015 = mp.ApplicantPhone == null ? "无" : mp.ApplicantPhone;
+                    placeProve.BYWX0016 = "109";
+                    placeProve.BYWX0024 = "2";
+                }
+                string BaseInfoXml = GetBaseInfoXml(baseInfo);
+                string AcceptInfoXml = GetAcceptInfoXml_PlaceProve(placeProve);
+
+                string url = System.Configuration.ConfigurationManager.AppSettings["PostPlaceProveInfoURL"];
+                Dictionary<string, string> dic = new Dictionary<string, string>()
+                    {
+                        {"baseInfoXml", BaseInfoXml},
+                        { "acceptInfoXml", AcceptInfoXml}
+                    };
+                Post(url, dic);
+            }
+        }
+        public static void PlaceOpinionDataPush(DMOFZYSS zyss)
+        {
+            using (var db = SystemUtils.NewEFDbContext)
+            {
+                BaseInfo baseInfo = new BaseInfo();
+                baseInfo.CALLER = "出具意见";
+                baseInfo.CALLOPERATE = zyss.LastModifyTime != null ? "UPDATE" : (zyss.State == 1 ? "ADD" : "DELETE");
+                baseInfo.CALLTIME = DateTime.Now.ToString("yyyy-MM-dd");
+
+                var countyCode = db.District.Where(t => t.ID == zyss.CountyID).Select(t => t.Code).FirstOrDefault();
+                var neighborhoodsCode = db.District.Where(t => t.ID == zyss.NeighborhoodsID).Select(t => t.Code).FirstOrDefault();
+
+                baseInfo.PLACEID = "3304" + countyCode + neighborhoodsCode + zyss.ID;
+                baseInfo.STREETID = "3304" + countyCode + neighborhoodsCode;
+                string BaseInfoXml = GetBaseInfoXml(baseInfo);
+
+                PlaceOpinion placeOpinion = new PlaceOpinion();
+                placeOpinion.ALAA0001 = "3304" + countyCode;
+                placeOpinion.BYXX0001 = zyss.SBDW == null ? "无" : zyss.SBDW;
+                placeOpinion.BYXX0003 = zyss.Applicant == null ? "无" : zyss.Applicant;
+                placeOpinion.BYXX0004 = zyss.Telephone == null ? "无" : zyss.Telephone;
+                placeOpinion.BYXX0005 = zyss.Name;
+                placeOpinion.BYXX0007 = zyss.XMAddress == null ? "无" : zyss.XMAddress;
+                placeOpinion.BYXX0008 = "无";
+                placeOpinion.BYXX0009 = zyss.DMHY == null ? "无" : zyss.DMHY;
+                placeOpinion.BYXX0011 = ((DateTime)zyss.CreateTime).ToString("yyyy-MM-dd");
+                placeOpinion.BYXX0013 = zyss.CreateUser;
+                placeOpinion.BYXX0017 = zyss.SBLY == "网上申报" ? "3" : "1";
+                placeOpinion.BYXX0021 = "现场送达";
+
+                string AcceptInfoXml = GetAcceptInfoXml_PlaceOpinion(placeOpinion);
+                string url = System.Configuration.ConfigurationManager.AppSettings["PostPlaceOpinionInfoURL"];
+                Dictionary<string, string> dic = new Dictionary<string, string>()
+                    {
+                        {"baseInfoXml", BaseInfoXml},
+                        { "acceptInfoXml", AcceptInfoXml}
+                    };
+                Post(url, dic);
+
+            }
+        }
+
+
+
+        public static void DataPush_MP()
+        {
+            using (var db = SystemUtils.NewEFDbContext)
+            {
+                var mpres = db.MPOfResidence.Where(t => t.DataPushStatus == 0 && (t.State == 1 || (t.DataPushTime != null && t.State == 2))).Take(10).ToList();
+                foreach (var mp in mpres)
+                {
+                    MPOfResidenceDataPush(mp);
+                    //mp.DataPushStatus = 1;
+                    //mp.DataPushTime = DateTime.Now;
+                }
+                var mpros = db.MPOfRoad.Where(t => t.DataPushStatus == 0 && (t.State == 1 || (t.DataPushTime != null && t.State == 2))).Take(10).ToList();
+                foreach (var mp in mpros)
+                {
+                    MPOfRoadDataPush(mp);
+                    //mp.DataPushStatus = 1;
+                    //mp.DataPushTime = DateTime.Now;
+                }
+                var mpcos = db.MPOfCountry.Where(t => t.DataPushStatus == 0 && (t.State == 1 || (t.DataPushTime != null && t.State == 2))).Take(10).ToList();
+                foreach (var mp in mpcos)
+                {
+                    MPOfCountryDataPush(mp);
+                    //mp.DataPushStatus = 1;
+                    //mp.DataPushTime = DateTime.Now;
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public static void DataPush_DMZM()
+        {
+            using (var db = SystemUtils.NewEFDbContext)
+            {
+                var mpces = db.MPOfCertificate.Where(t => t.CreateUser != "sdmb").Where(t => t.DataPushStatus == 0).Take(10).ToList();
+                foreach (var mc in mpces)
+                {
+                    PlaceProveDataPush(mc);
+                    //mc.DataPushStatus = 1;
+                    //mc.DataPushTime = DateTime.Now;
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public static void DataPush_ZYSS()
+        {
+
+        }
+
+
+
     }
 
     public class PostMsg
@@ -369,6 +633,10 @@ namespace JXGIS.JXTopsystem.Business.DataPush
         /// 模块名
         /// </summary>
         public string CALLER { get; set; }
+        /// <summary>
+        /// 原始数据主键，用于变更时查找原始数据
+        /// </summary>
+        public string PLACEOLDID { get; set; }
         /// <summary>
         /// 新增（ADD）变更（UPDATE）删除（DELETE）
         /// </summary>
@@ -510,6 +778,101 @@ namespace JXGIS.JXTopsystem.Business.DataPush
         /// 产权人（产权单位）
         /// </summary>
         public string BYUX0004 { get; set; }
+
+        /// <summary>
+        /// BYUX0003
+        /// </summary>
+        public string BYUX0003 { get; set; }
+        /// <summary>
+        /// 村
+        /// </summary>
+        public string BYUX0009 { get; set; }
+        /// <summary>
+        /// 村单位 1行政村 2自然村 3村
+        /// </summary>
+        public string BYUX0010 { get; set; }
+        /// <summary>
+        /// 村居
+        /// </summary>
+        public string BYUX0011 { get; set; }
+        /// <summary>
+        /// 村居单位 1区 3苑 5村
+        /// </summary>
+        public string BYUX0012 { get; set; }
+        /// <summary>
+        /// 村号
+        /// </summary>
+        public string BYUX0013 { get; set; }
+        /// <summary>
+        /// 村号单位  1号 2室
+        /// </summary>
+        public string BYUX0014 { get; set; }
+        /// <summary>
+        /// 所在道路
+        /// </summary>
+        public string BYUX0015 { get; set; }
+        /// <summary>
+        /// 道路级别单位 1路 3街 4弄 5里 6巷 13区 14道
+        /// </summary>
+        public string BYUX0016 { get; set; }
+        /// <summary>
+        /// 道路弄
+        /// </summary>
+        public string BYUX0017 { get; set; }
+        /// <summary>
+        /// 弄级别 1弄 2巷 3号 4路
+        /// </summary>
+        public string BYUX0018 { get; set; }
+        /// <summary>
+        /// 道路号 
+        /// </summary>
+        public string BYUX0019 { get; set; }
+        /// <summary>
+        /// 道路号级别 1号 2室 3层 4座 5楼
+        /// </summary>
+        public string BYUX0020 { get; set; }
+        /// <summary>
+        /// 小区名称
+        /// </summary>
+        public string BYUX0021 { get; set; }
+        /// <summary>
+        /// 小区级别 1小区 2花园 3公寓 4大厦 5新村 6苑 7中心 8广场 9商厦 10庭 11家园 12园 13公馆 14名苑 15城
+        /// </summary>
+        public string BYUX0022 { get; set; }
+        /// <summary>
+        /// 苑、花苑
+        /// </summary>
+        public string BYUX0023 { get; set; }
+        /// <summary>
+        /// 苑级别
+        /// </summary>
+        public string BYUX0024 { get; set; }
+        /// <summary>
+        /// 幢
+        /// </summary>
+        public string BYUX0025 { get; set; }
+        /// <summary>
+        /// 幢级别 1幢 3号楼
+        /// </summary>
+        public string BYUX0026 { get; set; }
+        /// <summary>
+        /// 单元 1单元 2层 3区 4号
+        /// </summary>
+        public string BYUX0027 { get; set; }
+        /// <summary>
+        /// 单元级别
+        /// </summary>
+        public string BYUX0028 { get; set; }
+        /// <summary>
+        /// 室、号
+        /// </summary>
+        public string BYUX0029 { get; set; }
+        /// <summary>
+        /// 室、号级别  1室  2号
+        /// </summary>
+        public string BYUX0030 { get; set; }
+
+
         /// <summary>
         /// 门牌证号
         /// </summary>
@@ -648,42 +1011,42 @@ namespace JXGIS.JXTopsystem.Business.DataPush
         /// 结果领取方式
         /// </summary>
         public string BYXX0021 { get; set; }
-        /// <summary>
-        /// 主键ID
-        /// </summary>
-        public string BMJXUUID { get; set; }
-        /// <summary>
-        /// PROJID外键，数据ID
-        /// </summary>
-        public string BMJX0001 { get; set; }
-        /// <summary>
-        ///门牌证号/地名代码
-        /// </summary>
-        public string BMJX0002 { get; set; }
-        /// <summary>
-        /// 附件文件名称
-        /// </summary>
-        public string BMJX0003 { get; set; }
-        /// <summary>
-        /// 附件访问路径
-        /// </summary>
-        public string BMJX0004 { get; set; }
-        /// <summary>
-        /// 文件大小
-        /// </summary>
-        public string BMJX0006 { get; set; }
-        /// <summary>
-        /// 材料描述代码
-        /// </summary>
-        public string BMJX0007 { get; set; }
-        /// <summary>
-        /// 业务类型代码
-        /// </summary>
-        public string BMJX0008 { get; set; }
-        /// <summary>
-        /// ZZZZ9999
-        /// </summary>
-        public string ZZZZ9999 { get; set; }
+        ///// <summary>
+        ///// 主键ID
+        ///// </summary>
+        //public string BMJXUUID { get; set; }
+        ///// <summary>
+        ///// PROJID外键，数据ID
+        ///// </summary>
+        //public string BMJX0001 { get; set; }
+        ///// <summary>
+        /////门牌证号/地名代码
+        ///// </summary>
+        //public string BMJX0002 { get; set; }
+        ///// <summary>
+        ///// 附件文件名称
+        ///// </summary>
+        //public string BMJX0003 { get; set; }
+        ///// <summary>
+        ///// 附件访问路径
+        ///// </summary>
+        //public string BMJX0004 { get; set; }
+        ///// <summary>
+        ///// 文件大小
+        ///// </summary>
+        //public string BMJX0006 { get; set; }
+        ///// <summary>
+        ///// 材料描述代码
+        ///// </summary>
+        //public string BMJX0007 { get; set; }
+        ///// <summary>
+        ///// 业务类型代码
+        ///// </summary>
+        //public string BMJX0008 { get; set; }
+        ///// <summary>
+        ///// ZZZZ9999
+        ///// </summary>
+        //public string ZZZZ9999 { get; set; }
     }
     public class Document
     {
@@ -724,5 +1087,5 @@ namespace JXGIS.JXTopsystem.Business.DataPush
         /// </summary>
         public string ZZZZ9999 { get; set; }
     }
-    
+
 }

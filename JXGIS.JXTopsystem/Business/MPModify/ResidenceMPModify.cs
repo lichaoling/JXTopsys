@@ -57,6 +57,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
+                    CommunityDic.ID = Guid.NewGuid().ToString();
                     CommunityDic.CountyID = targetData.CountyID;
                     CommunityDic.NeighborhoodsID = targetData.NeighborhoodsID;
                     CommunityDic.CommunityName = targetData.CommunityName;
@@ -81,7 +82,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + LZNumber1 + MPNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.DYPosition = (targetData.Lng != 0 && targetData.Lat != 0 && targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;
+                    //targetData.MPPosition = (targetData.MPPositionX != 0 && targetData.MPPositionY != 0 && targetData.MPPositionX != null && targetData.MPPositionY != null) ? (DbGeography.FromText($"POINT({targetData.MPPositionX} {targetData.MPPositionY})")) : null;
                     targetData.AddType = Enums.MPAddType.LX;
                     targetData.MPProduce = Enums.MPProduce.NO;
                     targetData.MPZPrintComplete = Enums.Complete.NO;
@@ -105,6 +106,7 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     #endregion
                     #region 检查这个行政区下社区名是否在字典表中存在，若不存在就新增
                     var CommunityDic = new CommunityDic();
+                    CommunityDic.ID = Guid.NewGuid().ToString();
                     CommunityDic.CountyID = targetData.CountyID;
                     CommunityDic.NeighborhoodsID = targetData.NeighborhoodsID;
                     CommunityDic.CommunityName = targetData.CommunityName;
@@ -129,10 +131,15 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     var StandardAddress = "嘉兴市" + CountyName + NeighborhoodsName + targetData.ResidenceName + LZNumber1 + MPNumber1 + DYNumber1 + HSNumber1;
                     targetData.StandardAddress = StandardAddress;
                     #endregion
-                    targetData.DYPosition = (targetData.Lng != 0 && targetData.Lat != 0 && targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;
+                    //targetData.DYPosition = (targetData.Lng != 0 && targetData.Lat != 0 && targetData.Lng != null && targetData.Lat != null) ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.DYPosition;
                     targetData.LastModifyTime = DateTime.Now;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
                     BaseUtils.UpdateAddressCode(targetData, null, null, null, Enums.TypeInt.Residence);
+
+                    if (targetData.DataPushStatus == 1)
+                    {
+                        targetData.DataPushStatus = 0;
+                    }
                 }
                 db.SaveChanges();
             }
@@ -149,6 +156,9 @@ namespace JXGIS.JXTopsystem.Business.MPModify
                     q.State = Enums.UseState.Cancel;
                     q.CancelTime = DateTime.Now;
                     q.CancelUser = LoginUtils.CurrentUser.UserName;
+
+                    if (q.DataPushStatus == 1)
+                        q.DataPushStatus = 0;
                 }
                 dbContext.SaveChanges();
             }

@@ -325,6 +325,11 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     targetData.Geom = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.Geom;
                     targetData.LastModifyTime = DateTime.Now;
                     targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+
+                    if (targetData.DataPushStatus == 1)
+                    {
+                        targetData.DataPushStatus = 0;
+                    }
                 }
                 dbContext.SaveChanges();
             }
@@ -346,6 +351,9 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     q.State = Enums.UseState.Cancel;
                     q.CancelTime = DateTime.Now;
                     q.CancelUser = LoginUtils.CurrentUser.UserName;
+
+                    if (q.DataPushStatus == 1)
+                        q.DataPushStatus = 0;
                 }
                 dbContext.SaveChanges();
             }

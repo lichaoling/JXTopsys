@@ -274,6 +274,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 if (sourceData.ID == null) //新增
                 {
                     var targetData = new District();
+                    targetData.IndetityID = Guid.NewGuid().ToString();
                     targetData.ID = "嘉兴市." + sourceData.CountyName + (!string.IsNullOrEmpty(sourceData.NeighborhoodsName) ? "." + sourceData.NeighborhoodsName : "");
                     targetData.ParentID = "嘉兴市" + (!string.IsNullOrEmpty(sourceData.NeighborhoodsName) ? "." + sourceData.CountyName : "");
                     targetData.Code = sourceData.Code;
@@ -388,6 +389,7 @@ namespace JXGIS.JXTopsystem.Business.Common
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 District dis = new District();
+                dis.IndetityID = Guid.NewGuid().ToString();
                 dis.ID = $"嘉兴市.{CountyName}.{NeighborhoodsName}";
                 dis.ParentID = $"嘉兴市.{CountyName}";
                 dis.Code = Code;

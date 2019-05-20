@@ -521,7 +521,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 return code;
             }
         }
-        public static PostcodeDetails GetPostcodeByID(int id)
+        public static PostcodeDetails GetPostcodeByID(string id)
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
@@ -551,6 +551,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                 if (data == null) //新增
                 {
                     var targetData = new PostcodeDic();
+                    targetData.IndetityID = Guid.NewGuid().ToString();
                     targetData.CountyID = sourceData.CountyID;
                     targetData.NeighborhoodsID = sourceData.NeighborhoodsID;
                     targetData.CommunityName = sourceData.CommunityName;
