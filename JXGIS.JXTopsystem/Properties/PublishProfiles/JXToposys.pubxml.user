@@ -43,7 +43,7 @@
       <publishTime>01/22/2018 18:40:38</publishTime>
     </File>
     <File Include="bin/JXGIS.JXTopsystem.dll">
-      <publishTime>04/25/2019 11:04:44</publishTime>
+      <publishTime>05/21/2019 08:47:53</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>08/22/2018 15:34:58</publishTime>
@@ -2683,7 +2683,7 @@
       <publishTime>07/12/2018 11:22:40</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/25/2019 13:19:18</publishTime>
+      <publishTime>05/21/2019 08:47:58</publishTime>
     </File>
     <File Include="wxConfig.json">
       <publishTime>01/17/2019 08:44:38</publishTime>

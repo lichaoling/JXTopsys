@@ -72,7 +72,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     targetData.FinishRepaire = Enums.RPRepairFinish.Yes;
                     targetData.State = Enums.UseState.Enable;
                     targetData.CreateTime = DateTime.Now;
-                    targetData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    targetData.CreateUser = LoginUtils.CurrentUser.UserID;
                     
                     //生成二维码图和缩略图并保存
                     //var tt = dbContext.RP.Max(t => t.Code);
@@ -144,7 +144,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                     #endregion
                     //targetData.Position = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.Position;
                     targetData.LastModifyTime = DateTime.Now;
-                    targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    targetData.LastModifyUser = LoginUtils.CurrentUser.UserID;
                     BaseUtils.UpdateAddressCode(null, null, null, targetData, Enums.TypeInt.RP);
                 }
                 dbContext.SaveChanges();
@@ -162,7 +162,7 @@ namespace JXGIS.JXTopsystem.Business.RPModify
                 {
                     q.State = Enums.UseState.Cancel;
                     q.CancelTime = DateTime.Now;
-                    q.CancelUser = LoginUtils.CurrentUser.UserName;
+                    q.CancelUser = LoginUtils.CurrentUser.UserID;
                 }
                 dbContext.SaveChanges();
             }

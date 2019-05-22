@@ -119,7 +119,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         mpCertificate.ID = Guid.NewGuid().ToString();
                         mpCertificate.MPID = ID;
                         mpCertificate.CreateTime = DateTime.Now;
-                        mpCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
+                        mpCertificate.CreateUser = LoginUtils.CurrentUser.UserID;
                         mpCertificate.MPType = MPType;
                         mpCertificate.CertificateType = Enums.CertificateType.Placename;
                         mpCertificate.Window = LoginUtils.CurrentUser.Window;
@@ -245,7 +245,7 @@ namespace JXGIS.JXTopsystem.Business.MPPrintUtils
                         mpCertificate.ID = Guid.NewGuid().ToString();
                         mpCertificate.MPID = ID;
                         mpCertificate.CreateTime = DateTime.Now;
-                        mpCertificate.CreateUser = LoginUtils.CurrentUser.UserName;
+                        mpCertificate.CreateUser = LoginUtils.CurrentUser.UserID;
                         mpCertificate.MPType = MPType;
                         mpCertificate.CertificateType = Enums.CertificateType.MPZ;
                         mpCertificate.Window = LoginUtils.CurrentUser.Window;

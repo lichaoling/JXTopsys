@@ -298,7 +298,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                     targetData.Geom = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.Geom;
                     targetData.State = Enums.UseState.Enable;
                     targetData.CreateTime = DateTime.Now;
-                    targetData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    targetData.CreateUser = LoginUtils.CurrentUser.UserID;
                     targetData.SBLY = Enums.SBLY.zj;
                     dbContext.ZYSS.Add(targetData);
                 }
@@ -324,7 +324,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
 
                     targetData.Geom = targetData.Lng != null && targetData.Lat != null ? (DbGeography.FromText($"POINT({targetData.Lng} {targetData.Lat})")) : targetData.Geom;
                     targetData.LastModifyTime = DateTime.Now;
-                    targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    targetData.LastModifyUser = LoginUtils.CurrentUser.UserID;
 
                     if (targetData.DataPushStatus == 1)
                     {
@@ -350,7 +350,7 @@ namespace JXGIS.JXTopsystem.Business.PlaceName
                 {
                     q.State = Enums.UseState.Cancel;
                     q.CancelTime = DateTime.Now;
-                    q.CancelUser = LoginUtils.CurrentUser.UserName;
+                    q.CancelUser = LoginUtils.CurrentUser.UserID;
 
                     if (q.DataPushStatus == 1)
                         q.DataPushStatus = 0;

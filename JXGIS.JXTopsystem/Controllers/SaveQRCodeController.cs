@@ -32,7 +32,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 wx = wx.GetConfig();
                 WebClient wc = new WebClient();
                 var url = string.Format(WxUtils.tickedUrl, wx.access_token);
-                string postData = "{\"expire_seconds\": 604800, \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_id\":" + Code + "}}}";
+                string postData = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\":" + Code + "}}}";
                 var ticket = ServiceUtils.Post(url, postData);
                 var re = Newtonsoft.Json.JsonConvert.DeserializeObject<ResultTicket>(ticket);
                 if (re == null || string.IsNullOrEmpty(re.url))
@@ -93,7 +93,7 @@ namespace JXGIS.JXTopsystem.Controllers
                 wx = wx.GetConfig();
                 WebClient wc = new WebClient();
                 var url = string.Format(WxUtils.tickedUrl, wx.access_token);
-                string postData = "{\"expire_seconds\": 604800, \"action_name\": \"QR_SCENE\", \"action_info\": {\"scene\": {\"scene_id\":" + Code + "}}}";
+                string postData = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\":" + Code + "}}}";
                 var ticket = ServiceUtils.Post(url, postData);
                 var re = Newtonsoft.Json.JsonConvert.DeserializeObject<ResultTicket>(ticket);
                 if (re == null || string.IsNullOrEmpty(re.url))
@@ -150,7 +150,7 @@ namespace JXGIS.JXTopsystem.Controllers
             {
                 for (int i = 1; i <= 829; i++)
                     test1(i);
-                for (int i = 1001; i <= 1040; i++)
+                for (int i = 1001; i <=1318; i++)
                     test1(i);
                 rt = new RtObj();
             }

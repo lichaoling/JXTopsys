@@ -1,0 +1,10 @@
+=======2019/5/21 星期二 15:57:45
+|Message:操作失败,查询到多条重复id的数据，请核实！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 347
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_MP() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 694
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\DataPushController.cs:行号 63
+=======2019/5/21 星期二 16:33:12
+|Message:操作失败，未查询到需要变更的数据！
+|StackTrace:   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 347
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_MP() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 694
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\DataPushController.cs:行号 63

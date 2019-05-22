@@ -34,6 +34,7 @@ namespace JXGIS.JXTopsystem.Business.DataPush
                                 + "<CALLTIME>" + baseInfo.CALLTIME + "</CALLTIME>"
                             + "</CALLINFO>"
                             + "<PLACEID>" + baseInfo.PLACEID + "</PLACEID>"
+                            + "<PLACEOLDID>" + baseInfo.PLACEOLDID + "</PLACEOLDID>"
                             + "<STREETID>" + baseInfo.STREETID + "</STREETID>"
                         + "</RECORD>";
             return xml;
@@ -223,13 +224,36 @@ namespace JXGIS.JXTopsystem.Business.DataPush
                         + "<RECORDS>"
                             + "<Item name='BYUX0001' name_cn='街道（乡镇）代码'>" + doorplate.BYUX0001 + "</Item>"
                             + "<Item name='ALAA0001' name_cn='所属行政区划代码'>" + doorplate.ALAA0001 + "</Item>"
+                            + "<Item name='BYUX0004' name_cn='社区（居、村）名称'>" + doorplate.BYUX0003 + "</Item>"
                             + "<Item name='BYUX0004' name_cn='产权人（产权单位）'>" + doorplate.BYUX0004 + "</Item>"
+                            + "<Item name='BYUX0036' name_cn='证件号码'>" + doorplate.BYUX0036 + "</Item>"
+                            + "<Item name='BYUX0058' name_cn='证件类型'>" + doorplate.BYUX0058 + "</Item>"
+                            + "<Item name='BYUX0009' name_cn='村'>" + doorplate.BYUX0009 + "</Item>"
+                            + "<Item name='BYUX0010' name_cn='村单位'>" + doorplate.BYUX0010 + "</Item>"
+                            + "<Item name='BYUX0011' name_cn='村居'>" + doorplate.BYUX0011 + "</Item>"
+                            + "<Item name='BYUX0012' name_cn='村居单位'>" + doorplate.BYUX0012 + "</Item>"
+                            + "<Item name='BYUX0013' name_cn='村号'>" + doorplate.BYUX0013 + "</Item>"
+                            + "<Item name='BYUX0014' name_cn='村号单位'>" + doorplate.BYUX0014 + "</Item>"
+                            + "<Item name='BYUX0015' name_cn='所在道路'>" + doorplate.BYUX0015 + "</Item>"
+                            + "<Item name='BYUX0016' name_cn='道路级别（单位）'>" + doorplate.BYUX0016 + "</Item>"
+                            + "<Item name='BYUX0019' name_cn='道路号'>" + doorplate.BYUX0019 + "</Item>"
+                            + "<Item name='BYUX0019' name_cn='道路号级别'>" + doorplate.BYUX0020 + "</Item>"
+                            + "<Item name='BYUX0021' name_cn='小区名称'>" + doorplate.BYUX0021 + "</Item>"
+                            + "<Item name='BYUX0022' name_cn='小区级别'>" + doorplate.BYUX0022 + "</Item>"
+                            + "<Item name='BYUX0025' name_cn='幢'>" + doorplate.BYUX0025 + "</Item>"
+                            + "<Item name='BYUX0026' name_cn='幢级别'>" + doorplate.BYUX0026 + "</Item>"
+                            + "<Item name='BYUX0027' name_cn='单元'>" + doorplate.BYUX0027 + "</Item>"
+                            + "<Item name='BYUX0028' name_cn='单元级别'>" + doorplate.BYUX0028 + "</Item>"
+                            + "<Item name='BYUX0029' name_cn='室、号'>" + doorplate.BYUX0029 + "</Item>"
+                            + "<Item name='BYUX0030' name_cn='室、号级别'>" + doorplate.BYUX0030 + "</Item>"
                             + "<Item name='BYUX0031' name_cn='门牌证号'>" + doorplate.BYUX0031 + "</Item>"
                             + "<Item name='BYUX0037' name_cn='当前门牌地址'>" + doorplate.BYUX0037 + "</Item>"
                             + "<Item name='BYUX0060' name_cn='门牌类型'>" + doorplate.BYUX0060 + "</Item>"
                             + "<Item name='BYRX0030' name_cn='门牌申请方式'>" + doorplate.BYRX0030 + "</Item>"
                             + "<Item name='BYRX0031' name_cn='门牌申请类型'>" + doorplate.BYRX0031 + "</Item>"
                             + "<Item name='BYRX0032' name_cn='申办人'>" + doorplate.BYRX0032 + "</Item>"
+                            + "<Item name='BYRX0033' name_cn='申办人证件号码'>" + doorplate.BYRX0033 + "</Item>"
+                            + "<Item name='BYRX0039' name_cn='申办人证件类型'>" + doorplate.BYRX0039 + "</Item>"
                             + "<Item name='BYRX0035' name_cn='填报用户'>" + doorplate.BYRX0035 + "</Item>"
                             + "<Item name='BYRX0038' name_cn='领取方式'>" + doorplate.BYRX0038 + "</Item>"
                         + "</RECORDS>";
@@ -336,12 +360,18 @@ namespace JXGIS.JXTopsystem.Business.DataPush
             string BaseInfoXml = GetBaseInfoXml(baseInfo);
 
             Doorplate doorplate = new Doorplate();
-            doorplate.BYUX0001 = mp.AddressCoding.Substring(2, 3);
+            doorplate.BYUX0001 = "3304" + mp.AddressCoding.Substring(0, 5);
             doorplate.ALAA0001 = "3304" + mp.AddressCoding.Substring(0, 2);
+
             doorplate.BYUX0004 = mp.PropertyOwner == null ? "无" : mp.PropertyOwner;
+            doorplate.BYUX0036 = mp.IDNumber == null ? "无" : mp.IDNumber;
+            doorplate.BYUX0058 = mp.IDType == "居民身份证" ? "1" : mp.IDType == "统一社会信用代码证" ? "3" : "2";
+
             doorplate.BYUX0003 = mp.CommunityName;
-            doorplate.BYUX0009 = mp.ViligeName;
-            doorplate.BYUX0010 = mp.ViligeName == null ? null : "3";
+            doorplate.BYUX0009 = mp.CommunityName;
+            doorplate.BYUX0010 = mp.CommunityName != null ? "3" : null;
+            doorplate.BYUX0011 = mp.ViligeName;
+            doorplate.BYUX0012 = mp.ViligeName == null ? null : "5";
             doorplate.BYUX0013 = mp.MPNumber;
             doorplate.BYUX0014 = "1";
 
@@ -350,7 +380,11 @@ namespace JXGIS.JXTopsystem.Business.DataPush
             doorplate.BYUX0060 = "2";
             doorplate.BYRX0030 = "2";//1单位（委托）申请、2个人（委托）申请、3农居（委托）申请
             doorplate.BYRX0031 = "1";//1首次申请 2补领申请  3其他
+
             doorplate.BYRX0032 = mp.Applicant == null ? "无" : mp.Applicant;
+            doorplate.BYRX0033 = "无";
+            doorplate.BYRX0039 = "2";
+
             doorplate.BYRX0035 = mp.CreateUser;
             doorplate.BYRX0038 = mp.MPMail == 0 ? "3" : "1";//查询代码表
             string AcceptInfoXml = GetAcceptInfoXml_Doorplate(doorplate);
@@ -375,25 +409,33 @@ namespace JXGIS.JXTopsystem.Business.DataPush
             string BaseInfoXml = GetBaseInfoXml(baseInfo);
 
             Doorplate doorplate = new Doorplate();
-            doorplate.BYUX0001 = mp.AddressCoding.Substring(2, 3);
+            doorplate.BYUX0001 = "3304" + mp.AddressCoding.Substring(0, 5);
             doorplate.ALAA0001 = "3304" + mp.AddressCoding.Substring(0, 2);
+
             doorplate.BYUX0004 = mp.PropertyOwner == null ? "无" : mp.PropertyOwner;
+            doorplate.BYUX0036 = mp.IDNumber == null ? "无" : mp.IDNumber;
+            doorplate.BYUX0058 = mp.IDType == "居民身份证" ? "1" : mp.IDType == "统一社会信用代码证" ? "3" : "2";
+
             doorplate.BYUX0003 = mp.CommunityName;
             doorplate.BYUX0021 = mp.ResidenceName;
             doorplate.BYUX0022 = mp.ResidenceName.Contains("公寓") ? "3" : mp.ResidenceName.Contains("大厦") ? "4" : mp.ResidenceName.Contains("广场") ? "8" : mp.ResidenceName.Contains("家园") ? "11" : mp.ResidenceName.Contains("公馆") ? "13" : mp.ResidenceName.Contains("名苑") ? "14" : mp.ResidenceName.Contains("商厦") ? "9" : "1";
             doorplate.BYUX0025 = mp.LZNumber;
-            doorplate.BYUX0026 = "1";
+            doorplate.BYUX0026 = mp.LZNumber == null ? null : "1";
             doorplate.BYUX0027 = mp.DYNumber;
-            doorplate.BYUX0028 = "1";
+            doorplate.BYUX0028 = mp.DYNumber == null ? null : "1";
             doorplate.BYUX0029 = mp.HSNumber;
-            doorplate.BYUX0030 = "1";
+            doorplate.BYUX0030 = mp.HSNumber == null ? null : "1";
 
             doorplate.BYUX0031 = mp.AddressCoding;
             doorplate.BYUX0037 = mp.StandardAddress;
             doorplate.BYUX0060 = "3";
             doorplate.BYRX0030 = "1";//1单位（委托）申请、2个人（委托）申请、3农居（委托）申请
             doorplate.BYRX0031 = "1";//1首次申请 2补领申请  3其他
+
             doorplate.BYRX0032 = mp.Applicant == null ? "无" : mp.Applicant;
+            doorplate.BYRX0033 = "无";
+            doorplate.BYRX0039 = "2";
+
             doorplate.BYRX0035 = mp.CreateUser;
             doorplate.BYRX0038 = "3";//查询代码表
             string AcceptInfoXml = GetAcceptInfoXml_Doorplate(doorplate);
@@ -418,20 +460,29 @@ namespace JXGIS.JXTopsystem.Business.DataPush
             string BaseInfoXml = GetBaseInfoXml(baseInfo);
 
             Doorplate doorplate = new Doorplate();
-            doorplate.BYUX0001 = mp.AddressCoding.Substring(2, 3);
+            doorplate.BYUX0001 = "3304" + mp.AddressCoding.Substring(0, 5);
             doorplate.ALAA0001 = "3304" + mp.AddressCoding.Substring(0, 2);
+
             doorplate.BYUX0004 = mp.PropertyOwner == null ? "无" : mp.PropertyOwner;
+            doorplate.BYUX0036 = mp.IDNumber == null ? "无" : mp.IDNumber;
+            doorplate.BYUX0058 = mp.IDType == "居民身份证" ? "1" : mp.IDType == "统一社会信用代码证" ? "3" : "2";
+
             doorplate.BYUX0003 = mp.CommunityName;
             doorplate.BYUX0015 = mp.RoadName;
             doorplate.BYUX0016 = mp.RoadName.Contains("弄") ? "4" : mp.RoadName.Contains("街") ? "3" : mp.RoadName.Contains("巷") ? "6" : "1";
             doorplate.BYUX0019 = mp.MPNumber;
+            doorplate.BYUX0020 = "1";
 
             doorplate.BYUX0031 = mp.AddressCoding;
             doorplate.BYUX0037 = mp.StandardAddress;
             doorplate.BYUX0060 = "1";
             doorplate.BYRX0030 = "1";//1单位（委托）申请、2个人（委托）申请、3农居（委托）申请
             doorplate.BYRX0031 = "1";//1首次申请 2补领申请  3其他
+
             doorplate.BYRX0032 = mp.Applicant == null ? "无" : mp.Applicant;
+            doorplate.BYRX0033 = "无";
+            doorplate.BYRX0039 = "2";
+
             doorplate.BYRX0035 = mp.CreateUser;
             doorplate.BYRX0038 = mp.MPMail == 0 ? "3" : "1";//查询代码表
             string AcceptInfoXml = GetAcceptInfoXml_Doorplate(doorplate);
@@ -572,27 +623,76 @@ namespace JXGIS.JXTopsystem.Business.DataPush
         {
             using (var db = SystemUtils.NewEFDbContext)
             {
-                var mpres = db.MPOfResidence.Where(t => t.DataPushStatus == 0 && (t.State == 1 || (t.DataPushTime != null && t.State == 2))).Take(10).ToList();
-                foreach (var mp in mpres)
-                {
-                    MPOfResidenceDataPush(mp);
-                    //mp.DataPushStatus = 1;
-                    //mp.DataPushTime = DateTime.Now;
-                }
-                var mpros = db.MPOfRoad.Where(t => t.DataPushStatus == 0 && (t.State == 1 || (t.DataPushTime != null && t.State == 2))).Take(10).ToList();
-                foreach (var mp in mpros)
-                {
-                    MPOfRoadDataPush(mp);
-                    //mp.DataPushStatus = 1;
-                    //mp.DataPushTime = DateTime.Now;
-                }
-                var mpcos = db.MPOfCountry.Where(t => t.DataPushStatus == 0 && (t.State == 1 || (t.DataPushTime != null && t.State == 2))).Take(10).ToList();
-                foreach (var mp in mpcos)
-                {
-                    MPOfCountryDataPush(mp);
-                    //mp.DataPushStatus = 1;
-                    //mp.DataPushTime = DateTime.Now;
-                }
+                //var mpres = db.MPOfResidence.Where(t => t.DataPushStatus == 0 && (t.State == 1 || (t.DataPushTime != null && t.State == 2))).Take(2).ToList();
+                //foreach (var mp in mpres)
+                //{
+                //    MPOfResidenceDataPush(mp);
+                //    //mp.DataPushStatus = 1;
+                //    //mp.DataPushTime = DateTime.Now;
+                //}
+                //var mpros = db.MPOfRoad.Where(t => t.DataPushStatus == 0 && (t.State == 1 || (t.DataPushTime != null && t.State == 2))).Take(2).ToList();
+                //foreach (var mp in mpros)
+                //{
+                //    MPOfRoadDataPush(mp);
+                //    //mp.DataPushStatus = 1;
+                //    //mp.DataPushTime = DateTime.Now;
+                //}
+                //var mpcos = db.MPOfCountry.Where(t => t.DataPushStatus == 0 && (t.State == 1 || (t.DataPushTime != null && t.State == 2))).Take(2).ToList();
+                //foreach (var mp in mpcos)
+                //{
+                //    MPOfCountryDataPush(mp);
+                //    //mp.DataPushStatus = 1;
+                //    //mp.DataPushTime = DateTime.Now;
+                //}
+
+                var mp = db.MPOfCountry.Where(t => t.ID == "00002fb2-efb5-459e-9f11-24eadae02562").FirstOrDefault();
+                BaseInfo baseInfo = new BaseInfo();
+                baseInfo.CALLER = "门牌";
+                baseInfo.CALLOPERATE = "DELETE";
+                baseInfo.PLACEOLDID = "3304" + mp.AddressCoding.Substring(0, 5) + mp.ID;
+                baseInfo.CALLTIME = DateTime.Now.ToString("yyyy-MM-dd");
+                baseInfo.PLACEID = "3304" + mp.AddressCoding.Substring(0, 5) + mp.ID;
+                baseInfo.STREETID = "3304" + mp.AddressCoding.Substring(0, 5);
+                string BaseInfoXml = GetBaseInfoXml(baseInfo);
+
+                Doorplate doorplate = new Doorplate();
+                doorplate.BYUX0001 = "3304" + mp.AddressCoding.Substring(0, 5);
+                doorplate.ALAA0001 = "3304" + mp.AddressCoding.Substring(0, 2);
+
+                doorplate.BYUX0004 = mp.PropertyOwner == null ? "无" : mp.PropertyOwner;
+                doorplate.BYUX0036 = mp.IDNumber == null ? "无" : mp.IDNumber;
+                doorplate.BYUX0058 = mp.IDType == "居民身份证" ? "1" : mp.IDType == "统一社会信用代码证" ? "3" : "2";
+
+                doorplate.BYUX0003 = mp.CommunityName;
+                doorplate.BYUX0009 = mp.CommunityName;
+                doorplate.BYUX0010 = mp.CommunityName != null ? "3" : null;
+                doorplate.BYUX0011 = mp.ViligeName;
+                doorplate.BYUX0012 = mp.ViligeName == null ? null : "5";
+                doorplate.BYUX0013 = mp.MPNumber+"22222";
+                doorplate.BYUX0014 = "1";
+
+                doorplate.BYUX0031 = mp.AddressCoding;
+                doorplate.BYUX0037 = mp.StandardAddress;
+                doorplate.BYUX0060 = "2";
+                doorplate.BYRX0030 = "2";//1单位（委托）申请、2个人（委托）申请、3农居（委托）申请
+                doorplate.BYRX0031 = "1";//1首次申请 2补领申请  3其他
+
+                doorplate.BYRX0032 = mp.Applicant == null ? "无" : mp.Applicant;
+                doorplate.BYRX0033 = "无";
+                doorplate.BYRX0039 = "2";
+
+                doorplate.BYRX0035 = mp.CreateUser;
+                doorplate.BYRX0038 = mp.MPMail == 0 ? "3" : "1";//查询代码表
+                string AcceptInfoXml = GetAcceptInfoXml_Doorplate(doorplate);
+
+                string url = System.Configuration.ConfigurationManager.AppSettings["PostDoorplateInfoURL"];
+                Dictionary<string, string> dic = new Dictionary<string, string>()
+            {
+                {"baseInfoXml", BaseInfoXml},
+                { "acceptInfoXml", AcceptInfoXml}
+            };
+                Post(url, dic);
+
                 db.SaveChanges();
             }
         }
@@ -872,6 +972,14 @@ namespace JXGIS.JXTopsystem.Business.DataPush
         /// </summary>
         public string BYUX0030 { get; set; }
 
+        /// <summary>
+        ///产权人身份证号码
+        /// </summary>
+        public string BYUX0036 { get; set; }
+        /// <summary>
+        /// 证件类型 1身份证 2户籍证明 3营业执照（五证合一）4组织机构代码证
+        /// </summary>
+        public string BYUX0058 { get; set; }
 
         /// <summary>
         /// 门牌证号
@@ -881,6 +989,8 @@ namespace JXGIS.JXTopsystem.Business.DataPush
         /// 当前门牌地址
         /// </summary>
         public string BYUX0037 { get; set; }
+
+
         /// <summary>
         /// 门牌类型
         /// </summary>
@@ -897,6 +1007,15 @@ namespace JXGIS.JXTopsystem.Business.DataPush
         /// 申办人
         /// </summary>
         public string BYRX0032 { get; set; }
+        /// <summary>
+        ///申办人证件号码
+        /// </summary>
+        public string BYRX0033 { get; set; }
+        /// <summary>
+        /// 申办人证件类型 1身份证 2户籍证明 3营业执照（五证合一）4组织机构代码证
+        /// </summary>
+        public string BYRX0039 { get; set; }
+
         /// <summary>
         /// 填报用户
         /// </summary>

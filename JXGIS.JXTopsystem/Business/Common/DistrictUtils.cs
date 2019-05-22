@@ -647,7 +647,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     targetData.Birthday = sourceData.Birthday;
                     targetData.Telephone = sourceData.Telephone;
                     targetData.CreateTime = DateTime.Now;
-                    targetData.CreateUser = LoginUtils.CurrentUser.UserName;
+                    targetData.CreateUser = LoginUtils.CurrentUser.UserID;
                     dbContext.SysUser.Add(targetData);
 
                     List<SysUser_SysRole> userroles = new List<SysUser_SysRole>();
@@ -681,7 +681,7 @@ namespace JXGIS.JXTopsystem.Business.Common
                     targetData.Birthday = sourceData.Birthday;
                     targetData.Telephone = sourceData.Telephone;
                     targetData.LastModifyTime = DateTime.Now;
-                    targetData.LastModifyUser = LoginUtils.CurrentUser.UserName;
+                    targetData.LastModifyUser = LoginUtils.CurrentUser.UserID;
 
                     var userrolesRe = dbContext.UserRole.Where(t => t.UserID == targetData.UserID).ToList();
                     dbContext.UserRole.RemoveRange(userrolesRe);

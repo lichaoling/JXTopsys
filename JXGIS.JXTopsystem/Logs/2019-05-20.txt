@@ -54,3 +54,84 @@
    在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.MPOfRoadDataPush(MPOfRoad mp)
    在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_MP()
    在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()
+=======2019/5/20 星期一 15:00:15
+|Message:An error occurred while executing the command definition. See the inner exception for details.
+|StackTrace:   在 System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   在 System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\MPSearch\ResidenceMPSearch.cs:行号 172
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 37
+=======2019/5/20 星期一 15:01:00
+|Message:An error occurred while executing the command definition. See the inner exception for details.
+|StackTrace:   在 System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   在 System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\MPSearch\ResidenceMPSearch.cs:行号 172
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 37
+=======2019/5/20 星期一 15:02:55
+|Message:An error occurred while executing the command definition. See the inner exception for details.
+|StackTrace:   在 System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   在 System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.MPSearch.ResidenceMPSearch.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\MPSearch\ResidenceMPSearch.cs:行号 172
+   在 JXGIS.JXTopsystem.Controllers.MPSearchController.SearchResidenceMP(Int32 PageSize, Int32 PageNum, String DistrictID, String CommunityName, String ResidenceName, String AddressCoding, String PropertyOwner, String StandardAddress, Int32 UseState) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\MPSearchController.cs:行号 37
+=======2019/5/20 星期一 15:11:26
+|Message:The specified cast from a materialized 'System.Int32' type to the 'System.String' type is not valid.
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.DicUtils.GetPostcodesFromCode(String CountyID, String NeighborhoodsID, String CommunityName) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\Common\DicUtils.cs:行号 489
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetPostcodes(String CountyID, String NeighborhoodsID, String CommunityName) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 379
+=======2019/5/20 星期一 15:12:05
+|Message:The specified cast from a materialized 'System.Int32' type to the 'System.String' type is not valid.
+|StackTrace:   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)
+   在 lambda_method(Closure , Shaper )
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)
+   在 System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 JXGIS.JXTopsystem.Business.Common.DicUtils.GetPostcodesFromCode(String CountyID, String NeighborhoodsID, String CommunityName) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\Common\DicUtils.cs:行号 489
+   在 JXGIS.JXTopsystem.Controllers.CommonController.GetPostcodes(String CountyID, String NeighborhoodsID, String CommunityName) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\CommonController.cs:行号 379
+=======2019/5/20 星期一 16:11:16
+|Message:操作超时
+|StackTrace:   在 System.Net.HttpWebRequest.GetResponse()
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 328
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.MPOfResidenceDataPush(MPOfResidence mp) 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 421
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_MP() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Business\DataPush\DataPushUtils.cs:行号 592
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush() 位置 E:\工作\Projects\2 嘉兴地名\新系统\嘉兴地名\Code\后台\JXTopsys\JXGIS.JXTopsystem\Controllers\DataPushController.cs:行号 63
+=======2019/5/20 星期一 16:16:44
+|Message:操作超时
+|StackTrace:   在 System.Net.HttpWebRequest.GetResponse()
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.Post(String url, Dictionary`2 parameters)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.MPOfResidenceDataPush(MPOfResidence mp)
+   在 JXGIS.JXTopsystem.Business.DataPush.DataPushUtils.DataPush_MP()
+   在 JXGIS.JXTopsystem.Controllers.DataPushController.DataPush()

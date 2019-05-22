@@ -67,12 +67,12 @@ namespace JXGIS.JXTopsystem.Controllers
                     if (MPType == Enums.MPTypeCh.Road)
                     {
                         var sql = @"update MPOfRoad set LXProduceID=@LXProduceID,MPProduceUser=@MPProduceUser,MPProduceTime=@MPProduceTime where State=1 and AddType='零星' and MPProduce=1 and id in (@MPIDs)";
-                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@LXProduceID", LXProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@MPIDs", string.Join(",", MPIDs)));
+                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@LXProduceID", LXProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserID), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@MPIDs", string.Join(",", MPIDs)));
                     }
                     else if (MPType == Enums.MPTypeCh.Country)
                     {
                         var sql = @"update MPOfCountry set LXProduceID=@LXProduceID,MPProduceUser=@MPProduceUser,MPProduceTime=@MPProduceTime where State=1 and AddType='零星' and MPProduce=1 and id in (@MPIDs)";
-                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@LXProduceID", LXProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@MPIDs", string.Join(",", MPIDs)));
+                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@LXProduceID", LXProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserID), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@MPIDs", string.Join(",", MPIDs)));
                     }
                     else
                         throw new Error("未知的错误类型！");
@@ -178,7 +178,7 @@ namespace JXGIS.JXTopsystem.Controllers
                         //IDs = db.Database.SqlQuery<string>(sql1, new SqlParameter("@plid", string.Join(",", PLIDs))).ToList();
 
                         var sql = @"update MPOfResidence set PLProduceID=@PLProduceID,MPProduceUser=@MPProduceUser,MPProduceTime=@MPProduceTime where State=1 and AddType='批量' and PLProduceID is null and plid in (@plid)";
-                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@PLProduceID", PLProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@plid", string.Join(",", PLIDs)));
+                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@PLProduceID", PLProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserID), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@plid", string.Join(",", PLIDs)));
 
                     }
                     else if (MPType == Enums.MPTypeCh.Road)
@@ -187,7 +187,7 @@ namespace JXGIS.JXTopsystem.Controllers
                         //IDs = db.Database.SqlQuery<string>(sql1, new SqlParameter("@plid", string.Join(",", PLIDs))).ToList();
 
                         var sql = @"update MPOfRoad set PLProduceID=@PLProduceID,MPProduceUser=@MPProduceUser,MPProduceTime=@MPProduceTime where State=1 and AddType='批量' and PLProduceID is null and plid in (@plid)";
-                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@PLProduceID", PLProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@plid", string.Join(",", PLIDs)));
+                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@PLProduceID", PLProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserID), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@plid", string.Join(",", PLIDs)));
                     }
                     else if (MPType == Enums.MPTypeCh.Country)
                     {
@@ -195,7 +195,7 @@ namespace JXGIS.JXTopsystem.Controllers
                         //IDs = db.Database.SqlQuery<string>(sql1, new SqlParameter("@plid", string.Join(",", PLIDs))).ToList();
 
                         var sql = @"update MPOfCountry set PLProduceID=@PLProduceID,MPProduceUser=@MPProduceUser,MPProduceTime=@MPProduceTime where State=1 and AddType='批量' and PLProduceID is null and plid in (@plid)";
-                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@PLProduceID", PLProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserName), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@plid", string.Join(",", PLIDs)));
+                        var c = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@PLProduceID", PLProduceID), new SqlParameter("@MPProduceUser", LoginUtils.CurrentUser.UserID), new SqlParameter("@MPProduceTime", DateTime.Now), new SqlParameter("@plid", string.Join(",", PLIDs)));
                     }
                     else
                         throw new Error("未知的错误类型！");
