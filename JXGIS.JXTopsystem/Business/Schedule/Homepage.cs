@@ -334,132 +334,132 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 #region 已办事项
                 mpsql1_yc += $@"union
                                 select b.ID from BG_MPOFCOUNTRY b
-                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union
                                 select b.ID from BG_MPOFRESIDENCE b
-                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union
                                 select b.ID from BG_MPOFROAD b
-                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union
                                 select b.ID from SB_MPOFCOUNTRY b
-                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union
                                 select b.ID from SB_MPOFRESIDENCE b
-                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union
                                 select b.ID from SB_MPOFROAD b
-                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                where b.IsFinish = 1 and b.sbly = '{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
                 mpsql1_zxsb += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
                 mpsql1_zlb += $@"union 
                                 select b.ID from BG_MPOFCOUNTRY b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union 
                                 select b.ID from BG_MPOFRESIDENCE b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union 
                                 select b.ID from BG_MPOFROAD b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union 
                                 select b.ID from SB_MPOFCOUNTRY b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union 
                                 select b.ID from SB_MPOFRESIDENCE b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                 union 
                                 select b.ID from SB_MPOFROAD b 
-                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
                 dmhzsql1_yc += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
                 dmhzsql1_zxsb += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
                 dmhzsql1_zlb += $@"union 
                                    select b.ID from SB_DMOFBRIDGE b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from SB_DMOFBUILDING b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from SB_DMOFROAD b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from SB_DMOFSETTLEMENT b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
 
                 dmzmsql1_yc += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
                 dmzmsql1_zxsb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                   where b.IsFinish=0 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
                 dmzmsql1_zlb += $@"union 
                                    select b.ID from ZM_MPOFCOUNTRY b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from ZM_MPOFRESIDENCE b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}'
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}'
                                    union 
                                    select b.ID from ZM_MPOFROAD b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
 
                 cjyjsql1_yc += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.yc}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
                 cjyjsql1_zxsb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zxsb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
                 cjyjsql1_zlb += $@"union 
                                    select b.ID from BA_DMOFZYSS b 
-                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.checkuser='{LoginUtils.CurrentUser.UserID}' ";
+                                   where b.IsFinish=1 and b.sbly='{Enums.SBLY.zlb}' and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' ";
                 #endregion
                 #region 个人已办事项
                 //mpsql3 += $@"union 
@@ -1332,49 +1332,49 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 #region 已办事项
                 mpsql1 += $@"union 
                         select b.ID,b.sbly,'门牌变更' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign,b.State from BG_MPOFCOUNTRY b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                        where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌变更' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign,b.State from BG_MPOFRESIDENCE b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                        where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌变更' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BG_NC}' sign,b.State from BG_MPOFROAD b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                        where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌申请' YWLX,'农村门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_NC}' sign,b.State from SB_MPOFCOUNTRY b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                        where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌申请' YWLX,'住宅门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_ZZ}' sign,b.State from SB_MPOFRESIDENCE b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                        where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                         union 
                         select b.ID,b.sbly,'门牌申请' YWLX,'道路门牌' MPLX,b.PropertyOwner CQR,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.HFMPZ_BZ_DL}' sign,b.State from SB_MPOFROAD b 
-                        where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
+                        where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 dmhzsql1 += $@"union 
                            select b.ID,b.sbly,'桥梁' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_QL}' sign,b.State from SB_DMOFBRIDGE b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                           where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'建筑物' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_JZW}' sign,b.State from SB_DMOFBUILDING b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                           where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'道路街巷' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_DLJX}' sign,b.State from SB_DMOFROAD b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                           where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'居民点' DMLB,b.type XLLB,b.name1 NYMC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMHZ_JMD}' sign,b.State from SB_DMOFSETTLEMENT b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
+                           where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 dmzmsql1 += $@"union 
                            select b.ID,b.sbly,'农村门牌' MPLX,b.VillageName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_NC}' sign,b.State from ZM_MPOFCOUNTRY b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                           where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'住宅门牌' MPLX,b.ResidenceName MC,'' HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_ZZ}' sign,b.State from ZM_MPOFRESIDENCE b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
+                           where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}'
                            union 
                            select b.ID,b.sbly,'道路门牌' MPLX,b.RoadName MC,b.MPNumber HM,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.DMZM_DL}' sign,b.State from ZM_MPOFROAD b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
+                           where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 cjyjsql1 += $@"union 
                            select b.ID,b.sbly,b.ZYSSType LB,b.SmallType DMLB,b.DMType XLLB,b.Name MC,b.createtime SQSJ,b.FinishTime SPSJ,'{Enums.SPFileBusinessTypes.CJYJ_ZYSS}' sign,b.State from BA_DMOFZYSS b 
-                           where b.IsFinish=1 and b.checkuser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
+                           where b.IsFinish=1 and b.LastModifyUser='{LoginUtils.CurrentUser.UserID}' and b.sbly='{sbly}' and b.FinishTime>'{(start).ToString("yyyy/MM/dd")}' and b.FinishTime<'{(end.AddDays(1)).ToString("yyyy/MM/dd")}' ";
 
                 #endregion
 
@@ -1587,7 +1587,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
                 entity.IsSync = 1;
-                entity.CheckUser = entity.LastModifyUser;
+                //entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -1788,7 +1788,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
                 entity.IsSync = 1;
-                entity.CheckUser = entity.LastModifyUser;
+                //entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -1926,7 +1926,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
                 entity.IsSync = 1;
-                entity.CheckUser = entity.LastModifyUser;
+                //entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -2099,7 +2099,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
                 entity.IsSync = 1;
-                entity.CheckUser = entity.LastModifyUser;
+                //entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -2222,7 +2222,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
                 entity.IsSync = 1;
-                entity.CheckUser = entity.LastModifyUser;
+                //entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -2376,7 +2376,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
                 entity.IsSync = 1;
-                entity.CheckUser = entity.LastModifyUser;
+                //entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
@@ -2574,7 +2574,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
                 entity.IsSync = 1;
-                entity.CheckUser = entity.LastModifyUser;
+                //entity.CheckUser = entity.LastModifyUser;
 
                 db.SaveChanges();
             }
@@ -2761,7 +2761,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
                 entity.IsSync = 1;
-                entity.CheckUser = entity.LastModifyUser;
+                //entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
             return mpid;
@@ -2926,7 +2926,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
                 entity.IsSync = 1;
-                entity.CheckUser = entity.LastModifyUser;
+                //entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
             return mpid;
@@ -3061,7 +3061,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
                 entity.IsSync = 1;
-                entity.CheckUser = entity.LastModifyUser;
+                //entity.CheckUser = entity.LastModifyUser;
                 db.SaveChanges();
             }
         }
