@@ -1662,13 +1662,6 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                 if (entity.State == Enums.SPState.tg) //通过，新增
                 {
                     MPOfResidence n_entity = db.MPOfResidence.Find(ID);
-                    bool isnew = false;
-                    if (n_entity == null)
-                    {
-                        n_entity = new Models.Entities.MPOfResidence();
-                        isnew = true;
-                    }
-
                     n_entity.ID = entity.ID;
                     n_entity.CountyID = entity.CountyID;
                     n_entity.NeighborhoodsID = entity.NeighborhoodsID;
@@ -1748,8 +1741,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     n_entity.StandardAddress = StandardAddress;
                     #endregion
 
-                    if (isnew)
-                        db.MPOfResidence.Add(n_entity);
+                    db.MPOfResidence.Add(n_entity);
 
                     //拷贝文件
                     var files = db.FILE.Where(t => t.IsValid == 1 && t.FormID == ID).ToList();
@@ -1762,12 +1754,6 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                             System.IO.Directory.CreateDirectory(targetPath);
 
                         MPOfUploadFiles mpfile = db.MPOfUploadFiles.Find(file.ID);
-                        isnew = false;
-                        if (mpfile == null)
-                        {
-                            mpfile = new MPOfUploadFiles();
-                            isnew = true;
-                        }
                         mpfile.ID = file.ID;
                         mpfile.MPID = n_entity.ID;
                         mpfile.Name = file.FileOrginalName;
@@ -1776,8 +1762,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         mpfile.State = 1;
                         mpfile.CreateTime = DateTime.Now;
 
-                        if (isnew)
-                            db.MPOfUploadFiles.Add(mpfile);
+                        db.MPOfUploadFiles.Add(mpfile);
 
                         System.IO.File.Copy(sourceFile, targetFile, true);
                     }
