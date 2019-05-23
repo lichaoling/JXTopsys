@@ -21,6 +21,7 @@ namespace JXGIS.JXTopsystem.Models.Entities
         public string CreateUser { get; set; }
         public string Window { get; set; }
         public string CertificateType { get; set; }
+        public string MailAddress { get; set; }
         /// <summary>
         /// 电子文件归档状态 0未归档  1已归档
         /// </summary>

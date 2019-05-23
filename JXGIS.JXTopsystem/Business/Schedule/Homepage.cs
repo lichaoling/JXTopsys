@@ -2517,6 +2517,7 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         db.MPOfResidence.Add(n_entity);
 
                         mpid = n_entity.ID;
+
                     }
                     else//老门牌
                     {
@@ -2555,6 +2556,21 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         System.IO.File.Copy(sourceFile, targetFile, true);
                     }
                     //保存后显示打印按钮
+
+
+                    MPOfCertificate mc = new MPOfCertificate();
+                    mc.ID = Guid.NewGuid().ToString();
+                    mc.MPID = mpid;
+                    mc.MPType = Enums.MPTypeCh.Residence;
+                    mc.CreateTime = DateTime.Now;
+                    mc.CreateUser = entity.LastModifyUser;
+                    mc.Window = db.SysUser.Where(t => t.UserID == entity.LastModifyUser).Select(t => t.Window).FirstOrDefault();
+                    mc.CertificateType = Enums.CertificateType.Placename;
+                    mc.MailAddress = entity.MailAddress;
+                    mc.ProjID = entity.ProjID;
+                    mc.SBLY = entity.SBLY;
+                    db.MPOfCertificate.Add(mc);
+
                 }
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
@@ -2742,6 +2758,19 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                     }
                     //保存后显示打印按钮
 
+                    MPOfCertificate mc = new MPOfCertificate();
+                    mc.ID = Guid.NewGuid().ToString();
+                    mc.MPID = mpid;
+                    mc.MPType = Enums.MPTypeCh.Road;
+                    mc.CreateTime = DateTime.Now;
+                    mc.CreateUser = entity.LastModifyUser;
+                    mc.Window = db.SysUser.Where(t => t.UserID == entity.LastModifyUser).Select(t => t.Window).FirstOrDefault();
+                    mc.CertificateType = Enums.CertificateType.Placename;
+                    mc.MailAddress = entity.MailAddress;
+                    mc.ProjID = entity.ProjID;
+                    mc.SBLY = entity.SBLY;
+                    db.MPOfCertificate.Add(mc);
+
                 }
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
@@ -2907,6 +2936,19 @@ namespace JXGIS.JXTopsystem.Business.Schedule
                         System.IO.File.Copy(sourceFile, targetFile, true);
                     }
                     //保存后显示打印按钮
+
+                    MPOfCertificate mc = new MPOfCertificate();
+                    mc.ID = Guid.NewGuid().ToString();
+                    mc.MPID = mpid;
+                    mc.MPType = Enums.MPTypeCh.Country;
+                    mc.CreateTime = DateTime.Now;
+                    mc.CreateUser = entity.LastModifyUser;
+                    mc.Window = db.SysUser.Where(t => t.UserID == entity.LastModifyUser).Select(t => t.Window).FirstOrDefault();
+                    mc.CertificateType = Enums.CertificateType.Placename;
+                    mc.MailAddress = entity.MailAddress;
+                    mc.ProjID = entity.ProjID;
+                    mc.SBLY = entity.SBLY;
+                    db.MPOfCertificate.Add(mc);
                 }
                 //entity.IsFinish = 1;
                 //entity.FinishTime = DateTime.Now;
